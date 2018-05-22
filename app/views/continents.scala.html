@@ -1,0 +1,32 @@
+@(continents:Collection[Continent])
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Continents</title>
+</head>
+<body>
+<h1>The Continents of Earth</h1>
+<table>
+    <tr>
+        <th>Continent</th>
+        <th>Area (km<sup>2</sup>)</th>
+        <th>Population</th>
+    </tr>
+    @for(continent <- continents){
+    <tr>
+        <td>
+            <a href="continent/@continent.getId()"><b>@continent.getName()</b></a>
+        </td>
+        <td>
+            @continent.getSquareKilometers()
+        </td>
+        <td>
+            @continent.getPopulation()
+        </td>
+    </tr>
+    }
+</table>
+
+</body>
+</html>
