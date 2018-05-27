@@ -9,8 +9,6 @@ GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
 
-GET     /continents                 controllers.ContinentsController.getContinents
-GET     /continent/:id                  controllers.ContinentsController.getContinent(id:String)
 
 
 
