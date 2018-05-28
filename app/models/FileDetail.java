@@ -1,12 +1,12 @@
 package models;
 
-public class FileDetails
+public class FileDetail
 {
     private int fileDetailsId;
     private String fileName;
     private String extension;
 
-    public FileDetails(int fileDetailsId, String fileName, String extension)
+    public FileDetail(int fileDetailsId, String fileName, String extension)
     {
         this.fileDetailsId = fileDetailsId;
         this.fileName = fileName;

@@ -3,7 +3,7 @@ package models;
 import java.io.StringBufferInputStream;
 import java.time.LocalDateTime;
 
-public class Tickets
+public class Ticket
 {
     private int ticketsId;
     private String category;
@@ -22,10 +22,10 @@ public class Tickets
     private String description;
     private String reply;
 
-    public Tickets(int ticketsId, String category, String siteAdmin, String priority, LocalDateTime date,
-                   String firstName, String lastName, String email, long phoneNumber, String location,
-                   String region, String computerName, long assetTagNumber, String subjectTitle,
-                   String description, String reply)
+    public Ticket(int ticketsId, String category, String siteAdmin, String priority, LocalDateTime date,
+                  String firstName, String lastName, String email, long phoneNumber, String location,
+                  String region, String computerName, long assetTagNumber, String subjectTitle,
+                  String description, String reply)
     {
         this.ticketsId = ticketsId;
         this.category = category;

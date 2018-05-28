@@ -1,11 +1,11 @@
 package models;
 
-public class Regions
+public class Region
 {
     private int regionId;
     private String regionName;
 
-    public Regions(int regionId, String regionName)
+    public Region(int regionId, String regionName)
     {
         this.regionId = regionId;
         this.regionName = regionName;

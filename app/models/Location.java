@@ -1,11 +1,11 @@
 package models;
 
-public class Locations
+public class Location
 {
     private int locationsId;
     private String locationsName;
 
-    public Locations(int locationsId, String locationsName)
+    public Location(int locationsId, String locationsName)
     {
         this.locationsId = locationsId;
         this.locationsName = locationsName;
