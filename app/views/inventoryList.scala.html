@@ -1,22 +1,22 @@
-@(categories:Collection[Category])
+@(inventories:Collection[Inventory])
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Categories</title>
+    <title>Inventory</title>
 </head>
 <body>
 <h1>Categories</h1>
 <table>
     <tr>
-        <th>Category Name</th>
+        <th>Inventory List</th>
 
     </tr>
-    @for(category <- categories){
+    @for(inventory <- inventories){
     <tr>
         <td>
             <div>
-            <a href="category/@category.getCategoryId()"><b>@category.getCategoryName()</b></a>
+                <a href="inventory/@inventory.getInventoryId()"><b>@Inventory.getComputerName()</b></a>
             </div>
         </td>
         <td>

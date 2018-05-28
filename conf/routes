@@ -12,7 +12,8 @@ GET     /message                    controllers.AsyncController.message
 GET     /categories                 controllers.CategoryController.getCategories
 GET     /category/:id                  controllers.CategoryController.getCategory(id: Int)
 
-
+GET     /inventories                 controllers.InventoryController.getInventories
+GET     /inventory/:id                  controllers.InventoryController.getinventory(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
