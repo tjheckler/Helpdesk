@@ -1,7 +1,5 @@
 package controllers;
 
-import models.Categories;
-import models.Category;
 import models.Inventories;
 import models.Inventory;
 import play.data.FormFactory;
@@ -13,6 +11,7 @@ import javax.inject.Inject;
 public class InvetoryController extends Controller
 {
     private FormFactory formFactory;
+
     @Inject
     public InventoryController(FormFactory formFactory)
     {
@@ -22,13 +21,13 @@ public class InvetoryController extends Controller
     public Result getInventories()
     {
         Inventories inventories = new Inventories();
-        return ok(views.html.categoryList.render(inventories.getInventories().values()));
+        return ok(views.html.inventoryList.render(inventories.getInventories().values()));
 
     }
     public Result getInventory(int id)
     {
         Inventories inventories = new Inventories();
         Inventory inventory = inventories.getInventories().get(id);
-        return ok(views.html.category.render(inventory));
+        return ok(views.html.inventory.render(inventory));
     }
 }
