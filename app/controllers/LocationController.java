@@ -14,7 +14,7 @@ public class LocationController
     private FormFactory formFactory;
 
     @Inject
-    public InventoryController(FormFactory formFactory)
+    public LocationController(FormFactory formFactory)
     {
         this.formFactory=formFactory;
     }
@@ -22,13 +22,13 @@ public class LocationController
     public Result getLocations()
     {
         Locations locations = new Locations();
-        return ok(views.html.inventoryList.render(locations.getLocations().values()));
+        return ok(views.html.locationList.render(locations.getLocations().values()));
 
     }
-    public Result getInventory(int id)
+    public Result getLocation(int id)
     {
        Locations locations = new Locations();
         Location location = locations.getLocations().get(id);
-        return ok(views.html.inventory.render(location));
+        return ok(views.html.location.render(location));
     }
 }
