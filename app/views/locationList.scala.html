@@ -1,22 +1,22 @@
-@(inventories:Collection[Inventory])
+@(locations:Collection[Location])
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Inventory</title>
+    <title>Locations</title>
 </head>
 <body>
-<h1>Inventory List</h1>
+<h1>Locations</h1>
 <table>
     <tr>
-        <th>Computer Name</th>
+        <th>Location City</th>
 
     </tr>
-    @for(inventory <- inventories){
+    @for(location <- locations){
     <tr>
         <td>
             <div>
-                <a href="inventory/@inventory.getInventoryId()"><b>@inventory.getComputerName()</b></a>
+                <a href="location/@location.getLocationId()"><b>@location.getLocationsName()</b></a>
             </div>
         </td>
         <td>

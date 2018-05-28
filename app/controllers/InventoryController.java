@@ -8,7 +8,7 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 
-public class InvetoryController extends Controller
+public class InventoryController extends Controller
 {
     private FormFactory formFactory;
 

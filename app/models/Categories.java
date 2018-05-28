@@ -12,12 +12,12 @@ public class Categories
     {
         categories = new TreeMap<>();
 
-        Category high =  new Category(1, "High");
-        Category medium = new Category(2,"Medium");
-        Category low = new Category(3,"Low");
-        categories.put(high.getCategoryId(),high);
-        categories.put(medium.getCategoryId(),medium);
-        categories.put(low.getCategoryId(),low);
+        Category IE =  new Category(1, "Internet Explorer");
+        Category PCS = new Category(2,"PC Setup");
+        Category PCH = new Category(3,"PC Hardware");
+        categories.put(IE.getCategoryId(),IE);
+        categories.put(PCS.getCategoryId(),PCS);
+        categories.put(PCH.getCategoryId(),PCH);
     }
 
     public Map<Integer, Category> getCategories()

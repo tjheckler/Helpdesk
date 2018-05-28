@@ -12,9 +12,9 @@ public class Inventories
 
         Inventory one =  new Inventory(1, "wxda",
                 "Central","Dave","South");
-        Inventory two =  new Inventory(1, "wxda",
+        Inventory two =  new Inventory(2, "wxdab",
                 "Central","Bob","South");
-        Inventory three =  new Inventory(1, "wxda",
+        Inventory three =  new Inventory(3, "wxdabc",
                 "Central","Sally","South");
         inventories.put(one.getInventoryId(),one);
         inventories.put(two.getInventoryId(),two);
