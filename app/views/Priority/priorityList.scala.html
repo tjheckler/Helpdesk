@@ -1,0 +1,32 @@
+@(priorities:Collection[Priority])
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Priorities</title>
+</head>
+<body>
+<h1>Priorities</h1>
+<table>
+    <tr>
+        <th>Priority Name</th>
+
+    </tr>
+    @for(priority <- priorities){
+    <tr>
+        <td>
+            <div>
+                <a href="priority/@priority.getPriorityId()"><b>@priority.getPriorityName()</b></a>
+            </div>
+        </td>
+        <td>
+            createlinkedit
+        </td>
+        <td>
+            createlinkdetails
+        </td>
+    </tr>
+    }
+</table>
+</body>
+</html>
