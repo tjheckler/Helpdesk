@@ -6,53 +6,55 @@ import java.time.LocalDateTime;
 public class Ticket
 {
     private int ticketsId;
-    private String category;
-    private String siteAdmin;
-    private String priority;
+    private int categoryId;
+    private int siteAdminId;
+    private int priorityId;
     private LocalDateTime date;
     private String firstName;
     private String lastName;
     private String email;
     private long phoneNumber;
-    private String location;
-    private String region;
+    private int locationId;
+    private int regionId;
     private String computerName;
     private long assetTagNumber;
     private String subjectTitle;
     private String description;
-    private String reply;
+    private int replyId;
+    private int fileDetailsId;
 
-    public Ticket(int ticketsId, String category, String siteAdmin, String priority, LocalDateTime date,
-                  String firstName, String lastName, String email, long phoneNumber, String location,
-                  String region, String computerName, long assetTagNumber, String subjectTitle,
-                  String description, String reply)
+    public Ticket(int ticketsId, int categoryId, int siteAdminId, int priorityId, LocalDateTime date,
+                  String firstName, String lastName, String email, long phoneNumber, int locationId,
+                  int regionId, String computerName, long assetTagNumber, String subjectTitle,
+                  String description, int replyId, int fileDetailsId)
     {
         this.ticketsId = ticketsId;
-        this.category = category;
-        this.siteAdmin = siteAdmin;
-        this.priority = priority;
+        this.categoryId = categoryId;
+        this.siteAdminId = siteAdminId;
+        this.priorityId = priorityId;
         this.date = date;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.location = location;
-        this.region = region;
+        this.locationId = locationId;
+        this.regionId = regionId;
         this.computerName = computerName;
         this.assetTagNumber = assetTagNumber;
         this.subjectTitle = subjectTitle;
         this.description = description;
-        this.reply = reply;
+        this.replyId = replyId;
+        this.fileDetailsId = fileDetailsId;
     }
 
-    public String getReply()
+    public int getReply()
     {
-        return reply;
+        return replyId;
     }
 
-    public void setReply(String reply)
+    public void setReply(int reply)
     {
-        this.reply = reply;
+        this.replyId = reply;
     }
 
     public int getTicketsId()
@@ -65,34 +67,34 @@ public class Ticket
         this.ticketsId = ticketsId;
     }
 
-    public String getCategory()
+    public int getCategory()
     {
-        return category;
+        return categoryId;
     }
 
-    public void setCategory(String category)
+    public void setCategory(int categoryId)
     {
-        this.category = category;
+        this.categoryId = categoryId;
     }
 
-    public String getSiteAdmin()
+    public int getSiteAdmin()
     {
-        return siteAdmin;
+        return siteAdminId;
     }
 
-    public void setSiteAdmin(String siteAdmin)
+    public void setSiteAdmin(int siteAdminId)
     {
-        this.siteAdmin = siteAdmin;
+        this.siteAdminId = siteAdminId;
     }
 
-    public String getPriority()
+    public int getPriority()
     {
-        return priority;
+        return priorityId;
     }
 
-    public void setPriority(String priority)
+    public void setPriority(int priority)
     {
-        this.priority = priority;
+        this.priorityId = priorityId;
     }
 
     public LocalDateTime getDate()
@@ -145,24 +147,24 @@ public class Ticket
         this.phoneNumber = phoneNumber;
     }
 
-    public String getLocation()
+    public int getLocation()
     {
-        return location;
+        return locationId;
     }
 
-    public void setLocation(String location)
+    public void setLocation(int locationId)
     {
-        this.location = location;
+        this.locationId = locationId;
     }
 
-    public String getRegion()
+    public int getRegion()
     {
-        return region;
+        return regionId;
     }
 
-    public void setRegion(String region)
+    public void setRegion(int regionId)
     {
-        this.region = region;
+        this.regionId = regionId;
     }
 
     public String getComputerName()
@@ -203,5 +205,15 @@ public class Ticket
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    public int getFileDetailsId()
+    {
+        return fileDetailsId;
+    }
+
+    public void setFileDetailsId(int fileDetailsId)
+    {
+        this.fileDetailsId = fileDetailsId;
     }
 }

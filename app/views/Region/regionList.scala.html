@@ -1,0 +1,32 @@
+@(locations:Collection[Location])
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Regions</title>
+</head>
+<body>
+<h1>Regions</h1>
+<table>
+    <tr>
+        <th>Region of Arkansas</th>
+
+    </tr>
+    @for(region <- regions){
+    <tr>
+        <td>
+            <div>
+                <a href="region/@region.getRegionId()"><b>@region.getRegionName()</b></a>
+            </div>
+        </td>
+        <td>
+            createlinkedit
+        </td>
+        <td>
+            createlinkdetails
+        </td>
+    </tr>
+    }
+</table>
+</body>
+</html>
