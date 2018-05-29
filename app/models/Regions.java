@@ -10,9 +10,9 @@ public class Regions
     {
         regions = new TreeMap<>();
 
-        Region one =  new Region(1, "Little Rock");
-       Region two =  new Region(2, "Conway");
-        Region three =  new Region(3, "Cabot");
+        Region one =  new Region(1, "North West");
+       Region two =  new Region(2, "Central");
+        Region three =  new Region(3, "South West");
         regions.put(one.getRegionId(),one);
         regions.put(two.getRegionId(),two);
         regions.put(three.getRegionId(),three);
