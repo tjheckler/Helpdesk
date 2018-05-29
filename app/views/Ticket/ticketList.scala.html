@@ -1,0 +1,35 @@
+@(tickets:Collection[Ticket])
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets</title>
+</head>
+<body>
+<h1>Tickets</h1>
+<table>
+    <tr>
+        <th>Ticket Number</th>
+        <th>First Name</th>
+    </tr>
+    @for(ticket <- tickets){
+    <tr>
+        <td>
+            <div>
+                <a href="ticket/@ticket.getTicketsId()"><b>@ticket.getTicketsId()</b></a>
+            </div>
+        </td>
+        <td>
+            @ticket.getFirstName
+        </td>
+        <td>
+            createlinkedit
+        </td>
+        <td>
+            createlinkdetails
+        </td>
+    </tr>
+    }
+</table>
+</body>
+</html>

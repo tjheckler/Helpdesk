@@ -24,5 +24,8 @@ GET     /region/:id                  controllers.RegionController.getRegion(id: 
 GET     /priorities                 controllers.PriorityController.getPriorities
 GET     /priority/:id                  controllers.PriorityController.getPriority(id: Int)
 
+GET     /tickets                 controllers.TicketController.getTickets
+GET     /ticket/:id                  controllers.TicketController.getTicket(id: Int)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

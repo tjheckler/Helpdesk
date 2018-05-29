@@ -1,6 +1,7 @@
 package models;
 
 import java.io.StringBufferInputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Ticket
@@ -9,7 +10,7 @@ public class Ticket
     private int categoryId;
     private int siteAdminId;
     private int priorityId;
-    private LocalDateTime date;
+    private String date;
     private String firstName;
     private String lastName;
     private String email;
@@ -23,7 +24,7 @@ public class Ticket
     private int replyId;
     private int fileDetailsId;
 
-    public Ticket(int ticketsId, int categoryId, int siteAdminId, int priorityId, LocalDateTime date,
+    public Ticket(int ticketsId, int categoryId, int siteAdminId, int priorityId, String date,
                   String firstName, String lastName, String email, long phoneNumber, int locationId,
                   int regionId, String computerName, long assetTagNumber, String subjectTitle,
                   String description, int replyId, int fileDetailsId)
@@ -97,12 +98,12 @@ public class Ticket
         this.priorityId = priorityId;
     }
 
-    public LocalDateTime getDate()
+    public String getDate()
     {
         return date;
     }
 
-    public void setDate(LocalDateTime date)
+    public void setDate(String date)
     {
         this.date = date;
     }
