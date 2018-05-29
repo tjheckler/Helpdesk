@@ -22,13 +22,13 @@ public class LocationController
     public Result getLocations()
     {
         Locations locations = new Locations();
-        return ok(views.html.locationList.render(locations.getLocations().values()));
+        return ok(views.html.Location.locationList.render(locations.getLocations().values()));
 
     }
     public Result getLocation(int id)
     {
        Locations locations = new Locations();
         Location location = locations.getLocations().get(id);
-        return ok(views.html.location.render(location));
+        return ok(views.html.Location.location.render(location));
     }
 }

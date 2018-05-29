@@ -20,14 +20,14 @@ public class CategoryController extends Controller
     public Result getCategories()
     {
         Categories categories = new Categories();
-        return ok(views.html.categoryList.render(categories.getCategories().values()));
+        return ok(views.html.Category.categoryList.render(categories.getCategories().values()));
 
     }
     public Result getCategory(int id)
     {
         Categories categories = new Categories();
         Category category = categories.getCategories().get(id);
-        return ok(views.html.category.render(category));
+        return ok(views.html.Category.category.render(category));
     }
 
 }
