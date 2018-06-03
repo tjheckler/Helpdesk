@@ -7,10 +7,11 @@
     <title>New Category</title>
 </head>
 <body>
+<br>
 <div class="container" align="center">
-    <form method="post" >
+    <form method="post" class="form-control">
         @CSRF.formField
-        Enter New Category <input class="rounded" type="text" name="category"
+       <b> Enter New Category: </b><input class="rounded" type="text" name="category"
                                   id="category" maxlength="30" size="30">
         <input align="center" class="btn btn-primary" type="submit" value="Create">
     </form>
