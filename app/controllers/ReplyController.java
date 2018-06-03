@@ -1,5 +1,7 @@
 package controllers;
 
-public class ReplyController
+import play.mvc.Controller;
+
+public class ReplyController extends Controller
 {
 }
