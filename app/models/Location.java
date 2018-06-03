@@ -9,28 +9,28 @@ public class Location
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int locationsId;
-    private String locationsName;
+    private int locationId;
+    private String locationName;
 
-    public Location(int locationsId, String locationsName)
+    public Location(int locationId, String locationName)
     {
-        this.locationsId = locationsId;
-        this.locationsName = locationsName;
+        this.locationId = locationId;
+        this.locationName = locationName;
     }
 
-    public int getLocationsId()
+    public int getLocationId()
     {
-        return locationsId;
+        return locationId;
     }
 
 
-    public String getLocationsName()
+    public String getLocationName()
     {
-        return locationsName;
+        return locationName;
     }
 
-    public void setLocationsName(String locationsName)
+    public void setLocationName(String locationName)
     {
-        this.locationsName = locationsName;
+        this.locationName = locationName;
     }
 }

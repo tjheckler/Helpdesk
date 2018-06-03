@@ -17,16 +17,7 @@ public class Inventory
     private String buildingLocation;
     private int regionId;
 
-    public Inventory(int inventoryId, String computerName, int locationId,
-                     String currentUser, String buildingLocation, int regionId)
-    {
-        this.inventoryId = inventoryId;
-        this.computerName = computerName;
-        this.locationId = locationId;
-        this.currentUser = currentUser;
-        this.buildingLocation = buildingLocation;
-        this.regionId = regionId;
-    }
+
 
     public int getInventoryId()
     {

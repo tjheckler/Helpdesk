@@ -1,0 +1,53 @@
+@(inventory:Inventory,locations:List[Location],regions:List[Region])
+<!DOCTYPE html>
+<html lang="en">
+@import helper._
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <title>New Inventory Item</title>
+</head>
+<body>
+<br>
+<div class="container" align="center">
+    <form method="post" class="form-control">
+        @CSRF.formField
+        <b> Enter ComputerName: </b><input class="rounded" type="text" name="computerName"
+                                           id="computerName" maxlength="30" size="30">
+        <select class="rounded" name="locationId" id="locationId">
+            @for(location<-locations){
+            @if(location.getLocationId==inventory.getLocationId){
+            <option selected="selected" value="@location.getLocationId">
+                @location.getLocationName
+            </option>
+            }else{
+
+            <option value="@location.getLocationId" >
+                @location.getLocationName
+            </option>
+            }
+            }
+        </select>
+        <b> Enter ComputerName: </b><input class="rounded" type="text" name="currentUser"
+                                           id="currentUser" maxlength="30" size="30">
+        <b> Enter ComputerName: </b><input class="rounded" type="text" name="buildingLocation"
+                                           id="buildingLocation" maxlength="30" size="30">
+        <select class="rounded" name="regionId" id="regionId">
+            @for(region<-regions){
+            @if(region.getRegionId==inventory.getRegionId){
+            <option selected="selected" value="@region.getRegionId">
+                @region.getRegionName
+            </option>
+            }else{
+
+            <option value="@region.getRegionId" >
+                @region.getRegionName
+            </option>
+            }
+            }
+        </select>
+        <input align="center" class="btn btn-primary" type="submit" value="Create">
+    </form>
+</div>
+</body>
+</html>
