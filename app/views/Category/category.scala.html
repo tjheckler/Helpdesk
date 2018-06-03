@@ -1,5 +1,6 @@
 @(category:Category)
 <!DOCTYPE html>
+@import helper._
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,5 +8,21 @@
 </head>
 <body>
 <h1>@category.getCategoryName()</h1>
+
+<div class="container">
+    <div>
+        <br>
+        <form method="post" class="form-control">
+            @CSRF.formField
+            Category Name: <input class="rounded" type="text" name="categoryName" id="categoryName"
+                               value="@category.getCategoryName" minlength="1"
+                               maxlength="30" size="30">
+            <br>
+            <br>
+            <input class="btn btn-primary" type="submit" value="save">
+
+        </form>
+    </div>
+</div>
 </body>
 </html>

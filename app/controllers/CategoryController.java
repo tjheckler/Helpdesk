@@ -57,11 +57,11 @@ public class CategoryController extends Controller
     @Transactional
     public Result postCategory(Integer categoryId)
     {
-        String sql = "SELECT c FROM Category c" +
+        String sql = "SELECT c FROM Category c " +
                 "WHERE categoryId = :categoryId";
 
         Category category = jpaApi.em().createQuery(sql, Category.class)
-                .setParameter("employeeId", categoryId).getSingleResult();
+                .setParameter("categoryId", categoryId).getSingleResult();
         DynamicForm form = formFactory.form().bindFromRequest();
 
         String categoryName = form.get("categoryName");
@@ -85,6 +85,7 @@ public class CategoryController extends Controller
         Category category = new Category();
         category.setCategoryName(category1);
         jpaApi.em().persist(category);
+        jpaApi.em().persist(category1);
 
         return redirect(routes.CategoryController.getCategories());
     }

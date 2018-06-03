@@ -11,6 +11,7 @@ GET     /message                    controllers.AsyncController.message
 
 GET     /categories                 controllers.CategoryController.getCategories
 GET     /category/:id                  controllers.CategoryController.getCategory(id: Int)
+POST     /category/:id                  controllers.CategoryController.postCategory(id: Int)
 
 GET     /inventories                 controllers.InventoryController.getInventories
 GET     /inventory/:id                  controllers.InventoryController.getInventory(id: Int)
