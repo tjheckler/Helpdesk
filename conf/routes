@@ -9,6 +9,8 @@ GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
 
+GET     /admin                      controllers.AdministrationController.getAdministration
+
 GET     /categories                 controllers.CategoryController.getCategories
 GET     /category/:id                  controllers.CategoryController.getCategory(id: Int)
 POST     /category/:id                  controllers.CategoryController.postCategory(id: Int)
