@@ -1,11 +1,19 @@
-@(categories:Collection[Category])
+@(categories:List[Category],searchCriteria:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
     <title>Categories</title>
 </head>
 <body>
+<br>
+<div class="container" align="center">
+    <form method="get">
+        <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria">
+        <input class="btn btn-primary" type="submit" value="Search">
+    </form>
+
 <h1>Categories</h1>
 <table>
     <tr>
