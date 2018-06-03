@@ -16,10 +16,6 @@ public class Region
         return regionId;
     }
 
-    public void setRegionId(int regionId)
-    {
-        this.regionId = regionId;
-    }
 
     public String getRegionName()
     {

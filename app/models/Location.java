@@ -16,10 +16,6 @@ public class Location
         return locationsId;
     }
 
-    public void setLocationsId(int locationsId)
-    {
-        this.locationsId = locationsId;
-    }
 
     public String getLocationsName()
     {

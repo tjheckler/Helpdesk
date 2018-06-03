@@ -16,10 +16,6 @@ public class Priority
         return priorityId;
     }
 
-    public void setPriorityId(int priorityId)
-    {
-        this.priorityId = priorityId;
-    }
 
     public String getPriorityName()
     {

@@ -63,10 +63,6 @@ public class Ticket
         return ticketsId;
     }
 
-    public void setTicketsId(int ticketsId)
-    {
-        this.ticketsId = ticketsId;
-    }
 
     public int getCategory()
     {

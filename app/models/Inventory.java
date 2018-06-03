@@ -23,10 +23,6 @@ public class Inventory
         return inventoryId;
     }
 
-    public void setInventoryId(int inventoryId)
-    {
-        this.inventoryId = inventoryId;
-    }
 
     public String getComputerName()
     {

@@ -16,10 +16,6 @@ public class Reply
         return replyId;
     }
 
-    public void setReplyId(int replyId)
-    {
-        this.replyId = replyId;
-    }
 
     public String getReply()
     {

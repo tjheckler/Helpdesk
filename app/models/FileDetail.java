@@ -18,10 +18,6 @@ public class FileDetail
         return fileDetailsId;
     }
 
-    public void setFileDetailsId(int fileDetailsId)
-    {
-        this.fileDetailsId = fileDetailsId;
-    }
 
     public String getFileName()
     {
