@@ -4,18 +4,20 @@ public class Inventory
 {
     private int inventoryId;
     private String computerName;
-    private String location;
+    private int locationId;
     private String currentUser;
     private String buildingLocation;
+    private int regionId;
 
-    public Inventory(int inventoryId, String computerName, String location,
-                     String currentUser, String buildingLocation)
+    public Inventory(int inventoryId, String computerName, int locationId,
+                     String currentUser, String buildingLocation, int regionId)
     {
         this.inventoryId = inventoryId;
         this.computerName = computerName;
-        this.location = location;
+        this.locationId = locationId;
         this.currentUser = currentUser;
         this.buildingLocation = buildingLocation;
+        this.regionId = regionId;
     }
 
     public int getInventoryId()
@@ -34,14 +36,14 @@ public class Inventory
         this.computerName = computerName;
     }
 
-    public String getLocation()
+    public int getLocationId()
     {
-        return location;
+        return locationId;
     }
 
-    public void setLocation(String location)
+    public void setLocationId(int locationId)
     {
-        this.location = location;
+        this.locationId = locationId;
     }
 
     public String getCurrentUser()
@@ -62,5 +64,15 @@ public class Inventory
     public void setBuildingLocation(String buildingLocation)
     {
         this.buildingLocation = buildingLocation;
+    }
+
+    public int getRegionId()
+    {
+        return regionId;
+    }
+
+    public void setRegionId(int regionId)
+    {
+        this.regionId = regionId;
     }
 }

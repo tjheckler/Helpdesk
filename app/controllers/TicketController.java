@@ -2,7 +2,6 @@ package controllers;
 
 
 import models.Ticket;
-import models.Tickets;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -21,14 +20,13 @@ public class TicketController extends Controller
 
     public Result getTickets()
     {
-        Tickets tickets = new Tickets();
-        return ok(views.html.Ticket.ticketList.render(tickets.getTickets().values()));
+
+        return ok();
 
     }
     public Result getTicket(int id)
     {
-        Tickets tickets = new Tickets();
-        Ticket ticket = tickets.getTickets().get(id);
-        return ok(views.html.Ticket.ticket.render(ticket));
+
+        return ok();
     }
 }

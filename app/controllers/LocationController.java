@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Locations;
 import models.Location;
 import play.data.FormFactory;
 import play.mvc.Result;
@@ -21,14 +20,14 @@ public class LocationController
 
     public Result getLocations()
     {
-        Locations locations = new Locations();
-        return ok(views.html.Location.locationList.render(locations.getLocations().values()));
+
+        return ok();
 
     }
     public Result getLocation(int id)
     {
-       Locations locations = new Locations();
-        Location location = locations.getLocations().get(id);
-        return ok(views.html.Location.location.render(location));
+
+
+        return ok();
     }
 }

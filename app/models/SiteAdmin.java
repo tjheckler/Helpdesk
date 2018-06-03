@@ -6,10 +6,11 @@ public class SiteAdmin
     private String siteAdminName;
     private String emailAddress;
     private int regionId;
-    private long phoneNumber;
+    private int locationId;
+    private int phoneNumber;
     private String siteRole;
 
-    public SiteAdmin(int siteAdminId, String siteAdminName, String emailAddress, int regionId, long phoneNumber, String siteRole)
+    public SiteAdmin(int siteAdminId,int locationId, String siteAdminName, String emailAddress, int regionId, int phoneNumber, String siteRole)
     {
         this.siteAdminId = siteAdminId;
         this.siteAdminName = siteAdminName;
@@ -17,6 +18,7 @@ public class SiteAdmin
         this.regionId = regionId;
         this.phoneNumber = phoneNumber;
         this.siteRole = siteRole;
+        this.locationId = locationId;
     }
 
     public int getSiteAdminId()
@@ -59,7 +61,7 @@ public class SiteAdmin
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber)
+    public void setPhoneNumber(int phoneNumber)
     {
         this.phoneNumber = phoneNumber;
     }
@@ -72,5 +74,15 @@ public class SiteAdmin
     public void setSiteRole(String siteRole)
     {
         this.siteRole = siteRole;
+    }
+
+    public int getLocationId()
+    {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId)
+    {
+        this.locationId = locationId;
     }
 }

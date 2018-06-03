@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Inventories;
 import models.Inventory;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -20,14 +19,13 @@ public class InventoryController extends Controller
 
     public Result getInventories()
     {
-        Inventories inventories = new Inventories();
-        return ok(views.html.Inventory.inventoryList.render(inventories.getInventories().values()));
+
+        return ok();
 
     }
     public Result getInventory(int id)
     {
-        Inventories inventories = new Inventories();
-        Inventory inventory = inventories.getInventories().get(id);
-        return ok(views.html.Inventory.inventory.render(inventory));
+
+        return ok();
     }
 }

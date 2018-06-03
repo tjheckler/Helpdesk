@@ -13,20 +13,20 @@ public class Ticket
     private String date;
     private String firstName;
     private String lastName;
-    private String email;
+    private String emailAddres;
     private long phoneNumber;
     private int locationId;
     private int regionId;
     private String computerName;
-    private long assetTagNumber;
+    private int assetTagNumber;
     private String subjectTitle;
     private String description;
     private int replyId;
     private int fileDetailsId;
 
     public Ticket(int ticketsId, int categoryId, int siteAdminId, int priorityId, String date,
-                  String firstName, String lastName, String email, long phoneNumber, int locationId,
-                  int regionId, String computerName, long assetTagNumber, String subjectTitle,
+                  String firstName, String lastName, String emailAddress, long phoneNumber, int locationId,
+                  int regionId, String computerName, int assetTagNumber, String subjectTitle,
                   String description, int replyId, int fileDetailsId)
     {
         this.ticketsId = ticketsId;
@@ -36,7 +36,7 @@ public class Ticket
         this.date = date;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.emailAddres = emailAddress;
         this.phoneNumber = phoneNumber;
         this.locationId = locationId;
         this.regionId = regionId;
@@ -124,14 +124,14 @@ public class Ticket
         this.lastName = lastName;
     }
 
-    public String getEmail()
+    public String getEmailAddres()
     {
-        return email;
+        return emailAddres;
     }
 
-    public void setEmail(String email)
+    public void setEmailAddres(String emailAddres)
     {
-        this.email = email;
+        this.emailAddres = emailAddres;
     }
 
     public long getPhoneNumber()
@@ -174,12 +174,12 @@ public class Ticket
         this.computerName = computerName;
     }
 
-    public long getAssetTagNumber()
+    public int getAssetTagNumber()
     {
         return assetTagNumber;
     }
 
-    public void setAssetTagNumber(long assetTagNumber)
+    public void setAssetTagNumber(int assetTagNumber)
     {
         this.assetTagNumber = assetTagNumber;
     }
