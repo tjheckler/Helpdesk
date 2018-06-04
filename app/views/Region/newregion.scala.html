@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+@import helper._
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <title>New Region</title>
+</head>
+<body>
+<div class="container">
+    <form method="post">
+        @CSRF.formField
+        Enter New Title <input class="rounded" type="text" name="region" id="region" maxlength="30">
+
+        <input class="btn btn-primary" type="submit" value="Create">
+    </form>
+</div>
+</body>
+</html>
