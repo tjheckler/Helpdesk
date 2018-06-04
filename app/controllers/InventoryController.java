@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Category;
 import models.Inventory;
 import models.Location;
 import models.Region;
@@ -92,7 +91,7 @@ public class InventoryController extends Controller
         String locationSql = "SELECT l FROM Location l " +
                 "WHERE locationId = :locationId";
 
-        List<Location> location = jpaApi.em().createQuery
+        List<Location> locations = jpaApi.em().createQuery
                 (locationSql, Location.class).getResultList();
 
         String regionSql = "SELECT r FROM Region r "+
@@ -100,7 +99,7 @@ public class InventoryController extends Controller
 
         List<Region> region = jpaApi.em().createQuery
                 (regionSql, Region.class).getResultList();
-        return ok(views.html.Inventory.newinventory.render(inventory,location,region));
+        return ok(views.html.Inventory.newinventory.render(inventory, locations,region));
     }
 
     @Transactional

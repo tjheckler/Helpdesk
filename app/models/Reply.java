@@ -12,11 +12,6 @@ public class Reply
     private int replyId;
     private String reply;
 
-    public Reply(int replyId, String reply)
-    {
-        this.replyId = replyId;
-        this.reply = reply;
-    }
 
     public int getReplyId()
     {

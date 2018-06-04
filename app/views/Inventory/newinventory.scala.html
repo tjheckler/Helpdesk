@@ -1,4 +1,4 @@
-@(inventory:Inventory,locations:List[Location],regions:List[Region])
+@(inventory:Inventory,location:List[Location],regions:List[Region])
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -15,7 +15,7 @@
         <b> Enter ComputerName: </b><input class="rounded" type="text" name="computerName"
                                            id="computerName" maxlength="30" size="30">
         <select class="rounded" name="locationId" id="locationId">
-            @for(location<-locations){
+            @for(location<-location){
             @if(location.getLocationId==inventory.getLocationId){
             <option selected="selected" value="@location.getLocationId">
                 @location.getLocationName

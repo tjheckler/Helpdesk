@@ -7,12 +7,12 @@
     <title>New Location</title>
 </head>
 <body>
-<div class="container">
-    <form method="post">
+<div class="container" align="center">
+    <form method="post" class="form-control">
         @CSRF.formField
-        Enter New Title <input class="rounded" type="text" name="location" id="location" maxlength="30">
-
-        <input class="btn btn-primary" type="submit" value="Create">
+        <b> Enter New Location: </b><input class="rounded" type="text" name="locationName"
+                                           id="locationName" maxlength="30" size="30">
+        <input align="center" class="btn btn-primary" type="submit" value="Create">
     </form>
 </div>
 </body>

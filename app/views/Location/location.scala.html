@@ -1,11 +1,29 @@
 @(location:Location)
 <!DOCTYPE html>
+@import helper._
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
     <title>Location Detail</title>
 </head>
 <body>
-<h1>@location.getLocationName</h1>
+
+<div class="container" align="center">
+    <div>
+        <h1>@location.getLocationName()</h1>
+        <br>
+        <form method="post" class="form-control" align="center">
+            @CSRF.formField
+            <b> Location Name: </b><input  class="rounded" type="text" name="locationName" id="locationName"
+                                           value="@location.getLocationName" minlength="1"
+                                           maxlength="30" size="30">
+            <br>
+            <br>
+            <input class="btn btn-primary" type="submit" value="save">
+
+        </form>
+    </div>
+</div>
 </body>
 </html>

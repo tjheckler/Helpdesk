@@ -29,29 +29,7 @@ public class Ticket
     private int replyId;
     private int fileDetailsId;
 
-    public Ticket(int ticketsId, int categoryId, int siteAdminId, int priorityId, String date,
-                  String firstName, String lastName, String emailAddress, long phoneNumber, int locationId,
-                  int regionId, String computerName, int assetTagNumber, String subjectTitle,
-                  String description, int replyId, int fileDetailsId)
-    {
-        this.ticketsId = ticketsId;
-        this.categoryId = categoryId;
-        this.siteAdminId = siteAdminId;
-        this.priorityId = priorityId;
-        this.date = date;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailAddres = emailAddress;
-        this.phoneNumber = phoneNumber;
-        this.locationId = locationId;
-        this.regionId = regionId;
-        this.computerName = computerName;
-        this.assetTagNumber = assetTagNumber;
-        this.subjectTitle = subjectTitle;
-        this.description = description;
-        this.replyId = replyId;
-        this.fileDetailsId = fileDetailsId;
-    }
+
 
     public int getReply()
     {

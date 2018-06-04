@@ -19,19 +19,7 @@ public class Reports
     private int fileDetailId;
     private int priorityId;
 
-    public Reports(int reportsId, int ticketId, int categoryId, int siteAdminId, int inventoryId, int locationId, int regionId, int replyId, int fileDetailId, int priorityId)
-    {
-        this.reportsId = reportsId;
-        this.ticketId = ticketId;
-        this.categoryId = categoryId;
-        this.siteAdminId = siteAdminId;
-        this.inventoryId = inventoryId;
-        this.locationId = locationId;
-        this.regionId = regionId;
-        this.replyId = replyId;
-        this.fileDetailId = fileDetailId;
-        this.priorityId = priorityId;
-    }
+
 
     public int getReportsId()
     {

@@ -16,16 +16,6 @@ public class SiteAdmin
     private int phoneNumber;
     private String siteRole;
 
-    public SiteAdmin(int siteAdminId,int locationId, String siteAdminName, String emailAddress, int regionId, int phoneNumber, String siteRole)
-    {
-        this.siteAdminId = siteAdminId;
-        this.siteAdminName = siteAdminName;
-        this.emailAddress = emailAddress;
-        this.regionId = regionId;
-        this.phoneNumber = phoneNumber;
-        this.siteRole = siteRole;
-        this.locationId = locationId;
-    }
 
     public int getSiteAdminId()
     {

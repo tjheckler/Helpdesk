@@ -22,7 +22,7 @@ GET     /inventory/:id               controllers.InventoryController.getInventor
 GET     /newinventory                controllers.InventoryController.getNewInventory
 POST    /newinventory                controllers.InventoryController.postNewInventory
 
-GET     /locations                   controllers.LocationController.getLocations
+GET     /location                   controllers.LocationController.getLocations
 GET     /location/:id                controllers.LocationController.getLocation(id: Int)
 POST    /location/:id                controllers.LocationController.postLocation(id: Int)
 GET     /newlocation                 controllers.LocationController.getNewLocation
@@ -31,23 +31,23 @@ POST    /newlocation                 controllers.LocationController.postNewLocat
 
 GET     /regions                     controllers.RegionController.getRegions
 GET     /region/:id                  controllers.RegionController.getRegion(id: Int)
-POST    /region/:id                  controllers.RegionController.postRegion(id: Int)
-GET     /newregion                   controllers.RegionController.getNewRegion
-POST    /newregion                   controllers.RegionController.postNewRegion
+#POST    /region/:id                  controllers.RegionController.postRegion(id: Int)
+#GET     /newregion                   controllers.RegionController.getNewRegion
+#POST    /newregion                   controllers.RegionController.postNewRegion
 
 
 GET     /priorities                  controllers.PriorityController.getPriorities
 GET     /priority/:id                controllers.PriorityController.getPriority(id: Int)
-POST    /priority/:id                controllers.PriorityController.postPriority(id: Int)
-GET     /newpriority                 controllers.PriorityController.getNewPriority
-POST    /newpriority                 controllers.PriorityController.postNewPriority
+#POST    /priority/:id                controllers.PriorityController.postPriority(id: Int)
+#GET     /newpriority                 controllers.PriorityController.getNewPriority
+#POST    /newpriority                 controllers.PriorityController.postNewPriority
 
 
 GET     /tickets                     controllers.TicketController.getTickets
 GET     /ticket/:id                  controllers.TicketController.getTicket(id: Int)
-POST    /ticket/:id                  controllers.TicketController.postTicket(id: Int)
-GET     /newticket                   controllers.TicketController.getNewTicket
-POST    /newticket                   controllers.TicketController.postNewTicket
+#POST    /ticket/:id                  controllers.TicketController.postTicket(id: Int)
+#GET     /newticket                   controllers.TicketController.getNewTicket
+#POST    /newticket                   controllers.TicketController.postNewTicket
 
 
 

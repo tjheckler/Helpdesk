@@ -12,11 +12,6 @@ public class Priority
     private int priorityId;
     private String priorityName;
 
-    public Priority(int priorityId, String priorityName)
-    {
-        this.priorityId = priorityId;
-        this.priorityName = priorityName;
-    }
 
     public int getPriorityId()
     {
