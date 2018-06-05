@@ -89,7 +89,7 @@ public class LocationController extends Controller
         Location location = new Location();
         location.setLocationName(location1);
         jpaApi.em().persist(location);
-        jpaApi.em().persist(location1);
+
 
         return redirect(routes.LocationController.getLocations());
     }

@@ -85,7 +85,7 @@ public class CategoryController extends Controller
         Category category = new Category();
         category.setCategoryName(category1);
         jpaApi.em().persist(category);
-        jpaApi.em().persist(category1);
+
 
         return redirect(routes.CategoryController.getCategories());
     }

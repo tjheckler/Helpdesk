@@ -110,7 +110,7 @@ public class InventoryController extends Controller
         Inventory inventory = new Inventory();
         inventory.setComputerName(inventoryItem);
         jpaApi.em().persist(inventory);
-        jpaApi.em().persist(inventoryItem);
+
 
         return redirect(routes.InventoryController.getInventories());
     }
