@@ -42,6 +42,11 @@ POST    /priority/:id                controllers.PriorityController.postPriority
 GET     /newpriority                 controllers.PriorityController.getNewPriority
 POST    /newpriority                 controllers.PriorityController.postNewPriority
 
+GET     /siteadmins                  controllers.SiteAdminController.getSiteAdmins
+GET     /siteadmin/:id                controllers.SiteAdminController.getSiteAdmin(id: Int)
+POST    /siteadmin/:id                controllers.SiteAdminController.postSiteAdmin(id: Int)
+GET     /newsiteadmin                 controllers.SiteAdminController.getNewSiteAdmin
+POST    /newsiteadmin                 controllers.SiteAdminController.postNewSiteAdmin
 
 GET     /tickets                     controllers.TicketController.getTickets
 GET     /ticket/:id                  controllers.TicketController.getTicket(id: Int)

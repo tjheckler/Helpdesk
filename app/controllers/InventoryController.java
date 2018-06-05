@@ -48,6 +48,7 @@ public class InventoryController extends Controller
     {
         String sql = "SELECT i FROM Inventory i " +
                 "WHERE inventoryId = :inventoryId";
+        //add a join
         Inventory inventory = jpaApi.em().createQuery(sql, Inventory.class).
                 setParameter("inventoryId", inventoryId).getSingleResult();
 
@@ -60,7 +61,7 @@ public class InventoryController extends Controller
     {
         String sql = "SELECT i FROM Inventory i " +
                 "WHERE inventoryId = :inventoryId";
-
+// add a join
         Inventory inventory = jpaApi.em().createQuery(sql, Inventory.class)
                 .setParameter("inventoryId", inventoryId).getSingleResult();
         DynamicForm form = formFactory.form().bindFromRequest();
@@ -88,27 +89,28 @@ public class InventoryController extends Controller
                 "WHERE inventoryId = :inventoryId";
         Inventory inventory = jpaApi.em().createQuery
                 (sql, Inventory.class).getSingleResult();
-        String locationSql = "SELECT l FROM Location l " +
-                "WHERE locationId = :locationId";
-
-        List<Location> locations = jpaApi.em().createQuery
-                (locationSql, Location.class).getResultList();
-
-        String regionSql = "SELECT r FROM Region r "+
-                "WHERE regionId = :regionId";
-
-        List<Region> region = jpaApi.em().createQuery
-                (regionSql, Region.class).getResultList();
-        return ok(views.html.Inventory.newinventory.render(inventory, locations,region));
+        //add a join
+        return ok(views.html.Inventory.newinventory.render(inventory));
     }
 
     @Transactional
     public Result postNewInventory()
     {
         DynamicForm form = formFactory.form().bindFromRequest();
-        String inventoryItem = form.get("inventory");
+        String computerName = form.get("computerName");
+        int locationId = Integer.parseInt(form.get("locationId"));
+        int regionalId = Integer.parseInt(form.get("regionId"));
+        String currentUser = form.get("currentUser");
+        String buildingLocation = form.get("buildingLocation");
+
+
         Inventory inventory = new Inventory();
-        inventory.setComputerName(inventoryItem);
+        inventory.setComputerName(computerName);
+        inventory.setComputerName(computerName);
+        inventory.setBuildingLocation(buildingLocation);
+        inventory.setCurrentUser(currentUser);
+        inventory.setLocationId(locationId);
+        inventory.setRegionId(regionalId);
         jpaApi.em().persist(inventory);
 
 

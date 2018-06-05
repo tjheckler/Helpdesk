@@ -1,0 +1,30 @@
+@(siteAdmin:SiteAdmin)
+<!DOCTYPE html>
+@import helper._
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <title>Site Admins</title>
+</head>
+<body>
+
+<div class="container" align="center">
+    <div>
+        <h1>@siteAdmin.getSiteAdminName()</h1>
+        <br>
+        <form method="post" class="form-control" align="center">
+            @CSRF.formField
+            <b> Site Admin Name: </b><input  class="rounded" type="text" name="siteAdminName" id="siteAdminName"
+                                         value="@siteAdmin.getSiteAdminName" minlength="1"
+                                         maxlength="30" size="30">
+            <br>
+            <br>
+            <input class="btn btn-primary" type="submit" value="save">
+
+        </form>
+        add more fields
+    </div>
+</div>
+</body>
+</html>

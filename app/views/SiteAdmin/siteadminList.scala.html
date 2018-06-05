@@ -1,0 +1,46 @@
+@(siteAdmins:List[SiteAdmin],searchCriteria:String)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <title>Site Admins</title>
+</head>
+<body>
+<br>
+
+<div class="container" align="center">
+    <h1><b>Site Admins</b></h1>
+    <br>
+    <form class="form-control" method="get">
+        <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria">
+        <input class="btn btn-primary" type="submit" value="Search">
+    </form>
+
+
+    <table class="table table-bordered" >
+        <tr>
+            <th><b>Site Admin Name</b></th>
+
+        </tr>
+        @for(siteAdmin <- siteAdmins){
+        <tr>
+            <td>
+                <div>
+                    <b> @siteAdmin.getSiteAdminName() </b>
+                </div>
+            </td>
+
+            <td>
+                <a href="siteAdmin/@siteAdmin.getSiteAdminId()"> Edit </a>
+            </td>
+            <td>
+                <a> Delete </a>
+            </td>
+        </tr>
+        }
+    </table>
+</div>
+<a href="newsiteadmin">Create </a>
+</body>
+</html>
