@@ -1,11 +1,29 @@
 @(region:Region)
 <!DOCTYPE html>
+@import helper._
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Region Detail</title>
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <title>Regions</title>
 </head>
 <body>
-<h1>@region.getRegionName</h1>
+
+<div class="container" align="center">
+    <div>
+        <h1>@region.getRegionName()</h1>
+        <br>
+        <form method="post" class="form-control" align="center">
+            @CSRF.formField
+            <b> Region Name: </b><input  class="rounded" type="text" name="regionName" id="regionName"
+                                           value="@region.getRegionName" minlength="1"
+                                           maxlength="30" size="30">
+            <br>
+            <br>
+            <input class="btn btn-primary" type="submit" value="save">
+
+        </form>
+    </div>
+</div>
 </body>
 </html>

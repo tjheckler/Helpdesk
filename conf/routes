@@ -31,9 +31,9 @@ POST    /newlocation                 controllers.LocationController.postNewLocat
 
 GET     /regions                     controllers.RegionController.getRegions
 GET     /region/:id                  controllers.RegionController.getRegion(id: Int)
-#POST    /region/:id                  controllers.RegionController.postRegion(id: Int)
-#GET     /newregion                   controllers.RegionController.getNewRegion
-#POST    /newregion                   controllers.RegionController.postNewRegion
+POST    /region/:id                  controllers.RegionController.postRegion(id: Int)
+GET     /newregion                   controllers.RegionController.getNewRegion
+POST    /newregion                   controllers.RegionController.postNewRegion
 
 
 GET     /priorities                  controllers.PriorityController.getPriorities

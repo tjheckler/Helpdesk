@@ -1,32 +1,46 @@
-@(regions:Collection[Region])
+@(regions:List[Region],searchCriteria:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
     <title>Regions</title>
 </head>
 <body>
-<h1>Regions</h1>
-<table>
-    <tr>
-        <th>Region of Arkansas</th>
+<br>
 
-    </tr>
-    @for(region <- regions){
-    <tr>
-        <td>
-            <div>
-                <a href="region/@region.getRegionId()"><b>@region.getRegionName()</b></a>
-            </div>
-        </td>
-        <td>
-            createlinkedit
-        </td>
-        <td>
-            createlinkdetails
-        </td>
-    </tr>
-    }
-</table>
+<div class="container" align="center">
+    <h1><b>Regions</b></h1>
+    <br>
+    <form class="form-control" method="get">
+        <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria">
+        <input class="btn btn-primary" type="submit" value="Search">
+    </form>
+
+
+    <table class="table table-bordered" >
+        <tr>
+            <th><b>Region Name</b></th>
+
+        </tr>
+        @for(region <- regions){
+        <tr>
+            <td>
+                <div>
+                    <b> @region.getRegionName() </b>
+                </div>
+            </td>
+            <td>
+                <a href="newregion">Create </a>
+            </td>
+            <td>
+                <a href="region/@region.getRegionId()"> Edit </a>
+            </td>
+            <td>
+                <a> Delete </a>
+            </td>
+        </tr>
+        }
+    </table>
 </body>
 </html>
