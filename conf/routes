@@ -38,9 +38,9 @@ POST    /newregion                   controllers.RegionController.postNewRegion
 
 GET     /priorities                  controllers.PriorityController.getPriorities
 GET     /priority/:id                controllers.PriorityController.getPriority(id: Int)
-#POST    /priority/:id                controllers.PriorityController.postPriority(id: Int)
-#GET     /newpriority                 controllers.PriorityController.getNewPriority
-#POST    /newpriority                 controllers.PriorityController.postNewPriority
+POST    /priority/:id                controllers.PriorityController.postPriority(id: Int)
+GET     /newpriority                 controllers.PriorityController.getNewPriority
+POST    /newpriority                 controllers.PriorityController.postNewPriority
 
 
 GET     /tickets                     controllers.TicketController.getTickets
