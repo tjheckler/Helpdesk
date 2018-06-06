@@ -1,3 +1,4 @@
+@(regions:List[Region],locations:List[Location])
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -17,17 +18,12 @@
 
         <select class="rounded" name="locationId" id="locationId">
             @for(location<-locations){
-            @if(location.getLocationId==inventory.getLocationId){
+
             <option selected="selected" value="@location.getLocationId">
                 @location.getLocationName
             </option>
-            }else{
+            }
 
-            <option value="@location.getLocationId" >
-                @location.getLocationName
-            </option>
-            }
-            }
         </select>
         <b> Enter Current User: </b><input class="rounded" type="text" name="currentUser"
                                            id="currentUser" maxlength="30" size="30">
@@ -35,17 +31,12 @@
                                                 id="buildingLocation" maxlength="30" size="30">
         <select class="rounded" name="regionId" id="regionId">
             @for(region<-regions){
-            @if(region.getRegionId==inventory.getRegionId){
+
             <option selected="selected" value="@region.getRegionId">
                 @region.getRegionName
             </option>
-            }else{
+            }
 
-            <option value="@region.getRegionId" >
-                @region.getRegionName
-            </option>
-            }
-            }
         </select>
         <input class="btn btn-primary" type="submit" value="Create">
     </form>

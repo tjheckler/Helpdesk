@@ -1,7 +1,6 @@
 package controllers;
 
-import models.Category;
-import models.SiteAdmin;
+import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -83,9 +82,21 @@ public class SiteAdminController extends Controller
 
         return redirect(routes.SiteAdminController.getSiteAdmins());
     }
+    @Transactional(readOnly = true)
     public Result getNewSiteAdmin()
     {
-        return ok(views.html.SiteAdmin.newsiteadmin.render());
+
+        //add a join
+        String regionSql = "SELECT r FROM Region r ";
+
+        List<Region> regions = jpaApi.em().createQuery
+                (regionSql,Region.class).getResultList();
+
+        String locationSql = "SELECT l FROM Location l ";
+
+        List<Location> locations = jpaApi.em().createQuery
+                (locationSql,Location.class).getResultList();
+        return ok(views.html.SiteAdmin.newsiteadmin.render(regions,locations));
     }
 
     @Transactional

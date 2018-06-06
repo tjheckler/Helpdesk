@@ -19,8 +19,9 @@ public class InventoryController extends Controller
     private JPAApi jpaApi;
 
     @Inject
-    public InventoryController(FormFactory formFactory)
+    public InventoryController(JPAApi jpaApi,FormFactory formFactory)
     {
+        this.jpaApi = jpaApi;
         this.formFactory=formFactory;
     }
     @Transactional(readOnly = true)
@@ -85,12 +86,18 @@ public class InventoryController extends Controller
     @Transactional(readOnly = true)
     public Result getNewInventory()
     {
-        String sql = "SELECT i FROM Inventory i " +
-                "WHERE inventoryId = :inventoryId";
-        Inventory inventory = jpaApi.em().createQuery
-                (sql, Inventory.class).getSingleResult();
+
         //add a join
-        return ok(views.html.Inventory.newinventory.render(inventory));
+        String regionSql = "SELECT r FROM Region r ";
+
+       List<Region> regions = jpaApi.em().createQuery
+               (regionSql,Region.class).getResultList();
+
+       String locationSql = "SELECT l FROM Location l ";
+
+       List<Location> locations = jpaApi.em().createQuery
+               (locationSql,Location.class).getResultList();
+        return ok(views.html.Inventory.newinventory.render(regions,locations));
     }
 
     @Transactional
