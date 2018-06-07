@@ -1,4 +1,4 @@
-name := """play-java-starter-example"""
+name := """Helpdesk"""
 
 version := "1.0-SNAPSHOT"
 
