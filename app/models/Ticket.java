@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import java.io.StringBufferInputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
 public class Ticket
 {
@@ -15,21 +17,39 @@ public class Ticket
     private int categoryId;
     private int siteAdminId;
     private int priorityId;
-    private String date;
+    private Date statusDateChanged;
     private String firstName;
     private String lastName;
-    private String emailAddres;
+    private String emailAddress;
     private long phoneNumber;
     private int locationId;
-    private int regionId;
     private String computerName;
     private int assetTagNumber;
     private String subjectTitle;
     private String description;
     private int replyId;
     private int fileDetailsId;
+    private int statusId;
 
+    public Date getStatusDateChanged()
+    {
+        return statusDateChanged;
+    }
 
+    public void setStatusDateChanged(Date statusDateChanged)
+    {
+        this.statusDateChanged = statusDateChanged;
+    }
+
+    public int getStatusId()
+    {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId)
+    {
+        this.statusId = statusId;
+    }
 
     public int getReply()
     {
@@ -77,16 +97,6 @@ public class Ticket
         this.priorityId = priorityId;
     }
 
-    public String getDate()
-    {
-        return date;
-    }
-
-    public void setDate(String date)
-    {
-        this.date = date;
-    }
-
     public String getFirstName()
     {
         return firstName;
@@ -107,14 +117,14 @@ public class Ticket
         this.lastName = lastName;
     }
 
-    public String getEmailAddres()
+    public String getEmailAddress()
     {
-        return emailAddres;
+        return emailAddress;
     }
 
-    public void setEmailAddres(String emailAddres)
+    public void setEmailAddress(String emailAddres)
     {
-        this.emailAddres = emailAddres;
+        this.emailAddress = emailAddres;
     }
 
     public long getPhoneNumber()
@@ -135,16 +145,6 @@ public class Ticket
     public void setLocation(int locationId)
     {
         this.locationId = locationId;
-    }
-
-    public int getRegion()
-    {
-        return regionId;
-    }
-
-    public void setRegion(int regionId)
-    {
-        this.regionId = regionId;
     }
 
     public String getComputerName()

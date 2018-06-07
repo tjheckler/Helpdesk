@@ -10,14 +10,26 @@ public class FileDetail
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int fileDetailsId;
-    private String fileName;
+    private int ticketId;
     private String extension;
+    private byte[] addedFiles;
 
-    public FileDetail(int fileDetailsId, String fileName, String extension)
+    public FileDetail(int fileDetailsId,int ticketId, String extension,byte[] addedFiles)
     {
         this.fileDetailsId = fileDetailsId;
-        this.fileName = fileName;
+        this.ticketId = ticketId;
+        this.addedFiles = addedFiles;
         this.extension = extension;
+    }
+
+    public int getTicketId()
+    {
+        return ticketId;
+    }
+
+    public void setTicketId(int ticketId)
+    {
+        this.ticketId = ticketId;
     }
 
     public int getFileDetailsId()
@@ -26,14 +38,14 @@ public class FileDetail
     }
 
 
-    public String getFileName()
+    public byte[] getAddedFiles()
     {
-        return fileName;
+        return addedFiles;
     }
 
-    public void setFileName(String fileName)
+    public void setAddedFiles(byte[] addedFiles)
     {
-        this.fileName = fileName;
+        this.addedFiles = addedFiles;
     }
 
     public String getExtension()
