@@ -8,16 +8,24 @@ import javax.persistence.Id;
 @Entity
 public class Inventory
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int inventoryId;
+    private int assetTagNumber;
     private String computerName;
     private int locationId;
     private String currentUser;
     private String buildingLocation;
-    private int regionId;
 
 
+    public int getAssetTagNumber()
+    {
+        return assetTagNumber;
+    }
+
+    public void setAssetTagNumber(int assetTagNumber)
+    {
+        this.assetTagNumber = assetTagNumber;
+    }
 
     public int getInventoryId()
     {
@@ -65,13 +73,5 @@ public class Inventory
         this.buildingLocation = buildingLocation;
     }
 
-    public int getRegionId()
-    {
-        return regionId;
-    }
 
-    public void setRegionId(int regionId)
-    {
-        this.regionId = regionId;
-    }
 }

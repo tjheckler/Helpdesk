@@ -11,7 +11,7 @@ public class SiteAdmin
     private int siteAdminId;
     private String siteAdminName;
     private String emailAddress;
-    private int regionId;
+
     private int locationId;
     private int phoneNumber;
     private String siteRole;
@@ -42,15 +42,7 @@ public class SiteAdmin
         this.emailAddress = emailAddress;
     }
 
-    public int getRegionId()
-    {
-        return regionId;
-    }
 
-    public void setRegionId(int regionId)
-    {
-        this.regionId = regionId;
-    }
 
     public long getPhoneNumber()
     {

@@ -1,3 +1,4 @@
+@(regions:List[Region])
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -12,6 +13,16 @@
         @CSRF.formField
         <b> Enter New Location: </b><input class="rounded" type="text" name="locationName"
                                            id="locationName" maxlength="30" size="30">
+        <select class="rounded" name="regionId" id="regionId">
+            <option selected="selected" >Choose Region</option>
+            @for(region<-regions){
+
+            <option  value="@region.getRegionId">
+                @region.getRegionName
+            </option>
+            }
+
+        </select>
         <input align="center" class="btn btn-primary" type="submit" value="Create">
     </form>
 </div>

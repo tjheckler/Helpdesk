@@ -68,7 +68,7 @@ public class SiteAdminController extends Controller
 
         String siteAdminName = form.get("siteAdmin");
         int locationId = Integer.parseInt(form.get("locationId"));
-        int regionalId = Integer.parseInt(form.get("regionId"));
+
         int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
         String emailAddress = form.get("emailAddress");
         String role = form.get("role");
@@ -76,7 +76,7 @@ public class SiteAdminController extends Controller
         siteAdmin.setPhoneNumber(phoneNumber);
         siteAdmin.setSiteRole(role);
         siteAdmin.setLocationId(locationId);
-        siteAdmin.setRegionId(regionalId);
+
         siteAdmin.setEmailAddress(emailAddress);
         jpaApi.em().persist(siteAdmin);
 
@@ -105,7 +105,7 @@ public class SiteAdminController extends Controller
         DynamicForm form = formFactory.form().bindFromRequest();
         String siteAdminName = form.get("siteAdmin");
         int locationId = Integer.parseInt(form.get("locationId"));
-        int regionalId = Integer.parseInt(form.get("regionId"));
+
         int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
         String emailAddress = form.get("emailAddress");
         String role = form.get("role");
@@ -114,7 +114,7 @@ public class SiteAdminController extends Controller
         siteAdmin.setPhoneNumber(phoneNumber);
         siteAdmin.setSiteRole(role);
         siteAdmin.setLocationId(locationId);
-        siteAdmin.setRegionId(regionalId);
+
         siteAdmin.setEmailAddress(emailAddress);
         jpaApi.em().persist(siteAdmin);
 

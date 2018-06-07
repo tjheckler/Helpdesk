@@ -19,11 +19,12 @@ public class InventoryController extends Controller
     private JPAApi jpaApi;
 
     @Inject
-    public InventoryController(JPAApi jpaApi,FormFactory formFactory)
+    public InventoryController(JPAApi jpaApi, FormFactory formFactory)
     {
         this.jpaApi = jpaApi;
-        this.formFactory=formFactory;
+        this.formFactory = formFactory;
     }
+
     @Transactional(readOnly = true)
     public Result getInventories()
     {
@@ -39,11 +40,12 @@ public class InventoryController extends Controller
         String queryParameter = searchCriteria + "%";
 
         List<Inventory> inventories = jpaApi.em()
-                .createQuery(sql,Inventory.class).setParameter("searchCriteria", queryParameter).getResultList();
+                .createQuery(sql, Inventory.class).setParameter("searchCriteria", queryParameter).getResultList();
 
-        return ok(views.html.Inventory.inventoryList.render(inventories,searchCriteria));
+        return ok(views.html.Inventory.inventoryList.render(inventories, searchCriteria));
 
     }
+
     @Transactional(readOnly = true)
     public Result getInventory(Integer inventoryId)
     {
@@ -54,9 +56,9 @@ public class InventoryController extends Controller
                 setParameter("inventoryId", inventoryId).getSingleResult();
 
 
-
         return ok(views.html.Inventory.inventory.render(inventory));
     }
+
     @Transactional
     public Result postInventory(Integer inventoryId)
     {
@@ -69,20 +71,20 @@ public class InventoryController extends Controller
 
         String computerName = form.get("computerName");
         int locationId = Integer.parseInt(form.get("locationId"));
-        int regionalId = Integer.parseInt(form.get("regionId"));
+
         String currentUser = form.get("currentUser");
         String buildingLocation = form.get("buildingLocation");
         inventory.setComputerName(computerName);
         inventory.setBuildingLocation(buildingLocation);
         inventory.setCurrentUser(currentUser);
         inventory.setLocationId(locationId);
-        inventory.setRegionId(regionalId);
-        jpaApi.em().persist(computerName);
 
+        jpaApi.em().persist(computerName);
 
 
         return redirect(routes.InventoryController.getInventories());
     }
+
     @Transactional(readOnly = true)
     public Result getNewInventory()
     {
@@ -90,14 +92,14 @@ public class InventoryController extends Controller
         //add a join
         String regionSql = "SELECT r FROM Region r ";
 
-       List<Region> regions = jpaApi.em().createQuery
-               (regionSql,Region.class).getResultList();
+        List<Region> regions = jpaApi.em().createQuery
+                (regionSql, Region.class).getResultList();
 
-       String locationSql = "SELECT l FROM Location l ";
+        String locationSql = "SELECT l FROM Location l ";
 
-       List<Location> locations = jpaApi.em().createQuery
-               (locationSql,Location.class).getResultList();
-        return ok(views.html.Inventory.newinventory.render(regions,locations));
+        List<Location> locations = jpaApi.em().createQuery
+                (locationSql, Location.class).getResultList();
+        return ok(views.html.Inventory.newinventory.render(regions, locations));
     }
 
     @Transactional
@@ -106,18 +108,18 @@ public class InventoryController extends Controller
         DynamicForm form = formFactory.form().bindFromRequest();
         String computerName = form.get("computerName");
         int locationId = Integer.parseInt(form.get("locationId"));
-        int regionalId = Integer.parseInt(form.get("regionId"));
+        int assetTagNumber = Integer.parseInt(form.get("assetTag"));
         String currentUser = form.get("currentUser");
         String buildingLocation = form.get("buildingLocation");
 
 
         Inventory inventory = new Inventory();
         inventory.setComputerName(computerName);
-        inventory.setComputerName(computerName);
+        inventory.setAssetTagNumber(assetTagNumber);
         inventory.setBuildingLocation(buildingLocation);
         inventory.setCurrentUser(currentUser);
         inventory.setLocationId(locationId);
-        inventory.setRegionId(regionalId);
+
         jpaApi.em().persist(inventory);
 
 

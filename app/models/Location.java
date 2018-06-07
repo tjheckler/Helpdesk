@@ -12,7 +12,17 @@ public class Location
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int locationId;
     private String locationName;
+    private int regionId;
 
+    public int getRegionId()
+    {
+        return regionId;
+    }
+
+    public void setRegionId(int regionId)
+    {
+        this.regionId = regionId;
+    }
 
     public int getLocationId()
     {

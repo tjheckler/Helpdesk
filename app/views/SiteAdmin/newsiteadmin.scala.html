@@ -11,28 +11,27 @@
 <div class="container">
     <form method="post">
         @CSRF.formField
-        Enter New Site Admin <input class="rounded" type="text" name="siteAdmin" id="siteAdmin" maxlength="30">
-        Enter New Site Admin <input class="rounded" type="text" name="emailAddress" id="emailAddress" maxlength="30">
-        Enter New Site Admin <input class="rounded" type="text" name="phoneNumber" id="phoneNumber" maxlength="30">
-        Enter New Site Admin <input class="rounded" type="text" name="role" id="role" maxlength="30">
+        Enter Site Admin Name <input class="rounded" type="text" name="siteAdmin" id="siteAdmin" maxlength="30">
+        Enter Email Address <input class="rounded" type="text" name="emailAddress" id="emailAddress" maxlength="30">
+        Enter PhoneNumber <input class="rounded" type="text" name="phoneNumber" id="phoneNumber" maxlength="30">
+        Enter Role <input class="rounded" type="text" name="role" id="role" maxlength="30">
 
         <select class="rounded" name="locationId" id="locationId">
+            <option >Choose Location</option>
             @for(location<-locations){
 
-            <option selected="selected" value="@location.getLocationId">
+            <option  value="@location.getLocationId">
                 @location.getLocationName
             </option>
             }
 
         </select>
-        <b> Enter Current User: </b><input class="rounded" type="text" name="currentUser"
-                                           id="currentUser" maxlength="30" size="30">
-        <b> Enter Building Location: </b><input class="rounded" type="text" name="buildingLocation"
-                                                id="buildingLocation" maxlength="30" size="30">
+
         <select class="rounded" name="regionId" id="regionId">
+            <option >Choose Region</option>
             @for(region<-regions){
 
-            <option selected="selected" value="@region.getRegionId">
+            <option  value="@region.getRegionId">
                 @region.getRegionName
             </option>
             }
