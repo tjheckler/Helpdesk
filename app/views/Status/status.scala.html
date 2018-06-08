@@ -1,0 +1,29 @@
+@(status:Status)
+<!DOCTYPE html>
+@import helper._
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <title>Status</title>
+</head>
+<body>
+
+<div class="container" align="center">
+    <div>
+        <h1>@status.getStatusName()</h1>
+        <br>
+        <form method="post" class="form-control" align="center">
+            @CSRF.formField
+            <b> Status Name: </b><input  class="rounded" type="text" name="statusName" id="statusName"
+                                           value="@status.getStatusName" minlength="1"
+                                           maxlength="30" size="30">
+            <br>
+            <br>
+            <input class="btn btn-primary" type="submit" value="save">
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

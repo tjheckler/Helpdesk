@@ -51,7 +51,11 @@ GET     /ticket/:id                  controllers.TicketController.getTicket(id: 
 #GET     /newticket                   controllers.TicketController.getNewTicket
 #POST    /newticket                   controllers.TicketController.postNewTicket
 
-
+GET     /statuses                  controllers.StatusController.getStatuses
+GET     /status/:id                controllers.StatusController.getStatus(id: Int)
+POST    /status/:id                controllers.StatusController.postStatus(id: Int)
+GET     /newstatus                 controllers.StatusController.getNewStatus
+POST    /newstatus                 controllers.StatusController.postNewStatus
 
 
 
