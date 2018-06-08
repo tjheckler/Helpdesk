@@ -10,17 +10,30 @@
 <body>
 <br>
 <div class="container" align="center">
+    <div class="jumbotron">
+        <h1>Create New Inventory</h1>
+    </div>
+
+    <br>
+    put each in a div align center??
     <form method="post" class="form-control">
         @CSRF.formField
         <b> Enter ComputerName: </b><input class="rounded" type="text" name="computerName"
                                            id="computerName" maxlength="30" size="30">
+        <br>
+        <br>
         <b> Enter Asset Tag Number: </b><input class="rounded" type="text" name="assetTag"
                                            id="assetTag" maxlength="30" size="30">
-
+        <br>
+        <br>
         <b> Enter Current User: </b><input class="rounded" type="text" name="currentUser"
                                            id="currentUser" maxlength="30" size="30">
+        <br>
+        <br>
         <b> Enter Building Location: </b><input class="rounded" type="text" name="buildingLocation"
                                            id="buildingLocation" maxlength="30" size="30">
+        <br>
+        <br>
         <select class="rounded" name="regionId" id="regionId">
             <option >Choose Region</option>
             @for(region<-regions){
@@ -31,6 +44,8 @@
             }
 
         </select>
+        <br>
+        <br>
         <select class="rounded" name="locationId" id="locationId">
             <option >Choose Location</option>
             @for(location <- locations){
@@ -41,6 +56,8 @@
             }
 
         </select>
+        <br>
+        <br>
         <input align="center" class="btn btn-primary" type="submit" value="Create">
     </form>
 </div>

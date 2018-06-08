@@ -7,7 +7,11 @@
     <title>New Ticket</title>
 </head>
 <body>
-<div class="container">
+<div class="container" align="center">
+    <div class="jumbotron">
+        <h1>Create New Ticket</h1>
+    </div>
+    put each in a div and align center??
     <form method="post">
         @CSRF.formField
         Enter New Title <input class="rounded" type="text" name="ticket" id="ticket" maxlength="10">
@@ -15,7 +19,10 @@
         <br>
         Enter Description: <textarea class="rounded" name="description" id="description" maxlength="255"></textarea>
         <input class="btn btn-primary" type="submit" value="Create">
+        <br>
+        <br>
     </form>
 </div>
+add fields
 </body>
 </html>

@@ -8,35 +8,50 @@
     <title>New Site Admin</title>
 </head>
 <body>
-<div class="container">
-    <form method="post">
-        @CSRF.formField
-        Enter Site Admin Name <input class="rounded" type="text" name="siteAdmin" id="siteAdmin" maxlength="30">
-        Enter Email Address <input class="rounded" type="text" name="emailAddress" id="emailAddress" maxlength="30">
-        Enter PhoneNumber <input class="rounded" type="text" name="phoneNumber" id="phoneNumber" maxlength="30">
-        Enter Role <input class="rounded" type="text" name="role" id="role" maxlength="30">
+<div class="container" align="center">
+    <div class="jumbotron">
+    <h1>Create New Site Admin</h1>
+    </div>
 
+    <br>
+    put each in a div align center?? make bold text
+    <form method="post" class="form-control">
+        @CSRF.formField
+        Enter Site Admin Name: <input class="rounded" type="text" name="siteAdmin" id="siteAdmin" maxlength="30">
+        <br>
+        <br>
+        Enter Email Address:    <input class="rounded" type="text" name="emailAddress" id="emailAddress" maxlength="30">
+        <br>
+        <br>
+        Enter PhoneNumber:       <input class="rounded" type="text" name="phoneNumber" id="phoneNumber" maxlength="30">
+        <br>
+        <br>
+        Enter Role:              <input class="rounded" type="text" name="role" id="role" maxlength="30">
+        <br>
+        <br>
         <select class="rounded" name="locationId" id="locationId">
-            <option >Choose Location</option>
+            <option>Choose Location</option>
             @for(location<-locations){
 
-            <option  value="@location.getLocationId">
+            <option value="@location.getLocationId">
                 @location.getLocationName
             </option>
             }
-
         </select>
-
+        <br>
+        <br>
         <select class="rounded" name="regionId" id="regionId">
-            <option >Choose Region</option>
+            <option>Choose Region</option>
             @for(region<-regions){
 
-            <option  value="@region.getRegionId">
+            <option value="@region.getRegionId">
                 @region.getRegionName
             </option>
             }
 
         </select>
+        <br>
+        <br>
         <input class="btn btn-primary" type="submit" value="Create">
     </form>
 </div>

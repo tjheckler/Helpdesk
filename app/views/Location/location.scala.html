@@ -19,8 +19,9 @@
                                            value="@location.getLocationName" minlength="1"
                                            maxlength="30" size="30">
             <br>
+            <br>
+            <b>Region Name: </b>
             <select class="rounded" name="regionId" id="regionId">
-                <option selected="selected" >Choose Region</option>
                 @for(region<-regions){
 
                 <option  value="@region.getRegionId">
@@ -30,8 +31,9 @@
 
             </select>
             <br>
+            <br>
             <input class="btn btn-primary" type="submit" value="save">
-
+add back to list link
         </form>
     </div>
 </div>

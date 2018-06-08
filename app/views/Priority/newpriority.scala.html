@@ -7,10 +7,15 @@
     <title>New Priority</title>
 </head>
 <body>
-<div class="container">
-    <form method="post">
+<div class="container" align="center">
+    <div class="jumbotron">
+        <h1>Create New Priority</h1>
+    </div>
+
+    <br>
+    <form method="post" class="form-control">
         @CSRF.formField
-        Enter New Priority <input class="rounded" type="text" name="priority" id="priority" maxlength="20">
+    <b>Enter New Priority</b> <input class="rounded" type="text" name="priority" id="priority" maxlength="20">
 
         <input class="btn btn-primary" type="submit" value="Create">
     </form>

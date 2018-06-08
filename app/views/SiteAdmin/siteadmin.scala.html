@@ -1,4 +1,4 @@
-@(siteAdmin:SiteAdmin)
+@(siteAdmin:SiteAdmin,locations:List[Location],regions:List[Region])
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -15,15 +15,45 @@
         <br>
         <form method="post" class="form-control" align="center">
             @CSRF.formField
-            <b> Site Admin Name: </b><input  class="rounded" type="text" name="siteAdminName" id="siteAdminName"
-                                         value="@siteAdmin.getSiteAdminName" minlength="1"
+            <b> Site Admin Name: </b><input class="rounded" type="text" name="siteAdminName" id="siteAdminName"
+                                            value="@siteAdmin.getSiteAdminName" minlength="1"
+                                            maxlength="30" size="30">
+            <br>
+          <b>  Email Address: </b><input class="rounded" type="text" name="emailAddress" id="emailAddress"
+                                         value="@siteAdmin.getEmailAddress" minlength="1"
                                          maxlength="30" size="30">
             <br>
+           <b> Site Role: </b><input class="rounded" type="text" name="siteRole" id="siteRole"
+                                     value="@siteAdmin.getSiteRole" minlength="1"
+                                     maxlength="30" size="30">
+            <br>
+           <b> Phone Number: </b><input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
+                                        value="@siteAdmin.getPhoneNumber" minlength="1"
+                                        maxlength="30" size="30">
+            <br>
+           <b> Location: </b><select>
+            @for(location <- locations){
+            <option  value="@location.getLocationId">
+                @location.getLocationName
+            </option>
+            }
+            <br>
+        </select>
+            <br>
+           <b> Region: </b><select>
+            @for(region <- regions){
+            <option  value="@region.getRegionId">
+                @region.getRegionName
+            </option>
+            }
+        </select>
+
+
             <br>
             <input class="btn btn-primary" type="submit" value="save">
 
         </form>
-        add more fields
+       <h1>SET UP GUI</h1>
     </div>
 </div>
 </body>

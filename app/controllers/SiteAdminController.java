@@ -52,9 +52,13 @@ public class SiteAdminController extends Controller
         SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
                 setParameter("siteAdminId", siteAdminId).getSingleResult();
 
+        String locationSql = "SELECT l FROM Location l ";
+       List<Location>location = jpaApi.em().createQuery(locationSql, Location.class).getResultList();
 
+        String regionSql = "SELECT r FROM Region r ";
+        List<Region> region = jpaApi.em().createQuery(regionSql, Region.class).getResultList();
 
-        return ok(views.html.SiteAdmin.siteadmin.render(siteAdmin));
+        return ok(views.html.SiteAdmin.siteadmin.render(siteAdmin,location,region));
     }
     @Transactional
     public Result postSiteAdmin(Integer siteAdminId)

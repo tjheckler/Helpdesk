@@ -7,10 +7,13 @@
     <title>New Region</title>
 </head>
 <body>
-<div class="container">
-    <form method="post">
+<div class="container" align="center">
+    <div class="jumbotron">
+        <h1>Create new Region</h1>
+    </div>
+    <form method="post" class="form-control">
         @CSRF.formField
-        Enter New Region <input class="rounded" type="text" name="region" id="region" maxlength="30">
+       <b> Enter New Region </b><input class="rounded" type="text" name="region" id="region" maxlength="30">
 
         <input class="btn btn-primary" type="submit" value="Create">
     </form>
