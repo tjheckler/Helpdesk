@@ -7,20 +7,21 @@
     <title>New Category</title>
 </head>
 <body>
-<br>
+
 <div class="container" align="center">
     @appnavbar.render("newcategory")
     <div class="jumbotron">
         <h1>Create New Category</h1>
     </div>
-
-    <br>
-
     <form method="post" class="form-control">
         @CSRF.formField
-       <b> Enter New Category: </b><input class="rounded" type="text" name="category"
+        <br>
+       <b> Category Name: </b><input class="rounded" type="text" name="category"
                                   id="category" maxlength="30" size="30">
+        <br>
+        <br>
         <input align="center" class="btn btn-primary" type="submit" value="Create">
+        <a href="/categories">Back to List</a>
     </form>
 </div>
 </body>

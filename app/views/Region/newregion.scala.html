@@ -14,9 +14,14 @@
     </div>
     <form method="post" class="form-control">
         @CSRF.formField
-       <b> Enter New Region </b><input class="rounded" type="text" name="region" id="region" maxlength="30">
-
-        <input class="btn btn-primary" type="submit" value="Create">
+        <div>
+            <b> Enter New Region </b><input class="rounded" type="text" name="region" id="region" maxlength="30">
+        </div>
+        <br>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Create">
+            <a href="/regions">Back to List</a>
+        </div>
     </form>
 </div>
 </body>

@@ -16,7 +16,7 @@
     put each in a div align center?
     <form method="post" class="form-control">
         @CSRF.formField
-        <b> Enter New Location: </b><input class="rounded" type="text" name="locationName"
+        <b> Location Name: </b><input class="rounded" type="text" name="locationName"
                                            id="locationName" maxlength="30" size="30">
         <select class="rounded" name="regionId" id="regionId">
             <option selected="selected" >Choose Region</option>
@@ -29,6 +29,7 @@
 
         </select>
         <input align="center" class="btn btn-primary" type="submit" value="Create">
+        <a href="/locations">Back to List</a>
     </form>
 </div>
 </body>

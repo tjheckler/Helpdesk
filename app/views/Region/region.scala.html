@@ -11,9 +11,10 @@
 
 <div class="container" align="center">
     @appnavbar.render("region")
-    <div>
+    <div class="jumbotron">
         <h1>@region.getRegionName()</h1>
-        <br>
+    </div>
+
         <form method="post" class="form-control" align="center">
             @CSRF.formField
             <b> Region Name: </b><input  class="rounded" type="text" name="regionName" id="regionName"
@@ -22,7 +23,7 @@
             <br>
             <br>
             <input class="btn btn-primary" type="submit" value="save">
-
+            <a href="/regions">Back to List</a>
         </form>
     </div>
 </div>

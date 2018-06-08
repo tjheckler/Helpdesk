@@ -11,51 +11,67 @@
 
 <div class="container" align="center">
     @appnavbar.render("siteadmins")
-    <div>
+    <div class="jumbotron" align="center">
         <h1>@siteAdmin.getSiteAdminName()</h1>
-        <br>
-        <form method="post" class="form-control" align="center">
-            @CSRF.formField
-            <b> Site Admin Name: </b><input class="rounded" type="text" name="siteAdminName" id="siteAdminName"
-                                            value="@siteAdmin.getSiteAdminName" minlength="1"
-                                            maxlength="30" size="30">
-            <br>
-          <b>  Email Address: </b><input class="rounded" type="text" name="emailAddress" id="emailAddress"
-                                         value="@siteAdmin.getEmailAddress" minlength="1"
-                                         maxlength="30" size="30">
-            <br>
-           <b> Site Role: </b><input class="rounded" type="text" name="siteRole" id="siteRole"
-                                     value="@siteAdmin.getSiteRole" minlength="1"
-                                     maxlength="30" size="30">
-            <br>
-           <b> Phone Number: </b><input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
-                                        value="@siteAdmin.getPhoneNumber" minlength="1"
-                                        maxlength="30" size="30">
-            <br>
-           <b> Location: </b><select>
-            @for(location <- locations){
-            <option  value="@location.getLocationId">
-                @location.getLocationName
-            </option>
-            }
-            <br>
-        </select>
-            <br>
-           <b> Region: </b><select>
-            @for(region <- regions){
-            <option  value="@region.getRegionId">
-                @region.getRegionName
-            </option>
-            }
-        </select>
-
-
-            <br>
-            <input class="btn btn-primary" type="submit" value="save">
-
-        </form>
-       <h1>SET UP GUI</h1>
     </div>
+    <form method="post" class="form-control" align="center">
+        @CSRF.formField
+        <div class="row">
+            <div class="col-md-5">
+                <b> Site Admin Name: </b><input class="rounded" type="text" name="siteAdminName" id="siteAdminName"
+                                                value="@siteAdmin.getSiteAdminName" minlength="1"
+                                                maxlength="30" size="30">
+            </div>
+            <div class="col-md-5">
+                <b> Email Address: </b><input class="rounded" type="text" name="emailAddress" id="emailAddress"
+                                              value="@siteAdmin.getEmailAddress" minlength="1"
+                                              maxlength="30" size="30">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-5">
+                <b> Site Admin Role: </b><input class="rounded" type="text" name="siteRole" id="siteRole"
+                                                value="@siteAdmin.getSiteRole" minlength="1"
+                                                maxlength="30" size="30">
+            </div>
+            <div class="col-md-5">
+                <b> Phone Number: </b><input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
+                                             value="@siteAdmin.getPhoneNumber" minlength="1"
+                                             maxlength="30" size="30">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-5">
+                <b> Location: </b><select>
+                @for(location <- locations){
+                <option value="@location.getLocationId">
+                    @location.getLocationName
+                </option>
+                }
+
+            </select>
+
+            </div>
+            <div class="col-md-5">
+                <b> Region: </b><select>
+                @for(region <- regions){
+                <option value="@region.getRegionId">
+                    @region.getRegionName
+                </option>
+                }
+            </select>
+
+            </div>
+        </div>
+        <br>
+        <input class="btn btn-primary" type="submit" value="save">
+        <a href="/siteadmins">Back to List</a>
+
+    </form>
+
+</div>
 </div>
 </body>
 </html>

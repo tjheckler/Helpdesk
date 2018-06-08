@@ -18,9 +18,12 @@
 
     <form method="post" class="form-control">
         @CSRF.formField
-        <b> Enter New Status: </b><input class="rounded" type="text" name="status"
+        <b> Status Name: </b><input class="rounded" type="text" name="status"
                                            id="status" maxlength="30" size="30">
+        <br>
+        <br>
         <input align="center" class="btn btn-primary" type="submit" value="Create">
+        <a href="/statuses">Back to List</a>
     </form>
 </div>
 </body>

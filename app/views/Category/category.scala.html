@@ -5,26 +5,30 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
-    <title>Title</title>
+    <title>Category</title>
 </head>
 <body>
 
 <div class="container" align="center">
+
     @appnavbar.render("Category")
     <div>
-        <h1>@category.getCategoryName()</h1>
-        <br>
-        <form method="post" class="form-control" align="center">
-            @CSRF.formField
-            <b> Category Name: </b><input  class="rounded" type="text" name="categoryName" id="categoryName"
-                               value="@category.getCategoryName" minlength="1"
-                               maxlength="30" size="30">
-            <br>
-            <br>
-            <input class="btn btn-primary" type="submit" value="save">
-
-        </form>
+        <div class="jumbotron">
+            <h1>@category.getCategoryName()</h1>
+        </div>
     </div>
+
+    <form method="post" class="form-control" align="center">
+        @CSRF.formField
+        <b> Category Name: </b><input class="rounded" type="text" name="categoryName" id="categoryName"
+                                      value="@category.getCategoryName" minlength="1"
+                                      maxlength="30" size="30">
+        <br>
+        <br>
+        <input class="btn btn-primary" type="submit" value="save">
+        <a href="/categories">Back to List</a>
+    </form>
+</div>
 </div>
 </body>
 </html>
