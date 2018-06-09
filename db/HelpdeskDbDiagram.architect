@@ -124,7 +124,7 @@
     <column id="COL33" populated="true" UUID="57dd4618-00d7-4a8a-bb4b-caf455dd6e75" autoIncrement="false" autoIncrementSequenceName="FileDetails_FileContent_seq" defaultValue="" name="FileContent" nullable="1" physicalName="FileContent" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2004" userDefinedTypeUUID="5c50e616-a448-40e1-abcd-5bfc04dcc607" >
      <remarks></remarks>
     </column>
-    <column id="COL34" populated="true" UUID="dad70350-5f8b-441d-a2fa-e87a1155a497" autoIncrement="false" autoIncrementSequenceName="Ticket_TicketId_seq" defaultValue="" name="TicketId" nullable="0" physicalName="TicketId" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL34" populated="true" UUID="dad70350-5f8b-441d-a2fa-e87a1155a497" autoIncrement="false" autoIncrementSequenceName="Ticket_TicketId_seq" defaultValue="" name="TicketId" nullable="1" physicalName="TicketId" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     </folder>
@@ -210,7 +210,7 @@
     <column id="COL55" populated="true" UUID="ae42eab8-b5ed-4e5d-a19b-c589d0ede019" autoIncrement="false" autoIncrementSequenceName="Reply_Reply_seq" defaultValue="" name="Reply" nullable="0" physicalName="Reply" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL56" populated="true" UUID="4f7074a4-23e0-4015-aba1-c1d029c762fa" autoIncrement="false" autoIncrementSequenceName="Ticket_TicketId_seq" defaultValue="" name="TicketId" nullable="0" physicalName="TicketId" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL56" populated="true" UUID="4f7074a4-23e0-4015-aba1-c1d029c762fa" autoIncrement="false" autoIncrementSequenceName="Ticket_TicketId_seq" defaultValue="" name="TicketId" nullable="1" physicalName="TicketId" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     </folder>
@@ -313,19 +313,19 @@
   <table-pane table-ref="TAB30" x="35" y="598" bgColor="0xeeeeee" fgColor="0x206cff" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB37" x="1008" y="229" bgColor="0xeeeeee" fgColor="0x5229a3" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB42" x="503" y="216" bgColor="0xeeeeee" fgColor="0x5229a3" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB48" x="510" y="326" bgColor="0xeeeeee" fgColor="0x206cff" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB48" x="509" y="347" bgColor="0xeeeeee" fgColor="0x206cff" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB53" x="72" y="24" bgColor="0xeeeeee" fgColor="0x206cff" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB59" x="1038" y="410" bgColor="0xeeeeee" fgColor="0xcc0000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB67" x="403" y="517" bgColor="0xeeeeee" fgColor="0x006633" rounded="false" dashed="false"/>
   <table-link relationship-ref="REL80" pkConnection="0.16455696202531644" fkConnection="0.4015748031496063" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
   <table-link relationship-ref="REL82" pkConnection="0.9113924050632911" fkConnection="0.5748031496062992" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
-  <table-link relationship-ref="REL84" pkConnection="0.4936708860759494" fkConnection="0.5481171548117155" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL86" pkConnection="0.23809523809523808" fkConnection="0.7450980392156863" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL84" pkConnection="0.49295774647887325" fkConnection="0.5355450236966824" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL86" pkConnection="0.42105263157894735" fkConnection="0.8862559241706162" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
   <table-link relationship-ref="REL76" pkConnection="0.15873015873015872" fkConnection="0.2301255230125523" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL78" pkConnection="0.5079365079365079" fkConnection="0.5569620253164557" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
-  <table-link relationship-ref="REL88" pkConnection="0.30278884462151395" fkConnection="0.9490196078431372" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="24"/>
-  <table-link relationship-ref="REL72" pkConnection="0.5211267605633803" fkConnection="0.49" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
-  <table-link relationship-ref="REL74" pkConnection="0.47417840375586856" fkConnection="0.5045454545454545" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL78" pkConnection="0.49122807017543857" fkConnection="0.5774647887323944" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL88" pkConnection="0.0" fkConnection="0.863849765258216" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="66"/>
+  <table-link relationship-ref="REL72" pkConnection="0.49765258215962443" fkConnection="0.5" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
+  <table-link relationship-ref="REL74" pkConnection="0.4647887323943662" fkConnection="0.5409090909090909" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
  </play-pen>
  <critic-manager>
   <critic-grouping platformType="Generic" enabled="true">
