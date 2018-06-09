@@ -1,8 +1,9 @@
-@(tickets:Collection[Ticket])
+@(tickets:List[Ticket],searchCriteria:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
     <title>Tickets</title>
 </head>
 <body>
@@ -12,17 +13,17 @@
 <table>
     <tr>
         <th>Ticket Number</th>
-        <th>First Name</th>
+        <th>Name</th>
     </tr>
     @for(ticket <- tickets){
     <tr>
         <td>
             <div>
-                <a href="ticket/@ticket.getTicketsId()"><b>@ticket.getTicketsId()</b></a>
+                <b>@ticket.getTicketsId()</b>
             </div>
         </td>
         <td>
-            @ticket.getFirstName
+            <a href="ticket/@ticket.getTicketsId()">@ticket.getName</a>
         </td>
         <td>
             createlinkedit

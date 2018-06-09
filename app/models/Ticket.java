@@ -18,8 +18,7 @@ public class Ticket
     private int siteAdminId;
     private int priorityId;
     private Date statusDateChanged;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String emailAddress;
     private long phoneNumber;
     private int locationId;
@@ -27,9 +26,8 @@ public class Ticket
     private int assetTagNumber;
     private String subjectTitle;
     private String description;
-    private int replyId;
-    private int fileDetailsId;
     private int statusId;
+
 
     public Date getStatusDateChanged()
     {
@@ -51,15 +49,6 @@ public class Ticket
         this.statusId = statusId;
     }
 
-    public int getReply()
-    {
-        return replyId;
-    }
-
-    public void setReply(int reply)
-    {
-        this.replyId = reply;
-    }
 
     public int getTicketsId()
     {
@@ -97,24 +86,14 @@ public class Ticket
         this.priorityId = priorityId;
     }
 
-    public String getFirstName()
+    public void setName(String name)
     {
-        return firstName;
+        this.name = name;
     }
 
-    public void setFirstName(String firstName)
+    public String getName()
     {
-        this.firstName = firstName;
-    }
-
-    public String getLastName()
-    {
-        return lastName;
-    }
-
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
+        return name;
     }
 
     public String getEmailAddress()
@@ -187,13 +166,4 @@ public class Ticket
         this.description = description;
     }
 
-    public int getFileDetailsId()
-    {
-        return fileDetailsId;
-    }
-
-    public void setFileDetailsId(int fileDetailsId)
-    {
-        this.fileDetailsId = fileDetailsId;
-    }
 }
