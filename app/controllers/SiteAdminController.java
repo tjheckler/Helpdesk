@@ -70,17 +70,16 @@ public class SiteAdminController extends Controller
                 .setParameter("siteAdminId", siteAdminId).getSingleResult();
         DynamicForm form = formFactory.form().bindFromRequest();
 
-        String siteAdminName = form.get("siteAdmin");
+        String siteAdminName = form.get("siteAdminName");
         int locationId = Integer.parseInt(form.get("locationId"));
 
         int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
         String emailAddress = form.get("emailAddress");
-        String role = form.get("role");
+        String role = form.get("siteRole");
         siteAdmin.setSiteAdminName(siteAdminName);
         siteAdmin.setPhoneNumber(phoneNumber);
         siteAdmin.setSiteRole(role);
         siteAdmin.setLocationId(locationId);
-
         siteAdmin.setEmailAddress(emailAddress);
         jpaApi.em().persist(siteAdmin);
 

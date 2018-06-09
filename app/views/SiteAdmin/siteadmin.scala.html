@@ -14,7 +14,7 @@
     <div class="jumbotron" align="center">
         <h1>@siteAdmin.getSiteAdminName()</h1>
     </div>
-    <form method="post" class="form-control" align="center">
+    <form method="post" class="form-control" align="center" enctype="multipart/form-data">
         @CSRF.formField
         <div class="row">
             <div class="col-md-5">
@@ -44,7 +44,8 @@
         <br>
         <div class="row">
             <div class="col-md-5">
-                <b> Location: </b><select>
+                <b> Location: </b>
+                <select  name="locationId" id="locationId">
                 @for(location <- locations){
                 <option value="@location.getLocationId">
                     @location.getLocationName

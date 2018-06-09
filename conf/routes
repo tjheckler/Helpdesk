@@ -16,6 +16,7 @@ POST    /newcategory                 controllers.CategoryController.postNewCateg
 
 GET     /inventories                 controllers.InventoryController.getInventories
 GET     /inventory/:id               controllers.InventoryController.getInventory(id: Int)
+POST    /inventory/:id               controllers.InventoryController.postInventory(id: Int)
 GET     /newinventory              controllers.InventoryController.getNewInventory
 POST    /newinventory                controllers.InventoryController.postNewInventory
 

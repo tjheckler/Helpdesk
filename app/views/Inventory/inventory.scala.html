@@ -1,5 +1,6 @@
-@(inventory:Inventory)
+@(inventory:Inventory,locations:List[Location])
 <!DOCTYPE html>
+@import helper._
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,12 +11,71 @@
 @appnavbar.render("inventory")
 <div class="container" align="center">
     <div class="jumbotron">
-<h1>@inventory.getComputerName</h1>
+        <h1>@inventory.getComputerName</h1>
     </div>
 
+    <br>
+    <form method="post" class="form-control" align="center">
+        @CSRF.formField
 
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <b> Computer Name: </b><input class="rounded" type="text" name="computerName" id="computerName"
+                                              value="@inventory.getComputerName" minlength="1"
+                                              maxlength="30" size="30">
+            </div>
+            <div class="col-md-6">
+                <b> Asset Tag Number: </b><input class="rounded" type="text" name="assetTagNumber" id="assetTagNumber"
+                                                 value="@inventory.getAssetTagNumber" minlength="1"
+                                                 maxlength="30" size="30">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <b> Current User Name: </b><input class="rounded" type="text" name="currentUser" id="currentUser"
+                                                  value="@inventory.getCurrentUser" minlength="1"
+                                                  maxlength="30" size="30">
+            </div>
+            <div class="col-md-6">
+                <b> Building Location: </b><input class="rounded" type="text" name="buildingLocation"
+                                                  id="buildingLocation"
+                                                  value="@inventory.getBuildingLocation" minlength="1"
+                                                  maxlength="30" size="30">
+            </div>
+        </div>
+
+        <br>
+        <div >
+            <div >
+                <b> Current City Location:</b>
+                <select name="locationId" id="locationId">
+                @for(location<-locations){
+                @if(location.getLocationId==inventory.getLocationId){
+                    <option selected="selected" value="@location.getLocationId" >
+                        @location.getLocationName
+                    </option>
+                    }else{
+
+                    <option value="@location.getLocationId">
+                        @location.getLocationName
+                    </option>
+                }
+                }
+                </select>
+            </div>
+
+        </div>
+        <br>
+        <div>
+            <input class="btn btn-primary" type="submit" value="save">
+            <a href="/inventories">Back to List</a>
+        </div>
+    </form>
 </div>
+
+
 </body>
-<input class="btn btn-primary" type="submit" value="save">
-<a href="/inventories">Back to List</a>
+
 </html>

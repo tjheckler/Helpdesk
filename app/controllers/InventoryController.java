@@ -29,7 +29,7 @@ public class InventoryController extends Controller
     public Result getInventories()
     {
         DynamicForm form = formFactory.form().bindFromRequest();
-        String sql = "SELECT i  FROM Inventory i " +
+        String sql = "SELECT i FROM Inventory i " +
                 " WHERE computerName LIKE :searchCriteria " +
                 "ORDER BY computerName";
         String searchCriteria = form.get("searchCriteria");
@@ -42,7 +42,11 @@ public class InventoryController extends Controller
         List<Inventory> inventories = jpaApi.em()
                 .createQuery(sql, Inventory.class).setParameter("searchCriteria", queryParameter).getResultList();
 
-        return ok(views.html.Inventory.inventoryList.render(inventories, searchCriteria));
+        String locationSql = "SELECT l FROM Location l ";
+        Location location = jpaApi.em()
+                .createQuery(locationSql, Location.class).getSingleResult();
+
+        return ok(views.html.Inventory.inventoryList.render(inventories, searchCriteria,location));
 
     }
 
@@ -55,8 +59,10 @@ public class InventoryController extends Controller
         Inventory inventory = jpaApi.em().createQuery(sql, Inventory.class).
                 setParameter("inventoryId", inventoryId).getSingleResult();
 
-
-        return ok(views.html.Inventory.inventory.render(inventory));
+        String locationSql = "SELECT l FROM Location l ";
+       List<Location> locations = jpaApi.em()
+                .createQuery(locationSql, Location.class).getResultList();
+        return ok(views.html.Inventory.inventory.render(inventory,locations));
     }
 
     @Transactional
@@ -79,7 +85,7 @@ public class InventoryController extends Controller
         inventory.setCurrentUser(currentUser);
         inventory.setLocationId(locationId);
 
-        jpaApi.em().persist(computerName);
+        jpaApi.em().persist(inventory);
 
 
         return redirect(routes.InventoryController.getInventories());
