@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
-    <title>Inventory Detail</title>
+    <title>Ticket @ticket.getTicketsId Detail</title>
 </head>
 <body>
 
@@ -74,12 +74,25 @@
             </div>
         </div>
         <br>
+        <div class="row">
+            <div class="col-md-6">
+                <b> Phone Number: </b><label>@ticket.getPhoneNumber</label>
+            </div>
+            <div class="col-md-6">
+                <b> Email Address: </b><label>@ticket.getEmailAddress</label>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <b> Description: </b><label>@ticket.getDescription</label>
+        </div>
+        <br>
         <div>
             <input class="btn btn-primary" type="submit" value="save">
             <a href="/tickets">Back to List</a>
         </div>
         <br>
-        add reply, files, phone Email. add ability to post reply and post files
+        add reply, files add ability to post reply and post files
     </form>
 </div>
 

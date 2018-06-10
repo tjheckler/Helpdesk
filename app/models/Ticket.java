@@ -22,11 +22,21 @@ public class Ticket
     private String emailAddress;
     private long phoneNumber;
     private int locationId;
+    private String description;
     private String computerName;
     private int assetTagNumber;
     private String subjectTitle;
     private int statusId;
 
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
 
     public Date getStatusDateChanged()
     {
