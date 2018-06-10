@@ -22,10 +22,6 @@
             @priority.getPriorityName() }}</h3>
         <h3>Subject: @ticket.getSubjectTitle</h3>
     </div>
-
-    <br>
-
-
     <br>
     <div class="row">
         <div class="col-md-6">
@@ -96,12 +92,14 @@
     <form method="post" class="form-control" align="center">
         @CSRF.formField
         <div>
-            <label>Reply Here 255 Characters Allowed: </label>
+            <label><b>Reply:</b></label>
             <br>
             <textarea class="rounded" type="text" name="reply" cols="100" rows="10"
                       id="reply" maxlength="255">
 
             </textarea>
+            <br>
+            <label>255 Characters Allowed</label>
             <br>
             <br>
             <input class="rounded" type="file" multiple="multiple">
@@ -115,7 +113,7 @@
             <a href="/tickets">Back to List</a>
         </div>
         <br>
-        add reply, files add ability to post reply and post files
+        write code to submit files and reply, display replies in controller.
     </form>
 </div>
 
