@@ -24,67 +24,90 @@
     </div>
 
     <br>
+
+
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <b> Computer Name: </b><label>@ticket.getComputerName</label>
+        </div>
+        <div class="col-md-6">
+            <b> Asset Tag Number: </b><label>@ticket.getAssetTagNumber</label>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <b> User's Name: </b><label>@ticket.getName</label>
+        </div>
+        <div class="col-md-6">
+            <b> Assigned To: </b>
+            <label>
+                @for(siteAdmin<-siteAdmins){
+                @if(siteAdmin.getSiteAdminId == ticket.getSiteAdminId){
+                @siteAdmin.getSiteAdminName() }}
+            </label>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <b> Current Location: </b>
+            <label>
+                @for(location<-locations){
+                @if(location.getLocationId == ticket.getLocationId){
+                @location.getLocationName() } }
+            </label>
+
+        </div>
+        <div class="col-md-6">
+            <b> Current Region:</b>
+            <label>
+                @for(location<-locations){
+                @for(region<-regions){
+                @if(location.getRegionId == region.getRegionId){
+                @region.getRegionName() }}}
+            </label>
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <b> Phone Number: </b><label>@ticket.getPhoneNumber</label>
+        </div>
+        <div class="col-md-6">
+            <b> Email Address: </b><label>@ticket.getEmailAddress</label>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div>
+        <b> Description: </b><label>@ticket.getDescription</label>
+        </div>
+        <br>
+        <div>
+            <b> Reply (ID)</b><label> for each reply in replies display reply that match ticket id, if reply is null span no replies</label>
+        </div>
+    </div>
+    <br>
+
     <form method="post" class="form-control" align="center">
         @CSRF.formField
+        <div>
+            <label>Reply Here 255 Characters Allowed: </label>
+            <br>
+            <textarea class="rounded" type="text" name="reply" cols="100" rows="10"
+                      id="reply" maxlength="255">
 
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <b> Computer Name: </b><label>@ticket.getComputerName</label>
-            </div>
-            <div class="col-md-6">
-                <b> Asset Tag Number: </b><label>@ticket.getAssetTagNumber</label>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <b> User's Name: </b><label>@ticket.getName</label>
-            </div>
-            <div class="col-md-6">
-                <b> Assigned To: </b>
-                <label>
-                    @for(siteAdmin<-siteAdmins){
-                    @if(siteAdmin.getSiteAdminId == ticket.getSiteAdminId){
-                    @siteAdmin.getSiteAdminName() }}
-                </label>
-            </div>
-        </div>
+            </textarea>
+            <br>
+            <br>
+            <input class="rounded" type="file" multiple="multiple">
+            <input class="rounded" type="file" multiple="multiple">
+            <input class="rounded" type="file" multiple="multiple">
 
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <b> Current Location: </b>
-                <label>
-                    @for(location<-locations){
-                    @if(location.getLocationId == ticket.getLocationId){
-                    @location.getLocationName() } }
-                </label>
-
-            </div>
-            <div class="col-md-6">
-                <b> Current Region:</b>
-                <label>
-                    @for(location<-locations){
-                    @for(region<-regions){
-                    @if(location.getRegionId == region.getRegionId){
-                    @region.getRegionName() }}}
-                </label>
-
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <b> Phone Number: </b><label>@ticket.getPhoneNumber</label>
-            </div>
-            <div class="col-md-6">
-                <b> Email Address: </b><label>@ticket.getEmailAddress</label>
-            </div>
-        </div>
-        <br>
-        <div class="container">
-            <b> Description: </b><label>@ticket.getDescription</label>
         </div>
         <br>
         <div>
