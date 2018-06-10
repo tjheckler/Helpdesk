@@ -98,6 +98,37 @@ public class TicketController extends Controller
         return ok(views.html.Ticket.ticket.render(ticket,locations,statuses,
                 siteAdmins,priorities,categories,regions));
     }
-    //work on reply stuff
-    //work on file stuff
+    @Transactional
+    public Result postTicket(Integer ticketId)
+    {
+        //work on reply stuff
+        //work on file stuff
+
+        return redirect(routes.TicketController.getTickets());
+    }
+
+    @Transactional(readOnly = true)
+    public Result getNewTicket()
+    {
+
+        //add a join
+        String regionSql = "SELECT r FROM Region r ";
+
+        List<Region> regions = jpaApi.em().createQuery
+                (regionSql, Region.class).getResultList();
+
+        String locationSql = "SELECT l FROM Location l ";
+
+        List<Location> locations = jpaApi.em().createQuery
+                (locationSql, Location.class).getResultList();
+        return ok(views.html.Ticket.newticket.render());
+    }
+
+    @Transactional
+    public Result postNewTicket()
+    {
+
+
+        return redirect(routes.TicketController.getTickets());
+    }
 }
