@@ -111,17 +111,31 @@ public class TicketController extends Controller
     public Result getNewTicket()
     {
 
-        //add a join
-        String regionSql = "SELECT r FROM Region r ";
-
-        List<Region> regions = jpaApi.em().createQuery
-                (regionSql, Region.class).getResultList();
-
         String locationSql = "SELECT l FROM Location l ";
+        List<Location> locations = jpaApi.em()
+                .createQuery(locationSql, Location.class).getResultList();
 
-        List<Location> locations = jpaApi.em().createQuery
-                (locationSql, Location.class).getResultList();
-        return ok(views.html.Ticket.newticket.render());
+        String statusSql = "SELECT s FROM Status s ";
+        List<Status> statuses = jpaApi.em()
+                .createQuery(statusSql, Status.class).getResultList();
+
+        String adminSql = "SELECT sa FROM SiteAdmin sa ";
+        List<SiteAdmin> siteAdmins = jpaApi.em()
+                .createQuery(adminSql, SiteAdmin.class).getResultList();
+
+        String prioritySql = "SELECT p FROM Priority p ";
+        List<Priority> priorities = jpaApi.em()
+                .createQuery(prioritySql, Priority.class).getResultList();
+
+        String categorySql = "SELECT c FROM Category c ";
+        List<Category> categories = jpaApi.em()
+                .createQuery(categorySql, Category.class).getResultList();
+
+        String regionSql = "SELECT r FROM Region r ";
+        List<Region> regions = jpaApi.em()
+                .createQuery(regionSql, Region.class).getResultList();
+
+        return ok(views.html.Ticket.newticket.render(locations,statuses,siteAdmins,priorities,categories,regions));
     }
 
     @Transactional

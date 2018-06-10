@@ -1,3 +1,4 @@
+@(locations:List[Location],statuses:List[Status],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region])
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -12,18 +13,17 @@
     <div class="jumbotron">
         <h1>Create New Ticket</h1>
     </div>
-    put each in a div and align center?? add fields
-    <form class="form-control" method="post">
+    <form class="form-control" method="post" enctype="multipart/form-data">
         <br>
         @CSRF.formField
         <br>
         <div class="row">
             <div class="col-md-6">
-                <b> User's Name: </b>
+                <b> User's Name: </b><br>
                 <input class="rounded" type="text" name="name" id="name" maxlength="10">
                  </div>
             <div class="col-md-6">
-                <b> Asset Tag Number: </b>
+                <b> Asset Tag Number: </b><br>
                 <input class="rounded" type="text" name="assetTagNumber"
                        id="assetTagNumber" maxlength="10">
             </div>
@@ -31,13 +31,31 @@
         <br>
         <div class="row">
             <div class="col-md-6">
-                <b> Computer Name: </b>
+                <b> Phone Number: </b><br>
+                <input class="rounded" type="text" name="phoneNumber" id="phoneNumber" maxlength="10">
+            </div>
+            <div class="col-md-6">
+                <b> Email Address: </b><br>
+                <input class="rounded" type="text" name="emailAddress" id="emailAddress" maxlength="10">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <b> Computer Name: </b><br>
                 <input class="rounded" type="text" name="computerName"
                        id="computerName" maxlength="10">
             </div>
             <div class="col-md-6">
-                <b> Assigned To: </b>
-                <select>
+                <b> Assigned To: </b><br>
+                <select class="rounded" name="siteAdminId" id="siteAdminId">
+                    <option>Choose Assignee</option>
+                    @for(siteAdmin<-siteAdmins){
+
+                    <option value="@siteAdmin.getSiteAdminId">
+                        @siteAdmin.getSiteAdminName
+                    </option>
+                    }
 
                 </select>
             </div>
@@ -46,15 +64,29 @@
         <br>
         <div class="row">
             <div class="col-md-6">
-                <b> Current Location: </b>
-                <select>
+                <b> Current Location: </b><br>
+                <select class="rounded" name="locationId" id="locationId">
+                    <option>Choose Location</option>
+                    @for(location<-locations){
+
+                    <option value="@location.getLocationId">
+                        @location.getLocationName
+                    </option>
+                    }
 
                 </select>
 
             </div>
             <div class="col-md-6">
-                <b> Current Region:</b>
-                <select>
+                <b> Current Region:</b><br>
+                <select class="rounded" name="regionId" id="regionId">
+                    <option>Choose Region</option>
+                    @for(region<-regions){
+
+                    <option value="@region.getRegionId">
+                        @region.getRegionName
+                    </option>
+                    }
 
                 </select>
 
@@ -63,35 +95,51 @@
         <br>
         <div class="row">
             <div class="col-md-6">
-                <b> Category: </b>
-                <select>
+                <b> Category: </b><br>
+                <select class="rounded" name="categoryId" id="categoryId">
+                    <option>Choose Category</option>
+                    @for(category<-categories){
+
+                    <option value="@category.getCategoryId">
+                        @category.getCategoryName
+                    </option>
+                    }
 
                 </select>
 
             </div>
             <div class="col-md-6">
-                <b>Priority: </b>
-                <select>
+                <b>Priority: </b><br>
+                <select class="rounded" name="priorityId" id="priorityId">
+                    <option>Choose Priority</option>
+                    @for(priority<-priorities){
+
+                    <option value="@priority.getPriorityId">
+                        @priority.getPriorityName
+                    </option>
+                    }
 
                 </select>
 
             </div>
         </div>
-        <br>
-        <div class="row">
-            <div class="col-md-6">
-                <b> Phone Number: </b>
-                <input class="rounded" type="text" name="phoneNumber" id="phoneNumber" maxlength="10">
-            </div>
-            <div class="col-md-6">
-                <b> Email Address: </b>
-                <input class="rounded" type="text" name="emailAddres" id="emailAddress" maxlength="10">
-            </div>
+        <div class=container">
+            <b> Status: </b><br>
+            <select class="rounded" name="statusId" id="statusId">
+                <option>Choose Status</option>
+                @for(status<-statuses){
+
+                <option value="@status.getStatusId">
+                    @status.getStatusName
+                </option>
+                }
+
+            </select>
         </div>
         <br>
         <br>
         <div class=container">
-            <b> Subject: </b>
+            <b> Subject: </b><br>
             <input class="rounded" type="text" name="subject" id="subject" maxlength="10">
         </div>
         <br>
