@@ -1,4 +1,4 @@
-@(tickets:List[Ticket],searchCriteria:String)
+@(tickets:List[Ticket],searchCriteria:String,location:Location,statuses:List[Status],siteAdmins:List[SiteAdmin],priorities:List[Priority])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,35 +7,100 @@
     <title>Tickets</title>
 </head>
 <body>
-@appnavbar.render("tickets")
-<h1>Tickets</h1>
 
-<table>
-    <tr>
-        <th>Ticket Number</th>
-        <th>Name</th>
-    </tr>
-    @for(ticket <- tickets){
-    <tr>
-        <td>
-            <div>
-                <b>@ticket.getTicketsId()</b>
-            </div>
-        </td>
-        <td>
-            <a href="ticket/@ticket.getTicketsId()">@ticket.getName</a>
-        </td>
-        <td>
-            <a> Details </a>
-        </td>
-        <td>
-            createlinkedit
-        </td>
+<div class="container" align="center">
+    @appnavbar.render("tickets")
+    <div class="jumbotron">
+        <h1>Ticket List</h1>
+    </div>
+    <form class="form-control" method="get">
+        <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria">
+        <input class="btn btn-primary" type="submit" value="Search">
+        <div>
+            <a href="newticket">Create New </a>
+        </div>
+    </form>
+    <table class="table table-bordered">
+        <tr>
+            <th>Ticket #</th>
+            <th>Date Modified</th>
+            <th>Priority</th>
+            <th>Name</th>
+            <th>Assigned To</th>
+            <th>Subject</th>
+            <th>Location</th>
+            <th>Status</th>
+        </tr>
+        @for(ticket <- tickets){
+        <tr>
+            <td>
+                <div>
+                    @ticket.getTicketsId()
+                </div>
+            </td>
+            <td>
+                <div>
+                    @ticket.getStatusDateChanged()
+                </div>
+            </td>
+            <td>
+                <div>
+                    @for(priority<-priorities){
+                    @if(priority.getPriorityId==ticket.getPriorityId){
+                    @priority.getPriorityName()
+                    }
+                    }
+                </div>
+            </td>
+            <td>
+                <div>
+                    @ticket.getName()
+                </div>
+            </td>
+            <td>
+                <div>
+                    @for(siteAdmin<-siteAdmins){
+                    @if(siteAdmin.getSiteAdminId==ticket.getSiteAdminId){
+                    @siteAdmin.getSiteAdminName()
+                    }
+                    }
+                </div>
+            </td>
+            <td>
+                <div>
+                    @ticket.getSubjectTitle()
+                </div>
+            </td>
+            <td>
+                <div>
+                    @if(location.getLocationId==ticket.getLocationId){
+                    @location.getLocationName()
+                    }else{
+                    <span>Location Not Available</span>
+                    }
 
-    </tr>
-    }
-</table>
-work on ticket list including file count and reply count
+                </div>
+            </td>
+            <td>
+                <div>
+                    @for(status<-statuses){
+                    @if(status.getStatusId==ticket.getStatusId){
+                    @status.getStatusName()
+                    }
+                    }
+                </div>
+            </td>
+            <td>
+                <a> Details </a>
+            </td>
+            <td>
+                <a href="ticket/@ticket.getTicketsId()"> Edit </a>
+            </td>
+
+        </tr>
+        }
+    </table>
+
+</div>
 </body>
-
 </html>

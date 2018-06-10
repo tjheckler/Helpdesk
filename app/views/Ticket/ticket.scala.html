@@ -1,16 +1,89 @@
-@(ticket:Ticket)
+@(ticket:Ticket,locations:List[Location],statuses:List[Status],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region])
 <!DOCTYPE html>
+@import helper._
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
-    <title>Ticket Detail</title>
+    <title>Inventory Detail</title>
 </head>
 <body>
-@appnavbar.render("tickets")
-<h1>@ticket.getName</h1>
 
-work on viewing a ticket, with files and reply
+<div class="container" align="center">
+    @appnavbar.render("inventory")
+    <div class="jumbotron">
+        <h3>Ticket #: @ticket.getTicketsId</h3>
+        <h3>Date: @ticket.getStatusDateChanged</h3>
+        <h3>Category: @for(category<-categories){
+            @if(category.getCategoryId == ticket.getCategoryId){
+            @category.getCategoryName() }}</h3>
+        <h3>Priority: @for(priority<-priorities){
+            @if(priority.getPriorityId == ticket.getPriorityId){
+            @priority.getPriorityName() }}</h3>
+        <h3>Subject: @ticket.getSubjectTitle</h3>
+    </div>
+
+    <br>
+    <form method="post" class="form-control" align="center">
+        @CSRF.formField
+
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <b> Computer Name: </b><label>@ticket.getComputerName</label>
+            </div>
+            <div class="col-md-6">
+                <b> Asset Tag Number: </b><label>@ticket.getAssetTagNumber</label>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <b> User's Name: </b><label>@ticket.getName</label>
+            </div>
+            <div class="col-md-6">
+                <b> Assigned To: </b>
+                <label>
+                    @for(siteAdmin<-siteAdmins){
+                    @if(siteAdmin.getSiteAdminId == ticket.getSiteAdminId){
+                    @siteAdmin.getSiteAdminName() }}
+                </label>
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <b> Current Location: </b>
+                <label>
+                    @for(location<-locations){
+                    @if(location.getLocationId == ticket.getLocationId){
+                    @location.getLocationName() } }
+                </label>
+
+            </div>
+            <div class="col-md-6">
+                <b> Current Region:</b>
+                <label>
+                    @for(location<-locations){
+                    @for(region<-regions){
+                    @if(location.getRegionId == region.getRegionId){
+                    @region.getRegionName() }}}
+                </label>
+
+            </div>
+        </div>
+        <br>
+        <div>
+            <input class="btn btn-primary" type="submit" value="save">
+            <a href="/tickets">Back to List</a>
+        </div>
+        <br>
+        add reply, files, phone Email. add ability to post reply and post files
+    </form>
+</div>
+
+<br>
 </body>
 
 </html>

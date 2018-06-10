@@ -1,8 +1,7 @@
 package controllers;
 
 
-import models.Inventory;
-import models.Ticket;
+import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -43,16 +42,62 @@ public class TicketController extends Controller
         List<Ticket> tickets = jpaApi.em()
                 .createQuery(sql,Ticket.class).setParameter("searchCriteria", queryParameter).getResultList();
 
-        return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria));
+        String locationSql = "SELECT l FROM Location l ";
+        Location location = jpaApi.em()
+                .createQuery(locationSql, Location.class).getSingleResult();
+
+        String statusSql = "SELECT s FROM Status s ";
+        List<Status> statuses = jpaApi.em()
+                .createQuery(statusSql, Status.class).getResultList();
+
+        String adminSql = "SELECT sa FROM SiteAdmin sa ";
+        List<SiteAdmin> siteAdmins = jpaApi.em()
+                .createQuery(adminSql, SiteAdmin.class).getResultList();
+
+        String prioritySql = "SELECT p FROM Priority p ";
+        List<Priority> priority = jpaApi.em()
+                .createQuery(prioritySql, Priority.class).getResultList();
+
+        return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria,
+                location, statuses,siteAdmins,priority));
 
     }
 
-    public Result getTicket(int id)
+    @Transactional(readOnly = true)
+    public Result getTicket(Integer ticketsId)
     {
+        String sql = "SELECT t FROM Ticket t " +
+                "WHERE ticketsId = :ticketsId";
+        //add a join
+       Ticket ticket = jpaApi.em().createQuery(sql, Ticket.class).
+                setParameter("ticketsId", ticketsId).getSingleResult();
 
-        return ok();
+        String locationSql = "SELECT l FROM Location l ";
+        List<Location> locations = jpaApi.em()
+                .createQuery(locationSql, Location.class).getResultList();
+
+        String statusSql = "SELECT s FROM Status s ";
+        List<Status> statuses = jpaApi.em()
+                .createQuery(statusSql, Status.class).getResultList();
+
+        String adminSql = "SELECT sa FROM SiteAdmin sa ";
+        List<SiteAdmin> siteAdmins = jpaApi.em()
+                .createQuery(adminSql, SiteAdmin.class).getResultList();
+
+        String prioritySql = "SELECT p FROM Priority p ";
+        List<Priority> priorities = jpaApi.em()
+                .createQuery(prioritySql, Priority.class).getResultList();
+
+        String categorySql = "SELECT c FROM Category c ";
+        List<Category> categories = jpaApi.em()
+                .createQuery(categorySql, Category.class).getResultList();
+
+        String regionSql = "SELECT r FROM Region r ";
+        List<Region> regions = jpaApi.em()
+                .createQuery(regionSql, Region.class).getResultList();
+        return ok(views.html.Ticket.ticket.render(ticket,locations,statuses,
+                siteAdmins,priorities,categories,regions));
     }
-    //work on tickets stuff
     //work on reply stuff
     //work on file stuff
 }

@@ -25,7 +25,6 @@ public class Ticket
     private String computerName;
     private int assetTagNumber;
     private String subjectTitle;
-    private String description;
     private int statusId;
 
 
@@ -49,6 +48,25 @@ public class Ticket
         this.statusId = statusId;
     }
 
+    public int getCategoryId()
+    {
+        return categoryId;
+    }
+
+    public int getSiteAdminId()
+    {
+        return siteAdminId;
+    }
+
+    public int getPriorityId()
+    {
+        return priorityId;
+    }
+
+    public int getLocationId()
+    {
+        return locationId;
+    }
 
     public int getTicketsId()
     {
@@ -156,14 +174,5 @@ public class Ticket
         this.subjectTitle = subjectTitle;
     }
 
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
 
 }

@@ -60,7 +60,7 @@ public class PriorityController
     public Result postPriority(Integer priorityId)
     {
         String sql = "SELECT p FROM Priority p " +
-                "WHERE priorityId = :categoryId";
+                "WHERE priorityId = :priorityId";
 
         Priority priority = jpaApi.em().createQuery(sql, Priority.class)
                 .setParameter("priorityId", priorityId).getSingleResult();
