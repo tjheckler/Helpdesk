@@ -103,8 +103,8 @@ public class TicketController extends Controller
         String replySql = "SELECT r FROM Reply r " +
                 "WHERE ticketsId = :ticketsId"; //needs to be case statement
 
-       List<Reply> replies = jpaApi.em().createQuery(replySql, Reply.class)
-        .setParameter("ticketsId", ticketsId).getResultList();
+        List<Reply> replies = jpaApi.em().createQuery(replySql, Reply.class)
+                .setParameter("ticketsId", ticketsId).getResultList();
 
         String fileSql = "SELECT f FROM FileDetails f " +
                 "WHERE ticketsId = :ticketsId"; //needs to be case statement
@@ -132,7 +132,7 @@ public class TicketController extends Controller
 
         jpaApi.em().persist(ticket);
 
-        FileDetails newFileDetails = new FileDetails();
+
         Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
         File file1 = filePart1.getFile();
@@ -145,8 +145,9 @@ public class TicketController extends Controller
         Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
         File file3 = filePart3.getFile();
 
-        if (file1 != null)
+        if (file1 != null && filePart1.getFilename().length() > 0)
         {
+            FileDetails newFileDetails = new FileDetails();
             try
             {
                 newFileDetails.setAddedFiles(Files.toByteArray(file1));
@@ -154,12 +155,14 @@ public class TicketController extends Controller
             {
                 //do nothing
             }
+
             newFileDetails.setExtension(filePart1.getContentType());
             newFileDetails.setTicketId(ticketsId);
             jpaApi.em().persist(newFileDetails);
-    }
-        if (file2 != null)
+        }
+        if (file2 != null && filePart2.getFilename().length() > 0)
         {
+            FileDetails newFileDetails = new FileDetails();
             try
             {
                 newFileDetails.setAddedFiles(Files.toByteArray(file2));
@@ -172,8 +175,9 @@ public class TicketController extends Controller
             newFileDetails.setTicketId(ticketsId);
             jpaApi.em().persist(newFileDetails);
         }
-        if (file3 != null)
+        if (file3 != null && filePart3.getFilename().length() > 0)
         {
+            FileDetails newFileDetails = new FileDetails();
             try
             {
                 newFileDetails.setAddedFiles(Files.toByteArray(file3));
@@ -186,13 +190,16 @@ public class TicketController extends Controller
             newFileDetails.setTicketId(ticketsId);
             jpaApi.em().persist(newFileDetails);
         }
-        Reply reply1 = new Reply();
+
+        String replyText = form.get("reply");
+        if(replyText != null && replyText.length() > 0)
+        {
+            Reply reply1 = new Reply();
 
             reply1.setReply(form.get("reply"));
             reply1.setTicketsId(ticketsId);
             jpaApi.em().persist(reply1);
-
-
+        }
 
         return redirect(routes.TicketController.getTickets());
     }
@@ -234,7 +241,7 @@ public class TicketController extends Controller
     {
         DynamicForm form = formFactory.form().bindFromRequest();
         Ticket ticket = new Ticket();
-         String Name = form.get("Name");
+        String Name = form.get("Name");
         int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
         String emailAddress = form.get("emailAddress");
         int assetTagNumber = Integer.parseInt(form.get("assetTagNumber"));
@@ -277,7 +284,7 @@ public class TicketController extends Controller
         Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
         File file3 = filePart3.getFile();
 
-        if (file1 != null)
+        if (file1 != null && filePart1.getFilename().length() > 0)
         {
             try
             {
@@ -290,7 +297,7 @@ public class TicketController extends Controller
             newFileDetails.setTicketId(ticket.getTicketsId());
             jpaApi.em().persist(newFileDetails);
         }
-        if (file2 != null)
+        if (file2 != null && filePart2.getFilename().length() > 0)
         {
             try
             {
@@ -304,7 +311,7 @@ public class TicketController extends Controller
             newFileDetails.setTicketId(ticket.getTicketsId());
             jpaApi.em().persist(newFileDetails);
         }
-        if (file3 != null)
+        if (file3 != null && filePart3.getFilename().length() > 0)
         {
             try
             {
@@ -322,6 +329,7 @@ public class TicketController extends Controller
 
         return redirect(routes.TicketController.getTickets());
     }
+    @Transactional
     public Result getFiles(int fileDetailId)
     {
 
