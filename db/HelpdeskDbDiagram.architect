@@ -118,7 +118,7 @@
     <column id="COL31" populated="true" UUID="6fe9d3d6-7947-4f7e-bfc2-1ccb0b54832a" autoIncrement="false" autoIncrementSequenceName="FileDetails_FileDetailId_seq" defaultValue="" name="FileDetailId" nullable="0" physicalName="FileDetailId" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL32" populated="true" UUID="3bc79f81-661c-401b-8b8e-556ed5e9dee6" autoIncrement="false" autoIncrementSequenceName="FileDetails_FileExtension_seq" defaultValue="" name="FileExtension" nullable="1" physicalName="FileExtension" precision="4" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL32" populated="true" UUID="3bc79f81-661c-401b-8b8e-556ed5e9dee6" autoIncrement="false" autoIncrementSequenceName="FileDetails_FileExtension_seq" defaultValue="" name="FileExtension" nullable="1" physicalName="FileExtension" precision="21000" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     <column id="COL33" populated="true" UUID="57dd4618-00d7-4a8a-bb4b-caf455dd6e75" autoIncrement="false" autoIncrementSequenceName="FileDetails_AddedFiles_seq" defaultValue="" name="AddedFiles" nullable="1" physicalName="AddedFiles" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2004" userDefinedTypeUUID="5c50e616-a448-40e1-abcd-5bfc04dcc607" >
