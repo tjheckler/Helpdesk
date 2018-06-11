@@ -124,34 +124,12 @@ public class TicketController extends Controller
 
 
         DynamicForm form = formFactory.form().bindFromRequest();
-        Ticket ticket = new Ticket();
-        String Name = form.get("Name");
-        int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
-        String emailAddress = form.get("emailAddress");
-        int assetTagNumber = Integer.parseInt(form.get("assetTagNumber"));
-        String subjectTitle = form.get("subjectTitle");
-        String description = form.get("description");
-        String computerName = form.get("computerName");
-        Date statusDateChanged = new Date();
-        int locationId = Integer.parseInt(form.get("locationId"));
-        int priorityId = Integer.parseInt(form.get("regionId"));
-        int categoryId = Integer.parseInt(form.get("categoryId"));
-        int statusId = Integer.parseInt(form.get("statusId"));
-        int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
+        String sql = "SELECT t FROM Ticket t " +
+                "WHERE ticketsId = :ticketsId";
 
-        ticket.setComputerName(Name);
-        ticket.setPhoneNumber(phoneNumber);
-        ticket.setEmailAddress(emailAddress);
-        ticket.setAssetTagNumber(assetTagNumber);
-        ticket.setSubjectTitle(subjectTitle);
-        ticket.setDescription(description);
-        ticket.setComputerName(computerName);
-        ticket.setPriority(priorityId);
-        ticket.setCategory(categoryId);
-        ticket.setStatusId(statusId);
-        ticket.setLocation(locationId);
-        ticket.setSiteAdmin(siteAdminId);
-        ticket.setStatusDateChanged(statusDateChanged);
+        Ticket ticket = jpaApi.em().createQuery(sql, Ticket.class)
+                .setParameter("ticketsId", ticketsId).getSingleResult();
+
         jpaApi.em().persist(ticket);
 
         FileDetails newFileDetails = new FileDetails();
@@ -172,53 +150,48 @@ public class TicketController extends Controller
             try
             {
                 newFileDetails.setAddedFiles(Files.toByteArray(file1));
-                newFileDetails.setExtension(filePart1.getContentType());
-                newFileDetails.setTicketId(ticketsId);
-                jpaApi.em().persist(newFileDetails);
             } catch (Exception e)
             {
                 //do nothing
             }
-        }
+            newFileDetails.setExtension(filePart1.getContentType());
+            newFileDetails.setTicketId(ticketsId);
+            jpaApi.em().persist(newFileDetails);
+    }
         if (file2 != null)
         {
             try
             {
                 newFileDetails.setAddedFiles(Files.toByteArray(file2));
-                newFileDetails.setExtension(filePart2.getContentType());
-                newFileDetails.setTicketId(ticketsId);
-                jpaApi.em().persist(newFileDetails);
+
             } catch (Exception e)
             {
                 //do nothing
             }
+            newFileDetails.setExtension(filePart2.getContentType());
+            newFileDetails.setTicketId(ticketsId);
+            jpaApi.em().persist(newFileDetails);
         }
         if (file3 != null)
         {
             try
             {
                 newFileDetails.setAddedFiles(Files.toByteArray(file3));
-                newFileDetails.setExtension(filePart3.getContentType());
-                newFileDetails.setTicketId(ticketsId);
-                jpaApi.em().persist(newFileDetails);
+
             } catch (Exception e)
             {
                 //do nothing
             }
+            newFileDetails.setExtension(filePart3.getContentType());
+            newFileDetails.setTicketId(ticketsId);
+            jpaApi.em().persist(newFileDetails);
         }
         Reply reply1 = new Reply();
-        if (reply1 != null)
-        {
-            try
-            {
-                reply1.setReply(form.get("reply"));
-                reply1.setTicketsId(ticketsId);
-                jpaApi.em().persist(reply1);
-            }catch (Exception e)
-            {
-                //do nothing
-            }
-        }
+
+            reply1.setReply(form.get("reply"));
+            reply1.setTicketsId(ticketsId);
+            jpaApi.em().persist(reply1);
+
 
 
         return redirect(routes.TicketController.getTickets());
@@ -259,7 +232,39 @@ public class TicketController extends Controller
     @Transactional
     public Result postNewTicket()
     {
-        // Add info to save
+        DynamicForm form = formFactory.form().bindFromRequest();
+        Ticket ticket = new Ticket();
+         String Name = form.get("Name");
+        int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
+        String emailAddress = form.get("emailAddress");
+        int assetTagNumber = Integer.parseInt(form.get("assetTagNumber"));
+        String subjectTitle = form.get("subjectTitle");
+        String description = form.get("description");
+        String computerName = form.get("computerName");
+        Date statusDateChanged = new Date();
+        int locationId = Integer.parseInt(form.get("locationId"));
+        int priorityId = Integer.parseInt(form.get("regionId"));
+        int categoryId = Integer.parseInt(form.get("categoryId"));
+        int statusId = Integer.parseInt(form.get("statusId"));
+        int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
+
+        ticket.setComputerName(Name);
+        ticket.setPhoneNumber(phoneNumber);
+        ticket.setEmailAddress(emailAddress);
+        ticket.setAssetTagNumber(assetTagNumber);
+        ticket.setSubjectTitle(subjectTitle);
+        ticket.setDescription(description);
+        ticket.setComputerName(computerName);
+        ticket.setPriority(priorityId);
+        ticket.setCategory(categoryId);
+        ticket.setStatusId(statusId);
+        ticket.setLocation(locationId);
+        ticket.setSiteAdmin(siteAdminId);
+        ticket.setStatusDateChanged(statusDateChanged);
+        jpaApi.em().persist(ticket);
+
+        FileDetails newFileDetails = new FileDetails();
+
         Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
         File file1 = filePart1.getFile();
@@ -276,34 +281,55 @@ public class TicketController extends Controller
         {
             try
             {
-                //employee.setPicture(Files.toByteArray(file1));
+                newFileDetails.setAddedFiles(Files.toByteArray(file1));
             } catch (Exception e)
             {
                 //do nothing
             }
+            newFileDetails.setExtension(filePart1.getContentType());
+            newFileDetails.setTicketId(ticket.getTicketsId());
+            jpaApi.em().persist(newFileDetails);
         }
         if (file2 != null)
         {
             try
             {
-                //employee.setPicture(Files.toByteArray(file2));
+                newFileDetails.setAddedFiles(Files.toByteArray(file2));
+
             } catch (Exception e)
             {
                 //do nothing
             }
+            newFileDetails.setExtension(filePart2.getContentType());
+            newFileDetails.setTicketId(ticket.getTicketsId());
+            jpaApi.em().persist(newFileDetails);
         }
         if (file3 != null)
         {
             try
             {
-                //employee.setPicture(Files.toByteArray(file3));
+                newFileDetails.setAddedFiles(Files.toByteArray(file3));
+
             } catch (Exception e)
             {
                 //do nothing
             }
+            newFileDetails.setExtension(filePart3.getContentType());
+            newFileDetails.setTicketId(ticket.getTicketsId());
+            jpaApi.em().persist(newFileDetails);
         }
-        Ticket ticket = new Ticket();
+
 
         return redirect(routes.TicketController.getTickets());
+    }
+    public Result getFiles(int fileDetailId)
+    {
+
+        String sql = "SELECT f FROM FileDetails f " +
+                "WHERE fileDetailId = :fileDetailId";
+        FileDetails fileDetail = jpaApi.em().createQuery(sql, FileDetails.class).
+                setParameter("fileDetailId", fileDetailId).getSingleResult();
+        String contentType = fileDetail.getExtension();
+        return ok(fileDetail.getAddedFiles()).as(contentType);
     }
 }

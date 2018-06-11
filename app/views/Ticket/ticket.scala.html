@@ -90,7 +90,7 @@
 
                 <table class="table table-bordered">
                     <td>
-                        <img src="@fileDetail.getFileDetailId" width="50" height="50">
+                        <a href="../files/@fileDetail.getFileDetailId"> Download File </a>
                     </td>
                 </table>
                 }}
@@ -112,7 +112,7 @@
     </div>
     <br>
 
-    <form method="post" class="form-control" align="center">
+    <form method="post" class="form-control" align="center" enctype="multipart/form-data">
         @CSRF.formField
         <div>
             <label><b>Reply:</b></label>
@@ -125,9 +125,9 @@
             <label>255 Characters Allowed</label>
             <br>
             <br>
-            <input class="rounded" type="file" id="files1" name="files1" multiple="multiple">
-            <input class="rounded" type="file" id="files2" name="files2" multiple="multiple">
-            <input class="rounded" type="file" id="files3" name="files3" multiple="multiple">
+            <input class="rounded" type="file" id="file1" name="file1" multiple="multiple">
+            <input class="rounded" type="file" id="file2" name="file2" multiple="multiple">
+            <input class="rounded" type="file" id="file3" name="file3" multiple="multiple">
 
         </div>
         <br>
