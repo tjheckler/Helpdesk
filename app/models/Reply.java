@@ -19,6 +19,10 @@ public class Reply
         return replyId;
     }
 
+    public int getTicketsId()
+    {
+        return ticketsId;
+    }
 
     public String getReply()
     {

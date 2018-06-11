@@ -26,7 +26,7 @@ public class FileDetails
         this.ticketsId = ticketId;
     }
 
-    public int getFileDetailsId()
+    public int getFileDetailId()
     {
         return fileDetailId;
     }

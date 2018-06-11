@@ -1,4 +1,4 @@
-@(ticket:Ticket,locations:List[Location],statuses:List[Status],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],replies:List[Reply],fileDetails:List[FileDetail])
+@(ticket:Ticket,locations:List[Location],statuses:List[Status],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],replies:List[Reply],fileDetails:List[FileDetails])
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -84,11 +84,30 @@
         </div>
         <br>
         <div class="container" align="center">
-            show current uploaded files here if not null
+            <div align="center">
+                @for(fileDetail<-fileDetails){
+                @if(fileDetail.getTicketId == ticket.getTicketsId){
+
+                <table class="table table-bordered">
+                    <td>
+                        <img src="@fileDetail.getFileDetailId" width="50" height="50">
+                    </td>
+                </table>
+                }}
+            </div>
         </div>
         <br>
-        <div>
-            <b> Reply (ID)</b><label> for each reply in replies display reply that match ticket id, if reply is null span no replies</label>
+        <div align="center">
+            @for(reply<-replies){
+            @if(reply.getTicketsId == ticket.getTicketsId){
+
+            <table class="table table-bordered">
+                <td>
+                    <b> Reply: </b>
+            @reply.getReply()
+                </td>
+           </table>
+            }}
         </div>
     </div>
     <br>
