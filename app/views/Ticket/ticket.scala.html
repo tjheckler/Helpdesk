@@ -1,4 +1,4 @@
-@(ticket:Ticket,locations:List[Location],statuses:List[Status],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region])
+@(ticket:Ticket,locations:List[Location],statuses:List[Status],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],reply:Reply,fileDetail:FileDetail)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -83,6 +83,10 @@
         <b> Description: </b><label>@ticket.getDescription</label>
         </div>
         <br>
+        <div class="container" align="center">
+            show current uploaded files here if not null
+        </div>
+        <br>
         <div>
             <b> Reply (ID)</b><label> for each reply in replies display reply that match ticket id, if reply is null span no replies</label>
         </div>
@@ -102,9 +106,9 @@
             <label>255 Characters Allowed</label>
             <br>
             <br>
-            <input class="rounded" type="file" multiple="multiple">
-            <input class="rounded" type="file" multiple="multiple">
-            <input class="rounded" type="file" multiple="multiple">
+            <input class="rounded" type="file" id="files1" name="files1" multiple="multiple">
+            <input class="rounded" type="file" id="files2" name="files2" multiple="multiple">
+            <input class="rounded" type="file" id="files3" name="files3" multiple="multiple">
 
         </div>
         <br>

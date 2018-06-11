@@ -28,6 +28,7 @@ public class Ticket
     private String subjectTitle;
     private int statusId;
 
+
     public String getDescription()
     {
         return description;

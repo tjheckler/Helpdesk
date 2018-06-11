@@ -14,13 +14,7 @@ public class FileDetail
     private String extension;
     private byte[] addedFiles;
 
-    public FileDetail(int fileDetailsId,int ticketId, String extension,byte[] addedFiles)
-    {
-        this.fileDetailsId = fileDetailsId;
-        this.ticketId = ticketId;
-        this.addedFiles = addedFiles;
-        this.extension = extension;
-    }
+
 
     public int getTicketId()
     {

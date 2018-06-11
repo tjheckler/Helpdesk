@@ -70,7 +70,7 @@ public class InventoryController extends Controller
     {
         String sql = "SELECT i FROM Inventory i " +
                 "WHERE inventoryId = :inventoryId";
-// add a join
+
         Inventory inventory = jpaApi.em().createQuery(sql, Inventory.class)
                 .setParameter("inventoryId", inventoryId).getSingleResult();
         DynamicForm form = formFactory.form().bindFromRequest();

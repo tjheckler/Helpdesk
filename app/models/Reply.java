@@ -11,6 +11,7 @@ public class Reply
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int replyId;
     private String reply;
+    private int ticketsId;
 
 
     public int getReplyId()
@@ -27,5 +28,10 @@ public class Reply
     public void setReply(String reply)
     {
         this.reply = reply;
+    }
+
+    public void setTicketsId(int ticketsId)
+    {
+        this.ticketsId = ticketsId;
     }
 }
