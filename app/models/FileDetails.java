@@ -5,30 +5,30 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 @Entity
-public class FileDetail
+public class FileDetails
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int fileDetailsId;
-    private int ticketId;
-    private String extension;
+    private int fileDetailId;
+    private int ticketsId;
+    private String fileExtension;
     private byte[] addedFiles;
 
 
 
     public int getTicketId()
     {
-        return ticketId;
+        return ticketsId;
     }
 
     public void setTicketId(int ticketId)
     {
-        this.ticketId = ticketId;
+        this.ticketsId = ticketId;
     }
 
     public int getFileDetailsId()
     {
-        return fileDetailsId;
+        return fileDetailId;
     }
 
 
@@ -44,11 +44,11 @@ public class FileDetail
 
     public String getExtension()
     {
-        return extension;
+        return fileExtension;
     }
 
     public void setExtension(String extension)
     {
-        this.extension = extension;
+        this.fileExtension = extension;
     }
 }

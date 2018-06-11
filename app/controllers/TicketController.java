@@ -103,17 +103,17 @@ public class TicketController extends Controller
         String replySql = "SELECT r FROM Reply r " +
                 "WHERE ticketsId = :ticketsId"; //needs to be case statement
 
-       Reply reply = jpaApi.em().createQuery(replySql, Reply.class)
-        .setParameter("ticketsId", ticketsId).getSingleResult();
+       List<Reply> replies = jpaApi.em().createQuery(replySql, Reply.class)
+        .setParameter("ticketsId", ticketsId).getResultList();
 
-        String fileSql = "SELECT f FROM FileDetail f " +
+        String fileSql = "SELECT f FROM FileDetails f " +
                 "WHERE ticketsId = :ticketsId"; //needs to be case statement
 
-        FileDetail fileDetail = jpaApi.em().createQuery(fileSql, FileDetail.class)
-                .setParameter("ticketsId", ticketsId).getSingleResult();
+        List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
+                .setParameter("ticketsId", ticketsId).getResultList();
 
         return ok(views.html.Ticket.ticket.render(ticket, locations, statuses,
-                siteAdmins, priorities, categories, regions, reply, fileDetail));
+                siteAdmins, priorities, categories, regions, replies, fileDetails));
 
 
     }
@@ -154,7 +154,7 @@ public class TicketController extends Controller
         ticket.setStatusDateChanged(statusDateChanged);
         jpaApi.em().persist(ticket);
 
-        FileDetail newFileDetail = new FileDetail();
+        FileDetails newFileDetails = new FileDetails();
         Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
         File file1 = filePart1.getFile();
@@ -171,10 +171,10 @@ public class TicketController extends Controller
         {
             try
             {
-                newFileDetail.setAddedFiles(Files.toByteArray(file1));
-                newFileDetail.setExtension(filePart1.getContentType());
-                newFileDetail.setTicketId(ticketsId);
-                jpaApi.em().persist(newFileDetail);
+                newFileDetails.setAddedFiles(Files.toByteArray(file1));
+                newFileDetails.setExtension(filePart1.getContentType());
+                newFileDetails.setTicketId(ticketsId);
+                jpaApi.em().persist(newFileDetails);
             } catch (Exception e)
             {
                 //do nothing
@@ -184,10 +184,10 @@ public class TicketController extends Controller
         {
             try
             {
-                newFileDetail.setAddedFiles(Files.toByteArray(file2));
-                newFileDetail.setExtension(filePart2.getContentType());
-                newFileDetail.setTicketId(ticketsId);
-                jpaApi.em().persist(newFileDetail);
+                newFileDetails.setAddedFiles(Files.toByteArray(file2));
+                newFileDetails.setExtension(filePart2.getContentType());
+                newFileDetails.setTicketId(ticketsId);
+                jpaApi.em().persist(newFileDetails);
             } catch (Exception e)
             {
                 //do nothing
@@ -197,10 +197,10 @@ public class TicketController extends Controller
         {
             try
             {
-                newFileDetail.setAddedFiles(Files.toByteArray(file3));
-                newFileDetail.setExtension(filePart3.getContentType());
-                newFileDetail.setTicketId(ticketsId);
-                jpaApi.em().persist(newFileDetail);
+                newFileDetails.setAddedFiles(Files.toByteArray(file3));
+                newFileDetails.setExtension(filePart3.getContentType());
+                newFileDetails.setTicketId(ticketsId);
+                jpaApi.em().persist(newFileDetails);
             } catch (Exception e)
             {
                 //do nothing
