@@ -58,6 +58,9 @@ POST    /status/:id                  controllers.StatusController.postStatus(id:
 GET     /newstatus                   controllers.StatusController.getNewStatus
 POST    /newstatus                   controllers.StatusController.postNewStatus
 
+GET     /reports                     controllers.ReportsController.getReports
+
+
 GET     /files/:id                       controllers.TicketController.getFiles(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
