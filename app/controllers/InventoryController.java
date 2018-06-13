@@ -30,7 +30,12 @@ public class InventoryController extends Controller
     {
         DynamicForm form = formFactory.form().bindFromRequest();
         String sql = "SELECT i FROM Inventory i " +
-                " WHERE computerName LIKE :searchCriteria " +
+                "JOIN Location l ON i.locationId = l.locationId "+
+                "WHERE i.computerName LIKE :searchCriteria OR " +
+                "l.locationName LIKE :searchCriteria OR "+
+                "i.buildingLocation LIKE :searchCriteria OR "+
+                "i.currentUser LIKE :searchCriteria OR "+
+                "i.assetTagNumber LIKE :searchCriteria "+
                 "ORDER BY computerName";
         String searchCriteria = form.get("searchCriteria");
         if (searchCriteria == null)

@@ -44,6 +44,7 @@ public class TicketController extends Controller
                 "l.locationName LIKE :searchCriteria OR "+
                 "p.priorityName LIKE :searchCriteria OR "+
                 "sa.siteAdminName LIKE :searchCriteria OR "+
+                "t.ticketsId LIKE :searchCriteria OR "+
                 "s.statusName Like :searchCriteria "+
                 "GROUP BY t.siteAdminId "+
                 "ORDER BY t.name "
