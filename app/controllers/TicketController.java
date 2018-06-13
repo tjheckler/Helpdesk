@@ -35,7 +35,9 @@ public class TicketController extends Controller
         DynamicForm form = formFactory.form().bindFromRequest();
         String sql = "SELECT t FROM Ticket t " +
                 "WHERE name LIKE :searchCriteria " +
-                "ORDER BY name ";
+                "GROUP BY siteAdminId "+
+                "ORDER BY name "
+                ;
         String searchCriteria = form.get("searchCriteria");
         if (searchCriteria == null)
         {
