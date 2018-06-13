@@ -58,25 +58,21 @@ public class TicketController extends Controller
         List<Ticket> tickets = jpaApi.em()
                 .createQuery(sql, Ticket.class).setParameter("searchCriteria", queryParameter).getResultList();
 
-        String locationSql = "SELECT l FROM Location l "+
-                "WHERE UPPER(locationName) LIKE :searchCriteria " ;
+        String locationSql = "SELECT l FROM Location l ";
         List<Location> locations = jpaApi.em()
-                .createQuery(locationSql, Location.class).setParameter("searchCriteria", queryParameter).getResultList();
+                .createQuery(locationSql, Location.class).getResultList();
 
-        String statusSql = "SELECT s FROM Status s "+
-                "WHERE UPPER(statusName) LIKE :searchCriteria " ;
+        String statusSql = "SELECT s FROM Status s " ;
         List<Status> statuses = jpaApi.em()
-                .createQuery(statusSql, Status.class).setParameter("searchCriteria", queryParameter).getResultList();
+                .createQuery(statusSql, Status.class).getResultList();
 
-        String adminSql = "SELECT sa FROM SiteAdmin sa "+
-                "WHERE UPPER(siteAdminName) LIKE :searchCriteria " ;
+        String adminSql = "SELECT sa FROM SiteAdmin sa ";
         List<SiteAdmin> siteAdmins = jpaApi.em()
-                .createQuery(adminSql, SiteAdmin.class).setParameter("searchCriteria", queryParameter).getResultList();
+                .createQuery(adminSql, SiteAdmin.class).getResultList();
 
-        String prioritySql = "SELECT p FROM Priority p "+
-                "WHERE UPPER(priorityName) LIKE :searchCriteria " ;
+        String prioritySql = "SELECT p FROM Priority p ";
         List<Priority> priority = jpaApi.em()
-                .createQuery(prioritySql, Priority.class).setParameter("searchCriteria", queryParameter).getResultList();
+                .createQuery(prioritySql, Priority.class).getResultList();
 
         return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria,
                 locations, statuses, siteAdmins, priority));
