@@ -1,12 +1,10 @@
 
-
 --Generate Priority
 insert into priority (PriorityName) values('High');
 insert into priority (PriorityName) values('Low');
 insert into priority (PriorityName) values('Critical');
 insert into priority (PriorityName) values('Medium');
 insert into priority (PriorityName) values('Immediate');
-
 
 
 --Generate Category
@@ -44,197 +42,196 @@ insert into location(locationname,regionId) values('Oak Grove',2);
 
 
 --Generate Inventory
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',13)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',13);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',4)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',4);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',4)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',4);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 1',4)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 1',4);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 2',2)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 2',2);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 3',2)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 3',2);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 4',2)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 4',2);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',10)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',10);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',14)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',11);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',12)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',12);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',12)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',12);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',12)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',12);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 1',12)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 1',12);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 2',12)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 2',12);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 3',12)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 3',12);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 4',11)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 4',11);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',11)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',11);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',11)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',11);
 
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',11)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',11);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',10)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',10);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',10)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',10);
+ insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 1',10);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 1',10)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 2',10);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 2',10)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 3',9);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 3',9)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 4',9);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 4',9)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',9);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',9)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',9);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',9)
 
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',8);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',8)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',8);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',8)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',8);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',8)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 1',8);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 1',8)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 2',8);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 2',8)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 3',8);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 3',8)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 4',8);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 4',8)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',8);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',8)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',7);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',7)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',7);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',7)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',7);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',7)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',7);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',7)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 1',7);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 1',7)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 2',6);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 2',6)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 3',6);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 3',6)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 4',6);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 4',6)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',6);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',6)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',4);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',4)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',5);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',5)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',4);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',4)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',5);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',5)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 1',5);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 1',5)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 2',6);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 2',6)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 3',3);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 3',3)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 4',3);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 4',3)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',3);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',3)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',2);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',2)
 
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',2);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby - Kiosk',2)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',1);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',1)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',1);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Lobby -Front Desk',1)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 1',1);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 1',1)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 2',1);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 2',1)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 3',6);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 3',6)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Exam 4',8);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Exam 4',8)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',9);
 
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',9)
-
-insert into inventory (ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
-values ('wert123456789',123456789,'Jane Doe', 'Admin Office',13)
+ insert into inventory(ComputerName,AssetTagNumber,CurrentUser,BuildingLocation,LocationId)
+ values ('wert123456789',123456789,'Jane Doe', 'Admin Office',13);
 
 
 --Generate Site Admins
