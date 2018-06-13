@@ -67,7 +67,15 @@ public class ReportsController extends Controller
 
         List<TicketRegionCount> ticketRegionCounts = jpaApi.em().createQuery(regionSql, TicketRegionCount.class).getResultList();
 
-        return ok(views.html.Report.reports.render(ticketCategoryCounts,ticketSiteAdminCounts,ticketPriorityCounts,ticketLocationCounts,ticketRegionCounts));
+        String InventorySql = "SELECT  NEW InventoryLocationCount(l.locationId, l.locationName, COUNT(*)) " +
+                "FROM Inventory i " +
+                "JOIN Location l ON l.locationId = i.locationId " +
+                "GROUP BY l.locationName " +
+                "ORDER BY l.locationName";
+
+        List<InventoryLocationCount> inventoryLocationCounts = jpaApi.em().createQuery(InventorySql, InventoryLocationCount.class).getResultList();
+
+        return ok(views.html.Report.reports.render(ticketCategoryCounts,ticketSiteAdminCounts,ticketPriorityCounts,ticketLocationCounts,ticketRegionCounts,inventoryLocationCounts));
     }
 
 

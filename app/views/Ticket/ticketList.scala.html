@@ -1,4 +1,4 @@
-@(tickets:List[Ticket],searchCriteria:String,location:Location,statuses:List[Status],siteAdmins:List[SiteAdmin],priorities:List[Priority])
+@(tickets:List[Ticket],searchCriteria:String,locations:List[Location],statuses:List[Status],siteAdmins:List[SiteAdmin],priorities:List[Priority])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +17,9 @@
         <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria">
         <input class="btn btn-primary" type="submit" value="Search">
         <div>
-            <a href="newticket">Create New </a>
+            <a href="/tickets">Clear Search</a>
+            <br>
+            <a href="newticket">Create New Ticket </a>
         </div>
     </form>
     <table class="table table-bordered">
@@ -72,12 +74,12 @@
                 </div>
             </td>
             <td>
-                <div>
+                <div>@for(location<-locations){
                     @if(location.getLocationId==ticket.getLocationId){
                     @location.getLocationName()
                     }else{
                     <span>Location Not Available</span>
-                    }
+                    }}
 
                 </div>
             </td>

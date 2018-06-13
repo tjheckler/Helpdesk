@@ -34,9 +34,19 @@ public class TicketController extends Controller
     {
         DynamicForm form = formFactory.form().bindFromRequest();
         String sql = "SELECT t FROM Ticket t " +
-                "WHERE name LIKE :searchCriteria " +
-                "GROUP BY siteAdminId "+
-                "ORDER BY name "
+                "JOIN Location l ON t.locationId = l.locationId "+
+                "JOIN Priority p ON t.priorityId = p.priorityId "+
+                "JOIN Category c ON t.categoryId = c.categoryId "+
+                "JOIN SiteAdmin sa ON t.siteAdminId = sa.siteAdminId "+
+                "JOIN Status s ON t.statusId = s.statusId "+
+                "WHERE t.name LIKE :searchCriteria  OR " +
+                "t.subjectTitle LIKE :searchCriteria OR "+
+                "l.locationName LIKE :searchCriteria OR "+
+                "p.priorityName LIKE :searchCriteria OR "+
+                "sa.siteAdminName LIKE :searchCriteria OR "+
+                "s.statusName Like :searchCriteria "+
+                "GROUP BY t.siteAdminId "+
+                "ORDER BY t.name "
                 ;
         String searchCriteria = form.get("searchCriteria");
         if (searchCriteria == null)
@@ -48,24 +58,28 @@ public class TicketController extends Controller
         List<Ticket> tickets = jpaApi.em()
                 .createQuery(sql, Ticket.class).setParameter("searchCriteria", queryParameter).getResultList();
 
-        String locationSql = "SELECT l FROM Location l ";
-        Location location = jpaApi.em()
-                .createQuery(locationSql, Location.class).getSingleResult();
+        String locationSql = "SELECT l FROM Location l "+
+                "WHERE UPPER(locationName) LIKE :searchCriteria " ;
+        List<Location> locations = jpaApi.em()
+                .createQuery(locationSql, Location.class).setParameter("searchCriteria", queryParameter).getResultList();
 
-        String statusSql = "SELECT s FROM Status s ";
+        String statusSql = "SELECT s FROM Status s "+
+                "WHERE UPPER(statusName) LIKE :searchCriteria " ;
         List<Status> statuses = jpaApi.em()
-                .createQuery(statusSql, Status.class).getResultList();
+                .createQuery(statusSql, Status.class).setParameter("searchCriteria", queryParameter).getResultList();
 
-        String adminSql = "SELECT sa FROM SiteAdmin sa ";
+        String adminSql = "SELECT sa FROM SiteAdmin sa "+
+                "WHERE UPPER(siteAdminName) LIKE :searchCriteria " ;
         List<SiteAdmin> siteAdmins = jpaApi.em()
-                .createQuery(adminSql, SiteAdmin.class).getResultList();
+                .createQuery(adminSql, SiteAdmin.class).setParameter("searchCriteria", queryParameter).getResultList();
 
-        String prioritySql = "SELECT p FROM Priority p ";
+        String prioritySql = "SELECT p FROM Priority p "+
+                "WHERE UPPER(priorityName) LIKE :searchCriteria " ;
         List<Priority> priority = jpaApi.em()
-                .createQuery(prioritySql, Priority.class).getResultList();
+                .createQuery(prioritySql, Priority.class).setParameter("searchCriteria", queryParameter).getResultList();
 
         return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria,
-                location, statuses, siteAdmins, priority));
+                locations, statuses, siteAdmins, priority));
 
     }
 
