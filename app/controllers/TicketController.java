@@ -34,21 +34,19 @@ public class TicketController extends Controller
     {
         DynamicForm form = formFactory.form().bindFromRequest();
         String sql = "SELECT t FROM Ticket t " +
-                "JOIN Location l ON t.locationId = l.locationId "+
-                "JOIN Priority p ON t.priorityId = p.priorityId "+
-                "JOIN Category c ON t.categoryId = c.categoryId "+
-                "JOIN SiteAdmin sa ON t.siteAdminId = sa.siteAdminId "+
-                "JOIN Status s ON t.statusId = s.statusId "+
+                "JOIN Location l ON t.locationId = l.locationId " +
+                "JOIN Priority p ON t.priorityId = p.priorityId " +
+                "JOIN Category c ON t.categoryId = c.categoryId " +
+                "JOIN SiteAdmin sa ON t.siteAdminId = sa.siteAdminId " +
+                "JOIN TicketStatus s ON t.statusId = s.statusId " +
                 "WHERE t.name LIKE :searchCriteria  OR " +
-                "t.subjectTitle LIKE :searchCriteria OR "+
-                "l.locationName LIKE :searchCriteria OR "+
-                "p.priorityName LIKE :searchCriteria OR "+
-                "sa.siteAdminName LIKE :searchCriteria OR "+
-                "t.ticketsId LIKE :searchCriteria OR "+
-                "s.statusName Like :searchCriteria "+
-                "GROUP BY t.siteAdminId "+
-                "ORDER BY t.name "
-                ;
+                "t.subjectTitle LIKE :searchCriteria OR " +
+                "l.locationName LIKE :searchCriteria OR " +
+                "p.priorityName LIKE :searchCriteria OR " +
+                "sa.siteAdminName LIKE :searchCriteria OR " +
+                "t.ticketsId LIKE :searchCriteria OR " +
+                "s.statusName Like :searchCriteria " +
+                "ORDER BY t.ticketsId ";
         String searchCriteria = form.get("searchCriteria");
         if (searchCriteria == null)
         {
@@ -63,9 +61,9 @@ public class TicketController extends Controller
         List<Location> locations = jpaApi.em()
                 .createQuery(locationSql, Location.class).getResultList();
 
-        String statusSql = "SELECT s FROM Status s " ;
-        List<Status> statuses = jpaApi.em()
-                .createQuery(statusSql, Status.class).getResultList();
+        String statusSql = "SELECT s FROM TicketStatus s ";
+        List<TicketStatus> ticketStatuses = jpaApi.em()
+                .createQuery(statusSql, TicketStatus.class).getResultList();
 
         String adminSql = "SELECT sa FROM SiteAdmin sa ";
         List<SiteAdmin> siteAdmins = jpaApi.em()
@@ -76,7 +74,7 @@ public class TicketController extends Controller
                 .createQuery(prioritySql, Priority.class).getResultList();
 
         return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria,
-                locations, statuses, siteAdmins, priority));
+                locations, ticketStatuses, siteAdmins, priority));
 
     }
 
@@ -93,9 +91,9 @@ public class TicketController extends Controller
         List<Location> locations = jpaApi.em()
                 .createQuery(locationSql, Location.class).getResultList();
 
-        String statusSql = "SELECT s FROM Status s ";
-        List<Status> statuses = jpaApi.em()
-                .createQuery(statusSql, Status.class).getResultList();
+        String statusSql = "SELECT s FROM TicketStatus s ";
+        List<TicketStatus> ticketStatuses = jpaApi.em()
+                .createQuery(statusSql, TicketStatus.class).getResultList();
 
         String adminSql = "SELECT sa FROM SiteAdmin sa ";
         List<SiteAdmin> siteAdmins = jpaApi.em()
@@ -125,7 +123,7 @@ public class TicketController extends Controller
         List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                 .setParameter("ticketsId", ticketsId).getResultList();
 
-        return ok(views.html.Ticket.ticket.render(ticket, locations, statuses,
+        return ok(views.html.Ticket.ticket.render(ticket, locations, ticketStatuses,
                 siteAdmins, priorities, categories, regions, replies, fileDetails));
 
 
@@ -205,7 +203,7 @@ public class TicketController extends Controller
         }
 
         String replyText = form.get("reply");
-        if(replyText != null && replyText.length() > 0)
+        if (replyText != null && replyText.length() > 0)
         {
             Reply reply1 = new Reply();
 
@@ -225,9 +223,9 @@ public class TicketController extends Controller
         List<Location> locations = jpaApi.em()
                 .createQuery(locationSql, Location.class).getResultList();
 
-        String statusSql = "SELECT s FROM Status s ";
-        List<Status> statuses = jpaApi.em()
-                .createQuery(statusSql, Status.class).getResultList();
+        String statusSql = "SELECT s FROM TicketStatus s ";
+        List<TicketStatus> ticketStatuses = jpaApi.em()
+                .createQuery(statusSql, TicketStatus.class).getResultList();
 
         String adminSql = "SELECT sa FROM SiteAdmin sa ";
         List<SiteAdmin> siteAdmins = jpaApi.em()
@@ -245,7 +243,7 @@ public class TicketController extends Controller
         List<Region> regions = jpaApi.em()
                 .createQuery(regionSql, Region.class).getResultList();
 
-        return ok(views.html.Ticket.newticket.render(locations, statuses,
+        return ok(views.html.Ticket.newticket.render(locations, ticketStatuses,
                 siteAdmins, priorities, categories, regions));
     }
 
@@ -342,6 +340,7 @@ public class TicketController extends Controller
 
         return redirect(routes.TicketController.getTickets());
     }
+
     @Transactional
     public Result getFiles(int fileDetailId)
     {

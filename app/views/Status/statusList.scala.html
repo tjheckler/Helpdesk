@@ -1,4 +1,4 @@
-@(statuses:List[Status],searchCriteria:String)
+@(ticketStatuses:List[TicketStatus],searchCriteria:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +11,7 @@
 
 <div class="container" align="center">
 
-    @appnavbar.render("statuses")
+    @appnavbar.render("ticketStatuses")
     <div class="jumbotron">
     <h1><b>Status List</b></h1>
     </div>
@@ -30,18 +30,18 @@
             <th><b>Status Name</b></th>
 
         </tr>
-        @for(status <- statuses){
+        @for(ticketStatus <- ticketStatuses){
         <tr>
             <td>
                 <div>
-                    <b> @status.getStatusName() </b>
+                    <b> @ticketStatus.getStatusName() </b>
                 </div>
             </td>
             <td>
                 <a> Details </a>
             </td>
             <td>
-                <a href="status/@status.getStatusId()"> Edit </a>
+                <a href="ticketStatus/@ticketStatus.getStatusId()"> Edit </a>
             </td>
 
         </tr>

@@ -17,10 +17,10 @@ public class ReportsController extends Controller
     private FormFactory formFactory;
 
     @Inject
-    public ReportsController(JPAApi jpaApi,FormFactory formFactory)
+    public ReportsController(JPAApi jpaApi, FormFactory formFactory)
     {
-        this.jpaApi=jpaApi;
-        this.formFactory=formFactory;
+        this.jpaApi = jpaApi;
+        this.formFactory = formFactory;
     }
 
     @Transactional(readOnly = true)
@@ -34,7 +34,7 @@ public class ReportsController extends Controller
 
         List<TicketCategoryCount> ticketCategoryCounts = jpaApi.em().createQuery(categorySql, TicketCategoryCount.class).getResultList();
 
-        String siteAdminSql = "SELECT  NEW TicketSiteAdminCount(s.siteAdminId, s.siteAdminName, COUNT(*)) " +
+        String siteAdminSql = "SELECT  NEW TicketSiteAdminCount(t.siteAdminId, s.siteAdminName, COUNT(*)) " +
                 "FROM Ticket t " +
                 "JOIN SiteAdmin s ON t.siteAdminId = s.siteAdminId " +
                 "GROUP BY s.siteAdminName " +
@@ -75,7 +75,7 @@ public class ReportsController extends Controller
 
         List<InventoryLocationCount> inventoryLocationCounts = jpaApi.em().createQuery(InventorySql, InventoryLocationCount.class).getResultList();
 
-        return ok(views.html.Report.reports.render(ticketCategoryCounts,ticketSiteAdminCounts,ticketPriorityCounts,ticketLocationCounts,ticketRegionCounts,inventoryLocationCounts));
+        return ok(views.html.Report.reports.render(ticketCategoryCounts, ticketSiteAdminCounts, ticketPriorityCounts, ticketLocationCounts, ticketRegionCounts, inventoryLocationCounts));
     }
 
 

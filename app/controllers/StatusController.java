@@ -1,6 +1,6 @@
 package controllers;
 
-import models.Status;
+import models.TicketStatus;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -15,17 +15,19 @@ public class StatusController extends Controller
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
+
     @Inject
     public StatusController(JPAApi jpaApi, FormFactory formFactory)
     {
-        this.jpaApi=jpaApi;
-        this.formFactory=formFactory;
+        this.jpaApi = jpaApi;
+        this.formFactory = formFactory;
     }
+
     @Transactional(readOnly = true)
     public Result getStatuses()
     {
         DynamicForm form = formFactory.form().bindFromRequest();
-        String sql = "SELECT s FROM Status s " +
+        String sql = "SELECT s FROM TicketStatus s " +
                 " WHERE statusName LIKE :searchCriteria " +
                 "ORDER BY statusName";
         String searchCriteria = form.get("searchCriteria");
@@ -35,43 +37,45 @@ public class StatusController extends Controller
         }
         String queryParameter = searchCriteria + "%";
 
-        List<Status> statuses = jpaApi.em()
-                .createQuery(sql,Status.class).setParameter("searchCriteria", queryParameter).getResultList();
+        List<TicketStatus> ticketStatuses = jpaApi.em()
+                .createQuery(sql, TicketStatus.class).setParameter("searchCriteria", queryParameter).getResultList();
 
 
-        return ok(views.html.Status.statusList.render(statuses, searchCriteria));
+        return ok(views.html.Status.statusList.render(ticketStatuses, searchCriteria));
 
     }
+
     @Transactional(readOnly = true)
     public Result getStatus(Integer statusId)
     {
-        String sql = "SELECT s FROM Status s " +
+        String sql = "SELECT s FROM TicketStatus s " +
                 "WHERE statusId = :statusId";
-        Status status = jpaApi.em().createQuery(sql, Status.class).
+        TicketStatus ticketStatus = jpaApi.em().createQuery(sql, TicketStatus.class).
                 setParameter("statusId", statusId).getSingleResult();
 
 
-
-        return ok(views.html.Status.status.render(status));
+        return ok(views.html.Status.status.render(ticketStatus));
     }
+
     @Transactional
     public Result postStatus(Integer statusId)
     {
-        String sql = "SELECT s FROM Status s " +
+        String sql = "SELECT s FROM TicketStatus s " +
                 "WHERE statusId = :statusId";
 
-        Status status = jpaApi.em().createQuery(sql, Status.class)
+        TicketStatus ticketStatus = jpaApi.em().createQuery(sql, TicketStatus.class)
                 .setParameter("statusId", statusId).getSingleResult();
         DynamicForm form = formFactory.form().bindFromRequest();
 
         String statusName = form.get("statusName");
-        status.setStatusName(statusName);
+        ticketStatus.setStatusName(statusName);
 
 
-        jpaApi.em().persist(status);
+        jpaApi.em().persist(ticketStatus);
 
         return redirect(routes.StatusController.getStatuses());
     }
+
     public Result getNewStatus()
     {
         return ok(views.html.Status.newstatus.render());
@@ -81,10 +85,10 @@ public class StatusController extends Controller
     public Result postNewStatus()
     {
         DynamicForm form = formFactory.form().bindFromRequest();
-        String status1 = form.get("status");
-        Status status = new Status();
-        status.setStatusName(status1);
-        jpaApi.em().persist(status);
+        String status1 = form.get("ticketStatus");
+        TicketStatus ticketStatus = new TicketStatus();
+        ticketStatus.setStatusName(status1);
+        jpaApi.em().persist(ticketStatus);
 
 
         return redirect(routes.StatusController.getStatuses());

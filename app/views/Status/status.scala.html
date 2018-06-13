@@ -1,4 +1,4 @@
-@(status:Status)
+@(ticketStatus:TicketStatus)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -10,19 +10,19 @@
 <body>
 
 <div class="container" align="center">
-    @appnavbar.render("statuses")
+    @appnavbar.render("ticketStatuses")
     <div>
-        <h1>@status.getStatusName()</h1>
+        <h1>@ticketStatus.getStatusName()</h1>
         <br>
         <form method="post" class="form-control" align="center">
             @CSRF.formField
             <b> Status Name: </b><input  class="rounded" type="text" name="statusName" id="statusName"
-                                           value="@status.getStatusName" minlength="1"
+                                           value="@ticketStatus.getStatusName" minlength="1"
                                            maxlength="30" size="30">
             <br>
             <br>
             <input class="btn btn-primary" type="submit" value="save">
-            <a href="/statuses">Back to List</a>
+            <a href="/ticketStatuses">Back to List</a>
         </form>
     </div>
 </div>

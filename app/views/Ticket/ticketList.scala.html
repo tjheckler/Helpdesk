@@ -1,4 +1,4 @@
-@(tickets:List[Ticket],searchCriteria:String,locations:List[Location],statuses:List[Status],siteAdmins:List[SiteAdmin],priorities:List[Priority])
+@(tickets:List[Ticket],searchCriteria:String,locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,20 +74,21 @@
                 </div>
             </td>
             <td>
-                <div>@for(location<-locations){
+                <div>
+                    @for(location<-locations){
                     @if(location.getLocationId==ticket.getLocationId){
                     @location.getLocationName()
-                    }else{
-                    <span>Location Not Available</span>
-                    }}
+                    }
+                    }
+
 
                 </div>
             </td>
             <td>
                 <div>
-                    @for(status<-statuses){
-                    @if(status.getStatusId==ticket.getStatusId){
-                    @status.getStatusName()
+                    @for(ticketStatus<-ticketStatuses){
+                    @if(ticketStatus.getStatusId==ticket.getStatusId){
+                    @ticketStatus.getStatusName()
                     }
                     }
                 </div>

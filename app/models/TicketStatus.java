@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Status
+public class TicketStatus
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
