@@ -107,7 +107,7 @@ public class TicketController extends Controller
                 .setParameter("ticketsId", ticketsId).getResultList();
 
         String fileSql = "SELECT f FROM FileDetails f " +
-                "WHERE ticketsId = :ticketsId"; //needs to be case statement
+                "WHERE ticketsId = :ticketsId";
 
         List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                 .setParameter("ticketsId", ticketsId).getResultList();
