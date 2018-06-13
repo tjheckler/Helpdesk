@@ -36,7 +36,7 @@ public class InventoryController extends Controller
                 "i.buildingLocation LIKE :searchCriteria OR "+
                 "i.currentUser LIKE :searchCriteria OR "+
                 "i.assetTagNumber LIKE :searchCriteria "+
-                "ORDER BY computerName";
+                "ORDER BY i.inventoryId";
         String searchCriteria = form.get("searchCriteria");
         if (searchCriteria == null)
         {
@@ -48,10 +48,10 @@ public class InventoryController extends Controller
                 .createQuery(sql, Inventory.class).setParameter("searchCriteria", queryParameter).getResultList();
 
         String locationSql = "SELECT l FROM Location l ";
-        Location location = jpaApi.em()
-                .createQuery(locationSql, Location.class).getSingleResult();
+        List<Location> locations = jpaApi.em()
+                .createQuery(locationSql, Location.class).getResultList();
 
-        return ok(views.html.Inventory.inventoryList.render(inventories, searchCriteria,location));
+        return ok(views.html.Inventory.inventoryList.render(inventories, searchCriteria,locations));
 
     }
 

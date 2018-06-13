@@ -1,4 +1,4 @@
-@(inventories:List[Inventory],searchCriteria:String,location:Location)
+@(inventories:List[Inventory],searchCriteria:String,locations:List[Location])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,10 +54,10 @@
             </td>
             <td>
                 <div>
+                    @for(location<-locations){
                     @if(location.getLocationId==inventory.getLocationId){
                     @location.getLocationName()
-                    }else{
-                    <span>Location Not Available</span>
+                    }
                     }
                 </div>
             </td>
