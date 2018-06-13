@@ -1,4 +1,13 @@
 
+
+
+-- Random Generated MySql
+-- ** Disclaimer **
+-- No Information Generated will be Considered Valid or Factual
+-- Information Will Only be Displayed by values Assigned
+-- Values Can Only Change to be Correct or Factual If Done so Manually
+
+
 --Generate Priority
 insert into priority (PriorityName) values('High');
 insert into priority (PriorityName) values('Low');
