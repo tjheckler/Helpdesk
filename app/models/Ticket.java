@@ -110,7 +110,7 @@ public class Ticket
         return priorityId;
     }
 
-    public void setPriority(int priority)
+    public void setPriority(int priorityId)
     {
         this.priorityId = priorityId;
     }

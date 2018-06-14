@@ -25,8 +25,7 @@
                  </div>
             <div class="col-md-6">
                 <b> Asset Tag Number: </b><br>
-                <input class="rounded" type="text" name="assetTagNumber"
-                       id="assetTagNumber" maxlength="10">
+                <input class="rounded" type="text" name="assetTagNumber" id="assetTagNumber" maxlength="10">
             </div>
         </div>
         <br>
@@ -44,8 +43,7 @@
         <div class="row">
             <div class="col-md-6">
                 <b> Computer Name: </b><br>
-                <input class="rounded" type="text" name="computerName"
-                       id="computerName" maxlength="15">
+                <input class="rounded" type="text" name="computerName" id="computerName" maxlength="15">
             </div>
             <div class="col-md-6">
                 <b> Assigned To: </b><br>
@@ -78,20 +76,7 @@
                 </select>
 
             </div>
-            <div class="col-md-6">
-                <b> Current Region:</b><br>
-                <select class="rounded" name="regionId" id="regionId">
-                    <option>Choose Region</option>
-                    @for(region<-regions){
 
-                    <option value="@region.getRegionId">
-                        @region.getRegionName
-                    </option>
-                    }
-
-                </select>
-
-            </div>
         </div>
         <br>
         <div class="row">
@@ -142,23 +127,20 @@
         <br>
         <div class=container">
             <b> Subject: </b><br>
-            <input class="rounded" type="text" name="subject" id="subject" maxlength="30" size="30">
+            <input class="rounded" type="text" name="subjectTitle" id="subject" maxlength="30" size="30">
         </div>
         <br>
         <div>
             <label><b>Description:</b></label>
             <br>
-            <textarea class="rounded" type="text" name="description" cols="100" rows="10"
-                      id="description" maxlength="255">
-
-            </textarea>
+            <textarea class="rounded" type="text" name="description" cols="100" rows="10" id="description" maxlength="255"></textarea>
             <br>
             <label>255 Characters Allowed</label>
             <br>
             <br>
-            <input class="rounded" type="file" multiple="multiple">
-            <input class="rounded" type="file" multiple="multiple">
-            <input class="rounded" type="file" multiple="multiple">
+            <input class="rounded" type="file" multiple="multiple" name="file1">
+            <input class="rounded" type="file" multiple="multiple" name="file2">
+            <input class="rounded" type="file" multiple="multiple" name="file3">
 
         </div>
         <br>
