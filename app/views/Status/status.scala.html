@@ -25,6 +25,10 @@
             <input class="btn btn-primary" type="submit" value="save">
             <a href="/ticketStatuses">Back to List</a>
         </form>
+        <form action="/deletestatus/@ticketStatus.getStatusId" method="POST">
+            @CSRF.formField
+            <input type="submit" value="Delete">
+        </form>
     </div>
 </div>
 </body>

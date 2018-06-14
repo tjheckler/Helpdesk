@@ -70,9 +70,11 @@
         <br>
         <input class="btn btn-primary" type="submit" value="save">
         <a href="/siteadmins">Back to List</a>
-
     </form>
-
+    <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST">
+        @CSRF.formField
+        <input type="submit" value="Delete">
+    </form>
 </div>
 </div>
 </body>

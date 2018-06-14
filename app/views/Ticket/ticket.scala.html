@@ -134,7 +134,10 @@
             <a href="/tickets">Back to List</a>
         </div>
         <br>
-        write code to submit files and reply, display replies in controller.
+    </form>
+    <form action="/deleteticket/@ticket.getTicketsId" method="POST">
+        @CSRF.formField
+        <input type="submit" value="Delete">
     </form>
 </div>
 

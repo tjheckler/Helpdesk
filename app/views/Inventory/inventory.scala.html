@@ -74,6 +74,10 @@
             <a href="/inventories">Back to List</a>
         </div>
     </form>
+    <form action="/deleteinventory/@inventory.getInventoryId" method="POST">
+        @CSRF.formField
+        <input type="submit" value="Delete">
+    </form>
 </div>
 
 

@@ -4,7 +4,7 @@
 
 # An example controller showing a sample home page
 GET     /                            controllers.HomeController.index
-# An example controller showing how to use dependency injection
+
 
 GET     /admin                       controllers.AdministrationController.getAdministration
 
@@ -16,18 +16,21 @@ GET     /category/:id                controllers.CategoryController.getCategory(
 POST    /category/:id                controllers.CategoryController.postCategory(id: Int)
 GET     /newcategory                 controllers.CategoryController.getNewCategory
 POST    /newcategory                 controllers.CategoryController.postNewCategory
+POST    /deletecategory/:id          controllers.CategoryController.deleteCategory(id: Int)
 
 GET     /inventories                 controllers.InventoryController.getInventories
 GET     /inventory/:id               controllers.InventoryController.getInventory(id: Int)
 POST    /inventory/:id               controllers.InventoryController.postInventory(id: Int)
 GET     /newinventory                controllers.InventoryController.getNewInventory
 POST    /newinventory                controllers.InventoryController.postNewInventory
+POST    /deleteinventory/:id         controllers.InventoryController.deleteInventory(id: Int)
 
 GET     /locations                   controllers.LocationController.getLocations
 GET     /location/:id                controllers.LocationController.getLocation(id: Int)
 POST    /location/:id                controllers.LocationController.postLocation(id: Int)
 GET     /newlocation                 controllers.LocationController.getNewLocation
 POST    /newlocation                 controllers.LocationController.postNewLocation
+POST    /deletelocation/:id          controllers.LocationController.deleteLocation(id: Int)
 
 
 GET     /regions                     controllers.RegionController.getRegions
@@ -35,6 +38,7 @@ GET     /region/:id                  controllers.RegionController.getRegion(id: 
 POST    /region/:id                  controllers.RegionController.postRegion(id: Int)
 GET     /newregion                   controllers.RegionController.getNewRegion
 POST    /newregion                   controllers.RegionController.postNewRegion
+POST    /deleteregion/:id            controllers.RegionController.deleteRegion(id: Int)
 
 
 GET     /priorities                  controllers.PriorityController.getPriorities
@@ -42,29 +46,33 @@ GET     /priority/:id                controllers.PriorityController.getPriority(
 POST    /priority/:id                controllers.PriorityController.postPriority(id: Int)
 GET     /newpriority                 controllers.PriorityController.getNewPriority
 POST    /newpriority                 controllers.PriorityController.postNewPriority
+POST    /deletepriority/:id          controllers.PriorityController.deletePriority(id: Int)
 
 GET     /siteadmins                  controllers.SiteAdminController.getSiteAdmins
 GET     /siteadmin/:id               controllers.SiteAdminController.getSiteAdmin(id: Int)
 POST    /siteadmin/:id               controllers.SiteAdminController.postSiteAdmin(id: Int)
 GET     /newsiteadmin                controllers.SiteAdminController.getNewSiteAdmin
 POST    /newsiteadmin                controllers.SiteAdminController.postNewSiteAdmin
+POST    /deletesiteadmin/:id         controllers.SiteAdminController.deleteSiteAdmin(id: Int)
 
 GET     /tickets                     controllers.TicketController.getTickets
 GET     /ticket/:id                  controllers.TicketController.getTicket(id: Int)
 POST    /ticket/:id                  controllers.TicketController.postTicket(id: Int)
 GET     /newticket                   controllers.TicketController.getNewTicket
 POST    /newticket                   controllers.TicketController.postNewTicket
+POST    /deleteticket/:id            controllers.TicketController.deleteTicket(id: Int)
 
-GET     /ticketStatuses                    controllers.StatusController.getStatuses
-GET     /ticketStatus/:id                  controllers.StatusController.getStatus(id: Int)
-POST    /ticketStatus/:id                  controllers.StatusController.postStatus(id: Int)
+GET     /ticketStatuses              controllers.StatusController.getStatuses
+GET     /ticketStatus/:id            controllers.StatusController.getStatus(id: Int)
+POST    /ticketStatus/:id            controllers.StatusController.postStatus(id: Int)
 GET     /newstatus                   controllers.StatusController.getNewStatus
 POST    /newstatus                   controllers.StatusController.postNewStatus
+POST    /deletestatus/:id            controllers.StatusController.deleteStauts(id: Int)
 
 GET     /reports                     controllers.ReportsController.getReports
 
 
-GET     /files/:id                       controllers.TicketController.getFiles(id: Int)
+GET     /files/:id                   controllers.TicketController.getFiles(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file                 controllers.Assets.versioned(path="/public", file: Asset)

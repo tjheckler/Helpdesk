@@ -26,6 +26,10 @@
             <input class="btn btn-primary" type="submit" value="save">
             <a href="/regions">Back to List</a>
         </form>
+    <form action="/deleteregion/@region.getRegionId" method="POST">
+        @CSRF.formField
+        <input type="submit" value="Delete">
+    </form>
     </div>
 </div>
 </body>

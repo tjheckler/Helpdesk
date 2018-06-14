@@ -29,6 +29,10 @@
         <input class="btn btn-primary" type="submit" value="save">
         <a href="/priorities">Back to List</a>
     </form>
+    <form action="/deleteepriority/@priority.getPriorityId" method="POST">
+        @CSRF.formField
+        <input type="submit" value="Delete">
+    </form>
 </div>
 </div>
 </body>

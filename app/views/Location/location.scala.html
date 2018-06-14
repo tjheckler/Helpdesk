@@ -37,6 +37,10 @@
             <input class="btn btn-primary" type="submit" value="save">
             <a href="/locations">Back to List</a>
         </form>
+        <form action="/deletelocation/@location.getLocationId" method="POST">
+            @CSRF.formField
+            <input type="submit" value="Delete">
+        </form>
     </div>
 </div>
 </body>
