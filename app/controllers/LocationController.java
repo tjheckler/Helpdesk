@@ -110,4 +110,14 @@ public class LocationController extends Controller
 
         return redirect(routes.LocationController.getLocations());
     }
+    @Transactional
+    public Result deleteLocation(int locationId)
+    {
+        String sql = "SELECT l FROM Locatione l " +
+                "WHERE locationId = :locationId";
+        Location location = jpaApi.em().createQuery(sql, Location.class).
+                setParameter("LocationId", locationId).getSingleResult();
+        jpaApi.em().remove(location);
+        return redirect(routes.LocationController.getLocations());
+    }
 }

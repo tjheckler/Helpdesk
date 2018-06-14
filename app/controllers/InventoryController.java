@@ -136,4 +136,14 @@ public class InventoryController extends Controller
 
         return redirect(routes.InventoryController.getInventories());
     }
+    @Transactional
+    public Result deleteInventory(int inventoryId)
+    {
+        String sql = "SELECT i FROM Inventory i " +
+                "WHERE inventoryId = :inventoryId";
+        Inventory inventory = jpaApi.em().createQuery(sql, Inventory.class).
+                setParameter("inventoryId", inventoryId).getSingleResult();
+        jpaApi.em().remove(inventory);
+        return redirect(routes.InventoryController.getInventories());
+    }
 }

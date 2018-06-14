@@ -352,4 +352,14 @@ public class TicketController extends Controller
         String contentType = fileDetail.getExtension();
         return ok(fileDetail.getAddedFiles()).as(contentType);
     }
+    @Transactional
+    public Result deleteTicket(int ticketId)
+    {
+        String sql = "SELECT t FROM Ticket t " +
+                "WHERE ticketId = :ticketId";
+        Ticket ticket = jpaApi.em().createQuery(sql, Ticket.class).
+                setParameter("ticketId", ticketId).getSingleResult();
+        jpaApi.em().remove(ticket);
+        return redirect(routes.TicketController.getTickets());
+    }
 }

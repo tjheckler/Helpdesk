@@ -93,4 +93,14 @@ public class StatusController extends Controller
 
         return redirect(routes.StatusController.getStatuses());
     }
+    @Transactional
+    public Result deleteStatus(int statusId)
+    {
+        String sql = "SELECT ts FROM TicketStatus ts " +
+                "WHERE statusId = :statusId";
+        TicketStatus ticketStatus = jpaApi.em().createQuery(sql, TicketStatus.class).
+                setParameter("statusId", statusId).getSingleResult();
+        jpaApi.em().remove(ticketStatus);
+        return redirect(routes.StatusController.getStatuses());
+    }
 }

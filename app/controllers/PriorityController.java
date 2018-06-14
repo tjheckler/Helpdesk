@@ -91,4 +91,14 @@ public class PriorityController
 
         return redirect(routes.PriorityController.getPriorities());
     }
+    @Transactional
+    public Result deletePriority(int priorityId)
+    {
+        String sql = "SELECT p FROM Priority p " +
+                "WHERE priorityId = :priorityId";
+        Priority priority = jpaApi.em().createQuery(sql, Priority.class).
+                setParameter("priorityId", priorityId).getSingleResult();
+        jpaApi.em().remove(priority);
+        return redirect(routes.PriorityController.getPriorities());
+    }
 }

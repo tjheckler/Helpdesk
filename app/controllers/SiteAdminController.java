@@ -124,4 +124,14 @@ public class SiteAdminController extends Controller
 
         return redirect(routes.SiteAdminController.getSiteAdmins());
     }
+    @Transactional
+    public Result deleteSiteAdmin(int siteAdminId)
+    {
+        String sql = "SELECT sa FROM SiteAdmin sa " +
+                "WHERE siteAdminId = :siteAdminId";
+        SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
+                setParameter("siteAdminId", siteAdminId).getSingleResult();
+        jpaApi.em().remove(siteAdmin);
+        return redirect(routes.SiteAdminController.getSiteAdmins());
+    }
 }

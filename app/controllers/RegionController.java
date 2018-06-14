@@ -92,4 +92,14 @@ public class RegionController extends Controller
 
         return redirect(routes.RegionController.getRegions());
     }
+    @Transactional
+    public Result deleteRegion(int regionId)
+    {
+        String sql = "SELECT r FROM Region r " +
+                "WHERE regionId = :regionId";
+        Region region = jpaApi.em().createQuery(sql, Region.class).
+                setParameter("regionId", regionId).getSingleResult();
+        jpaApi.em().remove(region);
+        return redirect(routes.RegionController.getRegions());
+    }
 }

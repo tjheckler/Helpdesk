@@ -89,4 +89,14 @@ public class CategoryController extends Controller
 
         return redirect(routes.CategoryController.getCategories());
     }
+    @Transactional
+    public Result deleteCategory(int categoryId)
+    {
+        String sql = "SELECT c FROM Category c " +
+                "WHERE categoryId = :categoryId";
+        Category category = jpaApi.em().createQuery(sql, Category.class).
+                setParameter("categoryId", categoryId).getSingleResult();
+        jpaApi.em().remove(category);
+        return redirect(routes.CategoryController.getCategories());
+    }
 }
