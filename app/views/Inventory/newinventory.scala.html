@@ -48,22 +48,9 @@
 
             </div>
             <br>
-            <div class="row" align="center">
-                <div class="col-md-6">
-                    <b>Region: </b>
-                    <select class="rounded" name="regionId" id="regionId">
-                        <option>Choose Region</option>
-                        @for(region<-regions){
+            <div class="container" align="center">
 
-                        <option value="@region.getRegionId">
-                            @region.getRegionName
-                        </option>
-                        }
 
-                    </select>
-                </div>
-
-                <div class="col-md-6">
                     <b>Location: </b>
                     <select class="rounded" name="locationId" id="locationId">
                         <option>Choose Location</option>

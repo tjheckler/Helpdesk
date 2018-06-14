@@ -76,24 +76,25 @@
                 </select>
 
             </div>
-
-        </div>
-        <br>
-        <div class="row">
             <div class="col-md-6">
-                <b> Category: </b><br>
-                <select class="rounded" name="categoryId" id="categoryId">
-                    <option>Choose Category</option>
-                    @for(category<-categories){
+                <b> Status: </b><br>
+                <select class="rounded" name="statusId" id="statusId">
+                    <option>Choose Status</option>
+                    @for(ticketStatus<-ticketStatuses){
 
-                    <option value="@category.getCategoryId">
-                        @category.getCategoryName
+                    <option value="@ticketStatus.getStatusId">
+                        @ticketStatus.getStatusName
                     </option>
                     }
 
                 </select>
-
             </div>
+
+
+        </div>
+        <br>
+        <div class="row">
+
             <div class="col-md-6">
                 <b>Priority: </b><br>
                 <select class="rounded" name="priorityId" id="priorityId">
@@ -108,20 +109,22 @@
                 </select>
 
             </div>
-        </div>
-        <div class=container">
-            <b> Status: </b><br>
-            <select class="rounded" name="statusId" id="statusId">
-                <option>Choose Status</option>
-                @for(ticketStatus<-ticketStatuses){
+            <div class="col-md-6">
+                <b> Category: </b><br>
+                <select class="rounded" name="categoryId" id="categoryId">
+                    <option>Choose Category</option>
+                    @for(category<-categories){
 
-                <option value="@ticketStatus.getStatusId">
-                    @ticketStatus.getStatusName
-                </option>
-                }
+                    <option value="@category.getCategoryId">
+                        @category.getCategoryName
+                    </option>
+                    }
 
-            </select>
+                </select>
+
+            </div>
         </div>
+
         <br>
 
         <br>
