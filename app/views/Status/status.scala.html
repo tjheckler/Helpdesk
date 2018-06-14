@@ -4,13 +4,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
     <title>Status</title>
 </head>
 <body>
 
 <div class="container" align="center">
-    @appnavbar.render("ticketStatuses")
+    @appnavbar.render("admin")
     <div>
         <h1>@ticketStatus.getStatusName()</h1>
         <br>

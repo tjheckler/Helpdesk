@@ -8,6 +8,9 @@ GET     /                            controllers.HomeController.index
 
 GET     /admin                       controllers.AdministrationController.getAdministration
 
+GET     /signup                      controllers.HomeController.getSignup
+GET     /login                       controllers.HomeController.getLogin
+
 GET     /categories                  controllers.CategoryController.getCategories
 GET     /category/:id                controllers.CategoryController.getCategory(id: Int)
 POST    /category/:id                controllers.CategoryController.postCategory(id: Int)

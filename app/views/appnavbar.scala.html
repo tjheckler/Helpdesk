@@ -1,14 +1,63 @@
 @(page : String)
-<div>
-    <div class="container" align="center">
-        <div >
-            <ul class="navbar navbar-fixed-top navbar-header navbar-collapse">
-                <li ><a class="navbar-brand" href="/">Home</a></li>
-                <li ><a class="navbar-brand" href="/admin">Administration</a></li>
-                <li ><a class="navbar-brand" href="/tickets">Tickets</a></li>
-                <li ><a class="navbar-brand" href="/inventories">Inventory</a></li>
-                <li ><a class="navbar-brand" href="/reports">Reports</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav">
+
+        <li class="nav-item active">
+            @if("/".equals(page)){
+        <li class="nav-item active">
+            }else{
+        <li class="nav-item">
+            }
+            <a class="nav-link" href="/"><b>Home</b></a>
+        </li>
+        <li class="nav-item">
+            @if("admin".equals(page)){
+        <li class="nav-item active">
+            }else{
+        <li class="nav-item">
+            }
+            <a class="nav-link" href="/admin"><b>Administration</b></a>
+        </li>
+        <li class="nav-item active">
+            @if("tickets".equals(page)){
+        <li class="nav-item active">
+            }else{
+        <li class="nav-item">
+            }
+            <a class="nav-link" href="/tickets"><b>Tickets</b></a>
+        </li>
+        <li class="nav-item active">
+            @if("inventory".equals(page)){
+        <li class="nav-item active">
+            }else{
+        <li class="nav-item">
+            }
+            <a class="nav-link" href="/inventories"><b>Inventory</b></a>
+        </li>
+        <li class="nav-item active">
+            @if("reports".equals(page)){
+        <li class="nav-item active">
+            }else{
+        <li class="nav-item">
+            }
+            <a class="nav-link" href="/reports"><b>Reports</b></a>
+        </li>
+        <li class="nav-item active">
+            @if("signup".equals(page)){
+        <li class="nav-item active">
+            }else{
+        <li class="nav-item">
+            }
+            <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+        </li>
+        <li class="nav-item active">
+            @if("login".equals(page)){
+        <li class="nav-item active">
+            }else{
+        <li class="nav-item">
+            }
+            <a class="nav-link" href="/login"><b>Login</b></a>
+        </li>
+    </ul>
+
+</nav>
