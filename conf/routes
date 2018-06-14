@@ -67,7 +67,7 @@ GET     /ticketStatus/:id            controllers.StatusController.getStatus(id: 
 POST    /ticketStatus/:id            controllers.StatusController.postStatus(id: Int)
 GET     /newstatus                   controllers.StatusController.getNewStatus
 POST    /newstatus                   controllers.StatusController.postNewStatus
-POST    /deletestatus/:id            controllers.StatusController.deleteStauts(id: Int)
+POST    /deletestatus/:id            controllers.StatusController.deleteStatus(id: Int)
 
 GET     /reports                     controllers.ReportsController.getReports
 
