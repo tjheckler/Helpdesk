@@ -142,11 +142,12 @@
 <br>
 <br>
 <div class="container" align="center">
-<form action="/deleteticket/@ticket.getTicketsId" method="POST">
-    @CSRF.formField
-    <input type="submit" value="Delete Ticket">
-</form>
+    <form action="/deleteticket/@ticket.getTicketsId" method="POST">
+        @CSRF.formField
+        <input type="submit" value="Delete Ticket">
+    </form>
 </div>
+
 <br>
 </body>
 

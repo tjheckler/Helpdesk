@@ -29,11 +29,18 @@
         <input class="btn btn-primary" type="submit" value="save">
         <a href="/categories">Back to List</a>
     </form>
+</div>
+</div>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <div class="container" align="center">
     <form action="/deletecategory/@category.getCategoryId" method="POST">
         @CSRF.formField
         <input type="submit" value="Delete">
     </form>
-</div>
-</div>
+    </div>
+
 </body>
 </html>

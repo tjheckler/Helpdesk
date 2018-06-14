@@ -17,19 +17,26 @@
         <br>
         <form method="post" class="form-control" align="center">
             @CSRF.formField
-            <b> Status Name: </b><input  class="rounded" type="text" name="statusName" id="statusName"
-                                           value="@ticketStatus.getStatusName" minlength="1"
-                                           maxlength="30" size="30">
+            <b> Status Name: </b><input class="rounded" type="text" name="statusName" id="statusName"
+                                        value="@ticketStatus.getStatusName" minlength="1"
+                                        maxlength="30" size="30">
             <br>
             <br>
             <input class="btn btn-primary" type="submit" value="save">
             <a href="/ticketStatuses">Back to List</a>
         </form>
-        <form action="/deletestatus/@ticketStatus.getStatusId" method="POST">
-            @CSRF.formField
-            <input type="submit" value="Delete">
-        </form>
+
     </div>
+</div>
+<br>
+<hr>
+<br>
+<br>
+<div class="container" align="center">
+    <form action="/deletestatus/@ticketStatus.getStatusId" method="POST">
+        @CSRF.formField
+        <input type="submit" value="Delete">
+    </form>
 </div>
 </body>
 </html>
