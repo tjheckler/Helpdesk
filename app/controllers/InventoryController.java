@@ -36,7 +36,7 @@ public class InventoryController extends Controller
                 "i.buildingLocation LIKE :searchCriteria OR "+
                 "i.currentUser LIKE :searchCriteria OR "+
                 "i.assetTagNumber LIKE :searchCriteria "+
-                "ORDER BY i.inventoryId";
+                "ORDER BY l.locationName";
         String searchCriteria = form.get("searchCriteria");
         if (searchCriteria == null)
         {
