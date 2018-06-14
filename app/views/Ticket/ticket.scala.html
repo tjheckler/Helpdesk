@@ -133,14 +133,20 @@
             <input class="btn btn-primary" type="submit" value="save">
             <a href="/tickets">Back to List</a>
         </div>
-        <br>
-    </form>
-    <form action="/deleteticket/@ticket.getTicketsId" method="POST">
-        @CSRF.formField
-        <input type="submit" value="Delete">
-    </form>
-</div>
 
+    </form>
+
+</div>
+<br>
+<hr>
+<br>
+<br>
+<div class="container" align="center">
+<form action="/deleteticket/@ticket.getTicketsId" method="POST">
+    @CSRF.formField
+    <input type="submit" value="Delete Ticket">
+</form>
+</div>
 <br>
 </body>
 
