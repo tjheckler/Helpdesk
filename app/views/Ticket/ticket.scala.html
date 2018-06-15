@@ -62,9 +62,10 @@
             <b> Current Region:</b>
             <label>
                 @for(location<-locations){
+                @if(ticket.getLocationId == location.getLocationId){
                 @for(region<-regions){
                 @if(location.getRegionId == region.getRegionId){
-                @region.getRegionName() }}}
+                @region.getRegionName() }}}}
             </label>
 
         </div>
