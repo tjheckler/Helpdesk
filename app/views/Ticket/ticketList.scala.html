@@ -5,6 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <style>
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+</style>
     <title>Tickets</title>
 </head>
 <body>
@@ -23,7 +47,23 @@
             <a href="newticket">Create New Ticket </a>
         </div>
     </form>
-    <table class="table table-bordered">
+    <table class="table table-light">
+
+        @for(i <- 0 to tickets.size()-1){
+        @if(i==0 || !tickets.get(i).getSiteAdminId.equals(tickets.get(i-1).getSiteAdminId)){
+
+
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
         <tr>
             <th>Ticket #</th>
             <th>Date Modified</th>
@@ -33,24 +73,26 @@
             <th>Subject</th>
             <th>Location</th>
             <th>Status</th>
+            <th>&nbsp;</th>
         </tr>
 
-        @for(ticket <- tickets){
+}
+
         <tr>
             <td>
                 <div>
-                    @ticket.getTicketsId()
+                    @tickets.get(i).getTicketsId()
                 </div>
             </td>
             <td>
                 <div>
-                    @ticket.getStatusDateChanged()
+                    @tickets.get(i).getStatusDateChanged()
                 </div>
             </td>
             <td>
                 <div>
                     @for(priority<-priorities){
-                    @if(priority.getPriorityId==ticket.getPriorityId){
+                    @if(priority.getPriorityId==tickets.get(i).getPriorityId){
                     @priority.getPriorityName()
                     }
                     }
@@ -58,13 +100,13 @@
             </td>
             <td>
                 <div>
-                    @ticket.getName()
+                    @tickets.get(i).getName()
                 </div>
             </td>
             <td>
                 <div>
                     @for(siteAdmin<-siteAdmins){
-                    @if(siteAdmin.getSiteAdminId==ticket.getSiteAdminId){
+                    @if(siteAdmin.getSiteAdminId==tickets.get(i).getSiteAdminId){
                     @siteAdmin.getSiteAdminName()
                     }
                     }
@@ -72,13 +114,13 @@
             </td>
             <td>
                 <div>
-                    @ticket.getSubjectTitle()
+                    @tickets.get(i).getSubjectTitle()
                 </div>
             </td>
             <td>
                 <div>
                     @for(location<-locations){
-                    @if(location.getLocationId==ticket.getLocationId){
+                    @if(location.getLocationId==tickets.get(i).getLocationId){
                     @location.getLocationName()
                     }
                     }
@@ -89,20 +131,25 @@
             <td>
                 <div>
                     @for(ticketStatus<-ticketStatuses){
-                    @if(ticketStatus.getStatusId==ticket.getStatusId){
+                    @if(ticketStatus.getStatusId==tickets.get(i).getStatusId){
                     @ticketStatus.getStatusName()
                     }
                     }
                 </div>
             </td>
             <td>
-                <a href="ticket/@ticket.getTicketsId()"> Details </a>
+                <a href="ticket/@tickets.get(i).getTicketsId()"> Details </a>
             </td>
 
         </tr>
+
+
 }
+        <br>
+    </div>
     </table>
 
+<script src="/assets/javascripts/collapsibletable.js"></script>
 </div>
 </body>
 </html>
