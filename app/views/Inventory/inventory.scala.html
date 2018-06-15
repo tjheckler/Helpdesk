@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
     <title>Inventory Detail</title>
 </head>
@@ -71,7 +71,7 @@
         <br>
         <div>
             <input class="btn btn-primary" type="submit" value="save">
-            <a href="/inventories">Back to List</a>
+            <a class="btn btn-primary"  href="/inventories">Back to List</a>
         </div>
     </form>
 
@@ -80,11 +80,11 @@
 <br>
 <hr>
 <br>
-<br>
+
 <div class="container" align="center">
     <form action="/deleteinventory/@inventory.getInventoryId" method="POST">
         @CSRF.formField
-        <input type="submit" value="Delete Item">
+        <input class="btn btn-primary" type="submit" value="Delete Item">
     </form>
 </div>
 </body>

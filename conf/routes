@@ -8,7 +8,7 @@ GET     /                            controllers.HomeController.index
 
 GET     /admin                       controllers.AdministrationController.getAdministration
 
-GET     /signup                      controllers.AdministrationController.getSignup
+GET     /signup                      controllers.AdministrationController.getSignUp
 GET     /login                       controllers.AdministrationController.getLogin
 
 GET     /categories                  controllers.CategoryController.getCategories

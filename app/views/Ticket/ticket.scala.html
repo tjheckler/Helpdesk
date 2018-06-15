@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
     <title>Ticket @ticket.getTicketsId Detail</title>
 </head>
@@ -13,7 +13,8 @@
 <div class="container" align="center">
     @appnavbar.render("tickets")
     <div class="jumbotron">
-        <h3>Ticket #: @ticket.getTicketsId</h3>
+        <h3>Ticket # ( @ticket.getTicketsId )</h3>
+        <br>
         <h3>Status: @for(ticketStatus<-ticketStatuses){
             @if(ticketStatus.getStatusId == ticket.getStatusId){
             @ticketStatus.getStatusName() }}</h3>
@@ -122,10 +123,11 @@
 
     <form method="post" class="form-control" align="center" enctype="multipart/form-data">
         @CSRF.formField
+        <br>
         <div class="row" align="center">
 
             <div class="col-md-4">
-                <b> Change Assignee?: </b><br>
+                <b> Change Assignee: </b><br>
                 <select class="rounded" name="siteAdminId" id="siteAdminId">
                     <option value="@ticket.getSiteAdminId">Choose Assignee</option>
                     @for(siteAdmin<-siteAdmins){
@@ -139,7 +141,7 @@
             </div>
 
             <div class="col-md-4">
-                <b> Change Priority?: </b><br>
+                <b> Change Priority: </b><br>
                 <select class="rounded" name="priorityId" id="priorityId">
                     <option value="@ticket.getPriorityId">Choose Priority</option>
                     @for(priority<-priorities){
@@ -152,7 +154,7 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <b> Change Status?: </b><br>
+                <b> Change Status: </b><br>
                 <select class="rounded" name="statusId" id="statusId">
                     <option value="@ticket.getStatusId">Choose Status</option>
                     @for(ticketStatus<-ticketStatuses){
@@ -183,7 +185,7 @@
         <br>
         <div>
             <input class="btn btn-primary" type="submit" value="save">
-            <a href="/tickets">Back to List</a>
+            <a class="btn btn-primary" href="/tickets">Back to List</a>
         </div>
 
     </form>
@@ -192,11 +194,11 @@
 <br>
 <hr>
 <br>
-<br>
+
 <div class="container" align="center">
     <form action="/deleteticket/@ticket.getTicketsId" method="POST">
         @CSRF.formField
-        <input type="submit" value="Delete Ticket">
+        <input class="btn btn-primary" type="submit" value="Delete Ticket">
     </form>
 </div>
 

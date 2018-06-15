@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
     <title>Location Detail</title>
 </head>
@@ -35,18 +35,18 @@
             <br>
             <br>
             <input class="btn btn-primary" type="submit" value="save">
-            <a href="/locations">Back to List</a>
+            <a class="btn btn-primary" href="/locations">Back to List</a>
         </form>
     </div>
 </div>
         <br>
         <hr>
         <br>
-        <br>
+
         <div class="container" align="center">
         <form action="/deletelocation/@location.getLocationId" method="POST">
             @CSRF.formField
-            <input type="submit" value="Delete">
+            <input class="btn btn-primary"  type="submit" value="Delete">
         </form>
         </div>
 </body>

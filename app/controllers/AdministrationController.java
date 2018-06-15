@@ -10,7 +10,7 @@ public class AdministrationController extends Controller
         return ok(views.html.Administration.admin.render());
     }
 
-    public Result getSignup() {
+    public Result getSignUp() {
         return ok(views.html.Administration.signup.render());
     }
 
