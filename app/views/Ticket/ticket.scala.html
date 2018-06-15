@@ -14,6 +14,9 @@
     @appnavbar.render("tickets")
     <div class="jumbotron">
         <h3>Ticket #: @ticket.getTicketsId</h3>
+        <h3>Status: @for(ticketStatus<-ticketStatuses){
+            @if(ticketStatus.getStatusId == ticket.getStatusId){
+            @ticketStatus.getStatusName() }}</h3>
         <h3>Date: @ticket.getStatusDateChanged</h3>
         <h3>Category: @for(category<-categories){
             @if(category.getCategoryId == ticket.getCategoryId){
@@ -80,6 +83,9 @@
         </div>
     </div>
     <br>
+
+
+    <br>
     <div class="container">
         <div>
         <b> Description: </b><label>@ticket.getDescription</label>
@@ -116,6 +122,51 @@
 
     <form method="post" class="form-control" align="center" enctype="multipart/form-data">
         @CSRF.formField
+        <div class="row" align="center">
+
+            <div class="col-md-4">
+                <b> Change Assignee?: </b><br>
+                <select class="rounded" name="siteAdminId" id="siteAdminId">
+                    <option value="@ticket.getSiteAdminId">Choose Assignee</option>
+                    @for(siteAdmin<-siteAdmins){
+
+                    <option value="@siteAdmin.getSiteAdminId">
+                        @siteAdmin.getSiteAdminName
+                    </option>
+                    }
+
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <b> Change Priority?: </b><br>
+                <select class="rounded" name="priorityId" id="priorityId">
+                    <option value="@ticket.getPriorityId">Choose Priority</option>
+                    @for(priority<-priorities){
+
+                    <option value="@priority.getPriorityId">
+                        @priority.getPriorityName
+                    </option>
+                    }
+
+                </select>
+            </div>
+            <div class="col-md-4">
+                <b> Change Status?: </b><br>
+                <select class="rounded" name="statusId" id="statusId">
+                    <option value="@ticket.getStatusId">Choose Status</option>
+                    @for(ticketStatus<-ticketStatuses){
+
+                    <option value="@ticketStatus.getStatusId">
+                        @ticketStatus.getStatusName
+                    </option>
+                    }
+
+                </select>
+            </div>
+
+        </div>
+        <br>
         <div>
             <label><b>Reply:</b></label>
             <br>

@@ -141,6 +141,61 @@ public class TicketController extends Controller
         Ticket ticket = jpaApi.em().createQuery(sql, Ticket.class)
                 .setParameter("ticketsId", ticketsId).getSingleResult();
 
+        String locationSql = "SELECT l FROM Location l ";
+        List<Location> locations = jpaApi.em()
+                .createQuery(locationSql, Location.class).getResultList();
+
+        String statusSql = "SELECT s FROM TicketStatus s ";
+        List<TicketStatus> ticketStatuses = jpaApi.em()
+                .createQuery(statusSql, TicketStatus.class).getResultList();
+
+        String adminSql = "SELECT sa FROM SiteAdmin sa ";
+        List<SiteAdmin> siteAdmins = jpaApi.em()
+                .createQuery(adminSql, SiteAdmin.class).getResultList();
+
+        String prioritySql = "SELECT p FROM Priority p ";
+        List<Priority> priorities = jpaApi.em()
+                .createQuery(prioritySql, Priority.class).getResultList();
+
+        String categorySql = "SELECT c FROM Category c ";
+        List<Category> categories = jpaApi.em()
+                .createQuery(categorySql, Category.class).getResultList();
+
+        String regionSql = "SELECT r FROM Region r ";
+        List<Region> regions = jpaApi.em()
+                .createQuery(regionSql, Region.class).getResultList();
+
+        String replySql = "SELECT r FROM Reply r " +
+                "WHERE ticketsId = :ticketsId"; //needs to be case statement
+
+        List<Reply> replies = jpaApi.em().createQuery(replySql, Reply.class)
+                .setParameter("ticketsId", ticketsId).getResultList();
+
+        String fileSql = "SELECT f FROM FileDetails f " +
+                "WHERE ticketsId = :ticketsId";
+
+        List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
+                .setParameter("ticketsId", ticketsId).getResultList();
+
+
+        Date statusDateChanged = new Date();
+
+        int statusId = Integer.parseInt(form.get("statusId"));
+
+            ticket.setStatusId(statusId);
+
+        int priorityId = Integer.parseInt(form.get("priorityId"));
+
+            ticket.setPriority(priorityId);
+
+        int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
+
+            ticket.setSiteAdmin(siteAdminId);
+
+
+
+        ticket.setStatusDateChanged(statusDateChanged);
+
         jpaApi.em().persist(ticket);
 
 
@@ -212,7 +267,7 @@ public class TicketController extends Controller
             jpaApi.em().persist(reply1);
         }
 
-        return redirect(routes.TicketController.getTickets());
+        return ok(views.html.Ticket.ticket.render(ticket,locations,ticketStatuses,siteAdmins,priorities,categories,regions,replies,fileDetails));
     }
 
     @Transactional(readOnly = true)
@@ -261,9 +316,9 @@ public class TicketController extends Controller
         String computerName = form.get("computerName");
         Date statusDateChanged = new Date();
         int locationId = Integer.parseInt(form.get("locationId"));
-        int priorityId = Integer.parseInt(form.get("priorityId"));
         int categoryId = Integer.parseInt(form.get("categoryId"));
         int statusId = Integer.parseInt(form.get("statusId"));
+        int priorityId = Integer.parseInt(form.get("priorityId"));
         int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
 
         ticket.setName(name);
@@ -273,10 +328,10 @@ public class TicketController extends Controller
         ticket.setSubjectTitle(subjectTitle);
         ticket.setDescription(description);
         ticket.setComputerName(computerName);
-        ticket.setPriority(priorityId);
+        ticket.setLocation(locationId);
         ticket.setCategory(categoryId);
         ticket.setStatusId(statusId);
-        ticket.setLocation(locationId);
+        ticket.setPriority(priorityId);
         ticket.setSiteAdmin(siteAdminId);
         ticket.setStatusDateChanged(statusDateChanged);
         jpaApi.em().persist(ticket);
