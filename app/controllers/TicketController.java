@@ -33,6 +33,7 @@ public class TicketController extends Controller
     public Result getTickets()
     {
         DynamicForm form = formFactory.form().bindFromRequest();
+
         String sql = "SELECT t FROM Ticket t " +
                 "JOIN Location l ON t.locationId = l.locationId " +
                 "JOIN Priority p ON t.priorityId = p.priorityId " +
@@ -41,19 +42,20 @@ public class TicketController extends Controller
                 "JOIN TicketStatus s ON t.statusId = s.statusId " +
                 "WHERE t.name LIKE :searchCriteria  OR " +
                 "t.subjectTitle LIKE :searchCriteria OR " +
+                "t.subjectTitle LIKE :searchCriteria OR " +
                 "l.locationName LIKE :searchCriteria OR " +
                 "p.priorityName LIKE :searchCriteria OR " +
                 "sa.siteAdminName LIKE :searchCriteria OR " +
                 "t.ticketsId LIKE :searchCriteria OR " +
                 "s.statusName Like :searchCriteria " +
-                "ORDER BY sa.siteAdminId ";
+                "ORDER BY t.ticketsId desc";
+        //Text Search Begin
         String searchCriteria = form.get("searchCriteria");
         if (searchCriteria == null)
         {
             searchCriteria = "";
         }
         String queryParameter = searchCriteria + "%";
-
         List<Ticket> tickets = jpaApi.em()
                 .createQuery(sql, Ticket.class).setParameter("searchCriteria", queryParameter).getResultList();
 
@@ -73,8 +75,16 @@ public class TicketController extends Controller
         List<Priority> priority = jpaApi.em()
                 .createQuery(prioritySql, Priority.class).getResultList();
 
-        return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria,
-                locations, ticketStatuses, siteAdmins, priority));
+        String categorySql = "SELECT c FROM Category c ";
+        List<Category> categories = jpaApi.em()
+                .createQuery(categorySql, Category.class).getResultList();
+
+        //Text Search End
+        //Drop Down List Search Begin
+
+        //Drop Down List Search End
+
+        return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria, locations, ticketStatuses, siteAdmins, priority,categories));
 
     }
 
