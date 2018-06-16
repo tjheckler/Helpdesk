@@ -46,7 +46,7 @@ public class TicketController extends Controller
                 "sa.siteAdminName LIKE :searchCriteria OR " +
                 "t.ticketsId LIKE :searchCriteria OR " +
                 "s.statusName Like :searchCriteria " +
-                "ORDER BY sa.siteAdminName ";
+                "ORDER BY sa.siteAdminId ";
         String searchCriteria = form.get("searchCriteria");
         if (searchCriteria == null)
         {

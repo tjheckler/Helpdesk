@@ -5,30 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
-    <style>
-.collapsible {
-    background-color: #777;
-    color: white;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-}
-
-.active, .collapsible:hover {
-    background-color: #555;
-}
-
-.content {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-}
-</style>
     <title>Tickets</title>
 </head>
 <body>
@@ -47,6 +23,7 @@
             <a href="newticket">Create New Ticket </a>
         </div>
     </form>
+
     <table class="table table-light">
 
         @for(i <- 0 to tickets.size()-1){
@@ -65,7 +42,7 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <th>Ticket #</th>
+            <th>Ticket#</th>
             <th>Date Modified</th>
             <th>Priority</th>
             <th>Name</th>
@@ -75,9 +52,9 @@
             <th>Status</th>
             <th>&nbsp;</th>
         </tr>
-
 }
 
+<tbody>
         <tr>
             <td>
                 <div>
@@ -143,13 +120,16 @@
 
         </tr>
 
-
+</tbody>
 }
-        <br>
-    </div>
     </table>
+        <br>
 
-<script src="/assets/javascripts/collapsibletable.js"></script>
+
+
+
 </div>
+
 </body>
+
 </html>
