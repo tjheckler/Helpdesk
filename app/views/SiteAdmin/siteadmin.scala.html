@@ -45,6 +45,19 @@
         <br>
         <div class="row">
             <div class="col-md-5">
+                <b> Username:  </b><input class="rounded" type="text" name="username" id="username"
+                                                value="@siteAdmin.getUsername" minlength="1"
+                                                maxlength="30" size="30">
+            </div>
+            <div class="col-md-5">
+                <b> Password: </b><input class="rounded" type="password" name="password" id="password"
+                                             value="@siteAdmin.getPassword" minlength="1"
+                                             maxlength="30" size="30">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-5">
                 <b> Location: </b>
                 <select name="locationId" id="locationId">
                     @for(location <- locations){
@@ -69,6 +82,7 @@
         </div>
         <br>
         <input class="btn btn-primary" type="submit" value="save">
+        <a href="/newpassword/siteAdmin.siteAdminId">Reset Password</a>
         <a class="btn btn-primary"  href="/siteadmins">Back to List</a>
     </form>
 </div>

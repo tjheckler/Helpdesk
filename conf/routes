@@ -8,7 +8,9 @@ GET     /                            controllers.HomeController.index
 
 GET     /admin                       controllers.AdministrationController.getAdministration
 
-GET     /signup                      controllers.AdministrationController.getSignUp
+GET     /newpassword                 controllers.AdministrationController.getNewPassword
+POST    /newpassword/:id             controllers.AdministrationController.postNewPassword(id: Int)
+
 GET     /login                       controllers.AdministrationController.getLogin
 POST    /login                       controllers.AdministrationController.postLogin
 

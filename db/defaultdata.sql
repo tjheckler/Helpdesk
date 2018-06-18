@@ -51,24 +51,24 @@ insert into location(locationname,regionId) values('Oak Grove',2);
 
 
 --Generate Site Admins
-insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole)
-values('Bob Smith','you@me.com',123456789,4,'User');
-insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole)
-values('Manny Smith','you@me.com',123456789,9,'User');
-insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole)
-values('Susan Smith','you@me.com',123456789,5,'User');
-insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole)
-values('Mary Smith','you@me.com',123456789,8,'User');
-insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole)
-values('Louis Smith','you@me.com',123456789,1,'Admin');
-insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole)
-values('Barbara Smith','you@me.com',123456789,2,'Admin');
-insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole)
-values('Default Administrator','you@me.com',123456789,2,'Admin');
-insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole)
-values('Julio Smith','you@me.com',123456789,10,'User');
-insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole)
-values('Angus Smith','you@me.com',123456789,11,'User');
+insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
+values('Bob Smith','you@me.com',123456789,4,'User','BBsmith','password');
+insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
+values('Manny Smith','you@me.com',123456789,9,'User','MMSmith','password');
+insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
+values('Susan Smith','you@me.com',123456789,5,'User','Ssmith','password');
+insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
+values('Mary Smith','you@me.com',123456789,8,'User','Msmith','password');
+insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
+values('Louis Smith','you@me.com',123456789,1,'Admin','Lsmith','password');
+insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
+values('Barbara Smith','you@me.com',123456789,2,'Admin','Bsmith','password');
+insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
+values('Default Administrator','you@me.com',123456789,2,'Admin','Dadmin','admin');
+insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
+values('Julio Smith','you@me.com',123456789,10,'User','Jsmith','password');
+insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
+values('Angus Smith','you@me.com',123456789,11,'User','Asmith','password');
 
 --Generate Ticket Status
 insert into TicketStatus (statusName) values('Pending CS Reply');

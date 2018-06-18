@@ -32,9 +32,29 @@ public class AdministrationController extends Controller
         return ok(views.html.Administration.admin.render());
     }
 
-    public Result getSignUp()
+    @Transactional(readOnly = true)
+    public Result getNewPassword()
     {
-        return ok(views.html.Administration.signup.render());
+        return ok(views.html.Administration.newpassword.render(""));
+    }
+    @Transactional
+    public Result postNewPassword(Integer siteAdminId)
+    {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String sql = "SELECT sa FROM SiteAdmin sa ";
+        String password = form.get("password");
+        String passwordMatch = form.get("passwordMatch");
+        if(passwordMatch.equals(password))
+        {
+            SiteAdmin siteAdmin = jpaApi.em().createQuery(sql,SiteAdmin.class).setParameter("passwordMatch",passwordMatch).getSingleResult();
+            jpaApi.em().persist(siteAdmin);
+            return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
+        }
+        else
+        {
+            return ok(views.html.Administration.newpassword.render("Password Does Not Match"));
+        }
+
     }
 
     @Transactional(readOnly = true)

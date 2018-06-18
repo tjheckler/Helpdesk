@@ -76,11 +76,15 @@ public class SiteAdminController extends Controller
         int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
         String emailAddress = form.get("emailAddress");
         String role = form.get("siteRole");
+        String username = form.get("username");
+        String password = form.get("password");
         siteAdmin.setSiteAdminName(siteAdminName);
         siteAdmin.setPhoneNumber(phoneNumber);
         siteAdmin.setSiteRole(role);
         siteAdmin.setLocationId(locationId);
         siteAdmin.setEmailAddress(emailAddress);
+        siteAdmin.setPassword(password);
+        siteAdmin.setUsername(username);
         jpaApi.em().persist(siteAdmin);
 
         return redirect(routes.SiteAdminController.getSiteAdmins());
@@ -112,11 +116,15 @@ public class SiteAdminController extends Controller
         int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
         String emailAddress = form.get("emailAddress");
         String role = form.get("role");
+        String username = form.get("username");
+        String password = form.get("password");
         SiteAdmin siteAdmin = new SiteAdmin();
         siteAdmin.setSiteAdminName(siteAdminName);
         siteAdmin.setPhoneNumber(phoneNumber);
         siteAdmin.setSiteRole(role);
         siteAdmin.setLocationId(locationId);
+        siteAdmin.setPassword(password);
+        siteAdmin.setUsername(username);
 
         siteAdmin.setEmailAddress(emailAddress);
         jpaApi.em().persist(siteAdmin);

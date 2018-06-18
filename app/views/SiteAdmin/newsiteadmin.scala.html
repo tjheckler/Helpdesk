@@ -43,6 +43,19 @@
         <br>
         <div class="row">
             <div class="col-md-5">
+                <b> Username:  </b><input class="rounded" type="text" name="username" id="username"
+                                          minlength="1"
+                                          maxlength="30" size="30">
+            </div>
+            <div class="col-md-5">
+                <b> Password: </b><input class="rounded" type="password" name="password" id="password"
+                                         minlength="1"
+                                         maxlength="30" size="30">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-10">
                 <b>Location: </b>
                 <select class="rounded" name="locationId" id="locationId">
                     <option>Choose Location</option>
@@ -54,18 +67,8 @@
                     }
                 </select>
             </div>
-            <div class="col-md-5">
-                <b>Region: </b>
-                <select class="rounded" name="regionId" id="regionId">
-                    <option>Choose Region</option>
-                    @for(region<-regions){
 
-                    <option value="@region.getRegionId">
-                        @region.getRegionName
-                    </option>
-                    }
-                </select>
-            </div>
+
         </div>
         <br>
         <div>
