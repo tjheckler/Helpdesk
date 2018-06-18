@@ -10,6 +10,7 @@ GET     /admin                       controllers.AdministrationController.getAdm
 
 GET     /signup                      controllers.AdministrationController.getSignUp
 GET     /login                       controllers.AdministrationController.getLogin
+POST    /login                       controllers.AdministrationController.postLogin
 
 GET     /categories                  controllers.CategoryController.getCategories
 GET     /category/:id                controllers.CategoryController.getCategory(id: Int)
