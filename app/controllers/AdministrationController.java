@@ -91,9 +91,12 @@ public class AdministrationController extends Controller
     }
 
     @Transactional
-    public Result postForgotPassword(Integer siteAdminId)
+    public Result postForgotPassword(/*Integer siteAdminId*/)
     {
-        DynamicForm form = formFactory.form().bindFromRequest();
+
+        //Will be adding email api
+
+       /* DynamicForm form = formFactory.form().bindFromRequest();
 
 
         String sql = "SELECT s FROM SiteAdmin s " +
@@ -114,7 +117,7 @@ public class AdministrationController extends Controller
         } else
         {
             //do nothing
-        }
+        }*/
         return ok(views.html.Administration.login.render(""));
     }
 
