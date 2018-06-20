@@ -27,12 +27,63 @@ public class AdministrationController extends Controller
         this.formFactory = formFactory;
     }
 
-
     public Result getAdministration()
     {
 
         return ok(views.html.Administration.admin.render());
     }
+
+    @Transactional(readOnly = true)
+    public Result getLogin()
+    {
+        return ok(views.html.Administration.login.render(""));
+    }
+
+    @Transactional
+    public Result postLogin()
+    {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String username = form.get("username");
+        String password = form.get("password");
+
+        String sql = "SELECT sa FROM SiteAdmin sa WHERE userName = :username";
+
+        List<SiteAdmin> siteAdmins = jpaApi.em()
+                .createQuery(sql, SiteAdmin.class).setParameter("username", username).getResultList();
+
+
+        if (siteAdmins.size() == 1)
+        {
+            SiteAdmin siteAdmin = siteAdmins.get(0);
+
+            byte salt[] = siteAdmin.getPasswordSalt();
+            byte hashedPassword[] = Password.hashPassword(password.toCharArray(),salt);
+
+            if(Arrays.equals(hashedPassword, siteAdmin.getPassword()))
+            {
+                return redirect(routes.TicketController.getTickets());
+            }else
+            {
+                return ok(views.html.Administration.login.render("Invalid username or password"));
+            }
+        } else
+        {
+            try
+            {
+                byte salt[] = Password.getNewSalt();
+                Password.hashPassword(password.toCharArray(), salt);
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        return ok(views.html.Administration.login.render("Invalid username or password"));
+
+    }
+
+
 
     @Transactional(readOnly = true)
     public Result getNewPassword(Integer siteAdminId)
@@ -123,53 +174,5 @@ public class AdministrationController extends Controller
 
 
 
-    @Transactional(readOnly = true)
-    public Result getLogin()
-    {
-        return ok(views.html.Administration.login.render(""));
-    }
 
-    @Transactional
-    public Result postLogin()
-    {
-        DynamicForm form = formFactory.form().bindFromRequest();
-        String username = form.get("username");
-        String password = form.get("password");
-
-        String sql = "SELECT sa FROM SiteAdmin sa WHERE userName = :username";
-
-        List<SiteAdmin> siteAdmins = jpaApi.em()
-                .createQuery(sql, SiteAdmin.class).setParameter("username", username).getResultList();
-
-
-        if (siteAdmins.size() == 1)
-        {
-            SiteAdmin siteAdmin = siteAdmins.get(0);
-
-            byte salt[] = siteAdmin.getPasswordSalt();
-            byte hashedPassword[] = Password.hashPassword(password.toCharArray(),salt);
-
-            if(Arrays.equals(hashedPassword, siteAdmin.getPassword()))
-            {
-                return redirect(routes.TicketController.getTickets());
-            }else
-            {
-                return ok(views.html.Administration.login.render("Invalid username or password"));
-            }
-        } else
-        {
-            try
-            {
-                byte salt[] = Password.getNewSalt();
-                Password.hashPassword(password.toCharArray(), salt);
-            }
-            catch (Exception e)
-            {
-
-            }
-        }
-
-        return ok(views.html.Administration.login.render("Invalid username or password"));
-
-    }
 }
