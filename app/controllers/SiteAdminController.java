@@ -58,6 +58,7 @@ public class SiteAdminController extends Controller
         String regionSql = "SELECT r FROM Region r ";
         List<Region> region = jpaApi.em().createQuery(regionSql, Region.class).getResultList();
 
+
         return ok(views.html.SiteAdmin.siteadmin.render(siteAdmin,location,region));
     }
     @Transactional
@@ -78,13 +79,26 @@ public class SiteAdminController extends Controller
         String role = form.get("siteRole");
         String username = form.get("username");
         String password = form.get("password");
-        siteAdmin.setSiteAdminName(siteAdminName);
-        siteAdmin.setPhoneNumber(phoneNumber);
-        siteAdmin.setSiteRole(role);
-        siteAdmin.setLocationId(locationId);
-        siteAdmin.setEmailAddress(emailAddress);
-        siteAdmin.setPassword(password);
-        siteAdmin.setUsername(username);
+        try
+        {
+            byte salt[] = Password.getNewSalt();
+            byte hashedPassword[] = Password.hashPassword(password.toCharArray(),salt);
+
+            siteAdmin.setSiteAdminName(siteAdminName);
+            siteAdmin.setPhoneNumber(phoneNumber);
+            siteAdmin.setSiteRole(role);
+            siteAdmin.setLocationId(locationId);
+            siteAdmin.setEmailAddress(emailAddress);
+            siteAdmin.setPasswordSalt(salt);
+            siteAdmin.setPassword(hashedPassword);
+            siteAdmin.setUsername(username);
+        }catch (Exception e)
+        {
+
+        }
+
+
+
         jpaApi.em().persist(siteAdmin);
 
         return redirect(routes.SiteAdminController.getSiteAdmins());
@@ -119,14 +133,23 @@ public class SiteAdminController extends Controller
         String username = form.get("username");
         String password = form.get("password");
         SiteAdmin siteAdmin = new SiteAdmin();
-        siteAdmin.setSiteAdminName(siteAdminName);
-        siteAdmin.setPhoneNumber(phoneNumber);
-        siteAdmin.setSiteRole(role);
-        siteAdmin.setLocationId(locationId);
-        siteAdmin.setPassword(password);
-        siteAdmin.setUsername(username);
+        try
+        {
+            byte salt[] = Password.getNewSalt();
+            byte hashedPassword[] = Password.hashPassword(password.toCharArray(),salt);
 
-        siteAdmin.setEmailAddress(emailAddress);
+            siteAdmin.setSiteAdminName(siteAdminName);
+            siteAdmin.setPhoneNumber(phoneNumber);
+            siteAdmin.setSiteRole(role);
+            siteAdmin.setLocationId(locationId);
+            siteAdmin.setEmailAddress(emailAddress);
+            siteAdmin.setPasswordSalt(salt);
+            siteAdmin.setPassword(hashedPassword);
+            siteAdmin.setUsername(username);
+        }catch (Exception e)
+        {
+
+        }
         jpaApi.em().persist(siteAdmin);
 
 

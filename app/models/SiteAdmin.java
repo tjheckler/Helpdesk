@@ -14,10 +14,12 @@ public class SiteAdmin
     private String siteAdminName;
     private String emailAddress;
     private String username;
-    private String password;
+    private byte[] password;
+    private byte[] passwordSalt;
     private int locationId;
     private int phoneNumber;
     private String siteRole;
+
 
 
     public int getSiteAdminId()
@@ -35,14 +37,24 @@ public class SiteAdmin
         this.username = username;
     }
 
-    public String getPassword()
+    public byte[] getPassword()
     {
         return password;
     }
 
-    public void setPassword(String password)
+    public void setPassword(byte[] password)
     {
         this.password = password;
+    }
+
+    public byte[] getPasswordSalt()
+    {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(byte[] passwordSalt)
+    {
+        this.passwordSalt = passwordSalt;
     }
 
     public String getSiteAdminName()
