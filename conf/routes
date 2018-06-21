@@ -4,6 +4,8 @@
 
 # An example controller showing a sample home page
 GET     /                            controllers.HomeController.index
+GET     /about                       controllers.HomeController.about
+GET     /contact                     controllers.HomeController.contact
 
 
 GET     /admin                       controllers.AdministrationController.getAdministration
@@ -12,7 +14,7 @@ GET     /newpassword/:id             controllers.AdministrationController.getNew
 POST    /newpassword/:id             controllers.AdministrationController.postNewPassword(id: Int)
 
 GET     /forgotpassword              controllers.AdministrationController.getForgotPassword
-POST    /forgotpassword          controllers.AdministrationController.postForgotPassword
+POST    /forgotpassword              controllers.AdministrationController.postForgotPassword
 
 GET     /login                       controllers.AdministrationController.getLogin
 POST    /login                       controllers.AdministrationController.postLogin

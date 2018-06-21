@@ -12,6 +12,12 @@ public class HomeController extends Controller {
         return ok(views.html.Home.index.render());
     }
 
+    public Result about() {
+        return ok(views.html.Home.about.render());
+    }
 
+    public Result contact() {
+        return ok(views.html.Home.contact.render());
+    }
 
 }

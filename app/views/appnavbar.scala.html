@@ -10,6 +10,25 @@
             }
             <a class="nav-link" href="/"><b>Home</b></a>
         </li>
+
+        <li class="nav-item active">
+            @if("/about".equals(page)){
+        <li class="nav-item active">
+            }else{
+        <li class="nav-item">
+            }
+            <a class="nav-link" href="/about"><b>About</b></a>
+        </li>
+
+        <li class="nav-item active">
+            @if("/contact".equals(page)){
+        <li class="nav-item active">
+            }else{
+        <li class="nav-item">
+            }
+            <a class="nav-link" href="/contact"><b>Contact</b></a>
+        </li>
+
         <li class="nav-item">
             @if("admin".equals(page)){
         <li class="nav-item active">
@@ -18,6 +37,7 @@
             }
             <a class="nav-link" href="/admin"><b>Administration</b></a>
         </li>
+
         <li class="nav-item active">
             @if("tickets".equals(page)){
         <li class="nav-item active">
@@ -26,6 +46,7 @@
             }
             <a class="nav-link" href="/tickets"><b>Tickets</b></a>
         </li>
+
         <li class="nav-item active">
             @if("inventory".equals(page)){
         <li class="nav-item active">
@@ -34,6 +55,7 @@
             }
             <a class="nav-link" href="/inventories"><b>Inventory</b></a>
         </li>
+
         <li class="nav-item active">
             @if("reports".equals(page)){
         <li class="nav-item active">
@@ -42,14 +64,7 @@
             }
             <a class="nav-link" href="/reports"><b>Reports</b></a>
         </li>
-        <li class="nav-item active">
-            @if("signup".equals(page)){
-        <li class="nav-item active">
-            }else{
-        <li class="nav-item">
-            }
-            <a class="nav-link" href="/newpassword"><b>Reset Password</b></a>
-        </li>
+
         <li class="nav-item active">
             @if("login".equals(page)){
         <li class="nav-item active">
