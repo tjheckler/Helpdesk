@@ -429,4 +429,132 @@ public class TicketController extends Controller
         jpaApi.em().remove(ticket);
         return redirect(routes.TicketController.getTickets());
     }
+    @Transactional(readOnly = true)
+    public Result getCustomerTicket()
+    {
+
+        String prioritySql = "SELECT p FROM Priority p ";
+        List<Priority> priorities = jpaApi.em()
+                .createQuery(prioritySql, Priority.class).getResultList();
+
+        String categorySql = "SELECT c FROM Category c ";
+        List<Category> categories = jpaApi.em()
+                .createQuery(categorySql, Category.class).getResultList();
+
+        String locationSql = "SELECT l FROM Location l ";
+        List<Location> locations = jpaApi.em()
+                .createQuery(locationSql, Location.class).getResultList();
+
+       /* String statusSql = "SELECT s FROM TicketStatus s ";
+        List<TicketStatus> ticketStatuses = jpaApi.em()
+                .createQuery(statusSql, TicketStatus.class).getResultList();
+
+        String adminSql = "SELECT sa FROM SiteAdmin sa ";
+        List<SiteAdmin> siteAdmins = jpaApi.em()
+                .createQuery(adminSql, SiteAdmin.class).getResultList();
+
+
+        String regionSql = "SELECT r FROM Region r ";
+        List<Region> regions = jpaApi.em()
+                .createQuery(regionSql, Region.class).getResultList();*/
+
+        return ok(views.html.CustomerTicket.customerticket.render(locations,priorities, categories));
+    }
+
+    @Transactional
+    public Result postCustomerTicket()
+    {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        Ticket ticket = new Ticket();
+        String name = form.get("name");
+        int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
+        String emailAddress = form.get("emailAddress");
+        int assetTagNumber = Integer.parseInt(form.get("assetTagNumber"));
+        String subjectTitle = form.get("subjectTitle");
+        String description = form.get("description");
+        String computerName = form.get("computerName");
+        Date statusDateChanged = new Date();
+        int locationId = Integer.parseInt(form.get("locationId"));
+        int categoryId = Integer.parseInt(form.get("categoryId"));
+        int statusId = Integer.parseInt(form.get("statusId"));
+        int priorityId = Integer.parseInt(form.get("priorityId"));
+        int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
+
+        ticket.setName(name);
+        ticket.setPhoneNumber(phoneNumber);
+        ticket.setEmailAddress(emailAddress);
+        ticket.setAssetTagNumber(assetTagNumber);
+        ticket.setSubjectTitle(subjectTitle);
+        ticket.setDescription(description);
+        ticket.setComputerName(computerName);
+        ticket.setLocation(locationId);
+        ticket.setCategory(categoryId);
+        ticket.setStatusId(statusId);
+        ticket.setPriority(priorityId);
+        ticket.setSiteAdmin(siteAdminId);
+        ticket.setStatusDateChanged(statusDateChanged);
+        jpaApi.em().persist(ticket);
+
+
+        Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
+        File file1 = filePart1.getFile();
+
+        Http.MultipartFormData<File> formData2 = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> filePart2 = formData2.getFile("file2");
+        File file2 = filePart2.getFile();
+
+        Http.MultipartFormData<File> formData3 = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
+        File file3 = filePart3.getFile();
+
+        if (file1 != null && filePart1.getFilename().length() > 0)
+        {
+            FileDetails newFileDetails = new FileDetails();
+            try
+            {
+                newFileDetails.setAddedFiles(Files.toByteArray(file1));
+            } catch (Exception e)
+            {
+                //do nothing
+            }
+
+            newFileDetails.setExtension(filePart1.getContentType());
+            newFileDetails.setTicketId(ticket.getTicketsId());
+            jpaApi.em().persist(newFileDetails);
+        }
+        if (file2 != null && filePart2.getFilename().length() > 0)
+        {
+            FileDetails newFileDetails = new FileDetails();
+            try
+            {
+                newFileDetails.setAddedFiles(Files.toByteArray(file2));
+
+            } catch (Exception e)
+            {
+                //do nothing
+            }
+            newFileDetails.setExtension(filePart2.getContentType());
+            newFileDetails.setTicketId(ticket.getTicketsId());
+            jpaApi.em().persist(newFileDetails);
+        }
+        if (file3 != null && filePart3.getFilename().length() > 0)
+        {
+            FileDetails newFileDetails = new FileDetails();
+            try
+            {
+                newFileDetails.setAddedFiles(Files.toByteArray(file3));
+
+            } catch (Exception e)
+            {
+                //do nothing
+            }
+            newFileDetails.setExtension(filePart3.getContentType());
+            newFileDetails.setTicketId(ticket.getTicketsId());
+            jpaApi.em().persist(newFileDetails);
+        }
+
+        return redirect(routes.HomeController.index());
+    }
+
 }

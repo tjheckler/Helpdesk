@@ -113,7 +113,7 @@ public class LocationController extends Controller
     @Transactional
     public Result deleteLocation(int locationId)
     {
-        String sql = "SELECT l FROM Locatione l " +
+        String sql = "SELECT l FROM Location l " +
                 "WHERE locationId = :locationId";
         Location location = jpaApi.em().createQuery(sql, Location.class).
                 setParameter("LocationId", locationId).getSingleResult();
