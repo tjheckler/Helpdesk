@@ -19,9 +19,8 @@
     <form class="form-control" method="get">
         <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria">
         <input class="btn btn-primary" type="submit" value="Search">
-        <div>
-
-            <a href="newcategory">Create New </a>
+        <div align="left">
+            <a class="btn btn-primary" href="newcategory">Create New </a>
         </div>
     </form>
 
@@ -38,10 +37,7 @@
                 </div>
             </td>
             <td>
-                <a> Details </a>
-            </td>
-            <td>
-                <a href="category/@category.getCategoryId()"> Edit </a>
+                <a class="btn btn-primary" href="category/@category.getCategoryId()"> Edit </a>
             </td>
 
         </tr>

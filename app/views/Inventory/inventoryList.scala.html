@@ -17,10 +17,10 @@
     <form class="form-control" method="get">
         <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria" placeholder="Search Any List Value" size="20">
         <input class="btn btn-primary" type="submit" value="Search">
-        <div>
-            <a href="/inventories">Clear Search</a>
-            <br>
-            <a href="newinventory">Create New Inventory Item</a>
+            <a class="btn btn-primary" href="/inventories">Clear Search</a>
+        <br>
+        <div align="left">
+            <a class="btn btn-primary" href="newinventory">Create New Inventory Item</a>
         </div>
     </form>
     <table class="table table-bordered">
@@ -64,7 +64,7 @@
                 </div>
             </td>
             <td>
-                <a href="inventory/@inventory.getInventoryId()"> Details </a>
+                <a class="btn btn-primary" href="inventory/@inventory.getInventoryId()"> Edit/Details </a>
             </td>
 
         </tr>
