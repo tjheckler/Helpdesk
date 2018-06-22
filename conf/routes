@@ -13,6 +13,7 @@ GET     /admin                       controllers.AdministrationController.getAdm
 GET     /newpassword/:id             controllers.AdministrationController.getNewPassword(id: Int)
 POST    /newpassword/:id             controllers.AdministrationController.postNewPassword(id: Int)
 
+
 GET     /forgotpassword              controllers.AdministrationController.getForgotPassword
 POST    /forgotpassword              controllers.AdministrationController.postForgotPassword
 

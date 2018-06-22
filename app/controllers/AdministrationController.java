@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.scene.control.Alert;
+import models.Email;
 import models.Password;
 import models.SiteAdmin;
 import models.Ticket;
@@ -36,6 +37,7 @@ public class AdministrationController extends Controller
     @Transactional(readOnly = true)
     public Result getLogin()
     {
+
         return ok(views.html.Administration.login.render(""));
     }
 
@@ -57,12 +59,12 @@ public class AdministrationController extends Controller
             SiteAdmin siteAdmin = siteAdmins.get(0);
 
             byte salt[] = siteAdmin.getPasswordSalt();
-            byte hashedPassword[] = Password.hashPassword(password.toCharArray(),salt);
+            byte hashedPassword[] = Password.hashPassword(password.toCharArray(), salt);
 
-            if(Arrays.equals(hashedPassword, siteAdmin.getPassword()))
+            if (Arrays.equals(hashedPassword, siteAdmin.getPassword()))
             {
                 return redirect(routes.TicketController.getTickets());
-            }else
+            } else
             {
                 return ok(views.html.Administration.login.render("Invalid username or password"));
             }
@@ -72,8 +74,7 @@ public class AdministrationController extends Controller
             {
                 byte salt[] = Password.getNewSalt();
                 Password.hashPassword(password.toCharArray(), salt);
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
 
             }
@@ -82,7 +83,6 @@ public class AdministrationController extends Controller
         return ok(views.html.Administration.login.render("Invalid username or password"));
 
     }
-
 
 
     @Transactional(readOnly = true)
@@ -94,7 +94,7 @@ public class AdministrationController extends Controller
                 setParameter("siteAdminId", siteAdminId).getSingleResult();
 
 
-        return ok(views.html.Administration.newpassword.render("",siteAdmin));
+        return ok(views.html.Administration.newpassword.render("", siteAdmin));
     }
 
     @Transactional
@@ -112,7 +112,7 @@ public class AdministrationController extends Controller
         String password = form.get("password");
         String passwordMatch = form.get("passwordMatch");
 
-        if (Arrays.equals(password.toCharArray(),passwordMatch.toCharArray()) )
+        if (Arrays.equals(password.toCharArray(), passwordMatch.toCharArray()))
         {
             try
             {
@@ -121,7 +121,7 @@ public class AdministrationController extends Controller
                 siteAdmin.setPassword(Password.hashPassword(passwordMatch.toCharArray(), salt));
                 jpaApi.em().persist(siteAdmin);
                 return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
-            }catch(Exception e)
+            } catch (Exception e)
             {
 
             }
@@ -129,50 +129,53 @@ public class AdministrationController extends Controller
         {
 
         }
-        return ok(views.html.Administration.newpassword.render("Password Does Not Match",siteAdmin));
+        return ok(views.html.Administration.newpassword.render("Password Does Not Match", siteAdmin));
     }
 
     @Transactional(readOnly = true)
     public Result getForgotPassword()
     {
+        String sql = "SELECT s FROM SiteAdmin s ";
 
+        List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).getResultList();
 
-            //email address
-        return ok(views.html.Administration.forgotpassword.render(""));
+        return ok(views.html.Administration.forgotpassword.render("",siteAdmins));
     }
 
     @Transactional
-    public Result postForgotPassword(/*Integer siteAdminId*/)
+    public Result postForgotPassword()
     {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String email = form.get("emailAddress");
 
-        //Will be adding email api
+        String sql = "SELECT s FROM SiteAdmin s ";
 
-       /* DynamicForm form = formFactory.form().bindFromRequest();
+        List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).getResultList();
 
+        //this may be broken below
+            for(SiteAdmin siteAdmin:siteAdmins)
+            {
+                if (siteAdmin.getEmailAddress().equals(email))
+                {
+                    try
+                    {
+                        byte salt[] = Password.getNewSalt();
+                        siteAdmin.setPasswordSalt(salt);
+                        siteAdmin.setPassword(Password.hashPassword(Email.generateRandomPassword().toCharArray(), salt));
+                        jpaApi.em().persist(siteAdmin);
+                        Email.sendEmail("Enter this temporary password to login : "+ Email.generateRandomPassword() +
+                                " you will be prompt to change it immediately.", email);
+                    } catch (Exception e)
+                    {
 
-        String sql = "SELECT s FROM SiteAdmin s " +
-                "WHERE siteAdminId = :siteAdminId";
-        SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
-                setParameter("siteAdminId", siteAdminId).getSingleResult();
+                    }
+                } else
+                {
 
-        List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).
-                setParameter("siteAdminId", siteAdminId).getResultList();
-
-        String emailAddress = form.get("emailAddress");
-
-        if (siteAdmins.size() == 1)// check against list??
-        {
-
-            //send email
-            return ok("Check Email");
-        } else
-        {
-            //do nothing
-        }*/
-        return ok(views.html.Administration.login.render(""));
+                }
+            }
+        return ok(views.html.Administration.emailsent.render());
     }
-
-
 
 
 }
