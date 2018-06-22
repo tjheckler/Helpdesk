@@ -35,7 +35,7 @@ public class Email
                     .withSource(sender);
 
             client.sendEmail(request);
-            System.out.println("Email Sent");
+
 
         }catch (Exception e)
         {
