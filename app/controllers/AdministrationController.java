@@ -152,19 +152,19 @@ public class AdministrationController extends Controller
 
         List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).getResultList();
 
-        //this may be broken below
-            for(SiteAdmin siteAdmin:siteAdmins)
+            for( int i = 0; i < siteAdmins.size() - 1; i++)
             {
-                if (siteAdmin.getEmailAddress().equals(email))
+                if (siteAdmins.get(i).getEmailAddress().equals(email))
                 {
                     try
                     {
+                        String password = Email.generateRandomPassword();
                         byte salt[] = Password.getNewSalt();
-                        siteAdmin.setPasswordSalt(salt);
-                        siteAdmin.setPassword(Password.hashPassword(Email.generateRandomPassword().toCharArray(), salt));
-                        jpaApi.em().persist(siteAdmin);
-                        Email.sendEmail("Enter this temporary password to login : "+ Email.generateRandomPassword() +
-                                " you will be prompt to change it immediately.", email);
+                        byte hashedPassword[] = Password.hashPassword(password.toCharArray(),salt);
+                        siteAdmins.get(i).setPasswordSalt(salt);
+                        siteAdmins.get(i).setPassword(hashedPassword);
+                        jpaApi.em().persist(siteAdmins.get(i));
+                        Email.sendEmail("Enter this temporary password to login: "+ password, email);
                     } catch (Exception e)
                     {
 
