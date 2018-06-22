@@ -1,5 +1,6 @@
 @(location:List[Location],searchCriteria:String)
 <!DOCTYPE html>
+@import helper._
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +15,12 @@
 <div class="container" align="center">
     @appnavbar.render("admin")
     <h1><b>Locations</b></h1>
+    <div align="right">
+        <form method="post" action="/signout">
+            @CSRF.formField
+            <input id="firstbutton" type="submit" value="Sign Out" onclick="disablefirstbutton">
+        </form>
+    </div>
     <br>
     <form class="form-control" method="get">
         <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria">

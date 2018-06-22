@@ -14,6 +14,12 @@
     @appnavbar.render("inventory")
     <div class="jumbotron">
         <h1>Create New Inventory</h1>
+        <div align="right">
+            <form method="post" action="/signout">
+                @CSRF.formField
+                <input id="firstbutton" type="submit" value="Sign Out" onclick="disablefirstbutton">
+            </form>
+        </div>
     </div>
 
 

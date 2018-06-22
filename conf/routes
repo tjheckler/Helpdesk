@@ -19,6 +19,7 @@ POST    /forgotpassword              controllers.AdministrationController.postFo
 
 GET     /login                       controllers.AdministrationController.getLogin
 POST    /login                       controllers.AdministrationController.postLogin
+POST    /signout                     controllers.AdministrationController.postSignOut
 
 GET     /categories                  controllers.CategoryController.getCategories
 GET     /category/:id                controllers.CategoryController.getCategory(id: Int)

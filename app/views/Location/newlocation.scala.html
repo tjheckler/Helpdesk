@@ -13,6 +13,12 @@
     @appnavbar.render("admin")
     <div class="jumbotron">
     <h1>Create New Location</h1>
+        <div align="right">
+            <form method="post" action="/signout">
+                @CSRF.formField
+                <input id="firstbutton" type="submit" value="Sign Out" onclick="disablefirstbutton">
+            </form>
+        </div>
     </div>
     put each in a div align center?
     <form method="post" class="form-control">

@@ -1,5 +1,6 @@
 @(siteAdmins:List[SiteAdmin],searchCriteria:String)
 <!DOCTYPE html>
+@import helper._
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +13,12 @@
     @appnavbar.render("admin")
     <div class="jumbotron">
     <h1><b>Site Admins</b></h1>
+        <div align="right">
+            <form method="post" action="/signout">
+                @CSRF.formField
+                <input id="firstbutton" type="submit" value="Sign Out" onclick="disablefirstbutton">
+            </form>
+        </div>
     </div>
 
     <form class="form-control" method="get">

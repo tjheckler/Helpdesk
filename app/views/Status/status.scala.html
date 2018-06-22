@@ -14,6 +14,12 @@
     @appnavbar.render("admin")
     <div>
         <h1>@ticketStatus.getStatusName()</h1>
+        <div align="right">
+            <form method="post" action="/signout">
+                @CSRF.formField
+                <input id="firstbutton" type="submit" value="Sign Out" onclick="disablefirstbutton">
+            </form>
+        </div>
         <br>
         <form method="post" class="form-control" align="center">
             @CSRF.formField

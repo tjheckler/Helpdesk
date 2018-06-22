@@ -1,5 +1,6 @@
 @(tickets:List[Ticket],searchCriteria:String,locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category])
 <!DOCTYPE html>
+@import helper._
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +13,12 @@
     @appnavbar.render("tickets")
     <div class="jumbotron">
         <h1>Ticket List</h1>
+        <div align="right">
+            <form method="post" action="/signout">
+                @CSRF.formField
+                <input id="firstbutton" type="submit" value="Sign Out" onclick="disablefirstbutton">
+            </form>
+        </div>
         <div align="left">
             <a class="btn btn-primary" href="newticket"> Create New Ticket </a>
         </div>
