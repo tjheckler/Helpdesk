@@ -39,8 +39,8 @@ public class CategoryController extends ApplicationController
             }
             String queryParameter = searchCriteria + "%";
 
-            List<Category> categories = jpaApi.em()
-                    .createQuery(sql, Category.class).setParameter("searchCriteria", queryParameter).getResultList();
+            List<Category> categories = jpaApi.em().createQuery(sql, Category.class).
+                    setParameter("searchCriteria", queryParameter).getResultList();
 
 
             return ok(views.html.Category.categoryList.render(categories, searchCriteria));

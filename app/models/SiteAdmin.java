@@ -17,7 +17,7 @@ public class SiteAdmin
     private byte[] password;
     private byte[] passwordSalt;
     private int locationId;
-    private int phoneNumber;
+    private String phoneNumber;
     private String siteRole;
     private String flag;
 
@@ -88,12 +88,12 @@ public class SiteAdmin
     }
 
 
-    public long getPhoneNumber()
+    public String getPhoneNumber()
     {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber)
+    public void setPhoneNumber(String phoneNumber)
     {
         this.phoneNumber = phoneNumber;
     }

@@ -41,8 +41,8 @@ public class PriorityController extends ApplicationController
         }
         String queryParameter = searchCriteria + "%";
 
-        List<Priority> priorities = jpaApi.em()
-                .createQuery(sql,Priority.class).setParameter("searchCriteria", queryParameter).getResultList();
+        List<Priority> priorities = jpaApi.em().createQuery(sql,Priority.class).
+                setParameter("searchCriteria", queryParameter).getResultList();
 
 
         return ok(views.html.Priority.priorityList.render(priorities, searchCriteria));

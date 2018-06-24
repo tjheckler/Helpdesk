@@ -20,11 +20,11 @@ public class Ticket
     private Date statusDateChanged;
     private String name;
     private String emailAddress;
-    private long phoneNumber;
+    private String phoneNumber;
     private int locationId;
     private String description;
     private String computerName;
-    private int assetTagNumber;
+    private String assetTagNumber;
     private String subjectTitle;
     private int statusId;
 
@@ -135,12 +135,12 @@ public class Ticket
         this.emailAddress = emailAddres;
     }
 
-    public long getPhoneNumber()
+    public String getPhoneNumber()
     {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber)
+    public void setPhoneNumber(String phoneNumber)
     {
         this.phoneNumber = phoneNumber;
     }
@@ -165,12 +165,12 @@ public class Ticket
         this.computerName = computerName;
     }
 
-    public int getAssetTagNumber()
+    public String getAssetTagNumber()
     {
         return assetTagNumber;
     }
 
-    public void setAssetTagNumber(int assetTagNumber)
+    public void setAssetTagNumber(String assetTagNumber)
     {
         this.assetTagNumber = assetTagNumber;
     }

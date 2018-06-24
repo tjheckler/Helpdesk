@@ -35,7 +35,8 @@ public class ReportsController extends ApplicationController
                 "GROUP BY c.categoryName " +
                 "ORDER BY c.categoryName";
 
-        List<TicketCategoryCount> ticketCategoryCounts = jpaApi.em().createQuery(categorySql, TicketCategoryCount.class).getResultList();
+        List<TicketCategoryCount> ticketCategoryCounts = jpaApi.em().
+                createQuery(categorySql, TicketCategoryCount.class).getResultList();
 
         String siteAdminSql = "SELECT  NEW TicketSiteAdminCount(t.siteAdminId, s.siteAdminName, COUNT(*)) " +
                 "FROM Ticket t " +
@@ -43,7 +44,8 @@ public class ReportsController extends ApplicationController
                 "GROUP BY s.siteAdminName " +
                 "ORDER BY s.siteAdminName";
 
-        List<TicketSiteAdminCount> ticketSiteAdminCounts = jpaApi.em().createQuery(siteAdminSql, TicketSiteAdminCount.class).getResultList();
+        List<TicketSiteAdminCount> ticketSiteAdminCounts = jpaApi.em().
+                createQuery(siteAdminSql, TicketSiteAdminCount.class).getResultList();
 
         String prioritySql = "SELECT  NEW TicketPriorityCount(p.priorityId, p.priorityName, COUNT(*)) " +
                 "FROM Ticket t " +
@@ -51,7 +53,8 @@ public class ReportsController extends ApplicationController
                 "GROUP BY p.priorityName " +
                 "ORDER BY p.priorityName";
 
-        List<TicketPriorityCount> ticketPriorityCounts = jpaApi.em().createQuery(prioritySql, TicketPriorityCount.class).getResultList();
+        List<TicketPriorityCount> ticketPriorityCounts = jpaApi.em().
+                createQuery(prioritySql, TicketPriorityCount.class).getResultList();
 
         String locationSql = "SELECT  NEW TicketLocationCount(l.locationId, l.locationName, COUNT(*)) " +
                 "FROM Ticket t " +
@@ -59,7 +62,8 @@ public class ReportsController extends ApplicationController
                 "GROUP BY l.locationName " +
                 "ORDER BY l.locationName";
 
-        List<TicketLocationCount> ticketLocationCounts = jpaApi.em().createQuery(locationSql, TicketLocationCount.class).getResultList();
+        List<TicketLocationCount> ticketLocationCounts = jpaApi.em().
+                createQuery(locationSql, TicketLocationCount.class).getResultList();
 
         String regionSql = "SELECT  NEW TicketRegionCount(r.regionId, r.regionName, COUNT(*)) " +
                 "FROM Ticket t " +
@@ -68,7 +72,8 @@ public class ReportsController extends ApplicationController
                 "GROUP BY r.regionName " +
                 "ORDER BY r.regionName";
 
-        List<TicketRegionCount> ticketRegionCounts = jpaApi.em().createQuery(regionSql, TicketRegionCount.class).getResultList();
+        List<TicketRegionCount> ticketRegionCounts = jpaApi.em().
+                createQuery(regionSql, TicketRegionCount.class).getResultList();
 
         String InventorySql = "SELECT  NEW InventoryLocationCount(l.locationId, l.locationName, COUNT(*)) " +
                 "FROM Inventory i " +
@@ -76,9 +81,11 @@ public class ReportsController extends ApplicationController
                 "GROUP BY l.locationName " +
                 "ORDER BY l.locationName";
 
-        List<InventoryLocationCount> inventoryLocationCounts = jpaApi.em().createQuery(InventorySql, InventoryLocationCount.class).getResultList();
+        List<InventoryLocationCount> inventoryLocationCounts = jpaApi.em().
+                createQuery(InventorySql, InventoryLocationCount.class).getResultList();
 
-        return ok(views.html.Report.reports.render(ticketCategoryCounts, ticketSiteAdminCounts, ticketPriorityCounts, ticketLocationCounts, ticketRegionCounts, inventoryLocationCounts));
+        return ok(views.html.Report.reports.render(ticketCategoryCounts, ticketSiteAdminCounts,
+                ticketPriorityCounts, ticketLocationCounts, ticketRegionCounts, inventoryLocationCounts));
         } else
         {
             return ok(views.html.Administration.login.render("Login With Administrator Credentials to View " +
@@ -95,8 +102,8 @@ public class ReportsController extends ApplicationController
 
         String sql = "SELECT sa FROM SiteAdmin sa WHERE userName = :username";
 
-        List<SiteAdmin> siteAdmins = jpaApi.em()
-                .createQuery(sql, SiteAdmin.class).setParameter("username", username).getResultList();
+        List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).
+                setParameter("username", username).getResultList();
 
 
         // Make flag for database, check login and forgot password against flag

@@ -34,63 +34,64 @@ public class TicketController extends ApplicationController
     public Result getTickets()
     {
 
-            DynamicForm form = formFactory.form().bindFromRequest();
+        DynamicForm form = formFactory.form().bindFromRequest();
 
-            String sql = "SELECT t FROM Ticket t " +
-                    "JOIN Location l ON t.locationId = l.locationId " +
-                    "JOIN Priority p ON t.priorityId = p.priorityId " +
-                    "JOIN Category c ON t.categoryId = c.categoryId " +
-                    "JOIN SiteAdmin sa ON t.siteAdminId = sa.siteAdminId " +
-                    "JOIN TicketStatus s ON t.statusId = s.statusId " +
-                    "WHERE t.name LIKE :searchCriteria  OR " +
-                    "t.subjectTitle LIKE :searchCriteria OR " +
-                    "t.subjectTitle LIKE :searchCriteria OR " +
-                    "l.locationName LIKE :searchCriteria OR " +
-                    "p.priorityName LIKE :searchCriteria OR " +
-                    "sa.siteAdminName LIKE :searchCriteria OR " +
-                    "t.ticketsId LIKE :searchCriteria OR " +
-                    "s.statusName Like :searchCriteria " +
-                    "ORDER BY t.statusId";
-            //Text Search Begin
-            String searchCriteria = form.get("searchCriteria");
-            if (searchCriteria == null)
-            {
-                searchCriteria = "";
-            }
-            String queryParameter = searchCriteria + "%";
-            List<Ticket> tickets = jpaApi.em()
-                    .createQuery(sql, Ticket.class).setParameter("searchCriteria", queryParameter).getResultList();
+        String sql = "SELECT t FROM Ticket t " +
+                "JOIN Location l ON t.locationId = l.locationId " +
+                "JOIN Priority p ON t.priorityId = p.priorityId " +
+                "JOIN Category c ON t.categoryId = c.categoryId " +
+                "JOIN SiteAdmin sa ON t.siteAdminId = sa.siteAdminId " +
+                "JOIN TicketStatus s ON t.statusId = s.statusId " +
+                "WHERE t.name LIKE :searchCriteria  OR " +
+                "t.subjectTitle LIKE :searchCriteria OR " +
+                "t.subjectTitle LIKE :searchCriteria OR " +
+                "l.locationName LIKE :searchCriteria OR " +
+                "p.priorityName LIKE :searchCriteria OR " +
+                "sa.siteAdminName LIKE :searchCriteria OR " +
+                "t.ticketsId LIKE :searchCriteria OR " +
+                "s.statusName Like :searchCriteria " +
+                "ORDER BY t.statusId";
+        //Text Search Begin
+        String searchCriteria = form.get("searchCriteria");
+        if (searchCriteria == null)
+        {
+            searchCriteria = "";
+        }
+        String queryParameter = searchCriteria + "%";
+        List<Ticket> tickets = jpaApi.em().createQuery(sql, Ticket.class).
+                setParameter("searchCriteria", queryParameter).getResultList();
 
-            String locationSql = "SELECT l FROM Location l ";
-            List<Location> locations = jpaApi.em()
-                    .createQuery(locationSql, Location.class).getResultList();
+        String locationSql = "SELECT l FROM Location l ";
+        List<Location> locations = jpaApi.em()
+                .createQuery(locationSql, Location.class).getResultList();
 
-            String statusSql = "SELECT s FROM TicketStatus s ";
-            List<TicketStatus> ticketStatuses = jpaApi.em()
-                    .createQuery(statusSql, TicketStatus.class).getResultList();
+        String statusSql = "SELECT s FROM TicketStatus s ";
+        List<TicketStatus> ticketStatuses = jpaApi.em()
+                .createQuery(statusSql, TicketStatus.class).getResultList();
 
-            String adminSql = "SELECT sa FROM SiteAdmin sa ";
-            List<SiteAdmin> siteAdmins = jpaApi.em()
-                    .createQuery(adminSql, SiteAdmin.class).getResultList();
+        String adminSql = "SELECT sa FROM SiteAdmin sa ";
+        List<SiteAdmin> siteAdmins = jpaApi.em()
+                .createQuery(adminSql, SiteAdmin.class).getResultList();
 
-            String prioritySql = "SELECT p FROM Priority p ";
-            List<Priority> priority = jpaApi.em()
-                    .createQuery(prioritySql, Priority.class).getResultList();
+        String prioritySql = "SELECT p FROM Priority p ";
+        List<Priority> priority = jpaApi.em()
+                .createQuery(prioritySql, Priority.class).getResultList();
 
-            String categorySql = "SELECT c FROM Category c ";
-            List<Category> categories = jpaApi.em()
-                    .createQuery(categorySql, Category.class).getResultList();
+        String categorySql = "SELECT c FROM Category c ";
+        List<Category> categories = jpaApi.em()
+                .createQuery(categorySql, Category.class).getResultList();
 
-            //Text Search End
+        //Text Search End
 
 
-               if (isLoggedIn())
-               {
-                   return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria, locations, ticketStatuses, siteAdmins, priority, categories));
-               } else
-               {
-                   return redirect(routes.AdministrationController.getLogin());
-               }
+        if (isLoggedIn())
+        {
+            return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria, locations,
+                    ticketStatuses, siteAdmins, priority, categories));
+        } else
+        {
+            return redirect(routes.AdministrationController.getLogin());
+        }
 
     }
 
@@ -232,7 +233,8 @@ public class TicketController extends ApplicationController
             Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
             File file3 = filePart3.getFile();
 
-            if (file1 != null && filePart1.getFilename().length() > 0 && !filePart1.getContentType().equals("zip") && !filePart1.getContentType().equals("exe"))
+            if (file1 != null && filePart1.getFilename().length() > 0 && !filePart1.getContentType().equals("zip")
+                    && !filePart1.getContentType().equals("exe"))
             {
                 FileDetails newFileDetails = new FileDetails();
                 try
@@ -247,7 +249,8 @@ public class TicketController extends ApplicationController
                 newFileDetails.setTicketId(ticketsId);
                 jpaApi.em().persist(newFileDetails);
             }
-            if (file2 != null && filePart2.getFilename().length() > 0 && !filePart2.getContentType().equals("zip") && !filePart2.getContentType().equals("exe"))
+            if (file2 != null && filePart2.getFilename().length() > 0 && !filePart2.getContentType().equals("zip")
+                    && !filePart2.getContentType().equals("exe"))
             {
                 FileDetails newFileDetails = new FileDetails();
                 try
@@ -262,7 +265,8 @@ public class TicketController extends ApplicationController
                 newFileDetails.setTicketId(ticketsId);
                 jpaApi.em().persist(newFileDetails);
             }
-            if (file3 != null && filePart3.getFilename().length() > 0 && !filePart3.getContentType().equals("zip") && !filePart3.getContentType().equals("exe"))
+            if (file3 != null && filePart3.getFilename().length() > 0 && !filePart3.getContentType().equals("zip")
+                    && !filePart3.getContentType().equals("exe"))
             {
                 FileDetails newFileDetails = new FileDetails();
                 try
@@ -288,7 +292,8 @@ public class TicketController extends ApplicationController
                 jpaApi.em().persist(reply1);
             }
 
-            return ok(views.html.Ticket.ticket.render(ticket, locations, ticketStatuses, siteAdmins, priorities, categories, regions, replies, fileDetails));
+            return ok(views.html.Ticket.ticket.render(ticket, locations, ticketStatuses, siteAdmins,
+                    priorities, categories, regions, replies, fileDetails));
         } else
         {
             return redirect(routes.AdministrationController.getLogin());
@@ -326,7 +331,7 @@ public class TicketController extends ApplicationController
                     .createQuery(regionSql, Region.class).getResultList();
 
             return ok(views.html.Ticket.newticket.render(locations, ticketStatuses,
-                    siteAdmins, priorities, categories, regions));
+                    siteAdmins, priorities, categories, regions,"* Indicates Required Field"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin());
@@ -341,9 +346,9 @@ public class TicketController extends ApplicationController
             DynamicForm form = formFactory.form().bindFromRequest();
             Ticket ticket = new Ticket();
             String name = form.get("name");
-            int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
+            String phoneNumber = form.get("phoneNumber");
             String emailAddress = form.get("emailAddress");
-            int assetTagNumber = Integer.parseInt(form.get("assetTagNumber"));
+            String assetTagNumber = form.get("assetTagNumber");
             String subjectTitle = form.get("subjectTitle");
             String description = form.get("description");
             String computerName = form.get("computerName");
@@ -353,21 +358,29 @@ public class TicketController extends ApplicationController
             int statusId = Integer.parseInt(form.get("statusId"));
             int priorityId = Integer.parseInt(form.get("priorityId"));
             int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
-
-            ticket.setName(name);
-            ticket.setPhoneNumber(phoneNumber);
-            ticket.setEmailAddress(emailAddress);
-            ticket.setAssetTagNumber(assetTagNumber);
-            ticket.setSubjectTitle(subjectTitle);
-            ticket.setDescription(description);
-            ticket.setComputerName(computerName);
-            ticket.setLocation(locationId);
-            ticket.setCategory(categoryId);
-            ticket.setStatusId(statusId);
-            ticket.setPriority(priorityId);
-            ticket.setSiteAdmin(siteAdminId);
-            ticket.setStatusDateChanged(statusDateChanged);
-            jpaApi.em().persist(ticket);
+            if (name != null && phoneNumber != null && emailAddress != null &&
+                    subjectTitle != null && computerName != null && assetTagNumber != null
+                    && description !=null && locationId > 0 && categoryId > 0
+                    && statusId > 0 && priorityId > 0 && siteAdminId > 0)
+            {
+                ticket.setName(name);
+                ticket.setPhoneNumber(phoneNumber);
+                ticket.setEmailAddress(emailAddress);
+                ticket.setAssetTagNumber(assetTagNumber);
+                ticket.setSubjectTitle(subjectTitle);
+                ticket.setDescription(description);
+                ticket.setComputerName(computerName);
+                ticket.setLocation(locationId);
+                ticket.setCategory(categoryId);
+                ticket.setStatusId(statusId);
+                ticket.setPriority(priorityId);
+                ticket.setSiteAdmin(siteAdminId);
+                ticket.setStatusDateChanged(statusDateChanged);
+                jpaApi.em().persist(ticket);
+            } else
+            {
+                return redirect(routes.TicketController.getNewTicket());
+            }
 
 
             Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
@@ -382,7 +395,8 @@ public class TicketController extends ApplicationController
             Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
             File file3 = filePart3.getFile();
 
-            if (file1 != null && filePart1.getFilename().length() > 0 && !filePart1.getContentType().equals("zip") && !filePart1.getContentType().equals("exe"))
+            if (file1 != null && filePart1.getFilename().length() > 0
+                    && !filePart1.getContentType().equals("zip") && !filePart1.getContentType().equals("exe"))
             {
                 FileDetails newFileDetails = new FileDetails();
                 try
@@ -397,7 +411,8 @@ public class TicketController extends ApplicationController
                 newFileDetails.setTicketId(ticket.getTicketsId());
                 jpaApi.em().persist(newFileDetails);
             }
-            if (file2 != null && filePart2.getFilename().length() > 0 && !filePart2.getContentType().equals("zip") && !filePart2.getContentType().equals("exe"))
+            if (file2 != null && filePart2.getFilename().length() > 0
+                    && !filePart2.getContentType().equals("zip") && !filePart2.getContentType().equals("exe"))
             {
                 FileDetails newFileDetails = new FileDetails();
                 try
@@ -412,7 +427,8 @@ public class TicketController extends ApplicationController
                 newFileDetails.setTicketId(ticket.getTicketsId());
                 jpaApi.em().persist(newFileDetails);
             }
-            if (file3 != null && filePart3.getFilename().length() > 0 && !filePart3.getContentType().equals("zip") && !filePart3.getContentType().equals("exe"))
+            if (file3 != null && filePart3.getFilename().length() > 0
+                    && !filePart3.getContentType().equals("zip") && !filePart3.getContentType().equals("exe"))
             {
                 FileDetails newFileDetails = new FileDetails();
                 try
@@ -435,11 +451,12 @@ public class TicketController extends ApplicationController
                 if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
                 {
                     //make a real url that consists of ticket number
-                    String url = "localhost:9000/tickets/"+ticket.getTicketsId();
+                    String url = "localhost:9000/tickets/" + ticket.getTicketsId();
                     String email = siteAdmins.get(i).getEmailAddress();
 
-                    Email.sendTicketEmail("A new ticket has been assigned to you. You can view this ticket " +
-                            "by the following link, copy and paste to browser " + url, email);
+                    Email.sendTicketEmail("A new ticket has been assigned to you. " +
+                            "You can view this ticket by the following link, copy and paste " +
+                            "to browser " + url, email);
                 } else
                 {
                     //do nothing
@@ -448,9 +465,11 @@ public class TicketController extends ApplicationController
             }
             return redirect(routes.TicketController.getTickets());
         } else
+
         {
             return redirect(routes.AdministrationController.getLogin());
         }
+
     }
 
     @Transactional
@@ -511,7 +530,8 @@ public class TicketController extends ApplicationController
         List<Region> regions = jpaApi.em()
                 .createQuery(regionSql, Region.class).getResultList();*/
 
-        return ok(views.html.CustomerTicket.customerticket.render(locations, priorities, categories));
+        return ok(views.html.CustomerTicket.customerticket.render(locations,
+                priorities, categories,"* Indicates Required Field"));
     }
 
     @Transactional
@@ -520,9 +540,9 @@ public class TicketController extends ApplicationController
         DynamicForm form = formFactory.form().bindFromRequest();
         Ticket ticket = new Ticket();
         String name = form.get("name");
-        int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
+        String phoneNumber = form.get("phoneNumber");
         String emailAddress = form.get("emailAddress");
-        int assetTagNumber = Integer.parseInt(form.get("assetTagNumber"));
+        String assetTagNumber = form.get("assetTagNumber");
         String subjectTitle = form.get("subjectTitle");
         String description = form.get("description");
         String computerName = form.get("computerName");
@@ -533,6 +553,10 @@ public class TicketController extends ApplicationController
         int priorityId = Integer.parseInt(form.get("priorityId"));
         int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
 
+        if (name != null && phoneNumber != null && emailAddress != null &&
+                subjectTitle != null && description !=null && locationId > 0
+                && categoryId > 0 && statusId > 0 && priorityId > 0 && siteAdminId > 0)
+        {
         ticket.setName(name);
         ticket.setPhoneNumber(phoneNumber);
         ticket.setEmailAddress(emailAddress);
@@ -547,7 +571,10 @@ public class TicketController extends ApplicationController
         ticket.setSiteAdmin(siteAdminId);
         ticket.setStatusDateChanged(statusDateChanged);
         jpaApi.em().persist(ticket);
-
+        } else
+        {
+            return redirect(routes.TicketController.getCustomerTicket());
+        }
 
         Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
@@ -561,7 +588,8 @@ public class TicketController extends ApplicationController
         Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
         File file3 = filePart3.getFile();
 
-        if (file1 != null && filePart1.getFilename().length() > 0 && !filePart1.getContentType().equals("zip") && !filePart1.getContentType().equals("exe"))
+        if (file1 != null && filePart1.getFilename().length() > 0 && !filePart1.getContentType().equals("zip")
+                && !filePart1.getContentType().equals("exe"))
         {
             FileDetails newFileDetails = new FileDetails();
             try
@@ -576,7 +604,8 @@ public class TicketController extends ApplicationController
             newFileDetails.setTicketId(ticket.getTicketsId());
             jpaApi.em().persist(newFileDetails);
         }
-        if (file2 != null && filePart2.getFilename().length() > 0 && !filePart2.getContentType().equals("zip") && !filePart2.getContentType().equals("exe"))
+        if (file2 != null && filePart2.getFilename().length() > 0 && !filePart2.getContentType().equals("zip")
+                && !filePart2.getContentType().equals("exe"))
         {
             FileDetails newFileDetails = new FileDetails();
             try
@@ -591,7 +620,8 @@ public class TicketController extends ApplicationController
             newFileDetails.setTicketId(ticket.getTicketsId());
             jpaApi.em().persist(newFileDetails);
         }
-        if (file3 != null && filePart3.getFilename().length() > 0 && !filePart3.getContentType().equals("zip") && !filePart3.getContentType().equals("exe"))
+        if (file3 != null && filePart3.getFilename().length() > 0 && !filePart3.getContentType().equals("zip")
+                && !filePart3.getContentType().equals("exe"))
         {
             FileDetails newFileDetails = new FileDetails();
             try
@@ -614,7 +644,7 @@ public class TicketController extends ApplicationController
             if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
             {
                 //make a real url that consists of ticket number
-                String url = "localhost:9000/tickets/"+ticket.getTicketsId();
+                String url = "localhost:9000/tickets/" + ticket.getTicketsId();
                 String email = siteAdmins.get(i).getEmailAddress();
 
                 Email.sendTicketEmail("A new ticket has been assigned to you. You can view this ticket " +

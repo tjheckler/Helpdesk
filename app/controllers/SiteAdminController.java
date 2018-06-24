@@ -39,8 +39,8 @@ public class SiteAdminController extends ApplicationController
         }
         String queryParameter = searchCriteria + "%";
 
-        List<SiteAdmin> siteAdmins = jpaApi.em()
-                .createQuery(sql, SiteAdmin.class).setParameter("searchCriteria", queryParameter).getResultList();
+        List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).
+                setParameter("searchCriteria", queryParameter).getResultList();
 
 
         return ok(views.html.SiteAdmin.siteadminList.render(siteAdmins, searchCriteria));
@@ -90,7 +90,7 @@ public class SiteAdminController extends ApplicationController
         String siteAdminName = form.get("siteAdminName");
         int locationId = Integer.parseInt(form.get("locationId"));
 
-        int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
+        String phoneNumber = form.get("phoneNumber");
         String emailAddress = form.get("emailAddress");
         String role = form.get("siteRole");
         String username = form.get("username");
@@ -152,7 +152,7 @@ public class SiteAdminController extends ApplicationController
         String siteAdminName = form.get("siteAdmin");
         int locationId = Integer.parseInt(form.get("locationId"));
 
-        int phoneNumber = Integer.parseInt(form.get("phoneNumber"));
+        String phoneNumber = form.get("phoneNumber");
         String emailAddress = form.get("emailAddress");
         String role = form.get("role");
         String username = form.get("username");

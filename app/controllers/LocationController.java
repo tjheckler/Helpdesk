@@ -43,8 +43,8 @@ public class LocationController extends ApplicationController
             }
             String queryParameter = searchCriteria + "%";
 
-            List<Location> locations = jpaApi.em()
-                    .createQuery(sql, Location.class).setParameter("searchCriteria", queryParameter).getResultList();
+            List<Location> locations = jpaApi.em().createQuery(sql, Location.class).
+                    setParameter("searchCriteria", queryParameter).getResultList();
 
 
             return ok(views.html.Location.locationList.render(locations, searchCriteria));

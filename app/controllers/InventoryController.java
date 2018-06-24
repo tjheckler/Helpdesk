@@ -46,8 +46,8 @@ public class InventoryController extends ApplicationController
             }
             String queryParameter = searchCriteria + "%";
 
-            List<Inventory> inventories = jpaApi.em()
-                    .createQuery(sql, Inventory.class).setParameter("searchCriteria", queryParameter).getResultList();
+            List<Inventory> inventories = jpaApi.em().createQuery(sql, Inventory.class).
+                    setParameter("searchCriteria", queryParameter).getResultList();
 
             String locationSql = "SELECT l FROM Location l ";
             List<Location> locations = jpaApi.em()

@@ -39,8 +39,8 @@ public class StatusController extends ApplicationController
         }
         String queryParameter = searchCriteria + "%";
 
-        List<TicketStatus> ticketStatuses = jpaApi.em()
-                .createQuery(sql, TicketStatus.class).setParameter("searchCriteria", queryParameter).getResultList();
+        List<TicketStatus> ticketStatuses = jpaApi.em().createQuery(sql, TicketStatus.class).
+                setParameter("searchCriteria", queryParameter).getResultList();
 
 
         return ok(views.html.Status.statusList.render(ticketStatuses, searchCriteria));

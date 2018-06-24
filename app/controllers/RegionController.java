@@ -40,8 +40,8 @@ public class RegionController extends ApplicationController
             }
             String queryParameter = searchCriteria + "%";
 
-            List<Region> regions = jpaApi.em()
-                    .createQuery(sql, Region.class).setParameter("searchCriteria", queryParameter).getResultList();
+            List<Region> regions = jpaApi.em().createQuery(sql, Region.class).
+                    setParameter("searchCriteria", queryParameter).getResultList();
 
 
             return ok(views.html.Region.regionList.render(regions, searchCriteria));
