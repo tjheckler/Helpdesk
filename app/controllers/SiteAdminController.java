@@ -157,6 +157,7 @@ public class SiteAdminController extends ApplicationController
         String role = form.get("role");
         String username = form.get("username");
         String password = form.get("password");
+        String flag = "True";
         SiteAdmin siteAdmin = new SiteAdmin();
         try
         {
@@ -171,6 +172,7 @@ public class SiteAdminController extends ApplicationController
             siteAdmin.setPasswordSalt(salt);
             siteAdmin.setPassword(hashedPassword);
             siteAdmin.setUsername(username);
+            siteAdmin.setFlag(flag);
         }catch (Exception e)
         {
 

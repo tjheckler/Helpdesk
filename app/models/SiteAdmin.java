@@ -19,8 +19,18 @@ public class SiteAdmin
     private int locationId;
     private int phoneNumber;
     private String siteRole;
+    private String flag;
 
 
+    public String getFlag()
+    {
+        return flag;
+    }
+
+    public void setFlag(String flag)
+    {
+        this.flag = flag;
+    }
 
     public int getSiteAdminId()
     {
