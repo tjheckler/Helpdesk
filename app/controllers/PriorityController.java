@@ -15,7 +15,7 @@ package controllers;
         import static play.mvc.Results.ok;
         import static play.mvc.Results.redirect;
 
-public class PriorityController
+public class PriorityController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
@@ -28,6 +28,8 @@ public class PriorityController
     @Transactional(readOnly = true)
     public Result getPriorities()
     {
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        {
         DynamicForm form = formFactory.form().bindFromRequest();
         String sql = "SELECT p FROM Priority p " +
                 " WHERE priorityName LIKE :searchCriteria " +
@@ -44,21 +46,34 @@ public class PriorityController
 
 
         return ok(views.html.Priority.priorityList.render(priorities, searchCriteria));
+        } else
+        {
+            return redirect(routes.AdministrationController.getLogin());
+        }
+
     }
     @Transactional(readOnly = true)
     public Result getPriority(Integer priorityId)
     {
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        {
         String sql = "SELECT p FROM Priority p " +
                 "WHERE priorityId = :priorityId";
         Priority priority = jpaApi.em().createQuery(sql, Priority.class).
                 setParameter("priorityId", priorityId).getSingleResult();
 
         return ok(views.html.Priority.priority.render(priority));
+    } else
+    {
+        return redirect(routes.AdministrationController.getLogin());
+    }
     }
 
     @Transactional
     public Result postPriority(Integer priorityId)
     {
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        {
         String sql = "SELECT p FROM Priority p " +
                 "WHERE priorityId = :priorityId";
 
@@ -73,32 +88,52 @@ public class PriorityController
         jpaApi.em().persist(priority);
 
         return redirect(routes.PriorityController.getPriorities());
+        } else
+        {
+            return redirect(routes.AdministrationController.getLogin());
+        }
     }
     public Result getNewPriority()
     {
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        {
         return ok(views.html.Priority.newpriority.render());
+    } else
+    {
+        return redirect(routes.AdministrationController.getLogin());
+    }
     }
 
     @Transactional
     public Result postNewPriority()
     {
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        {
         DynamicForm form = formFactory.form().bindFromRequest();
         String priority1 = form.get("priority");
         Priority priority = new Priority();
         priority.setPriorityName(priority1);
         jpaApi.em().persist(priority);
-
-
         return redirect(routes.PriorityController.getPriorities());
+    } else
+    {
+        return redirect(routes.AdministrationController.getLogin());
+    }
     }
     @Transactional
     public Result deletePriority(int priorityId)
     {
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        {
         String sql = "SELECT p FROM Priority p " +
                 "WHERE priorityId = :priorityId";
         Priority priority = jpaApi.em().createQuery(sql, Priority.class).
                 setParameter("priorityId", priorityId).getSingleResult();
         jpaApi.em().remove(priority);
         return redirect(routes.PriorityController.getPriorities());
+        } else
+        {
+            return redirect(routes.AdministrationController.getLogin());
+        }
     }
 }

@@ -11,10 +11,41 @@ import java.util.Random;
 
 public class Email
 {
-    public static void sendEmail(String contents,String destinationEmail)
+    public static void sendPasswordEmail(String contents,String destinationEmail)
     {
-        String sender = "timothy_heckler@outlook.com";
+        String sender = "timothy_heckler@outlook.com"; //Change to your actual email address for your help desk
         String subject = "Reset Password Link" ;
+        try
+        {
+            AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder
+                    .standard()
+                    .withRegion(Regions.US_WEST_2)
+                    //.withRegion(Regions.US_EAST_2)
+                    .build();
+
+            SendEmailRequest request = new SendEmailRequest()
+                    .withDestination(
+                            new Destination().withToAddresses(destinationEmail))
+                    .withMessage(new Message()
+                            .withBody(new Body()
+                                    .withHtml(new Content()
+                                            .withCharset("UTF-8").withData(contents)))
+                            .withSubject(new Content()
+                                    .withCharset("UTF-8").withData(subject)))
+                    .withSource(sender);
+
+            client.sendEmail(request);
+
+
+        }catch (Exception e)
+        {
+            System.out.println("Unable to send email "+ e.getMessage());
+        }
+    }
+    public static void sendTicketEmail(String contents,String destinationEmail)
+    {
+        String sender = "timothy_heckler@outlook.com"; //Change to your actual email address for your help desk
+        String subject = "New Ticket" ;
         try
         {
             AmazonSimpleEmailService client = AmazonSimpleEmailServiceClientBuilder

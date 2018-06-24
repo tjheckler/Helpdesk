@@ -46,8 +46,13 @@
             <th>Status</th>
             <th>&nbsp;</th>
         </tr>
-        <tbody>
+
+
+        @for(i <- 0 to siteAdmins.size()-1){
         @for(ticket<-tickets){
+        @if(ticket.getSiteAdminId == siteAdmins.get(i).getSiteAdminId){
+
+        <tbody>
         <tr>
             <td>
                 <div>
@@ -111,8 +116,81 @@
                 <a class="btn btn-primary" href="ticket/@ticket.getTicketsId()"> Details </a>
             </td>
         </tr>
-        }
         </tbody>
+
+        }else{ @if(ticket.getSiteAdminId != siteAdmins.get(i).getSiteAdminId){
+
+<tbody hidden="hidden">
+        <tr hidden="hidden">
+            <td hidden="hidden">
+                <div hidden="hidden">
+                    @ticket.getTicketsId()
+                </div>
+            </td>
+            <td hidden="hidden">
+                <div hidden="hidden">
+                    @ticket.getStatusDateChanged()
+                </div>
+            </td>
+            <td hidden="hidden">
+                <div hidden="hidden">
+                    @for(priority<-priorities){
+                    @if(priority.getPriorityId==ticket.getPriorityId){
+                    @priority.getPriorityName()
+                    }
+                    }
+                </div>
+            </td>
+            <td hidden="hidden">
+                <div hidden="hidden">
+                    @ticket.getName()
+                </div>
+            </td >
+            <td hidden="hidden">
+                <div hidden="hidden">
+                    @for(siteAdmin<-siteAdmins){
+                    @if(siteAdmin.getSiteAdminId==ticket.getSiteAdminId){
+                    @siteAdmin.getSiteAdminName()
+                    }
+                    }
+                </div>
+            </td>
+            <td hidden="hidden">
+                <div hidden="hidden">
+                    @tickets.get(i).getSubjectTitle()
+                </div>
+            </td>
+            <td hidden="hidden">
+                <div hidden="hidden">
+                    @for(location<-locations){
+                    @if(location.getLocationId==ticket.getLocationId){
+                    @location.getLocationName()
+                    }
+                    }
+
+
+                </div>
+            </td>
+            <td hidden="hidden">
+                <div hidden="hidden">
+                    @for(ticketStatus<-ticketStatuses){
+                    @if(ticketStatus.getStatusId==ticket.getStatusId){
+                    @ticketStatus.getStatusName()
+                    }
+                    }
+                </div>
+            </td>
+            <td hidden="hidden">
+                <a hidden="hidden" class="btn btn-primary" href="ticket/@ticket.getTicketsId()"> Details </a>
+            </td>
+        </tr>
+</tbody>
+
+        }
+        }
+        }
+}
+
     </table>
     <br>
 </div>

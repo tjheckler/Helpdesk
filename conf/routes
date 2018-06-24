@@ -69,12 +69,12 @@ GET     /tickets                     controllers.TicketController.getTickets
 GET     /ticket/:id                  controllers.TicketController.getTicket(id: Int)
 POST    /ticket/:id                  controllers.TicketController.postTicket(id: Int)
 GET     /newticket                   controllers.TicketController.getNewTicket
-POST    /newticket                   controllers.TicketController.postNewTicket
+POST    /newticket                 controllers.TicketController.postNewTicket
 
 GET     /customerticket              controllers.TicketController.getCustomerTicket
 POST    /customerticket              controllers.TicketController.postCustomerTicket
 
-POST    /deleteticket/:id            controllers.TicketController.deleteTicket(id: Int)
+POST    /deleteticket/:id        controllers.TicketController.deleteTicket(id: Int)
 POST    /deletepriority/:id          controllers.PriorityController.deletePriority(id: Int)
 POST    /deletecateogry/:id          controllers.CategoryController.deleteCategory(id: Int)
 POST    /deleteticketstatus/:id      controllers.StatusController.deleteStatus(id: Int)

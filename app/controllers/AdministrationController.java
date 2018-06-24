@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
-public class AdministrationController extends Controller
+public class AdministrationController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
@@ -30,8 +30,26 @@ public class AdministrationController extends Controller
 
     public Result getAdministration()
     {
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+        {
 
         return ok(views.html.Administration.admin.render());
+        }else if (isLoggedIn() && !getLoggedInSiteAdminRole().equals("Admin"))
+        {
+            return ok(views.html.Administration.login.render("Login With Administrator Credentials to View " +
+                    "Administration Page or go Back To Previous Page"));
+        }
+        else
+        {
+            return redirect(routes.AdministrationController.getLogin());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public Result postSignOut()
+    {
+        session().clear();
+        return ok(views.html.Home.index.render());
     }
 
     @Transactional(readOnly = true)
@@ -54,6 +72,10 @@ public class AdministrationController extends Controller
                 .createQuery(sql, SiteAdmin.class).setParameter("username", username).getResultList();
 
 
+        // Make flag for database, check login and forgot password against flag
+        //if flag set to false, login, if flag set to true by postForgotPassword, force set new password
+        //use session with authorization for pages if logged in and not null
+
         if (siteAdmins.size() == 1)
         {
             SiteAdmin siteAdmin = siteAdmins.get(0);
@@ -63,7 +85,9 @@ public class AdministrationController extends Controller
 
             if (Arrays.equals(hashedPassword, siteAdmin.getPassword()))
             {
-                return redirect(routes.TicketController.getTickets());
+                session().put("loggedin", ""+siteAdmin.getSiteAdminId());
+                session().put("role",""+siteAdmin.getSiteRole());
+                return redirect(routes.SiteAdminController.getSiteAdmin(siteAdmin.getSiteAdminId()));
             } else
             {
                 return ok(views.html.Administration.login.render("Invalid username or password"));
@@ -88,27 +112,32 @@ public class AdministrationController extends Controller
     @Transactional(readOnly = true)
     public Result getNewPassword(Integer siteAdminId)
     {
-        String sql = "SELECT s FROM SiteAdmin s " +
-                "WHERE siteAdminId = :siteAdminId";
-        SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
-                setParameter("siteAdminId", siteAdminId).getSingleResult();
+        if (isLoggedIn())
+        {
+            String sql = "SELECT s FROM SiteAdmin s " +
+                    "WHERE siteAdminId = :siteAdminId";
+            SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
+                    setParameter("siteAdminId", siteAdminId).getSingleResult();
 
 
-        return ok(views.html.Administration.newpassword.render("", siteAdmin));
+            return ok(views.html.Administration.newpassword.render("", siteAdmin));
+        }else
+        {
+            return redirect(routes.AdministrationController.getLogin());
+        }
+
     }
 
     @Transactional
     public Result postNewPassword(Integer siteAdminId)
     {
+        if (isLoggedIn())
+        {
         DynamicForm form = formFactory.form().bindFromRequest();
-
-
         String sql = "SELECT s FROM SiteAdmin s " +
                 "WHERE siteAdminId = :siteAdminId";
         SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
                 setParameter("siteAdminId", siteAdminId).getSingleResult();
-
-
         String password = form.get("password");
         String passwordMatch = form.get("passwordMatch");
 
@@ -130,7 +159,12 @@ public class AdministrationController extends Controller
 
         }
         return ok(views.html.Administration.newpassword.render("Password Does Not Match", siteAdmin));
+    }else
+    {
+        return redirect(routes.AdministrationController.getLogin());
     }
+
+}
 
     @Transactional(readOnly = true)
     public Result getForgotPassword()
@@ -139,7 +173,7 @@ public class AdministrationController extends Controller
 
         List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).getResultList();
 
-        return ok(views.html.Administration.forgotpassword.render("",siteAdmins));
+        return ok(views.html.Administration.forgotpassword.render("", siteAdmins));
     }
 
     @Transactional
@@ -152,28 +186,28 @@ public class AdministrationController extends Controller
 
         List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).getResultList();
 
-            for( int i = 0; i < siteAdmins.size() - 1; i++)
+        for (int i = 0; i < siteAdmins.size() - 1; i++)
+        {
+            if (siteAdmins.get(i).getEmailAddress().equals(email))
             {
-                if (siteAdmins.get(i).getEmailAddress().equals(email))
+                try
                 {
-                    try
-                    {
-                        String password = Email.generateRandomPassword();
-                        byte salt[] = Password.getNewSalt();
-                        byte hashedPassword[] = Password.hashPassword(password.toCharArray(),salt);
-                        siteAdmins.get(i).setPasswordSalt(salt);
-                        siteAdmins.get(i).setPassword(hashedPassword);
-                        jpaApi.em().persist(siteAdmins.get(i));
-                        Email.sendEmail("Enter this temporary password to login: "+ password, email);
-                    } catch (Exception e)
-                    {
-
-                    }
-                } else
+                    String password = Email.generateRandomPassword();
+                    byte salt[] = Password.getNewSalt();
+                    byte hashedPassword[] = Password.hashPassword(password.toCharArray(), salt);
+                    siteAdmins.get(i).setPasswordSalt(salt);
+                    siteAdmins.get(i).setPassword(hashedPassword);
+                    jpaApi.em().persist(siteAdmins.get(i));
+                    Email.sendPasswordEmail("Enter this temporary password to login: " + password, email);
+                } catch (Exception e)
                 {
 
                 }
+            } else
+            {
+
             }
+        }
         return ok(views.html.Administration.emailsent.render());
     }
 

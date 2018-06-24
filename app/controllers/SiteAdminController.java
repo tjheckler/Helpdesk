@@ -11,7 +11,7 @@ import play.mvc.Result;
 import javax.inject.Inject;
 import java.util.List;
 
-public class SiteAdminController extends Controller
+public class SiteAdminController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
@@ -24,6 +24,8 @@ public class SiteAdminController extends Controller
     @Transactional(readOnly = true)
     public Result getSiteAdmins()
     {
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        {
         DynamicForm form = formFactory.form().bindFromRequest();
         String sql = "SELECT s FROM SiteAdmin s " +
                 " WHERE SiteAdminName LIKE :searchCriteria " +
@@ -42,11 +44,18 @@ public class SiteAdminController extends Controller
 
 
         return ok(views.html.SiteAdmin.siteadminList.render(siteAdmins, searchCriteria));
+    } else
+    {
+        return redirect(routes.AdministrationController.getLogin());
+    }
 
     }
     @Transactional(readOnly = true)
     public Result getSiteAdmin(Integer siteAdminId)
     {
+        if (isLoggedIn() && siteAdminId == getLoggedInSiteAdminId()
+                || isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+        {
         String sql = "SELECT s FROM SiteAdmin s " +
                 "WHERE siteAdminId = :siteAdminId";
         SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
@@ -60,10 +69,17 @@ public class SiteAdminController extends Controller
 
 
         return ok(views.html.SiteAdmin.siteadmin.render(siteAdmin,location,region));
+        } else
+        {
+            return redirect(routes.AdministrationController.getLogin());
+        }
     }
     @Transactional
     public Result postSiteAdmin(Integer siteAdminId)
     {
+        if (isLoggedIn() && siteAdminId == getLoggedInSiteAdminId()
+                || isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin") )
+        {
         String sql = "SELECT s FROM SiteAdmin s " +
                 "WHERE siteAdminId = :siteAdminId";
 //add a join
@@ -97,16 +113,19 @@ public class SiteAdminController extends Controller
 
         }
 
-
-
         jpaApi.em().persist(siteAdmin);
 
         return redirect(routes.SiteAdminController.getSiteAdmins());
+    } else
+    {
+        return redirect(routes.AdministrationController.getLogin());
+    }
     }
     @Transactional(readOnly = true)
     public Result getNewSiteAdmin()
     {
-
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        {
         //add a join
         String regionSql = "SELECT r FROM Region r ";
 
@@ -118,11 +137,17 @@ public class SiteAdminController extends Controller
         List<Location> locations = jpaApi.em().createQuery
                 (locationSql,Location.class).getResultList();
         return ok(views.html.SiteAdmin.newsiteadmin.render(regions,locations));
+        } else
+        {
+            return redirect(routes.AdministrationController.getLogin());
+        }
     }
 
     @Transactional
     public Result postNewSiteAdmin()
     {
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        {
         DynamicForm form = formFactory.form().bindFromRequest();
         String siteAdminName = form.get("siteAdmin");
         int locationId = Integer.parseInt(form.get("locationId"));
@@ -154,15 +179,25 @@ public class SiteAdminController extends Controller
 
 
         return redirect(routes.SiteAdminController.getSiteAdmins());
+        } else
+        {
+            return redirect(routes.AdministrationController.getLogin());
+        }
     }
     @Transactional
     public Result deleteSiteAdmin(int siteAdminId)
     {
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        {
         String sql = "SELECT sa FROM SiteAdmin sa " +
                 "WHERE siteAdminId = :siteAdminId";
         SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
                 setParameter("siteAdminId", siteAdminId).getSingleResult();
         jpaApi.em().remove(siteAdmin);
         return redirect(routes.SiteAdminController.getSiteAdmins());
+        } else
+        {
+            return redirect(routes.AdministrationController.getLogin());
+        }
     }
 }

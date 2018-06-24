@@ -13,13 +13,15 @@
 <div class="container" align="center">
     @appnavbar.render("admin")
     <div class="jumbotron" align="center">
-        <h1>@siteAdmin.getSiteAdminName()</h1>
+        <h1>@siteAdmin.getSiteAdminName()'s Profile</h1>
         <div align="right">
+
             <form method="post" action="/signout">
                 @CSRF.formField
-                <input id="firstbutton" type="submit" value="Sign Out" onclick="disablefirstbutton">
+                <input  type="submit" value="Sign Out" >
             </form>
         </div>
+        <h6>Do not make edits unless neccessary!</h6>
         <input class="rounded" type="hidden" name="siteAdminId" id="siteAdminId"
                value="@siteAdmin.getSiteAdminId" minlength="1"
                maxlength="30" size="30">
@@ -28,7 +30,7 @@
         @CSRF.formField
         <div class="row">
             <div class="col-md-5">
-                <b> Site Admin Name: </b><input class="rounded" type="text" name="siteAdminName" id="siteAdminName"
+                <b> Admin Name: </b><input class="rounded" type="text" name="siteAdminName" id="siteAdminName"
                                                 value="@siteAdmin.getSiteAdminName" minlength="1"
                                                 maxlength="30" size="30">
             </div>
@@ -39,11 +41,17 @@
             </div>
         </div>
         <br>
-        <div class="row">
+        <div class="row" align="center">
+
             <div class="col-md-5">
-                <b> Site Admin Role: </b><input class="rounded" type="text" name="siteRole" id="siteRole"
-                                                value="@siteAdmin.getSiteRole" minlength="1"
-                                                maxlength="30" size="30">
+                @if(!siteAdmin.getSiteRole.equals("Admin")){
+                <b>  Role: </b><label>@siteAdmin.getSiteRole</label>
+                }else{
+                <b>  Role: </b><input class="rounded" type="text" name="siteRole" id="siteRole"
+                                                                value="@siteAdmin.getSiteRole" minlength="1"
+                                                                maxlength="30" size="30">
+                }
+
             </div>
             <div class="col-md-5">
                 <b> Phone Number: </b><input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
@@ -54,15 +62,16 @@
         <br>
         <div class="row">
             <div class="col-md-5">
-                <b> Username:  </b><input class="rounded" type="text" name="username" id="username"
-                                                value="@siteAdmin.getUsername" minlength="1"
-                                                maxlength="30" size="30">
+                @if(!siteAdmin.getSiteRole.equals("Admin")){
+                <b> Username: </b><label>@siteAdmin.getUsername</label>
+
+                }else{
+                <b> Username: </b><input class="rounded" type="text" name="username" id="username"
+                                         value="@siteAdmin.getUsername" minlength="1"
+                                         maxlength="30" size="30" hidden="hidden">
+                }
             </div>
-            <div class="col-md-5">
-                <b> Password: </b><input class="rounded" type="password" name="password" id="password"
-                                             value="@siteAdmin.getPassword" minlength="1"
-                                             maxlength="30" size="30">
-            </div>
+
         </div>
         <br>
         <div class="row">
@@ -103,7 +112,11 @@
 <div class="container" align="center">
     <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST">
         @CSRF.formField
+        @if(siteAdmin.getSiteRole != "admin"){
+        <input class="btn btn-primary" type="submit" value="Delete" hidden="hidden">
+        }else{
         <input class="btn btn-primary" type="submit" value="Delete">
+        }
     </form>
 </div>
 

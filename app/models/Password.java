@@ -13,7 +13,7 @@ public class Password
     {
         try
         {
-            final int iterations = 500000;
+            final int iterations = 50000;
             final int keyLength = 256;
 
             SecretKeyFactory skf = SecretKeyFactory.getInstance( "PBKDF2WithHmacSHA512" );

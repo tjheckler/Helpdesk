@@ -11,7 +11,7 @@ import play.mvc.Result;
 import javax.inject.Inject;
 import java.util.List;
 
-public class ReportsController extends Controller
+public class ReportsController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
@@ -26,6 +26,8 @@ public class ReportsController extends Controller
     @Transactional(readOnly = true)
     public Result getReports()
     {
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+        {
         String categorySql = "SELECT  NEW TicketCategoryCount(c.categoryId, c.categoryName, COUNT(*)) " +
                 "FROM Ticket t " +
                 "JOIN Category c ON t.categoryId = c.categoryId " +
@@ -76,6 +78,11 @@ public class ReportsController extends Controller
         List<InventoryLocationCount> inventoryLocationCounts = jpaApi.em().createQuery(InventorySql, InventoryLocationCount.class).getResultList();
 
         return ok(views.html.Report.reports.render(ticketCategoryCounts, ticketSiteAdminCounts, ticketPriorityCounts, ticketLocationCounts, ticketRegionCounts, inventoryLocationCounts));
+        } else
+        {
+            return ok(views.html.Administration.login.render("Login With Administrator Credentials to View " +
+                    "Administration Page or go Back To Previous Page"));
+        }
     }
 
 
