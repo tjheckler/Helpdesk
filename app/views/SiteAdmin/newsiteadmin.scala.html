@@ -1,4 +1,4 @@
-@(regions:List[Region],locations:List[Location])
+@(regions:List[Region],locations:List[Location],message:String)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -10,8 +10,8 @@
 </head>
 <body>
 
-    @appnavbar.render("admin")
-    <div class="container" align="center">
+@appnavbar.render("admin")
+<div class="container" align="center">
     <div class="jumbotron">
         <h1>Create New Site Admin</h1>
         <div align="right">
@@ -24,37 +24,38 @@
 
 
     <form method="post" class="form-control">
-
+        @message
         @CSRF.formField
         <div class="row">
             <div class="col-md-5">
-                <b>Site Admin Name: </b> <input class="rounded" type="text" name="siteAdmin" id="siteAdmin"
-                                                      maxlength="30" size="30">
+                <b>* Name: </b> <input class="rounded" type="text" name="siteAdmin" id="siteAdmin"
+                                                maxlength="30" size="30">
             </div>
             <div class="col-md-5">
-                <b>Email Address: </b><input class="rounded" type="text" name="emailAddress" id="emailAddress"
-                                                   maxlength="30" size="30">
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-5">
-                <b>PhoneNumber: </b><input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
-                                                 maxlength="30" size="30">
-            </div>
-            <div class="col-md-5">
-                <b>Site Admin Role: </b><input class="rounded" type="text" name="role" id="role" maxlength="30" size="30">
+                <b>* Email Address: </b><input class="rounded" type="text" name="emailAddress" id="emailAddress"
+                                             maxlength="30" size="30">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-5">
-                <b> Username:  </b><input class="rounded" type="text" name="username" id="username"
-                                          minlength="1"
-                                          maxlength="30" size="30">
+                <b>* PhoneNumber: </b><input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
+                                           maxlength="30" size="30">
             </div>
             <div class="col-md-5">
-                <b> Password: </b><input class="rounded" type="password" name="password" id="password"
+                <b>* Role: </b><input class="rounded" type="text" name="role" id="role" maxlength="30"
+                                               size="30">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-5">
+                <b>* Username: </b><input class="rounded" type="text" name="username" id="username"
+                                         minlength="1"
+                                         maxlength="30" size="30">
+            </div>
+            <div class="col-md-5">
+                <b>* Password: </b><input class="rounded" type="password" name="password" id="password"
                                          minlength="1"
                                          maxlength="30" size="30">
             </div>
@@ -62,7 +63,7 @@
         <br>
         <div class="row">
             <div class="col-md-10">
-                <b>Location: </b>
+                <b>* Location: </b>
                 <select class="rounded" name="locationId" id="locationId">
                     <option>Choose Location</option>
                     @for(location<-locations){
