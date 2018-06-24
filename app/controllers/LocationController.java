@@ -30,7 +30,7 @@ public class LocationController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getLocations()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT l FROM Location l " +
@@ -57,7 +57,7 @@ public class LocationController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getLocation(Integer locationId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
             String sql = "SELECT l FROM Location l " +
                     "WHERE locationId = :locationId";
@@ -77,7 +77,7 @@ public class LocationController extends ApplicationController
     @Transactional
     public Result postLocation(Integer locationId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
             String sql = "SELECT l FROM Location l " +
                     "WHERE locationId = :locationId";
@@ -88,14 +88,18 @@ public class LocationController extends ApplicationController
             DynamicForm form = formFactory.form().bindFromRequest();
 
             String locationName = form.get("locationName");
-            location.setLocationName(locationName);
             //set region somehow
             int regionalId = Integer.parseInt(form.get("regionId"));
-            location.setRegionId(regionalId);
+            if (locationName != null)
+            {
+                location.setLocationName(locationName);
 
-
-            jpaApi.em().persist(location);
-
+                location.setRegionId(regionalId);
+                jpaApi.em().persist(location);
+            } else
+            {
+                return redirect(routes.LocationController.getLocation(locationId));
+            }
             return redirect(routes.LocationController.getLocations());
         } else
         {
@@ -106,7 +110,7 @@ public class LocationController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewLocation()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
             String regionSql = "SELECT r FROM Region r ";
 
@@ -122,17 +126,23 @@ public class LocationController extends ApplicationController
     @Transactional
     public Result postNewLocation()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
-            String location1 = form.get("locationName");
+            String locationName = form.get("locationName");
             Location location = new Location();
-            location.setLocationName(location1);
-            int regionalId = Integer.parseInt(form.get("regionId"));
-            location.setRegionId(regionalId);
-            //set region somehow
-            jpaApi.em().persist(location);
 
+            int regionalId = Integer.parseInt(form.get("regionId"));
+            if (locationName != null)
+            {
+                location.setLocationName(locationName);
+                location.setRegionId(regionalId);
+                //set region somehow
+                jpaApi.em().persist(location);
+            } else
+            {
+                return redirect(routes.LocationController.getNewLocation());
+            }
 
             return redirect(routes.LocationController.getLocations());
         } else
@@ -144,7 +154,7 @@ public class LocationController extends ApplicationController
     @Transactional
     public Result deleteLocation(int locationId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
             String sql = "SELECT l FROM Location l " +
                     "WHERE locationId = :locationId";

@@ -81,10 +81,14 @@ public class RegionController extends ApplicationController
             DynamicForm form = formFactory.form().bindFromRequest();
 
             String regionName = form.get("regionName");
-            region.setRegionName(regionName);
 
-
-            jpaApi.em().persist(region);
+            if (regionName != null)
+            {
+                region.setRegionName(regionName);
+                jpaApi.em().persist(region);
+            }else{
+                return redirect(routes.RegionController.getRegion(regionId));
+            }
 
             return redirect(routes.RegionController.getRegions());
         } else
@@ -111,11 +115,16 @@ public class RegionController extends ApplicationController
         if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
-            String region1 = form.get("region");
+            String regionName = form.get("region");
             Region region = new Region();
-            region.setRegionName(region1);
-            jpaApi.em().persist(region);
 
+            if (regionName != null)
+            {
+            region.setRegionName(regionName);
+            jpaApi.em().persist(region);
+            }else{
+                return redirect(routes.RegionController.getNewRegion());
+            }
 
             return redirect(routes.RegionController.getRegions());
         } else

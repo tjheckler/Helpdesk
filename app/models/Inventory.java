@@ -10,19 +10,19 @@ public class Inventory
 {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int inventoryId;
-    private int assetTagNumber;
+    private String assetTagNumber;
     private String computerName;
     private int locationId;
     private String currentUser;
     private String buildingLocation;
 
 
-    public int getAssetTagNumber()
+    public String getAssetTagNumber()
     {
         return assetTagNumber;
     }
 
-    public void setAssetTagNumber(int assetTagNumber)
+    public void setAssetTagNumber(String assetTagNumber)
     {
         this.assetTagNumber = assetTagNumber;
     }

@@ -80,10 +80,13 @@ public class CategoryController extends ApplicationController
             DynamicForm form = formFactory.form().bindFromRequest();
 
             String categoryName = form.get("categoryName");
-            category.setCategoryName(categoryName);
-
-
-            jpaApi.em().persist(category);
+            if (categoryName != null)
+            {
+                category.setCategoryName(categoryName);
+                jpaApi.em().persist(category);
+            }else{
+               return redirect(routes.CategoryController.getCategory(categoryId));
+            }
 
             return redirect(routes.CategoryController.getCategories());
 
@@ -110,10 +113,15 @@ public class CategoryController extends ApplicationController
         if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
-            String category1 = form.get("category");
+            String categoryName = form.get("category");
             Category category = new Category();
-            category.setCategoryName(category1);
-            jpaApi.em().persist(category);
+            if(categoryName != null)
+            {
+                category.setCategoryName(categoryName);
+                jpaApi.em().persist(category);
+            }else{
+                return redirect(routes.CategoryController.getNewCategory());
+            }
             return redirect(routes.CategoryController.getCategories());
         } else
         {

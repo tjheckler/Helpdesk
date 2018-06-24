@@ -97,16 +97,20 @@ public class InventoryController extends ApplicationController
 
             String computerName = form.get("computerName");
             int locationId = Integer.parseInt(form.get("locationId"));
-
             String currentUser = form.get("currentUser");
             String buildingLocation = form.get("buildingLocation");
-            inventory.setComputerName(computerName);
-            inventory.setBuildingLocation(buildingLocation);
-            inventory.setCurrentUser(currentUser);
-            inventory.setLocationId(locationId);
 
-            jpaApi.em().persist(inventory);
-
+            if(computerName != null && locationId > 0 && currentUser != null
+                    && buildingLocation != null)
+            {
+                inventory.setComputerName(computerName);
+                inventory.setBuildingLocation(buildingLocation);
+                inventory.setCurrentUser(currentUser);
+                inventory.setLocationId(locationId);
+                jpaApi.em().persist(inventory);
+            }else{
+                return redirect(routes.InventoryController.getInventory(inventoryId));
+            }
 
             return redirect(routes.InventoryController.getInventories());
         } else
@@ -145,20 +149,23 @@ public class InventoryController extends ApplicationController
             DynamicForm form = formFactory.form().bindFromRequest();
             String computerName = form.get("computerName");
             int locationId = Integer.parseInt(form.get("locationId"));
-            int assetTagNumber = Integer.parseInt(form.get("assetTag"));
+            String assetTagNumber = form.get("assetTag");
             String currentUser = form.get("currentUser");
             String buildingLocation = form.get("buildingLocation");
 
-
+            if(computerName != null && locationId > 0 && currentUser != null
+                    && buildingLocation != null && assetTagNumber != null)
+            {
             Inventory inventory = new Inventory();
             inventory.setComputerName(computerName);
             inventory.setAssetTagNumber(assetTagNumber);
             inventory.setBuildingLocation(buildingLocation);
             inventory.setCurrentUser(currentUser);
             inventory.setLocationId(locationId);
-
             jpaApi.em().persist(inventory);
-
+            }else{
+                return redirect(routes.InventoryController.getNewInventory());
+            }
 
             return redirect(routes.InventoryController.getInventories());
         } else
