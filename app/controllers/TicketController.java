@@ -655,7 +655,7 @@ public class TicketController extends ApplicationController
             }
 
         }
-        return redirect(routes.HomeController.index());
+        return redirect(routes.HomeController.getTicketSent());
     }
 
 }

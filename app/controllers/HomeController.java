@@ -20,4 +20,6 @@ public class HomeController extends Controller {
         return ok(views.html.Home.contact.render());
     }
 
+    public Result getTicketSent(){return ok(views.html.CustomerTicket.ticketsent.render());}
+
 }
