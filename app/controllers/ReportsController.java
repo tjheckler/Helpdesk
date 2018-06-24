@@ -9,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 
 public class ReportsController extends ApplicationController
@@ -81,9 +82,57 @@ public class ReportsController extends ApplicationController
         } else
         {
             return ok(views.html.Administration.login.render("Login With Administrator Credentials to View " +
-                    "Administration Page or go Back To Previous Page"));
+                    "Reports Page or go Back To Previous Page"));
         }
     }
 
+    @Transactional
+    public Result postReports()
+    {
+        DynamicForm form = formFactory.form().bindFromRequest();
+        String username = form.get("username");
+        String password = form.get("password");
+
+        String sql = "SELECT sa FROM SiteAdmin sa WHERE userName = :username";
+
+        List<SiteAdmin> siteAdmins = jpaApi.em()
+                .createQuery(sql, SiteAdmin.class).setParameter("username", username).getResultList();
+
+
+        // Make flag for database, check login and forgot password against flag
+        //if flag set to false, login, if flag set to true by postForgotPassword, force set new password
+        //use session with authorization for pages if logged in and not null
+
+        if (siteAdmins.size() == 1)
+        {
+            SiteAdmin siteAdmin = siteAdmins.get(0);
+
+            byte salt[] = siteAdmin.getPasswordSalt();
+            byte hashedPassword[] = Password.hashPassword(password.toCharArray(), salt);
+
+            if (Arrays.equals(hashedPassword, siteAdmin.getPassword()))
+            {
+                session().put("loggedin", ""+siteAdmin.getSiteAdminId());
+                session().put("role",""+siteAdmin.getSiteRole());
+                return redirect(routes.ReportsController.getReports());
+            } else
+            {
+                return ok(views.html.Administration.login.render("Invalid username or password"));
+            }
+        } else
+        {
+            try
+            {
+                byte salt[] = Password.getNewSalt();
+                Password.hashPassword(password.toCharArray(), salt);
+            } catch (Exception e)
+            {
+
+            }
+        }
+
+        return ok(views.html.Administration.login.render("Invalid username or password"));
+
+    }
 
 }

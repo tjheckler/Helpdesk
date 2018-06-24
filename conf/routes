@@ -9,6 +9,7 @@ GET     /contact                     controllers.HomeController.contact
 
 
 GET     /admin                       controllers.AdministrationController.getAdministration
+POST    /admin                       controllers.AdministrationController.postAdministration
 
 GET     /newpassword/:id             controllers.AdministrationController.getNewPassword(id: Int)
 POST    /newpassword/:id             controllers.AdministrationController.postNewPassword(id: Int)
@@ -92,6 +93,7 @@ POST    /newstatus                   controllers.StatusController.postNewStatus
 POST    /deletestatus/:id            controllers.StatusController.deleteStatus(id: Int)
 
 GET     /reports                     controllers.ReportsController.getReports
+POST     /reports                     controllers.ReportsController.postReports
 
 
 GET     /files/:id                   controllers.TicketController.getFiles(id: Int)
