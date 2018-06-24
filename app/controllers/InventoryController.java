@@ -76,7 +76,7 @@ public class InventoryController extends ApplicationController
             String locationSql = "SELECT l FROM Location l ";
             List<Location> locations = jpaApi.em()
                     .createQuery(locationSql, Location.class).getResultList();
-            return ok(views.html.Inventory.inventory.render(inventory, locations));
+            return ok(views.html.Inventory.inventory.render(inventory, locations,"* Indicates Required Fields"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin());
@@ -134,7 +134,7 @@ public class InventoryController extends ApplicationController
 
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
-            return ok(views.html.Inventory.newinventory.render(regions, locations));
+            return ok(views.html.Inventory.newinventory.render(regions, locations,"* Indicates Required Fields"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin());

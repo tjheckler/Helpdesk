@@ -28,15 +28,18 @@
     </div>
     <form method="post" class="form-control" align="center" enctype="multipart/form-data">
         @message
+        <br>
         @CSRF.formField
         <div class="row">
-            <div class="col-md-5">
-                <b>* Admin Name: </b><input class="rounded" type="text" name="siteAdminName" id="siteAdminName"
+            <div class="col-md-6">
+                <b>* Admin Name: </b><br>
+                <input class="rounded" type="text" name="siteAdminName" id="siteAdminName"
                                                 value="@siteAdmin.getSiteAdminName" minlength="1"
                                                 maxlength="30" size="30">
             </div>
-            <div class="col-md-5">
-                <b>* Email Address: </b><input class="rounded" type="text" name="emailAddress" id="emailAddress"
+            <div class="col-md-6">
+                <b>* Email Address: </b><br>
+                <input class="rounded" type="text" name="emailAddress" id="emailAddress"
                                               value="@siteAdmin.getEmailAddress" minlength="1"
                                               maxlength="30" size="30">
             </div>
@@ -44,30 +47,35 @@
         <br>
         <div class="row" align="center">
 
-            <div class="col-md-5">
+            <div class="col-md-6">
                 @if(!siteAdmin.getSiteRole.equals("Admin")){
-                <b>*  Role: </b><label>@siteAdmin.getSiteRole</label>
+                <b>*  Role: </b><br>
+                <label>@siteAdmin.getSiteRole</label>
                 }else{
-                <b>*  Role: </b><input class="rounded" type="text" name="siteRole" id="siteRole"
+                <b>*  Role: </b><br>
+                <input class="rounded" type="text" name="siteRole" id="siteRole"
                                                                 value="@siteAdmin.getSiteRole" minlength="1"
                                                                 maxlength="30" size="30">
                 }
 
             </div>
-            <div class="col-md-5">
-                <b>* Phone Number: </b><input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
+            <div class="col-md-6">
+                <b>* Phone Number: </b><br>
+                <input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
                                              value="@siteAdmin.getPhoneNumber" minlength="1"
                                              maxlength="30" size="30">
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 @if(!siteAdmin.getSiteRole.equals("Admin")){
-                <b>* Username: </b><label>@siteAdmin.getUsername</label>
+                <b>* Username: </b><br>
+                <label>@siteAdmin.getUsername</label>
 
                 }else{
-                <b>* Username: </b><input class="rounded" type="text" name="username" id="username"
+                <b>* Username: </b><br>
+                <input class="rounded" type="text" name="username" id="username"
                                          value="@siteAdmin.getUsername" minlength="1"
                                          maxlength="30" size="30" hidden="hidden">
                 }
@@ -76,8 +84,8 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-md-5">
-                <b>* Location: </b>
+            <div class="col-md-6">
+                <b>* Location: </b><br>
                 <select name="locationId" id="locationId">
                     @for(location <- locations){
                     <option value="@location.getLocationId">
@@ -88,8 +96,9 @@
                 </select>
 
             </div>
-            <div class="col-md-5">
-                <b>* Region: </b><select>
+            <div class="col-md-6">
+                <b>* Region: </b><br>
+                <select>
                 @for(region <- regions){
                 <option value="@region.getRegionId">
                     @region.getRegionName

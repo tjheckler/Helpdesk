@@ -25,47 +25,54 @@
 
     <form method="post" class="form-control">
         @message
+        <br>
         @CSRF.formField
         <div class="row">
-            <div class="col-md-5">
-                <b>* Name: </b> <input class="rounded" type="text" name="siteAdmin" id="siteAdmin"
+            <div class="col-md-6">
+                <b>* Name: </b><br>
+                <input class="rounded" type="text" name="siteAdmin" id="siteAdmin"
                                                 maxlength="30" size="30">
             </div>
-            <div class="col-md-5">
-                <b>* Email Address: </b><input class="rounded" type="text" name="emailAddress" id="emailAddress"
+            <div class="col-md-6">
+                <b>* Email Address: </b><br>
+                <input class="rounded" type="text" name="emailAddress" id="emailAddress"
                                              maxlength="30" size="30">
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-md-5">
-                <b>* PhoneNumber: </b><input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
+            <div class="col-md-6">
+                <b>* PhoneNumber: </b><br>
+                <input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
                                            maxlength="30" size="30">
             </div>
-            <div class="col-md-5">
-                <b>* Role: </b><input class="rounded" type="text" name="role" id="role" maxlength="30"
+            <div class="col-md-6">
+                <b>* Role: </b><br>
+                <input class="rounded" type="text" name="role" id="role" maxlength="30"
                                                size="30">
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-md-5">
-                <b>* Username: </b><input class="rounded" type="text" name="username" id="username"
+            <div class="col-md-6">
+                <b>* Username: </b><br>
+                <input class="rounded" type="text" name="username" id="username"
                                          minlength="1"
                                          maxlength="30" size="30">
             </div>
-            <div class="col-md-5">
-                <b>* Password: </b><input class="rounded" type="password" name="password" id="password"
+            <div class="col-md-6">
+                <b>* Password: </b><br>
+                <input class="rounded" type="password" name="password" id="password"
                                          minlength="1"
                                          maxlength="30" size="30">
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-md-10">
-                <b>* Location: </b>
+            <div class="col-md-12">
+                <b>* Location: </b><br>
                 <select class="rounded" name="locationId" id="locationId">
-                    <option>Choose Location</option>
+                    <option value="0">Choose Location</option>
                     @for(location<-locations){
 
                     <option value="@location.getLocationId">

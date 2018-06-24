@@ -1,4 +1,4 @@
-@(inventory:Inventory,locations:List[Location])
+@(inventory:Inventory,locations:List[Location],message:String)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -24,16 +24,18 @@
     <br>
     <form method="post" class="form-control" align="center">
         @CSRF.formField
-
+        @message
         <br>
         <div class="row">
             <div class="col-md-6">
-                <b> Computer Name: </b><input class="rounded" type="text" name="computerName" id="computerName"
+                <b>* Computer Name: </b><br>
+                <input class="rounded" type="text" name="computerName" id="computerName"
                                               value="@inventory.getComputerName" minlength="1"
                                               maxlength="30" size="30">
             </div>
             <div class="col-md-6">
-                <b> Asset Tag Number: </b><input class="rounded" type="text" name="assetTagNumber" id="assetTagNumber"
+                <b>* Asset Tag Number: </b><br>
+                <input class="rounded" type="text" name="assetTagNumber" id="assetTagNumber"
                                                  value="@inventory.getAssetTagNumber" minlength="1"
                                                  maxlength="30" size="30">
             </div>
@@ -41,12 +43,14 @@
         <br>
         <div class="row">
             <div class="col-md-6">
-                <b> Current User Name: </b><input class="rounded" type="text" name="currentUser" id="currentUser"
+                <b>* Current User Name: </b><br>
+                <input class="rounded" type="text" name="currentUser" id="currentUser"
                                                   value="@inventory.getCurrentUser" minlength="1"
                                                   maxlength="30" size="30">
             </div>
             <div class="col-md-6">
-                <b> Building Location: </b><input class="rounded" type="text" name="buildingLocation"
+                <b>* Building Location: </b><br>
+                <input class="rounded" type="text" name="buildingLocation"
                                                   id="buildingLocation"
                                                   value="@inventory.getBuildingLocation" minlength="1"
                                                   maxlength="30" size="30">
@@ -54,13 +58,13 @@
         </div>
 
         <br>
-        <div >
-            <div >
-                <b> Current City Location:</b>
+        <div>
+            <div>
+                <b>* Current City Location:</b><br>
                 <select name="locationId" id="locationId">
-                @for(location<-locations){
-                @if(location.getLocationId==inventory.getLocationId){
-                    <option selected="selected" value="@location.getLocationId" >
+                    @for(location<-locations){
+                    @if(location.getLocationId==inventory.getLocationId){
+                    <option selected="selected" value="@location.getLocationId">
                         @location.getLocationName
                     </option>
                     }else{
@@ -68,8 +72,8 @@
                     <option value="@location.getLocationId">
                         @location.getLocationName
                     </option>
-                }
-                }
+                    }
+                    }
                 </select>
             </div>
 
@@ -77,7 +81,7 @@
         <br>
         <div>
             <input class="btn btn-primary" type="submit" value="save">
-            <a class="btn btn-primary"  href="/inventories">Back to List</a>
+            <a class="btn btn-primary" href="/inventories">Back to List</a>
         </div>
     </form>
 

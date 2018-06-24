@@ -1,4 +1,4 @@
-@(regions:List[Region],locations:List[Location])
+@(regions:List[Region],locations:List[Location],message:String)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -23,33 +23,36 @@
     </div>
 
 
-
     <form method="post" class="form-control">
         @CSRF.formField
-
+        @message<br>
         <div class="container" align="center">
             <br>
             <div class="row" align="center">
                 <div class="col-md-6">
-                    <b>Computer  Name: </b><input class="rounded" type="text" name="computerName"
-                                                       id="computerName" maxlength="30" size="30">
+                    <b>* Computer Name: </b><br>
+                    <input class="rounded" type="text" name="computerName"
+                                                 id="computerName" maxlength="30" size="30">
                 </div>
                 <br>
                 <div class="col-md-6">
-                    <b>AssetTag Number: </b><input class="rounded" type="text" name="assetTag"
-                                                           id="assetTag" maxlength="30" size="30">
+                    <b>* AssetTag Number: </b><br>
+                    <input class="rounded" type="text" name="assetTag"
+                                                   id="assetTag" maxlength="30" size="30">
                 </div>
             </div>
             <br>
             <div class="row" align="center">
                 <div class="col-md-6">
-                    <b>Current Username:   </b><input class="rounded" type="text" name="currentUser"
-                                                       id="currentUser" maxlength="30" size="30">
+                    <b>* Current Username: </b><br>
+                    <input class="rounded" type="text" name="currentUser"
+                                                    id="currentUser" maxlength="30" size="30">
                 </div>
 
                 <div class="col-md-6">
-                    <b>Building Location:  </b><input class="rounded" type="text" name="buildingLocation"
-                                                            id="buildingLocation" maxlength="30" size="30">
+                    <b>* Building Location: </b><br>
+                    <input class="rounded" type="text" name="buildingLocation"
+                                                     id="buildingLocation" maxlength="30" size="30">
                 </div>
 
             </div>
@@ -57,22 +60,22 @@
             <div class="container" align="center">
 
 
-                    <b>Location: </b>
-                    <select class="rounded" name="locationId" id="locationId">
-                        <option>Choose Location</option>
-                        @for(location <- locations){
+                <b>* Location: </b><br>
+                <select class="rounded" name="locationId" id="locationId">
+                    <option value="0">Choose Location</option>
+                    @for(location <- locations){
 
-                        <option value="@location.getLocationId">
-                            @location.getLocationName
-                        </option>
-                        }
-                    </select>
-                </div>
+                    <option value="@location.getLocationId">
+                        @location.getLocationName
+                    </option>
+                    }
+                </select>
             </div>
-            <br>
-            <br>
-            <input align="center" class="btn btn-primary" type="submit" value="Create">
-            <a class="btn btn-primary"  href="/inventories">Back to List</a>
+        </div>
+        <br>
+        <br>
+        <input align="center" class="btn btn-primary" type="submit" value="Create">
+        <a class="btn btn-primary" href="/inventories">Back to List</a>
     </form>
 
 </div>

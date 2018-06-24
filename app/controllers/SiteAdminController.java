@@ -199,7 +199,7 @@ public class SiteAdminController extends ApplicationController
 
             } else
             {
-                return redirect(routes.SiteAdminController.getSiteAdmins());
+                return redirect(routes.SiteAdminController.getNewSiteAdmin());
             }
         } else
         {
