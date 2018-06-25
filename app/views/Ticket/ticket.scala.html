@@ -135,7 +135,7 @@
             <div class="col-md-4">
                 <b> Change Assignee: </b><br>
                 <select class="rounded" name="siteAdminId" id="siteAdminId">
-                    <option value="@ticket.getSiteAdminId">Choose Assignee</option>
+                    <option value="@ticket.getSiteAdminId">Keep The Same</option>
                     @for(siteAdmin<-siteAdmins){
 
                     <option value="@siteAdmin.getSiteAdminId">
@@ -149,7 +149,7 @@
             <div class="col-md-4">
                 <b> Change Priority: </b><br>
                 <select class="rounded" name="priorityId" id="priorityId">
-                    <option value="@ticket.getPriorityId">Choose Priority</option>
+                    <option value="@ticket.getPriorityId">Keep The Same</option>
                     @for(priority<-priorities){
 
                     <option value="@priority.getPriorityId">
@@ -162,7 +162,7 @@
             <div class="col-md-4">
                 <b> Change Status: </b><br>
                 <select class="rounded" name="statusId" id="statusId">
-                    <option value="@ticket.getStatusId">Choose Status</option>
+                    <option value="@ticket.getStatusId">Keep The Same</option>
                     @for(ticketStatus<-ticketStatuses){
 
                     <option value="@ticketStatus.getStatusId">
