@@ -62,6 +62,7 @@ POST    /deletepriority/:id          controllers.PriorityController.deletePriori
 GET     /siteadmins                  controllers.SiteAdminController.getSiteAdmins
 GET     /siteadmin/:id               controllers.SiteAdminController.getSiteAdmin(id: Int)
 POST    /siteadmin/:id               controllers.SiteAdminController.postSiteAdmin(id: Int)
+
 GET     /newsiteadmin                controllers.SiteAdminController.getNewSiteAdmin
 POST    /newsiteadmin                controllers.SiteAdminController.postNewSiteAdmin
 POST    /deletesiteadmin/:id         controllers.SiteAdminController.deleteSiteAdmin(id: Int)
