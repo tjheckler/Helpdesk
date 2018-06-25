@@ -71,7 +71,8 @@ public class SiteAdminController extends ApplicationController
             List<Region> region = jpaApi.em().createQuery(regionSql, Region.class).getResultList();
 
 
-            return ok(views.html.SiteAdmin.siteadmin.render(siteAdmin, location, region, "* Indicates Required Field"));
+            return ok(views.html.SiteAdmin.siteadmin.render(siteAdmin, location,
+                    region, "* Indicates Required Field"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin());
@@ -149,7 +150,8 @@ public class SiteAdminController extends ApplicationController
 
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
-            return ok(views.html.SiteAdmin.newsiteadmin.render(regions, locations, "* Indicates Required Field"));
+            return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
+                    locations, "* Indicates Required Field"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin());
