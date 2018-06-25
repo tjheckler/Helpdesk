@@ -84,12 +84,20 @@ public class ReportsController extends ApplicationController
         List<InventoryLocationCount> inventoryLocationCounts = jpaApi.em().
                 createQuery(InventorySql, InventoryLocationCount.class).getResultList();
 
+            String replySql = "SELECT  NEW TicketReplyCount(r.ticketsId, t.computerName, COUNT(*)) " +
+                    "FROM Reply r " +
+                    "JOIN Ticket t ON t.ticketsId = r.ticketsId " +
+                    "GROUP BY t.computerName " +
+                    "ORDER BY t.computerName";
+
+            List<TicketReplyCount> ticketReplyCounts = jpaApi.em().
+                    createQuery(replySql, TicketReplyCount.class).getResultList();
+
         return ok(views.html.Report.reports.render(ticketCategoryCounts, ticketSiteAdminCounts,
-                ticketPriorityCounts, ticketLocationCounts, ticketRegionCounts, inventoryLocationCounts));
+                ticketPriorityCounts, ticketLocationCounts, ticketRegionCounts, inventoryLocationCounts,ticketReplyCounts));
         } else
         {
-            return ok(views.html.Administration.login.render("Login With Administrator Credentials to View " +
-                    "Reports Page or go Back To Previous Page"));
+            return ok(views.html.Administration.login.render("Login With Administrator Credentials"));
         }
     }
 
@@ -106,9 +114,6 @@ public class ReportsController extends ApplicationController
                 setParameter("username", username).getResultList();
 
 
-        // Make flag for database, check login and forgot password against flag
-        //if flag set to false, login, if flag set to true by postForgotPassword, force set new password
-        //use session with authorization for pages if logged in and not null
 
         if (siteAdmins.size() == 1)
         {

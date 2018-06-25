@@ -1,4 +1,4 @@
-@(ticketCategoryCounts:List[TicketCategoryCount],ticketSiteAdminCounts:List[TicketSiteAdminCount],ticketPriorityCounts:List[TicketPriorityCount],ticketLocationCounts:List[TicketLocationCount],ticketRegionCounts:List[TicketRegionCount],inventoryLocationCounts:List[InventoryLocationCount])
+@(ticketCategoryCounts:List[TicketCategoryCount],ticketSiteAdminCounts:List[TicketSiteAdminCount],ticketPriorityCounts:List[TicketPriorityCount],ticketLocationCounts:List[TicketLocationCount],ticketRegionCounts:List[TicketRegionCount],inventoryLocationCounts:List[InventoryLocationCount],ticketReplyCounts:List[TicketReplyCount])
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -71,6 +71,13 @@
         <br>
         <hr>
         <br>
+        <h3>Number Of Replies By Computer Name</h3>
+        <div>
+            <canvas id="ticketreplycount" width="1200" height="200"></canvas>
+        </div>
+        <br>
+        <hr>
+        <br>
     </div>
     <br>
     <hr>
@@ -104,6 +111,11 @@
 <script type="text/javascript" id="barchart6" src="assets/javascripts/inventorylocationcount.js"
         data-labels="@for(i <- 0 to inventoryLocationCounts.size() - 1){ @inventoryLocationCounts.get(i).getLocationName @if(i < inventoryLocationCounts.size() - 1){,} }"
         data-data="@for(i <- 0 to inventoryLocationCounts.size() - 1){ @inventoryLocationCounts.get(i).getCount @if(i < inventoryLocationCounts.size() - 1){,} }">
+</script>
+
+<script type="text/javascript" id="barchart7" src="assets/javascripts/ticketreplycount.js"
+        data-labels="@for(i <- 0 to ticketReplyCounts.size() - 1){ @ticketReplyCounts.get(i).getComputerName @if(i < ticketReplyCounts.size() - 1){,} }"
+        data-data="@for(i <- 0 to ticketReplyCounts.size() - 1){ @ticketReplyCounts.get(i).getCount @if(i < ticketReplyCounts.size() - 1){,} }">
 </script>
 </body>
 </html>
