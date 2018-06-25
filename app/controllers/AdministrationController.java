@@ -36,8 +36,7 @@ public class AdministrationController extends ApplicationController
             return ok(views.html.Administration.admin.render());
         } else if (isLoggedIn() && !getLoggedInSiteAdminRole().equals("Admin"))
         {
-            return ok(views.html.Administration.login.render("Login With Administrator Credentials to View " +
-                    "Administration Page or go Back To Previous Page"));
+            return ok(views.html.Administration.login.render("Login With Administrator Credentials"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin());
@@ -47,6 +46,7 @@ public class AdministrationController extends ApplicationController
     @Transactional
     public Result postAdministration()
     {
+
         DynamicForm form = formFactory.form().bindFromRequest();
         String username = form.get("username");
         String password = form.get("password");
@@ -57,9 +57,7 @@ public class AdministrationController extends ApplicationController
                 .createQuery(sql, SiteAdmin.class).setParameter("username", username).getResultList();
 
 
-        // Make flag for database, check login and forgot password against flag
-        //if flag set to false, login, if flag set to true by postForgotPassword, force set new password
-        //use session with authorization for pages if logged in and not null
+
 
         if (siteAdmins.size() == 1)
         {
@@ -120,9 +118,7 @@ public class AdministrationController extends ApplicationController
                 .createQuery(sql, SiteAdmin.class).setParameter("username", username).getResultList();
 
 
-        // Make flag for database, check login and forgot password against flag
-        //if flag set to false, login, if flag set to true by postForgotPassword, force set new password
-        //use session with authorization for pages if logged in and not null
+
 
         if (siteAdmins.size() == 1)
         {
