@@ -56,7 +56,7 @@ public class InventoryController extends ApplicationController
             return ok(views.html.Inventory.inventoryList.render(inventories, searchCriteria, locations));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
 
 
@@ -79,7 +79,7 @@ public class InventoryController extends ApplicationController
             return ok(views.html.Inventory.inventory.render(inventory, locations,"* Indicates Required Fields"));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
     }
 
@@ -115,7 +115,7 @@ public class InventoryController extends ApplicationController
             return redirect(routes.InventoryController.getInventories());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
     }
 
@@ -137,7 +137,7 @@ public class InventoryController extends ApplicationController
             return ok(views.html.Inventory.newinventory.render(regions, locations,"* Indicates Required Fields"));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
     }
 
@@ -170,7 +170,7 @@ public class InventoryController extends ApplicationController
             return redirect(routes.InventoryController.getInventories());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
     }
 
@@ -187,7 +187,7 @@ public class InventoryController extends ApplicationController
             return redirect(routes.InventoryController.getInventories());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 }

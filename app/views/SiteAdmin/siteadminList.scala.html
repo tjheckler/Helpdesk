@@ -1,4 +1,4 @@
-@(siteAdmins:List[SiteAdmin],searchCriteria:String)
+@(siteAdmins:List[SiteAdmin],searchCriteria:String,locations:List[Location])
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -41,12 +41,26 @@
         <tr>
             <td>
                 <div>
+                    <img src="../siteadminpicture/@siteAdmin.getSiteAdminId" width="50" height="50">
+                </div>
+            </td>
+            <td>
+                <div>
                     <b> @siteAdmin.getSiteAdminName() </b>
                 </div>
             </td>
             <td>
                 <div>
                     <b> @siteAdmin.getEmailAddress() </b>
+                </div>
+            </td>
+            <td>
+                <div>
+                    @for(location<-locations){
+                    @if(siteAdmin.getLocationId==location.getLocationId){
+                    <b> @location.getLocationName() </b>
+                    }
+                    }
                 </div>
             </td>
             <td>

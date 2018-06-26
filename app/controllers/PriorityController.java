@@ -50,7 +50,7 @@ public class PriorityController extends ApplicationController
             return ok(views.html.Priority.priorityList.render(priorities, searchCriteria));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
 
     }
@@ -68,7 +68,7 @@ public class PriorityController extends ApplicationController
             return ok(views.html.Priority.priority.render(priority));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -98,7 +98,7 @@ public class PriorityController extends ApplicationController
             return redirect(routes.PriorityController.getPriorities());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -109,7 +109,7 @@ public class PriorityController extends ApplicationController
             return ok(views.html.Priority.newpriority.render());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -132,7 +132,7 @@ public class PriorityController extends ApplicationController
             return redirect(routes.PriorityController.getPriorities());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -149,7 +149,7 @@ public class PriorityController extends ApplicationController
             return redirect(routes.PriorityController.getPriorities());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 }

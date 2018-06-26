@@ -36,10 +36,10 @@ public class AdministrationController extends ApplicationController
             return ok(views.html.Administration.admin.render());
         } else if (isLoggedIn() && !getLoggedInSiteAdminRole().equals("Admin"))
         {
-            return ok(views.html.Administration.login.render("Login With Administrator Credentials"));
+            return redirect(routes.AdministrationController.getLogin("Login With Administrator Credentials"));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("Login With Administrator Credentials"));
         }
     }
 
@@ -99,7 +99,7 @@ public class AdministrationController extends ApplicationController
     }
 
     @Transactional(readOnly = true)
-    public Result getLogin()
+    public Result getLogin(String message)
     {
 
         return ok(views.html.Administration.login.render(""));
@@ -177,7 +177,7 @@ public class AdministrationController extends ApplicationController
             return ok(views.html.Administration.newpassword.render("", siteAdmin));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
 
     }
@@ -218,7 +218,7 @@ public class AdministrationController extends ApplicationController
         }
         else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("Please Try Again"));
         }
 
     }

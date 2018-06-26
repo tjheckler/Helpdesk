@@ -18,7 +18,7 @@ POST    /newpassword/:id             controllers.AdministrationController.postNe
 GET     /forgotpassword              controllers.AdministrationController.getForgotPassword
 POST    /forgotpassword              controllers.AdministrationController.postForgotPassword
 
-GET     /login                       controllers.AdministrationController.getLogin
+GET     /login                       controllers.AdministrationController.getLogin(message:String ?= "")
 POST    /login                       controllers.AdministrationController.postLogin
 POST    /signout                     controllers.AdministrationController.postSignOut
 
@@ -95,9 +95,9 @@ POST    /newstatus                   controllers.StatusController.postNewStatus
 POST    /deletestatus/:id            controllers.StatusController.deleteStatus(id: Int)
 
 GET     /reports                     controllers.ReportsController.getReports
-POST    /reports                     controllers.ReportsController.postReports
 
-
+GET     /siteadminpicture/:id        controllers.SiteAdminController.getPicture(id:Integer)
+POST    /siteadminpicture/:id        controllers.SiteAdminController.postPicture(id:Integer)
 GET     /files/:id                   controllers.TicketController.getFiles(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path

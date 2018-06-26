@@ -90,7 +90,7 @@ public class TicketController extends ApplicationController
                     ticketStatuses, siteAdmins, priority, categories));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
 
     }
@@ -347,7 +347,7 @@ public class TicketController extends ApplicationController
                     siteAdmins, priorities, categories, regions, "* Indicates Required Field"));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
     }
 
@@ -480,7 +480,7 @@ public class TicketController extends ApplicationController
         } else
 
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
 
     }
@@ -510,7 +510,7 @@ public class TicketController extends ApplicationController
             return redirect(routes.TicketController.getTickets());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin());
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
