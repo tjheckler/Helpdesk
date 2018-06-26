@@ -62,7 +62,7 @@ values('Mary Smith','you@me.com',123456789,8,'User','Msmith','password');
 insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
 values('Louis Smith','you@me.com',123456789,1,'Admin','Lsmith','password');
 insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
-values('Barbara Smith','you@me.com',123456789,2,'Admin','Bsmith','password');
+values('Barbara Smith','you@me.com',123456789,2,'User','bbsmith','0x3715B8544ED252F7D2715E5965C0FA3FDF022A2C63BFEB8869558A26F3EFEB71','0xC96EB136BD96D8B80E75259F7B6FB433',"False");
 insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
 values('Default Administrator','you@me.com',123456789,2,'Admin','Dadmin','admin');
 insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
