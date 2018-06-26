@@ -199,9 +199,11 @@ public class AdministrationController extends ApplicationController
             {
                 try
                 {
+                    String flag = "True";
                     byte salt[] = Password.getNewSalt();
                     siteAdmin.setPasswordSalt(salt);
                     siteAdmin.setPassword(Password.hashPassword(passwordMatch.toCharArray(), salt));
+                    siteAdmin.setFlag(flag);
                     jpaApi.em().persist(siteAdmin);
                     return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
                 } catch (Exception e)
