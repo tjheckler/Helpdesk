@@ -95,7 +95,7 @@ public class AdministrationController extends ApplicationController
     public Result postSignOut()
     {
         session().clear();
-        return ok(views.html.Home.index.render());
+        return redirect(routes.HomeController.index());
     }
 
     @Transactional(readOnly = true)
