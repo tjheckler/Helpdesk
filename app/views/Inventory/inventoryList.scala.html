@@ -17,18 +17,21 @@
         <div align="right">
             <form method="post" action="/signout">
                 @CSRF.formField
+                <div align="left">
+                    <a class="btn btn-primary" href="newinventory">Create New Inventory Item</a>
+                </div>
+                <div align="right">
                 <input  type="submit" value="Sign Out" class="btn btn-danger">
+                </div>
             </form>
         </div>
     </div>
     <form class="form-control" method="get">
         <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria" placeholder="Search Any List Value" size="20">
-        <input class="btn btn-primary" type="submit" value="Search">
-            <a class="btn btn-primary" href="/inventories">Clear Search</a>
+        <input class="btn btn-secondary" type="submit" value="Search">
+            <a class="btn btn-secondary" href="/inventories">Clear Search</a>
         <br>
-        <div align="left">
-            <a class="btn btn-primary" href="newinventory">Create New Inventory Item</a>
-        </div>
+
     </form>
     <table class="table table-bordered">
         <tr>
@@ -71,7 +74,7 @@
                 </div>
             </td>
             <td>
-                <a class="btn btn-primary" href="inventory/@inventory.getInventoryId()"> Edit/Details </a>
+                <a class="btn btn-secondary" href="inventory/@inventory.getInventoryId()"> Edit/Details </a>
             </td>
 
         </tr>
