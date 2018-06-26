@@ -52,7 +52,7 @@ insert into location(locationname,regionId) values('Oak Grove',2);
 
 --Generate Site Admins
 insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
-values('Bob Smith','you@me.com',123456789,4,'User','BBsmith','password');
+values('Timothy Heckler','you@me.com',123456789,4,'Admin','tjheckler','0x1FA0AD1DF2CABD91CDEC6817804A98DF48F07D7CB3C24D462C974CDDFE8392EE',"0x79AAAAD703424529920AA06BBFB75422","False");
 insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
 values('Manny Smith','you@me.com',123456789,9,'User','MMSmith','password');
 insert into siteadmin(siteadminname,emailaddress,phonenumber,locationId,siterole,username,password)
