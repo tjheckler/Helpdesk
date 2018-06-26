@@ -17,6 +17,9 @@
             <form method="post" action="/signout">
                 @CSRF.formField
                 <input  type="submit" value="Sign Out" class="btn btn-danger">
+                <div align="left">
+                    <a class="btn btn-primary"  href="newsiteadmin">Create New </a>
+                </div>
             </form>
         </div>
     </div>
@@ -25,9 +28,7 @@
         <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria">
         <input class="btn btn-secondary" type="submit" value="Search">
         <br>
-        <div align="left">
-            <a class="btn btn-secondary"  href="newsiteadmin">Create New </a>
-        </div>
+
     </form>
 
 

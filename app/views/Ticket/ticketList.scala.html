@@ -17,11 +17,12 @@
             <form method="post" action="/signout">
                 @CSRF.formField
                 <input  type="submit" value="Sign Out" class="btn btn-danger">
+                <div align="left">
+                    <a class="btn btn-primary" href="newticket"> Create New Ticket </a>
+                </div>
             </form>
         </div>
-        <div align="left">
-            <a class="btn btn-primary" href="newticket"> Create New Ticket </a>
-        </div>
+
     </div>
     <form class="form-control" method="get">
         <br>
