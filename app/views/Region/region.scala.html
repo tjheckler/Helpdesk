@@ -22,7 +22,7 @@
         </div>
     </div>
 
-        <form method="post" class="form-control" align="center">
+        <form method="post" class="form-control" >
             @CSRF.formField
             <b> Region Name: </b><input  class="rounded" type="text" name="regionName" id="regionName"
                                            value="@region.getRegionName" minlength="1"
@@ -33,7 +33,7 @@
             <a class="btn btn-primary" href="/regions">Back to List</a>
         </form>
 </div>
-</div>
+
 <br>
 <hr>
 <br>

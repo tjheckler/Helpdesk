@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <form method="post" class="form-control" align="center">
+    <form method="post" class="form-control" >
         @CSRF.formField
         <b> Priority Name: </b><input class="rounded" type="text" name="priorityName" id="priorityName"
                                       value="@priority.getPriorityName" minlength="1"
@@ -36,7 +36,7 @@
         <a class="btn btn-primary" href="/priorities">Back to List</a>
     </form>
 </div>
-</div>
+
     <br>
     <hr>
     <br>

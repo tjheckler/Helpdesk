@@ -21,7 +21,7 @@
             </form>
         </div>
         <br>
-        <form method="post" class="form-control" align="center">
+        <form method="post" class="form-control" >
             @CSRF.formField
             <b> Location Name: </b><input  class="rounded" type="text" name="locationName" id="locationName"
                                            value="@location.getLocationName" minlength="1"
