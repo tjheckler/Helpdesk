@@ -19,15 +19,16 @@
             <br>
             <form method="post" enctype="multipart/form-data" action="/siteadminpicture/@siteAdmin.getSiteAdminId">
                 @CSRF.formField
-                <input class="rounded" type="file" id="file" name="file">
+                <input class="btn" type="file" id="file" name="file">
                 <br>
-                <input class="btn btn-primary" type="submit" value="Change Photo">
+                <br>
+                <input class="btn btn-sedondary" type="submit" value="Change Photo">
             </form>
         </div>
         <div align="right">
             <form method="post" action="/signout">
                 @CSRF.formField
-                <input type="submit" value="Sign Out">
+                <input  type="submit" value="Sign Out" class="btn btn-danger">
             </form>
         </div>
         <input class="rounded" type="hidden" name="siteAdminId" id="siteAdminId"
@@ -171,7 +172,7 @@
     @if(siteAdmin.getSiteRole.equals("Admin")){
     <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST">
         @CSRF.formField
-        <input class="btn btn-primary" type="submit" value="Delete">
+        <input class="btn btn-danger" type="submit" value="Delete">
     </form>
     }else{
 

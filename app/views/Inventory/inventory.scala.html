@@ -16,7 +16,7 @@
         <div align="right">
             <form method="post" action="/signout">
                 @CSRF.formField
-                <input  type="submit" value="Sign Out" >
+                <input  type="submit" value="Sign Out" class="btn btn-danger">
             </form>
         </div>
     </div>
@@ -94,7 +94,7 @@
 <div class="container" align="center">
     <form action="/deleteinventory/@inventory.getInventoryId" method="POST">
         @CSRF.formField
-        <input class="btn btn-primary" type="submit" value="Delete Item">
+        <input class="btn btn-danger" type="submit" value="Delete">
     </form>
 </div>
 </body>

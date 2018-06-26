@@ -16,7 +16,7 @@
         <div align="right">
             <form method="post" action="/signout">
                 @CSRF.formField
-                <input  type="submit" value="Sign Out" >
+                <input  type="submit" value="Sign Out" class="btn btn-danger">
             </form>
         </div>
         <h3>Ticket # ( @ticket.getTicketsId )</h3>
@@ -204,7 +204,7 @@
 <div class="container" align="center">
     <form action="/deleteticket/@ticket.getTicketsId" method="POST">
         @CSRF.formField
-        <input class="btn btn-primary" type="submit" value="Delete Ticket">
+        <input class="btn btn-danger" type="submit" value="Delete Ticket">
     </form>
 </div>
 
