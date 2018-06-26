@@ -212,18 +212,18 @@ public class TicketController extends ApplicationController
                 String url = "localhost:9000/ticket/" + ticket.getTicketsId();
                 String email = siteAdmins.get(i).getEmailAddress();
                 String customerEmail = ticket.getEmailAddress();
-                if (!isLoggedIn())
-                {
-                    Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId() + " has been assigned to you or updated. You can view this ticket " +
-                            "by the following link, copy and paste to browser " + url, email);
-                } else
-                {
-                    //do nothing
-                }
                 if (isLoggedIn())
                 {
                     Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId() + " Your ticket has been updated, you can review at " + url, customerEmail);
-                } else
+                    jpaApi.em().persist(ticket);
+                }
+                else  if (!isLoggedIn())
+                {
+                    Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId() + " has been assigned to you or updated. You can view this ticket " +
+                            "by the following link, copy and paste to browser " + url, email);
+                    jpaApi.em().persist(ticket);
+                }
+                 else
                 {
                     //do nothing
                 }
@@ -234,7 +234,7 @@ public class TicketController extends ApplicationController
 
         }
 
-        jpaApi.em().persist(ticket);
+
 
 
         Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();

@@ -199,7 +199,7 @@ public class AdministrationController extends ApplicationController
             {
                 try
                 {
-                    String flag = "True";
+                    String flag = "False";
                     byte salt[] = Password.getNewSalt();
                     siteAdmin.setPasswordSalt(salt);
                     siteAdmin.setPassword(Password.hashPassword(passwordMatch.toCharArray(), salt));
