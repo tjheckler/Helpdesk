@@ -12,13 +12,10 @@
 
 <div class="container" align="center">
     @appnavbar.render("tickets")
+
+
     <div class="jumbotron">
-        <div align="right">
-            <form method="post" action="/signout">
-                @CSRF.formField
-                <input  type="submit" value="Sign Out" class="btn btn-danger">
-            </form>
-        </div>
+
         <h3>Ticket # ( @ticket.getTicketsId )</h3>
         <br>
         <h3>Status: @for(ticketStatus<-ticketStatuses){
@@ -32,35 +29,43 @@
             @if(priority.getPriorityId == ticket.getPriorityId){
             @priority.getPriorityName() }}</h3>
         <h3>Subject: @ticket.getSubjectTitle</h3>
+        <div align="right">
+            <form method="post" action="/signout" enctype="multipart/form-data">
+                @CSRF.formField
+                <input type="submit" value="Sign Out" class="btn btn-danger">
+            </form>
+            <br>
+
+
+        </div>
     </div>
     <br>
     <div class="row">
         <div class="col-md-6">
-            <b> Computer Name: </b><label>@ticket.getComputerName</label>
+            <b> Computer Name: </b><br>
+            <label>@ticket.getComputerName</label>
         </div>
         <div class="col-md-6">
-            <b> Asset Tag Number: </b><label>@ticket.getAssetTagNumber</label>
+            <b> Asset Tag Number: </b><br>
+            <label>@ticket.getAssetTagNumber</label>
         </div>
     </div>
     <br>
     <div class="row">
         <div class="col-md-6">
-            <b> User's Name: </b><label>@ticket.getName</label>
+            <b> User's Name: </b><br>
+            <label>@ticket.getName</label>
         </div>
         <div class="col-md-6">
-            <b> Assigned To: </b>
-            <label>
-                @for(siteAdmin<-siteAdmins){
-                @if(siteAdmin.getSiteAdminId == ticket.getSiteAdminId){
-                @siteAdmin.getSiteAdminName() }}
-            </label>
+            <b> Email: </b><br>
+            <label>@ticket.getEmailAddress</label>
         </div>
     </div>
 
     <br>
     <div class="row">
         <div class="col-md-6">
-            <b> Current Location: </b>
+            <b> Current Location: </b><br>
             <label>
                 @for(location<-locations){
                 @if(location.getLocationId == ticket.getLocationId){
@@ -69,7 +74,7 @@
 
         </div>
         <div class="col-md-6">
-            <b> Current Region:</b>
+            <b> Current Region:</b><br>
             <label>
                 @for(location<-locations){
                 @if(ticket.getLocationId == location.getLocationId){
@@ -83,19 +88,24 @@
     <br>
     <div class="row">
         <div class="col-md-6">
-            <b> Phone Number: </b><label>@ticket.getPhoneNumber</label>
+            <b> Phone Number: </b><br>
+            <label>@ticket.getPhoneNumber</label>
         </div>
         <div class="col-md-6">
-            <b> Email Address: </b><label>@ticket.getEmailAddress</label>
+            <b> Assigned To: </b><br>
+            <label>
+                @for(siteAdmin<-siteAdmins){
+                @if(siteAdmin.getSiteAdminId == ticket.getSiteAdminId){
+                @siteAdmin.getSiteAdminName() }}
+            </label>
         </div>
+
     </div>
     <br>
-
-
     <br>
     <div class="container">
         <div>
-        <b> Description: </b><label>@ticket.getDescription</label>
+            <b> Description: </b><label>@ticket.getDescription</label>
         </div>
         <br>
         <div class="container" align="center">
@@ -104,9 +114,11 @@
                 @if(fileDetail.getTicketId == ticket.getTicketsId){
 
                 <table class="table table-bordered">
-                    <td>
-                        <a href="../files/@fileDetail.getFileDetailId"> Download File </a>
-                    </td>
+                    <tr>
+                        <td>
+                            <a href="../files/@fileDetail.getFileDetailId"> Download File </a>
+                        </td>
+                    </tr>
                 </table>
                 }}
             </div>
@@ -117,16 +129,17 @@
             @if(reply.getTicketsId == ticket.getTicketsId){
 
             <table class="table table-bordered">
-                <td>
-                    <b> Reply: </b>
-            @reply.getReply()
-                </td>
-           </table>
+                <tr>
+                    <td>
+                        <b> Reply: </b>
+                        @reply.getReply()
+                    </td>
+
+            </table>
             }}
         </div>
     </div>
     <br>
-
     <form method="post" class="form-control" align="center" enctype="multipart/form-data">
         @CSRF.formField
         <br>
@@ -178,7 +191,8 @@
         <div>
             <label><b>Reply:</b></label>
             <br>
-            <textarea class="rounded"  name="reply" cols="100" rows="10" id="reply" maxlength="255" placeholder=""></textarea>
+            <textarea class="rounded" name="reply" cols="100" rows="10" id="reply" maxlength="255"
+                      placeholder=""></textarea>
             <br>
             <label>255 Characters Allowed</label>
             <br>
@@ -202,13 +216,13 @@
 <br>
 
 <div class="container" align="center">
-    <form action="/deleteticket/@ticket.getTicketsId" method="POST">
+    <form action="/deleteticket/@ticket.getTicketsId" method="POST" enctype="multipart/form-data">
         @CSRF.formField
         <input class="btn btn-danger" type="submit" value="Delete Ticket">
     </form>
 </div>
-
 <br>
+
 </body>
 
 </html>

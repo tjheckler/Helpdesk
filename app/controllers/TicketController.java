@@ -169,7 +169,6 @@ public class TicketController extends ApplicationController
         String adminSql = "SELECT sa FROM SiteAdmin sa ";
         List<SiteAdmin> siteAdmins = jpaApi.em()
                 .createQuery(adminSql, SiteAdmin.class).getResultList();
-
         String prioritySql = "SELECT p FROM Priority p ";
         List<Priority> priorities = jpaApi.em()
                 .createQuery(prioritySql, Priority.class).getResultList();
@@ -312,6 +311,8 @@ public class TicketController extends ApplicationController
                 priorities, categories, regions, replies, fileDetails));
 
     }
+
+
 
     @Transactional(readOnly = true)
     public Result getNewTicket()
