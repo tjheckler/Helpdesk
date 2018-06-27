@@ -50,7 +50,7 @@ public class LocationController extends ApplicationController
             return ok(views.html.Location.locationList.render(locations, searchCriteria));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -70,7 +70,7 @@ public class LocationController extends ApplicationController
             return ok(views.html.Location.location.render(location, regions));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -103,7 +103,7 @@ public class LocationController extends ApplicationController
             return redirect(routes.LocationController.getLocations());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -119,7 +119,7 @@ public class LocationController extends ApplicationController
             return ok(views.html.Location.newlocation.render(regions));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -147,7 +147,7 @@ public class LocationController extends ApplicationController
             return redirect(routes.LocationController.getLocations());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -164,7 +164,7 @@ public class LocationController extends ApplicationController
             return redirect(routes.LocationController.getLocations());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 

@@ -47,7 +47,7 @@ public class RegionController extends ApplicationController
             return ok(views.html.Region.regionList.render(regions, searchCriteria));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -64,7 +64,7 @@ public class RegionController extends ApplicationController
             return ok(views.html.Region.region.render(region));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -93,7 +93,7 @@ public class RegionController extends ApplicationController
             return redirect(routes.RegionController.getRegions());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -104,7 +104,7 @@ public class RegionController extends ApplicationController
             return ok(views.html.Region.newregion.render());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -129,7 +129,7 @@ public class RegionController extends ApplicationController
             return redirect(routes.RegionController.getRegions());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -147,7 +147,7 @@ public class RegionController extends ApplicationController
             return redirect(routes.RegionController.getRegions());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 }

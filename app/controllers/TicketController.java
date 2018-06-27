@@ -90,7 +90,7 @@ public class TicketController extends ApplicationController
                     ticketStatuses, siteAdmins, priority, categories));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
 
     }
@@ -359,7 +359,7 @@ public class TicketController extends ApplicationController
                     siteAdmins, priorities, categories, regions, replies, fileDetails));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
 
     }
@@ -535,7 +535,7 @@ public class TicketController extends ApplicationController
                     priorities, categories, regions, replies, fileDetails));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
 
     }
@@ -575,7 +575,7 @@ public class TicketController extends ApplicationController
                     siteAdmins, priorities, categories, regions, "* Indicates Required Field"));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -708,7 +708,7 @@ public class TicketController extends ApplicationController
         } else
 
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
 
     }
@@ -738,7 +738,7 @@ public class TicketController extends ApplicationController
             return redirect(routes.TicketController.getTickets());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 

@@ -46,7 +46,7 @@ public class StatusController extends ApplicationController
             return ok(views.html.Status.statusList.render(ticketStatuses, searchCriteria));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
 
     }
@@ -65,7 +65,7 @@ public class StatusController extends ApplicationController
             return ok(views.html.Status.status.render(ticketStatus));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -95,7 +95,7 @@ public class StatusController extends ApplicationController
             return redirect(routes.StatusController.getStatuses());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -106,7 +106,7 @@ public class StatusController extends ApplicationController
             return ok(views.html.Status.newstatus.render());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -132,7 +132,7 @@ public class StatusController extends ApplicationController
             return redirect(routes.StatusController.getStatuses());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
@@ -149,7 +149,7 @@ public class StatusController extends ApplicationController
             return redirect(routes.StatusController.getStatuses());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 }

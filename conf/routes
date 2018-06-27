@@ -18,7 +18,7 @@ POST    /newpassword/:id             controllers.AdministrationController.postNe
 GET     /forgotpassword              controllers.AdministrationController.getForgotPassword
 POST    /forgotpassword              controllers.AdministrationController.postForgotPassword
 
-GET     /login                       controllers.AdministrationController.getLogin(message:String ?= "",message2:String ?= "")
+GET     /login                       controllers.AdministrationController.getLogin(message2:String ?= "")
 POST    /login                       controllers.AdministrationController.postLogin
 POST    /signout                     controllers.AdministrationController.postSignOut
 

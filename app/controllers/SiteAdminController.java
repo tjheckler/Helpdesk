@@ -52,7 +52,7 @@ public class SiteAdminController extends ApplicationController
             return ok(views.html.SiteAdmin.siteadminList.render(siteAdmins, searchCriteria,location));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
 
     }
@@ -79,7 +79,7 @@ public class SiteAdminController extends ApplicationController
                     region, "* Indicates Required Field"));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","You Are Not Logged In"));
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
     }
 
@@ -137,7 +137,7 @@ public class SiteAdminController extends ApplicationController
             }
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
         return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
     }
@@ -161,7 +161,7 @@ public class SiteAdminController extends ApplicationController
                     locations, "* Indicates Required Field",""));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","You Are Not Logged In"));
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
     }
 
@@ -234,7 +234,7 @@ public class SiteAdminController extends ApplicationController
             }}
         }else
         {
-            return redirect(routes.AdministrationController.getLogin("","You Are Not Logged In"));
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
         return redirect(routes.SiteAdminController.getSiteAdmins());
     }
@@ -252,7 +252,7 @@ public class SiteAdminController extends ApplicationController
             return redirect(routes.SiteAdminController.getSiteAdmins());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
 
