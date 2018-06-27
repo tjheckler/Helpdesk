@@ -52,7 +52,7 @@ public class SiteAdminController extends ApplicationController
             return ok(views.html.SiteAdmin.siteadminList.render(siteAdmins, searchCriteria,location));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
         }
 
     }
@@ -79,7 +79,7 @@ public class SiteAdminController extends ApplicationController
                     region, "* Indicates Required Field"));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
+            return redirect(routes.AdministrationController.getLogin("","You Are Not Logged In"));
         }
     }
 
@@ -137,13 +137,13 @@ public class SiteAdminController extends ApplicationController
             }
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
         }
         return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
     }
 
     @Transactional(readOnly = true)
-    public Result getNewSiteAdmin()
+    public Result getNewSiteAdmin(String message2)
     {
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
@@ -158,10 +158,10 @@ public class SiteAdminController extends ApplicationController
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
             return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
-                    locations, "* Indicates Required Field"));
+                    locations, "* Indicates Required Field",""));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
+            return redirect(routes.AdministrationController.getLogin("","You Are Not Logged In"));
         }
     }
 
@@ -180,39 +180,61 @@ public class SiteAdminController extends ApplicationController
             String username = form.get("username");
             String password = form.get("password");
             String flag = "True";
-            SiteAdmin siteAdmin = new SiteAdmin();
-            if (siteAdminName != null && phoneNumber != null && emailAddress != null &&
-                    role != null && username != null && password != null
-                    && locationId > 0)
+            String sql = "SELECT s FROM SiteAdmin s " ;
+            List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).
+                    getResultList();
+            for(int i = 0; i<siteAdmins.size() - 1; i++)
             {
-                try
+            if (!siteAdmins.get(i).getUsername().equals(username) && !siteAdmins.get(i).getEmailAddress().equals(emailAddress) )
+            {
+                SiteAdmin siteAdmin = new SiteAdmin();
+                if (siteAdminName != null && phoneNumber != null && username != null &&
+                        role != null && emailAddress != null && password != null
+                        && locationId > 0)
                 {
-                    byte salt[] = Password.getNewSalt();
-                    byte hashedPassword[] = Password.hashPassword(password.toCharArray(), salt);
+                    try
+                    {
+                        byte salt[] = Password.getNewSalt();
+                        byte hashedPassword[] = Password.hashPassword(password.toCharArray(), salt);
 
-                    siteAdmin.setSiteAdminName(siteAdminName);
-                    siteAdmin.setPhoneNumber(phoneNumber);
-                    siteAdmin.setSiteRole(role);
-                    siteAdmin.setLocationId(locationId);
-                    siteAdmin.setEmailAddress(emailAddress);
-                    siteAdmin.setPasswordSalt(salt);
-                    siteAdmin.setPassword(hashedPassword);
-                    siteAdmin.setUsername(username);
-                    siteAdmin.setFlag(flag);
-                } catch (Exception e)
+                        siteAdmin.setSiteAdminName(siteAdminName);
+                        siteAdmin.setPhoneNumber(phoneNumber);
+                        siteAdmin.setSiteRole(role);
+                        siteAdmin.setLocationId(locationId);
+                        siteAdmin.setEmailAddress(emailAddress);
+                        siteAdmin.setPasswordSalt(salt);
+                        siteAdmin.setPassword(hashedPassword);
+                        siteAdmin.setUsername(username);
+                        siteAdmin.setFlag(flag);
+                    } catch (Exception e)
+                    {
+
+                    }
+                    jpaApi.em().persist(siteAdmin);
+
+
+                } else
                 {
-
+                    return redirect(routes.SiteAdminController.getNewSiteAdmin("Some Values Were Empty Try Again"));
                 }
-                jpaApi.em().persist(siteAdmin);
-
-
             } else
             {
-                return redirect(routes.SiteAdminController.getNewSiteAdmin());
-            }
-        } else
+                String regionSql = "SELECT r FROM Region r ";
+
+                List<Region> regions = jpaApi.em().createQuery
+                        (regionSql, Region.class).getResultList();
+
+                String locationSql = "SELECT l FROM Location l ";
+
+                List<Location> locations = jpaApi.em().createQuery
+                        (locationSql, Location.class).getResultList();
+                return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
+                        locations, "* Indicates Required Field","User Already Exists Try Another Email Or Username"));
+
+            }}
+        }else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","You Are Not Logged In"));
         }
         return redirect(routes.SiteAdminController.getSiteAdmins());
     }
@@ -230,7 +252,7 @@ public class SiteAdminController extends ApplicationController
             return redirect(routes.SiteAdminController.getSiteAdmins());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
         }
     }
 

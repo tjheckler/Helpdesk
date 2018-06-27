@@ -1,4 +1,4 @@
-@(message:String)
+@(message:String,message2:String)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -17,7 +17,7 @@
     </div>
     <form method="post" class="form-control">
         @CSRF.formField
-        <b>@message</b><br><br>
+        <b>@message</b><br>@message2<br>
         <label>Username: &nbsp </label><input class="rounded" type="text" name="username" id="username"><br>
         <label>Password: &nbsp &nbsp </label><input class="rounded" type="password" name="password" id="password"><br>
         <a class="btn btn-secondary" href="/forgotpassword">Forgot Password</a>&nbsp;

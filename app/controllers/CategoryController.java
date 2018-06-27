@@ -46,7 +46,7 @@ public class CategoryController extends ApplicationController
             return ok(views.html.Category.categoryList.render(categories, searchCriteria));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
         }
 
     }
@@ -63,7 +63,7 @@ public class CategoryController extends ApplicationController
             return ok(views.html.Category.category.render(category));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
         }
     }
 
@@ -92,7 +92,7 @@ public class CategoryController extends ApplicationController
 
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
         }
     }
 
@@ -103,7 +103,7 @@ public class CategoryController extends ApplicationController
             return ok(views.html.Category.newcategory.render());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
         }
     }
 
@@ -125,7 +125,7 @@ public class CategoryController extends ApplicationController
             return redirect(routes.CategoryController.getCategories());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
         }
     }
 
@@ -142,7 +142,7 @@ public class CategoryController extends ApplicationController
         return redirect(routes.CategoryController.getCategories());
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
         }
     }
 }

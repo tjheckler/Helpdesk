@@ -97,7 +97,7 @@ public class ReportsController extends ApplicationController
                 ticketPriorityCounts, ticketLocationCounts, ticketRegionCounts, inventoryLocationCounts,ticketReplyCounts));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+            return redirect(routes.AdministrationController.getLogin("","Login As Administrator"));
         }
     }
 
