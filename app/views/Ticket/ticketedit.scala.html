@@ -1,0 +1,224 @@
+@(ticket:Ticket,locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],replies:List[Reply],fileDetails:List[FileDetails])
+<!DOCTYPE html>
+@import helper._
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <title>Ticket @ticket.getTicketsId Edit</title>
+</head>
+<body>
+
+<div class="container" align="center">
+    @appnavbar.render("tickets")
+
+
+    <div class="jumbotron">
+
+        <h3>Ticket # ( @ticket.getTicketsId )</h3>
+        <br>
+        <h3>Date: @ticket.getStatusDateChanged</h3>
+        <div align="right">
+            <form method="post" action="/signout" enctype="multipart/form-data">
+                @CSRF.formField
+                <input type="submit" value="Sign Out" class="btn btn-danger">
+            </form>
+            <br>
+        </div>
+    </div>
+    <form class="form-control" method="post" enctype="multipart/form-data" action="/ticketedit/@ticket.getTicketsId">
+        @CSRF.formField
+        <div class="row" align="center">
+            <div class="col-md-4">
+                <b> Change Assignee: </b><br>
+                <select class="rounded" name="siteAdminId" id="siteAdminId">
+                    <option value="@ticket.getSiteAdminId">Keep The Same</option>
+                    @for(siteAdmin<-siteAdmins){
+
+                    <option value="@siteAdmin.getSiteAdminId">
+                        @siteAdmin.getSiteAdminName
+                    </option>
+                    }
+
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <b> Change Priority: </b><br>
+                <select class="rounded" name="priorityId" id="priorityId">
+                    <option value="@ticket.getPriorityId">Keep The Same</option>
+                    @for(priority<-priorities){
+
+                    <option value="@priority.getPriorityId">
+                        @priority.getPriorityName
+                    </option>
+                    }
+
+                </select>
+            </div>
+            <div class="col-md-4">
+                <b> Change Status: </b><br>
+                <select class="rounded" name="statusId" id="statusId">
+                    <option value="@ticket.getStatusId">Keep The Same</option>
+                    @for(ticketStatus<-ticketStatuses){
+
+                    <option value="@ticketStatus.getStatusId">
+                        @ticketStatus.getStatusName
+                    </option>
+                    }
+
+                </select>
+            </div>
+
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <b>Subject: </b><br>
+                <input type="text" value="@ticket.getSubjectTitle" name="subjectTitle" id="subjectTitle">
+            </div>
+            <br>
+            <div class="col-md-4">
+                <b> Computer Name: </b><br>
+                <input type="text" value="@ticket.getComputerName" name="computerName" id="computerName">
+            </div>
+            <div class="col-md-4">
+                <b> Asset Tag Number: </b><br>
+                <input type="text" value="@ticket.getAssetTagNumber" name="assetTagNumber" id="assetTagNumber">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <b> User's Name: </b><br>
+                <input type="text" value="@ticket.getName" name="name" id="name">
+            </div>
+            <div class="col-md-4">
+                <b> Email: </b><br>
+                <input type="text" value="@ticket.getEmailAddress" name="emailAddress" id="emailAddress">
+            </div>
+            <div class="col-md-4">
+                <b> Current Location: </b><br>
+                <select class="rounded" name="locationId" id="locationId">
+                    <option value="@ticket.getLocationId">Keep The Same</option>
+                    @for(location<-locations){
+                    <option value="@location.getLocationId">
+                        @location.getLocationName()
+                    </option>
+                    }
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+
+            <div class="col-md-4">
+                <b> Current Region:</b><br>
+                <label>
+                    @for(location<-locations){
+                    @if(ticket.getLocationId == location.getLocationId){
+                    @for(region<-regions){
+                    @if(location.getRegionId == region.getRegionId){
+                    @region.getRegionName() }}}}
+                </label>
+            </div>
+            <div class="col-md-4">
+                <b> Phone Number: </b><br>
+                <label>@ticket.getPhoneNumber</label>
+            </div>
+            <div class="col-md-4">
+                <b> Assigned To: </b><br>
+                <label>
+                    @for(siteAdmin<-siteAdmins){
+                    @if(siteAdmin.getSiteAdminId == ticket.getSiteAdminId){
+                    @siteAdmin.getSiteAdminName() }}
+                </label>
+            </div>
+
+        </div>
+        <br>
+        <div>
+            <input class="btn btn-primary" type="submit" value="save">
+            <a class="btn btn-primary" href="/tickets">Back to List</a>
+        </div>
+
+    <br>
+    <div class="container">
+        <div>
+            <b> Description: </b><label>@ticket.getDescription</label>
+        </div>
+        <br>
+        <div class="container" align="center">
+            <div align="center">
+                @for(fileDetail<-fileDetails){
+                @if(fileDetail.getTicketId == ticket.getTicketsId){
+
+                <table class="table table-bordered">
+                    <tr>
+                        <td>
+                            <a href="../files/@fileDetail.getFileDetailId"> Download File </a>
+                        </td>
+                    </tr>
+                </table>
+                }}
+            </div>
+        </div>
+        <br>
+        <div align="center">
+            @for(reply<-replies){
+            @if(reply.getTicketsId == ticket.getTicketsId){
+
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <b> Reply: </b>
+                        @reply.getReply()
+                    </td>
+
+            </table>
+            }}
+        </div>
+    </div>
+    <br>
+
+        @CSRF.formField
+        <br>
+        <div>
+            <label><b>Reply:</b></label>
+            <br>
+            <textarea class="rounded" name="reply" cols="100" rows="10" id="reply" maxlength="255"
+                      placeholder=""></textarea>
+            <br>
+            <label>255 Characters Allowed</label>
+            <br>
+            <br>
+            <input class="rounded" type="file" id="file1" name="file1" multiple="multiple">
+            <input class="rounded" type="file" id="file2" name="file2" multiple="multiple">
+            <input class="rounded" type="file" id="file3" name="file3" multiple="multiple">
+
+        </div>
+        <br>
+        <div>
+            <input class="btn btn-primary" type="submit" value="save">
+            <a class="btn btn-primary" href="/tickets">Back to List</a>
+        </div>
+
+    </form>
+
+</div>
+<br>
+<hr>
+<br>
+
+<div class="container" align="center">
+    <form action="/deleteticket/@ticket.getTicketsId" method="POST" enctype="multipart/form-data">
+        @CSRF.formField
+        <input class="btn btn-danger" type="submit" value="Delete Ticket">
+    </form>
+</div>
+<br>
+
+</body>
+
+</html>

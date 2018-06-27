@@ -13,7 +13,6 @@
 <div class="container" align="center">
     @appnavbar.render("tickets")
 
-
     <div class="jumbotron">
 
         <h3>Ticket # ( @ticket.getTicketsId )</h3>
@@ -35,8 +34,12 @@
                 <input type="submit" value="Sign Out" class="btn btn-danger">
             </form>
             <br>
+            <form method="get" action="/ticketedit/@ticket.getTicketsId" enctype="multipart/form-data">
+                @CSRF.formField
+                <input type="submit" value="Edit Ticket" class="btn btn-danger">
+            </form>
 
-
+            <br>
         </div>
     </div>
     <br>
@@ -140,7 +143,7 @@
         </div>
     </div>
     <br>
-    <form method="post" class="form-control"  enctype="multipart/form-data">
+    <form method="post" class="form-control" enctype="multipart/form-data">
         @CSRF.formField
         <br>
         <div class="row" align="center">
