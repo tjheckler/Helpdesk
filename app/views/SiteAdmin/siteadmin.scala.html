@@ -15,7 +15,11 @@
     <div class="jumbotron" align="center">
         <h1>@siteAdmin.getSiteAdminName()'s Profile</h1>
         <div>
+            @if(siteAdmin.getPicture == null){
+            <img src="/assets/images/download18.jpg" height="100">
+                }else{
             <img src="../siteadminpicture/@siteAdmin.getSiteAdminId" height="200">
+                }
             <br>
             <form method="post" enctype="multipart/form-data" action="/siteadminpicture/@siteAdmin.getSiteAdminId">
                 @CSRF.formField
