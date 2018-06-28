@@ -6,13 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
     <title>Site Admins</title>
 </head>
-<body>
+<body class="body1">
 
 <div class="container" align="center">
     @adminnavbar.render("admin")
-    <div class="jumbotron" align="center">
+    <div class="jumbotron1" align="center">
         <div class="row">
             <div class="col=md-11" align="left">
                 <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST" enctype="multipart/form-data">
