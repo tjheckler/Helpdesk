@@ -13,6 +13,14 @@
 <div class="container" align="center">
     @adminnavbar.render("admin")
     <div class="jumbotron" align="center">
+        <div class="container" align="left">
+
+            <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST">
+                @CSRF.formField
+                <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+
+        </div>
         <h1>@siteAdmin.getSiteAdminName()'s Profile</h1>
         <div>
             @if(siteAdmin.getPicture == null){
@@ -172,16 +180,7 @@
 <hr>
 <br>
 
-<div class="container" align="center">
-    @if(siteAdmin.getSiteRole.equals("Admin")){
-    <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST">
-        @CSRF.formField
-        <input class="btn btn-danger" type="submit" value="Delete">
-    </form>
-    }else{
 
-    }
-</div>
 
 </body>
 </html>
