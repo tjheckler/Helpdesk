@@ -143,6 +143,89 @@ public class SiteAdminController extends ApplicationController
     }
 
     @Transactional(readOnly = true)
+    public Result getSiteAdminEdit(Integer siteAdminId)
+    {
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+        {
+            String sql = "SELECT s FROM SiteAdmin s " +
+                    "WHERE siteAdminId = :siteAdminId";
+            SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
+                    setParameter("siteAdminId", siteAdminId).getSingleResult();
+
+            String locationSql = "SELECT l FROM Location l ";
+            List<Location> location = jpaApi.em().createQuery(locationSql, Location.class).getResultList();
+
+            String regionSql = "SELECT r FROM Region r ";
+            List<Region> region = jpaApi.em().createQuery(regionSql, Region.class).getResultList();
+
+
+            return ok(views.html.SiteAdmin.siteadminedit.render(siteAdmin, location,
+                    region, "* Indicates Required Field"));
+        } else
+        {
+            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
+        }
+    }
+
+    @Transactional
+    public Result postSiteAdminEdit(Integer siteAdminId)
+    {
+
+
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+        {
+
+            String sql = "SELECT s FROM SiteAdmin s " +
+                    "WHERE siteAdminId = :siteAdminId";
+//add a join
+            SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class)
+                    .setParameter("siteAdminId", siteAdminId).getSingleResult();
+            DynamicForm form = formFactory.form().bindFromRequest();
+
+            String siteAdminName = form.get("siteAdminName");
+            int locationId = Integer.parseInt(form.get("locationId"));
+            String phoneNumber = form.get("phoneNumber");
+            String emailAddress = form.get("emailAddress");
+            String role = form.get("siteRole");
+            String username = form.get("username");
+            String password = form.get("password");
+
+
+            if (siteAdminName != null && phoneNumber != null && emailAddress != null &&
+                    role != null && username != null && password != null
+                    && locationId > 0 && siteAdminId > 0)
+            {
+                try
+                {
+                    byte salt[] = Password.getNewSalt();
+                    byte hashedPassword[] = Password.hashPassword(password.toCharArray(), salt);
+
+                    siteAdmin.setSiteAdminName(siteAdminName);
+                    siteAdmin.setPhoneNumber(phoneNumber);
+                    siteAdmin.setSiteRole(role);
+                    siteAdmin.setLocationId(locationId);
+                    siteAdmin.setEmailAddress(emailAddress);
+                    siteAdmin.setPasswordSalt(salt);
+                    siteAdmin.setPassword(hashedPassword);
+                    siteAdmin.setUsername(username);
+                } catch (Exception e)
+                {
+
+                }
+
+                jpaApi.em().persist(siteAdmin);
+            } else
+            {
+                return redirect(routes.SiteAdminController.getSiteAdmins());
+            }
+        } else
+        {
+            return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
+        }
+        return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
+    }
+
+    @Transactional(readOnly = true)
     public Result getNewSiteAdmin(String message2)
     {
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))

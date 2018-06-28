@@ -13,21 +13,24 @@
 <div class="container" align="center">
     @adminnavbar.render("admin")
     <div class="jumbotron" align="center">
-        <div class="container" align="left">
-
-            <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST">
-                @CSRF.formField
-                <input class="btn btn-danger" type="submit" value="Delete">
-            </form>
-
+        <div class="row">
+            <div class="col=md-11" align="left">
+                <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST" enctype="multipart/form-data">
+                    @CSRF.formField
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
+            <div class="col-md-11" align="right">
+                <a class="btn btn-primary" href="/siteadminedit/@siteAdmin.getSiteAdminId">Edit</a>
+            </div>
         </div>
         <h1>@siteAdmin.getSiteAdminName()'s Profile</h1>
         <div>
             @if(siteAdmin.getPicture == null){
             <img src="/assets/images/download18.jpg" height="100">
-                }else{
+            }else{
             <img src="../siteadminpicture/@siteAdmin.getSiteAdminId" height="200">
-                }
+            }
             <br>
             <form method="post" enctype="multipart/form-data" action="/siteadminpicture/@siteAdmin.getSiteAdminId">
                 @CSRF.formField
@@ -37,120 +40,61 @@
                 <input class="btn btn-sedondary" type="submit" value="Change Photo">
             </form>
         </div>
-        <div align="right">
-            <form method="post" action="/signout">
-                @CSRF.formField
-                <input  type="submit" value="Sign Out" class="btn btn-danger">
-            </form>
+        <div class="row">
+            <div class="col-md-11" align="left">
+                <form method="post" action="/signout">
+                    @CSRF.formField
+                    <input type="submit" value="Sign Out" class="btn btn-danger">
+                </form>
+            </div>
+            <div class="col-md-11" align="right">
+                <a class="btn btn-primary" href="/newpassword/@siteAdmin.getSiteAdminId">Reset Password</a>
+            </div>
         </div>
-        <input class="rounded" type="hidden" name="siteAdminId" id="siteAdminId"
-               value="@siteAdmin.getSiteAdminId" minlength="1"
-               maxlength="30" size="30">
     </div>
-    <form method="post" class="form-control"  enctype="multipart/form-data">
-        @if(siteAdmin.getSiteRole.equals("Admin")){
-        @message}else{}
+    <form method="post" class="form-control" enctype="multipart/form-data">
         <br>
         @CSRF.formField
         <div class="row">
             <div class="col-md-6">
-                @if(siteAdmin.getSiteRole.equals("Admin")){
-                <b>* Name: </b><br>
-                <input class="rounded" type="text" name="siteAdminName" id="siteAdminName"
-                       value="@siteAdmin.getSiteAdminName" minlength="1"
-                       maxlength="30" size="30">
-                }else{
                 <b> Name: </b><br>
                 <label>@siteAdmin.getSiteAdminName</label>
-                }
             </div>
             <div class="col-md-6">
-                @if(siteAdmin.getSiteRole.equals("Admin")){
-                <b>* Email Address: </b><br>
-                <input class="rounded" type="text" name="emailAddress" id="emailAddress"
-                       value="@siteAdmin.getEmailAddress" minlength="1"
-                       maxlength="30" size="30">
-                }else{
                 <b> Email Address: </b><br>
                 <label>@siteAdmin.getEmailAddress</label>
-                }
             </div>
         </div>
         <br>
         <div class="row" align="center">
-
             <div class="col-md-6">
-                @if(!siteAdmin.getSiteRole.equals("Admin")){
                 <b> Role: </b><br>
                 <label>@siteAdmin.getSiteRole</label>
-                }else{
-                <b>* Role: </b><br>
-                <input class="rounded" type="text" name="siteRole" id="siteRole"
-                       value="@siteAdmin.getSiteRole" minlength="1"
-                       maxlength="30" size="30">
-                }
-
             </div>
             <div class="col-md-6">
-                @if(siteAdmin.getSiteRole.equals("Admin")){
-                <b>* Phone Number: </b><br>
-                <input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
-                       value="@siteAdmin.getPhoneNumber" minlength="1"
-                       maxlength="30" size="30">
-                }else{
                 <b> Phone Number: </b><br>
                 <label>@siteAdmin.getPhoneNumber</label>
-                }
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-6">
-                @if(siteAdmin.getSiteRole.equals("Admin")){
-                <b>* Username: </b><br>
-                <input class="rounded" type="text" name="username" id="username"
-                       value="@siteAdmin.getUsername" minlength="1"
-                       maxlength="30" size="30">
-                }else{
                 <b> Username: </b><br>
                 <label>@siteAdmin.getUsername</label>
-                }
             </div>
             <div class="col-md-6">
-                @if(siteAdmin.getSiteRole.equals("Admin")){
-                <b>* Location: </b><br>
-                <select name="locationId" id="locationId">
-                    @for(location <- locations){
-                    <option value="@location.getLocationId">
-                        @location.getLocationName
-                    </option>
-                    }
-
-                </select>
-                }else{
                 <b> Location: </b><br>
                 <label>
                     @for(location<-locations){
                     @if(location.getLocationId == siteAdmin.getLocationId){
                     @location.getLocationName() }}
                 </label>
-                }
             </div>
         </div>
         <br>
         <div class="row">
 
             <div class="col-md-12">
-                @if(siteAdmin.getSiteRole.equals("Admin")){
-                <b>* Region: </b><br>
-                <select>
-                    @for(region <- regions){
-                    <option value="@region.getRegionId">
-                        @region.getRegionName
-                    </option>
-                    }
-                </select>
-                }else{
                 <b> Region: </b><br>
                 <label>
                     @for(i <- 0 to regions.size() - 1){
@@ -159,27 +103,15 @@
                     siteAdmin.getLocationId){
                     @regions.get(i).getRegionName()}}}
                 </label>
-                }
             </div>
         </div>
         <br>
         <div>
-        <a class="btn btn-primary" href="/newpassword/@siteAdmin.getSiteAdminId">Reset Password</a>
-
-        @if(siteAdmin.getSiteRole.equals("Admin")){
-            <input class="btn btn-primary" type="submit" value="Save">
-            <a class="btn btn-primary" href="/siteadmins">Back to List</a>
         </div>
-        }else{
 
-        }
-    </form>
-</div>
-
-<br>
-<hr>
-<br>
-
+        <br>
+        <hr>
+        <br>
 
 
 </body>
