@@ -57,8 +57,6 @@ public class AdministrationController extends ApplicationController
                 .createQuery(sql, SiteAdmin.class).setParameter("username", username).getResultList();
 
 
-
-
         if (siteAdmins.size() == 1)
         {
             SiteAdmin siteAdmin = siteAdmins.get(0);
@@ -73,7 +71,7 @@ public class AdministrationController extends ApplicationController
                 return redirect(routes.AdministrationController.getAdministration());
             } else
             {
-                return ok(views.html.Administration.login.render("Invalid username or password",""));
+                return ok(views.html.Administration.login.render("Invalid username or password", ""));
             }
         } else
         {
@@ -87,7 +85,7 @@ public class AdministrationController extends ApplicationController
             }
         }
 
-        return ok(views.html.Administration.login.render("Invalid username or password",""));
+        return ok(views.html.Administration.login.render("Invalid username or password", ""));
 
     }
 
@@ -102,7 +100,7 @@ public class AdministrationController extends ApplicationController
     public Result getLogin(String message2)
     {
 
-        return ok(views.html.Administration.login.render("",message2));
+        return ok(views.html.Administration.login.render("", message2));
     }
 
     @Transactional
@@ -116,8 +114,6 @@ public class AdministrationController extends ApplicationController
 
         List<SiteAdmin> siteAdmins = jpaApi.em()
                 .createQuery(sql, SiteAdmin.class).setParameter("username", username).getResultList();
-
-
 
 
         if (siteAdmins.size() == 1)
@@ -136,15 +132,14 @@ public class AdministrationController extends ApplicationController
                 jpaApi.em().persist(siteAdmin);
                 return redirect(routes.AdministrationController.getNewPassword(siteAdmin.getSiteAdminId()));
 
-            }
-             else if (Arrays.equals(hashedPassword, siteAdmin.getPassword()) && siteAdmin.getFlag().equals("False"))
+            } else if (Arrays.equals(hashedPassword, siteAdmin.getPassword()) && siteAdmin.getFlag().equals("False"))
             {
                 session().put("loggedin", "" + siteAdmin.getSiteAdminId());
                 session().put("role", "" + siteAdmin.getSiteRole());
                 return redirect(routes.SiteAdminController.getSiteAdmin(siteAdmin.getSiteAdminId()));
             } else
             {
-                return ok(views.html.Administration.login.render("Invalid username or password",""));
+                return ok(views.html.Administration.login.render("Invalid username or password", ""));
             }
         } else
         {
@@ -158,7 +153,7 @@ public class AdministrationController extends ApplicationController
             }
         }
 
-        return ok(views.html.Administration.login.render("Invalid username or password",""));
+        return ok(views.html.Administration.login.render("Invalid username or password", ""));
 
     }
 
@@ -215,8 +210,7 @@ public class AdministrationController extends ApplicationController
 
             }
             return ok(views.html.Administration.newpassword.render("Password Does Not Match", siteAdmin));
-        }
-        else
+        } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
         }
@@ -229,6 +223,7 @@ public class AdministrationController extends ApplicationController
         String sql = "SELECT s FROM SiteAdmin s ";
 
         List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).getResultList();
+
 
         return ok(views.html.Administration.forgotpassword.render("", siteAdmins));
     }
