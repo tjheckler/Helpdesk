@@ -5,6 +5,8 @@
 -- HeidiSQL Version:             9.4.0.5125
 -- --------------------------------------------------------
 
+-- YOU MUST ENTER IN AT LEAST ONE ROW PER TABLE TO DATABASE BEFORE IT WILL WORK
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
