@@ -36,7 +36,7 @@ public class TicketController extends ApplicationController
     public Result getTickets()
     {
 
-        System.out.println("GET TICKETS");
+
         DynamicForm form = formFactory.form().bindFromRequest();
 
 
@@ -56,7 +56,7 @@ public class TicketController extends ApplicationController
         String priorityIdText = form.get("priorityId1");
         if (priorityIdText != null && !priorityIdText.trim().equals(""))
         {
-            System.out.println("GOt TO PRIORITY");
+
             priorities1 = Integer.parseInt(priorityIdText);
         }
         String siteAdminIdText = form.get("siteAdminId1");
@@ -165,7 +165,7 @@ public class TicketController extends ApplicationController
 
         if(priorities1 != null)
         {
-            System.out.println("BINDING PRIORITY");
+
             ticketDetailQuery.setParameter("priorityId", priorities1);
         }
 
