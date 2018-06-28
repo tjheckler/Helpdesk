@@ -9,10 +9,12 @@ import play.data.FormFactory;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
+import play.mvc.*;
 import play.mvc.Http;
 import play.mvc.Result;
 
 import javax.inject.Inject;
+import javax.persistence.Query;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +36,47 @@ public class TicketController extends ApplicationController
     public Result getTickets()
     {
 
+        System.out.println("GET TICKETS");
         DynamicForm form = formFactory.form().bindFromRequest();
+
+
+        //Filter & Search Begin
+        Integer statuses1 = null;
+        Integer priorities1 = null;
+        Integer siteAdmins1 = null;
+        Integer categories1 = null;
+        Integer locations1 = null;
+
+
+        String statusIdText = form.get("statusId1");
+        if (statusIdText != null && !statusIdText.trim().equals(""))
+        {
+            statuses1 = Integer.parseInt(statusIdText);
+        }
+        String priorityIdText = form.get("priorityId1");
+        if (priorityIdText != null && !priorityIdText.trim().equals(""))
+        {
+            System.out.println("GOt TO PRIORITY");
+            priorities1 = Integer.parseInt(priorityIdText);
+        }
+        String siteAdminIdText = form.get("siteAdminId1");
+        if (siteAdminIdText != null && !siteAdminIdText.trim().equals(""))
+        {
+            siteAdmins1 = Integer.parseInt(siteAdminIdText);
+        }
+        String categoryIdText = form.get("categoryId1");
+        if (categoryIdText != null && !categoryIdText.trim().equals(""))
+        {
+            categories1 = Integer.parseInt(categoryIdText);
+        }
+        String locationIdText = form.get("locationId1");
+        if (locationIdText != null && !locationIdText.trim().equals(""))
+        {
+            locations1 = Integer.parseInt(locationIdText);
+        }
+
+
+        //Filter & Search End
 
         String sql = "SELECT t FROM Ticket t " +
                 "JOIN Location l ON t.locationId = l.locationId " +
@@ -42,52 +84,114 @@ public class TicketController extends ApplicationController
                 "JOIN Category c ON t.categoryId = c.categoryId " +
                 "JOIN SiteAdmin sa ON t.siteAdminId = sa.siteAdminId " +
                 "JOIN TicketStatus s ON t.statusId = s.statusId " +
-                "WHERE t.name LIKE :searchCriteria  OR " +
-                "t.subjectTitle LIKE :searchCriteria OR " +
-                "t.subjectTitle LIKE :searchCriteria OR " +
-                "l.locationName LIKE :searchCriteria OR " +
-                "p.priorityName LIKE :searchCriteria OR " +
-                "sa.siteAdminName LIKE :searchCriteria OR " +
-                "t.ticketsId LIKE :searchCriteria OR " +
-                "s.statusName Like :searchCriteria " +
-                "ORDER BY t.statusId";
-        //Text Search Begin
+                "WHERE 1=1 ";
+
+        String locationSql = "SELECT l FROM Location l WHERE 1=1 ";
+        List<Location> locations = jpaApi.em()
+                .createQuery(locationSql, Location.class).getResultList();
+
+        String statusSql = "SELECT s FROM TicketStatus s WHERE 1=1 ";
+        List<TicketStatus> ticketStatuses = jpaApi.em()
+                .createQuery(statusSql, TicketStatus.class).getResultList();
+
+        String siteAdminSql = "SELECT sa FROM SiteAdmin sa WHERE 1=1 ";
+        List<SiteAdmin> siteAdmins = jpaApi.em()
+                .createQuery(siteAdminSql, SiteAdmin.class).getResultList();
+
+        final String prioritySql = "SELECT p FROM Priority p";
+        List<Priority> priority = jpaApi.em()
+                .createQuery(prioritySql, Priority.class).getResultList();
+
+        String categorySql = "SELECT c FROM Category c WHERE 1=1 ";
+        List<Category> categories = jpaApi.em()
+                .createQuery(categorySql, Category.class).getResultList();
+
+
         String searchCriteria = form.get("searchCriteria");
         if (searchCriteria == null)
         {
             searchCriteria = "";
         }
+        if (!searchCriteria.trim().equals(""))
+        {
+            sql += " AND (t.name LIKE :searchCriteria OR " +
+                    "t.subjectTitle LIKE :searchCriteria OR " +
+                    "t.subjectTitle LIKE :searchCriteria OR " +
+                    "l.locationName LIKE :searchCriteria OR " +
+                    "p.priorityName LIKE :searchCriteria OR " +
+                    "sa.siteAdminName LIKE :searchCriteria OR " +
+                    "t.ticketsId LIKE :searchCriteria OR " +
+                    "s.statusName LIKE :searchCriteria) ";
+        }
+        if (statuses1 != null)
+        {
+            sql += "AND t.statusId = :statusId ";
+
+        }
+        if (priorities1 != null)
+        {
+            sql += "AND t.priorityId = :priorityId ";
+
+        }
+        if (siteAdmins1 != null)
+        {
+            sql += "AND t.siteAdminId = :siteAdminId ";
+
+        }
+        if (categories1 != null)
+        {
+            sql += "AND t.categoryId = :categoryId ";
+
+        }
+        if (locations1 != null)
+        {
+            sql += "AND t.locationId = :locationId ";
+
+        }
         String queryParameter = searchCriteria + "%";
-        List<Ticket> tickets = jpaApi.em().createQuery(sql, Ticket.class).
-                setParameter("searchCriteria", queryParameter).getResultList();
 
-        String locationSql = "SELECT l FROM Location l ";
-        List<Location> locations = jpaApi.em()
-                .createQuery(locationSql, Location.class).getResultList();
 
-        String statusSql = "SELECT s FROM TicketStatus s ";
-        List<TicketStatus> ticketStatuses = jpaApi.em()
-                .createQuery(statusSql, TicketStatus.class).getResultList();
+        sql += "ORDER BY t.ticketsId desc ";
+        Query ticketDetailQuery = jpaApi.em().createQuery(sql, Ticket.class);
+        if (!searchCriteria.trim().equals(""))
+        {
+            ticketDetailQuery.setParameter("searchCriteria", queryParameter);
+        }
 
-        String adminSql = "SELECT sa FROM SiteAdmin sa ";
-        List<SiteAdmin> siteAdmins = jpaApi.em()
-                .createQuery(adminSql, SiteAdmin.class).getResultList();
+        if (statuses1 != null)
+        {
+            ticketDetailQuery.setParameter("statusId", statuses1);
+        }
 
-        String prioritySql = "SELECT p FROM Priority p ";
-        List<Priority> priority = jpaApi.em()
-                .createQuery(prioritySql, Priority.class).getResultList();
+        if(priorities1 != null)
+        {
+            System.out.println("BINDING PRIORITY");
+            ticketDetailQuery.setParameter("priorityId", priorities1);
+        }
 
-        String categorySql = "SELECT c FROM Category c ";
-        List<Category> categories = jpaApi.em()
-                .createQuery(categorySql, Category.class).getResultList();
+        if (siteAdmins1 != null)
+        {
+           ticketDetailQuery.setParameter("siteAdminId", siteAdmins1);
+        }
 
-        //Text Search End
+        if(categories1 != null)
+        {
+            ticketDetailQuery.setParameter("categoryId", categories1);
+        }
 
+        if(locations1 != null)
+        {
+            ticketDetailQuery.setParameter("locationId", locations1);
+        }
+
+
+
+        List<Ticket> tickets = ticketDetailQuery.getResultList();
 
         if (isLoggedIn())
         {
-            return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria, locations,
-                    ticketStatuses, siteAdmins, priority, categories));
+            return ok(views.html.Ticket.ticketList.render(tickets,searchCriteria, locations,
+                    ticketStatuses, siteAdmins, priority, categories, statuses1, priorities1, siteAdmins1, categories1, locations1));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -309,7 +413,7 @@ public class TicketController extends ApplicationController
     }
 
     @Transactional(readOnly = true)
-    public Result getTicketEdit(Integer ticketsId,String message)
+    public Result getTicketEdit(Integer ticketsId, String message)
     {
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {

@@ -1,4 +1,6 @@
-@(tickets:List[Ticket],searchCriteria:String,locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category])
+@(tickets:List[Ticket],searchCriteria:String,locations:List[Location],
+ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],
+statuses1:Integer,priorities1:Integer,siteAdmins1:Integer,categories1:Integer,locations1:Integer)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -16,7 +18,7 @@
         <div align="right">
             <form method="post" action="/signout">
                 @CSRF.formField
-                <input  type="submit" value="Sign Out" class="btn btn-danger">
+                <input type="submit" value="Sign Out" class="btn btn-danger">
                 <div align="left">
                     <a class="btn btn-primary" href="newticket"> Create New Ticket </a>
                 </div>
@@ -25,20 +27,102 @@
 
     </div>
     <form class="form-control" method="get">
+
+        <div class="row" align="center">
+            <div class="col-md-4">
+                <b> Assignee: </b><br>
+                <select class="rounded" name="siteAdminId1" id="siteAdminId1">
+                    <option value="">Choose Assignee</option>
+                    @for(siteAdmin<-siteAdmins){
+
+                    <option value="@siteAdmin.getSiteAdminId">
+                        @siteAdmin.getSiteAdminName
+                    </option>
+                    }
+
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <b> Priority: </b><br>
+                <select class="rounded" name="priorityId1" id="priorityId1">
+                    <option value="">Choose Priority</option>
+                    @for(priority<-priorities){
+
+                    <option value="@priority.getPriorityId">
+                        @priority.getPriorityName
+                    </option>
+                    }
+
+                </select>
+            </div>
+            <div class="col-md-4">
+                <b> Status: </b><br>
+                <select class="rounded" name="statusId1" id="statusId1">
+                    <option value="">Choose Status</option>
+                    @for(ticketStatus<-ticketStatuses){
+
+                    <option value="@ticketStatus.getStatusId">
+                        @ticketStatus.getStatusName
+                    </option>
+                    }
+
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row" align="center">
+            <div class="col-md-6">
+                <b> Current Location: </b><br>
+                <select class="rounded" name="locationId1" id="locationId1">
+                    <option value="">Choose Location</option>
+                    @for(location<-locations){
+                    <option value="@location.getLocationId">
+                        @location.getLocationName()
+                    </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                <b> Category: </b><br>
+                <select class="rounded" name="categoryId1" id="categoryId1">
+                    <option value="">Choose Category</option>
+                    @for(category<-categories){
+
+                    <option value="@category.getCategoryId">
+                        @category.getCategoryName
+                    </option>
+                    }
+
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="row ">
+            <div class="col-md-12">
+                <input class="btn btn-secondary" type="submit" value="Filter">&nbsp
+                <a class="btn btn-secondary" href="/tickets"> Clear Filter </a>
+            </div>
+        </div>
+        <br>
+        <hr>
         <br>
         <div>
             <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria"
-                   placeholder="Search Any List Value" size="20">
-            <input class="btn btn-secondary" type="submit" value="Search">
+                   placeholder="Search Any List Value" size="20"><br><br>
+            <input class="btn btn-secondary" type="submit" value="Search">&nbsp
             <a class="btn btn-secondary" href="/tickets"> Clear Search </a>
         </div>
-       <br>
+        <br>
+        <br>
     </form>
 
     <table class="table table-light">
         <tr>
             <th>Ticket#</th>
             <th>Date Modified</th>
+            <th>Category</th>
             <th>Priority</th>
             <th>Name</th>
             <th>Assigned To</th>
@@ -60,6 +144,15 @@
             <td>
                 <div>
                     @ticket.getStatusDateChanged()
+                </div>
+            </td>
+            <td>
+                <div>
+                    @for(category<-categories){
+                    @if(category.getCategoryId==ticket.getCategoryId){
+                    @category.getCategoryName()
+                    }
+                    }
                 </div>
             </td>
             <td>
