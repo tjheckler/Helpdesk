@@ -34,3 +34,17 @@ Other Images Can be Found in the "images" File
  * Amazon AWS Email Service
  * Javascript
  * HTML/CSS
+
+ # Features to Add After Demo:
+ * Tech Notes
+ * Custom Reports
+ * Field Validation
+ * Write Identical Program in C#
+ * Custom List Filtering combo box
+ * Separate Nav Bar Based on Access
+ * Active Directory Integration Possible
+ * Add User Registration with "User" Access
+ * Status Changed Tracking, Tickets and Inventory
+ * Printing and Export Function for Custom Reports
+ * Make Inventory Searchable for Tickets Computer Name/Asset Tag
+ * Put roles into separate Table as User, HelpDesk, Technician, Admin
