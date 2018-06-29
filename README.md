@@ -1,4 +1,4 @@
-[# Help Desk
+# Help Desk
 
  Help Desk is an inventory and ticketing system designed to help with inventory management and help requests.
 
