@@ -14,42 +14,52 @@
     @adminnavbar.render("admin")
     <div class="jumbotron1" align="center">
         <div class="container" align="left">
+            <div class="row">
+                <div class="col-md-1" align="left">
+                    <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST">
+                        @CSRF.formField
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+            <div class="container" align="center">
+                <h1>@siteAdmin.getSiteAdminName()'s Profile</h1>
+                <div>
+                    @if(siteAdmin.getPicture == null){
+                    <img src="/assets/images/download18.jpg" height="100">
+                    }else{
+                    <img src="../siteadminpicture/@siteAdmin.getSiteAdminId" height="200">
+                    }
+                    <br>
+                    <form method="post" enctype="multipart/form-data"
+                          action="/siteadminpicture/@siteAdmin.getSiteAdminId">
+                        @CSRF.formField
+                        <input class="btn" type="file" id="file" name="file">
+                        <br>
+                        <br>
+                        <input class="btn btn-sedondary" type="submit" value="Change Photo">
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col=md-1" align="left">
+                    <form method="post" action="/signout">
+                        @CSRF.formField
+                        <input type="submit" value="Sign Out" class="btn btn-danger">
+                    </form>
+                </div>
 
-            <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST">
-                @CSRF.formField
-                <input class="btn btn-danger" type="submit" value="Delete">
-            </form>
-        </div>
-        <h1>@siteAdmin.getSiteAdminName()'s Profile</h1>
-        <div>
-            @if(siteAdmin.getPicture == null){
-            <img src="/assets/images/download18.jpg" height="100">
-            }else{
-            <img src="../siteadminpicture/@siteAdmin.getSiteAdminId" height="200">
-            }
-            <br>
-            <form method="post" enctype="multipart/form-data" action="/siteadminpicture/@siteAdmin.getSiteAdminId">
-                @CSRF.formField
-                <input class="btn" type="file" id="file" name="file">
-                <br>
-                <br>
-                <input class="btn btn-sedondary" type="submit" value="Change Photo">
-            </form>
-        </div>
-        <div align="right">
-            <form method="post" action="/signout">
-                @CSRF.formField
-                <input  type="submit" value="Sign Out" class="btn btn-danger">
-            </form>
-        </div>
-        <input class="rounded" type="hidden" name="siteAdminId" id="siteAdminId"
-               value="@siteAdmin.getSiteAdminId" minlength="1"
-               maxlength="30" size="30">
-        <div align="left">
-            <a class="btn btn-primary" href="/newpassword/@siteAdmin.getSiteAdminId">Reset Password</a>
+                <div class="col-md-1" align="left">
+                    <a class="btn btn-primary" href="/newpassword/@siteAdmin.getSiteAdminId">Reset Password</a>
+                </div>
+            </div>
+            <div align="right"></div>
+            <input class="rounded" type="hidden" name="siteAdminId" id="siteAdminId"
+                   value="@siteAdmin.getSiteAdminId" minlength="1"
+                   maxlength="30" size="30">
         </div>
     </div>
-    <form method="post" class="form-control"  enctype="multipart/form-data">
+    <form method="post" class="form-control" enctype="multipart/form-data">
         @if(siteAdmin.getSiteRole.equals("Admin")){
         @message}else{}
         <br>
@@ -57,7 +67,7 @@
         <div class="row">
             <div class="col-md-6">
 
-                <b>* Nam: </b><br>
+                <b>* Name: </b><br>
                 <input class="rounded" type="text" name="siteAdminName" id="siteAdminName"
                        value="@siteAdmin.getSiteAdminName" minlength="1"
                        maxlength="30" size="30">
@@ -130,7 +140,6 @@
 <br>
 <hr>
 <br>
-
 
 
 </body>

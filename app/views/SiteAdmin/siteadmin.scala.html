@@ -15,13 +15,16 @@
     @adminnavbar.render("admin")
     <div class="jumbotron1" align="center">
         <div class="row">
-            <div class="col=md-11" align="left">
+            &nbsp
+            &nbsp
+            <div class="col=md-1" align="left">
                 <form action="/deletesiteadmin/@siteAdmin.getSiteAdminId" method="POST" enctype="multipart/form-data">
                     @CSRF.formField
                     <input class="btn btn-danger" type="submit" value="Delete">
                 </form>
             </div>
-            <div class="col-md-11" align="right">
+<br>
+            <div class="col-md-1" align="left">
                 <a class="btn btn-primary" href="/siteadminedit/@siteAdmin.getSiteAdminId">Edit</a>
             </div>
         </div>
@@ -42,13 +45,15 @@
             </form>
         </div>
         <div class="row">
-            <div class="col-md-11" align="left">
+            <div class="col-md-1" align="left">
                 <form method="post" action="/signout">
                     @CSRF.formField
                     <input type="submit" value="Sign Out" class="btn btn-danger">
                 </form>
             </div>
-            <div class="col-md-11" align="right">
+            &nbsp
+            &nbsp;
+            <div class="col-md-1" align="left">
                 <a class="btn btn-primary" href="/newpassword/@siteAdmin.getSiteAdminId">Reset Password</a>
             </div>
         </div>
