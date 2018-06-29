@@ -39,7 +39,7 @@ Other Images Can be Found in the "images" File
  * Tech Notes
  * Custom Reports
  * Field Validation
- * Write Identical Program in C#
+ * Finish Identical Program in C#
  * Custom List Filtering combo box
  * Separate Nav Bar Based on Access
  * Active Directory Integration Possible
