@@ -115,19 +115,6 @@
             </div>
         </div>
         <br>
-        <div class="row">
-            <div class="col-md-12">
-                <b>* Region: </b><br>
-                <select>
-                    @for(region <- regions){
-                    <option value="@region.getRegionId">
-                        @region.getRegionName
-                    </option>
-                    }
-                </select>
-
-            </div>
-        </div>
         <br>
         <div>
             <input class="btn btn-primary" type="submit" value="Save Changes">

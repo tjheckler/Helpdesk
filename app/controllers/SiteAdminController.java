@@ -125,12 +125,13 @@ public class SiteAdminController extends ApplicationController
                     siteAdmin.setPasswordSalt(salt);
                     siteAdmin.setPassword(hashedPassword);
                     siteAdmin.setUsername(username);
+                    jpaApi.em().persist(siteAdmin);
                 } catch (Exception e)
                 {
 
                 }
 
-                jpaApi.em().persist(siteAdmin);
+
             } else
             {
                 return redirect(routes.SiteAdminController.getSiteAdmins());
@@ -171,10 +172,6 @@ public class SiteAdminController extends ApplicationController
     public Result postSiteAdminEdit(Integer siteAdminId)
     {
 
-
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
-        {
-
             String sql = "SELECT s FROM SiteAdmin s " +
                     "WHERE siteAdminId = :siteAdminId";
 //add a join
@@ -188,35 +185,26 @@ public class SiteAdminController extends ApplicationController
             String emailAddress = form.get("emailAddress");
             String role = form.get("siteRole");
             String username = form.get("username");
-            String password = form.get("password");
 
 
-            if (siteAdminName != null && phoneNumber != null && emailAddress != null &&
-                    role != null && username != null && password != null
-                    && locationId > 0 && siteAdminId > 0)
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+        {
+            if (siteAdminName != null && phoneNumber != null && emailAddress != null
+                    && username != null && locationId > 0)
             {
-                try
-                {
-                    byte salt[] = Password.getNewSalt();
-                    byte hashedPassword[] = Password.hashPassword(password.toCharArray(), salt);
 
                     siteAdmin.setSiteAdminName(siteAdminName);
                     siteAdmin.setPhoneNumber(phoneNumber);
                     siteAdmin.setSiteRole(role);
                     siteAdmin.setLocationId(locationId);
                     siteAdmin.setEmailAddress(emailAddress);
-                    siteAdmin.setPasswordSalt(salt);
-                    siteAdmin.setPassword(hashedPassword);
                     siteAdmin.setUsername(username);
-                } catch (Exception e)
-                {
-
-                }
 
                 jpaApi.em().persist(siteAdmin);
+
             } else
             {
-                return redirect(routes.SiteAdminController.getSiteAdmins());
+                return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
             }
         } else
         {
