@@ -47,6 +47,6 @@ Other Images Can be Found in the "images" File
  * Make Inventory Searchable for Tickets Computer Name/Asset Tag
  * Put roles into separate Table as User, HelpDesk, Technician, Admin
 
- # In the db folder is a readme.txt file you must see to user the program.
+ # In the db folder is a readme.txt file you must see to use the program.
 
  Enjoy my Help Desk web app!
