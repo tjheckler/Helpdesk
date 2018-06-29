@@ -2,30 +2,31 @@
 
  Help Desk is an inventory and ticketing system designed to help with inventory management and help requests.
 
-   - Keep Track of inventory
-   - Keep Track of and reply to tickets
+   - Keep Track of Inventory
+   - Keep Track of and Reply to Tickets
    - Administrative Functions
+   - Full Feature Login and Role Based
 
  ![administrator functions](/public/images/AdministrationPage.JPG)
 
- Administrator's dashboard
+ Administrator's Dashboard
 
  ![ticket list](/public/images/TicketList.JPG)
 
- Ticket list dashboard
+ Ticket List Dashboard
 
  ![inventory list](/public/images/InventoryList.JPG)
 
- Inventory list dashboard
+ Inventory List Dashboard
 
  ![reports](/public/images/ReportsCharts.JPG)
 
- Two charts from "Reports" page
+ Two Charts from "Reports" Page
 
-Other images can be found in the images file
+Other Images Can be Found in the "images" File
 
  ### Tech
- I used the following resources to build Help Desk:
+ I Used the Following Resources to Build Help Desk:
 
  * Java
  * MySQL/MariaDB
