@@ -40,10 +40,8 @@ Other Images Can be Found in the "images" File
  * Custom Reports
  * Field Validation
  * Finish Identical Program in C#
- * Custom List Filtering combo box
- * Separate Nav Bar Based on Access
  * Active Directory Integration Possible
- * Add User Registration with "User" Access
+ * Add User Registration with "None" Access
  * Status Changed Tracking, Tickets and Inventory
  * Printing and Export Function for Custom Reports
  * Make Inventory Searchable for Tickets Computer Name/Asset Tag
