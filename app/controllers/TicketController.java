@@ -1,18 +1,13 @@
 package controllers;
 
-
 import com.google.common.io.Files;
-import javafx.scene.control.Alert;
 import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
-import play.mvc.Controller;
-import play.mvc.*;
 import play.mvc.Http;
 import play.mvc.Result;
-
 import javax.inject.Inject;
 import javax.persistence.Query;
 import java.io.File;
@@ -75,9 +70,6 @@ public class TicketController extends ApplicationController
             locations1 = Integer.parseInt(locationIdText);
         }
 
-
-        //Filter & Search End
-
         String sql = "SELECT t FROM Ticket t " +
                 "JOIN Location l ON t.locationId = l.locationId " +
                 "JOIN Priority p ON t.priorityId = p.priorityId " +
@@ -105,7 +97,6 @@ public class TicketController extends ApplicationController
         String categorySql = "SELECT c FROM Category c WHERE 1=1 ";
         List<Category> categories = jpaApi.em()
                 .createQuery(categorySql, Category.class).getResultList();
-
 
         String searchCriteria = form.get("searchCriteria");
         if (searchCriteria == null)
@@ -150,7 +141,6 @@ public class TicketController extends ApplicationController
         }
         String queryParameter = searchCriteria + "%";
 
-
         sql += "ORDER BY t.ticketsId desc ";
         Query ticketDetailQuery = jpaApi.em().createQuery(sql, Ticket.class);
         if (!searchCriteria.trim().equals(""))
@@ -184,10 +174,8 @@ public class TicketController extends ApplicationController
             ticketDetailQuery.setParameter("locationId", locations1);
         }
 
-
-
         List<Ticket> tickets = ticketDetailQuery.getResultList();
-
+//Filter & Search End
         if (isLoggedIn())
         {
             return ok(views.html.Ticket.ticketList.render(tickets,searchCriteria, locations,
@@ -253,8 +241,6 @@ public class TicketController extends ApplicationController
     @Transactional
     public Result postTicket(Integer ticketsId)
     {
-
-
         DynamicForm form = formFactory.form().bindFromRequest();
         String sql = "SELECT t FROM Ticket t " +
                 "WHERE ticketsId = :ticketsId";
@@ -298,7 +284,6 @@ public class TicketController extends ApplicationController
         List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                 .setParameter("ticketsId", ticketsId).getResultList();
 
-
         Date statusDateChanged = new Date();
         int statusId = Integer.parseInt(form.get("statusId"));
         ticket.setStatusId(statusId);
@@ -335,7 +320,6 @@ public class TicketController extends ApplicationController
             }
 
         }
-
 
         Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
@@ -517,7 +501,6 @@ public class TicketController extends ApplicationController
             List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                     .setParameter("ticketsId", ticketsId).getResultList();
 
-
             Date statusDateChanged = new Date();
             int statusId = Integer.parseInt(form.get("statusId"));
             int priorityId = Integer.parseInt(form.get("priorityId"));
@@ -563,7 +546,6 @@ public class TicketController extends ApplicationController
                 }
 
             }
-
 
             Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
             Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
@@ -645,13 +627,11 @@ public class TicketController extends ApplicationController
 
     }
 
-
     @Transactional(readOnly = true)
     public Result getNewTicket()
     {
         if (isLoggedIn())
         {
-
             String locationSql = "SELECT l FROM Location l ";
             List<Location> locations = jpaApi.em()
                     .createQuery(locationSql, Location.class).getResultList();
@@ -727,7 +707,6 @@ public class TicketController extends ApplicationController
             {
                 return redirect(routes.TicketController.getNewTicket());
             }
-
 
             Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
             Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
