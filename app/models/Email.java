@@ -13,7 +13,7 @@ public class Email
 {
     public static void sendPasswordEmail(String contents,String destinationEmail)
     {
-        String sender = "timothy_heckler@outlook.com"; //Change to your actual email address for your help desk
+        String sender = "you.me@go.com"; //Change to your actual email address for your help desk
         String subject = "Reset Password Link" ;
         try
         {
@@ -44,7 +44,7 @@ public class Email
     }
     public static void sendTicketEmail(String contents,String destinationEmail)
     {
-        String sender = "timothy_heckler@outlook.com"; //Change to your actual email address for your help desk
+        String sender = "you.me@go.com"; //Change to your actual email address for your help desk
         String subject = "New Ticket" ;
         try
         {
@@ -75,7 +75,7 @@ public class Email
     }
     public static void sendCustomerEmail(String contents,String destinationEmail)
     {
-        String sender = "timothy_heckler@outlook.com"; //Change to your actual email address for your help desk
+        String sender = "you.me@go.com"; //Change to your actual email address for your help desk
         String subject = "Ticket Update Notice" ;
         try
         {
@@ -107,7 +107,7 @@ public class Email
 
     public static void sendUpdateEmail(String contents,String destinationEmail)
     {
-        String sender = "timothy_heckler@outlook.com"; //Change to your actual email address for your help desk
+        String sender = "you.me@go.com"; //Change to your actual email address for your help desk
         String subject = "Ticket Update Notice" ;
         try
         {
@@ -136,6 +136,8 @@ public class Email
             System.out.println("Unable to send email "+ e.getMessage());
         }
     }
+
+    //Random Password Generator when password is requested by Email
     private static final Random RANDOM = new SecureRandom();
     public static String generateRandomPassword() {
         String letters = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ0123456789!@#$%^&*()_-+";
