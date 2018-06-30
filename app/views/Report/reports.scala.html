@@ -119,5 +119,6 @@
         data-labels="@for(i <- 0 to ticketReplyCounts.size() - 1){ @ticketReplyCounts.get(i).getComputerName @if(i < ticketReplyCounts.size() - 1){,} }"
         data-data="@for(i <- 0 to ticketReplyCounts.size() - 1){ @ticketReplyCounts.get(i).getCount @if(i < ticketReplyCounts.size() - 1){,} }">
 </script>
+@footer()
 </body>
 </html>
