@@ -53,6 +53,6 @@ Other Images Can be Found in the "/public/images" Folder
  * Put roles into separate Table as User, HelpDesk, Technician, Admin
  * Finish Identical Program in C# That Was Started Before ACA Class
 
- # In the db folder is a ReadMe.txt File With Vital Information
+ # In the db Folder is a ReadMe.txt File With Vital Information
 
  Enjoy my Help Desk web app!
