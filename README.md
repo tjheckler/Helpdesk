@@ -7,23 +7,29 @@
    - Administrative Functions
    - Full Feature Login and Role Based
 
+
+Administrator's Dashboard
+
  ![administrator functions](/public/images/AdministrationPage.JPG)
 
- Administrator's Dashboard
-
- ![ticket list](/public/images/TicketList.JPG)
 
  Ticket List Dashboard
 
- ![inventory list](/public/images/InventoryList.JPG)
+ ![ticket list](/public/images/TicketList.JPG)
+
 
  Inventory List Dashboard
 
+ ![inventory list](/public/images/InventoryList.JPG)
+
+
+Two Charts from "Reports" Page
+
  ![reports](/public/images/ReportsCharts.JPG)
 
- Two Charts from "Reports" Page
 
-Other Images Can be Found in the "images" File
+
+Other Images Can be Found in the "/public/images" Folder
 
  ### Tech
  I Used the Following Resources to Build Help Desk:
@@ -39,14 +45,14 @@ Other Images Can be Found in the "images" File
  * Tech Notes
  * Custom Reports
  * Field Validation
- * Finish Identical Program in C#
  * Active Directory Integration Possible
  * Add User Registration with "None" Access
  * Status Changed Tracking, Tickets and Inventory
  * Printing and Export Function for Custom Reports
  * Make Inventory Searchable for Tickets Computer Name/Asset Tag
  * Put roles into separate Table as User, HelpDesk, Technician, Admin
+ * Finish Identical Program in C# That Was Started Before ACA Class
 
- # In the db folder is a readme.txt file you must see to use the program.
+ # In the db folder is a ReadMe.txt File With Vital Information
 
  Enjoy my Help Desk web app!
