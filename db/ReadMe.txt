@@ -1,23 +1,13 @@
 Initial login info:
 
-The username: tjheckler password: password has "Admin" access.
-The username: bbsmith   password: password has "User"  access.
+The username: "tjheckler" password: "password" has "Admin" access.
+The username: "bbsmith"   password: "password" has "User"  access.
 
-Update email in email model methods for email testing.
+I include this information because it requires you to login to do anything.
+Information needs to be populated in the db for most of the  program to work.
+The HelpdeskDB.sql includes testing data.
+
 Set up Amazon AWS email for it to work.
+Update email in Email model methods with valid registered email address.
 
-Features to Add After Demo:
-Tech Notes
-Custom Reports
-Field Validation
-Write Identical Program in C#
-Custom List Filtering combo box
-Separate Nav Bar Based on Access
-Active Directory Integration Possible
-Add User Registration with "User" Access
-Status Changed Tracking, Tickets and Inventory
-Printing and Export Function for Custom Reports
-Make Inventory Searchable for Tickets Computer Name/Asset Tag
-Put roles into separate Table as User, HelpDesk, Technician, Admin
 
-Hope you enjoy my site!
