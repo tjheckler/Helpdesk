@@ -43,7 +43,11 @@
         <tr>
             <td>
                 <div>
-                    <img src="../siteadminpicture/@siteAdmin.getSiteAdminId" width="50" height="50">
+                    @if(siteAdmin.getPicture == null){
+                    <img src="/assets/images/download18.jpg" height="50" width="50">
+                    }else{
+                    <img src="../siteadminpicture/@siteAdmin.getSiteAdminId" height="50" width="50">
+                    }
                 </div>
             </td>
             <td>
