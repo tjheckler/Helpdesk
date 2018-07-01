@@ -1,4 +1,4 @@
-@(siteAdmin:SiteAdmin,locations:List[Location],regions:List[Region],message:String)
+@(siteAdmin:SiteAdmin,locations:List[Location],regions:List[Region],message:String,message3:String)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -57,6 +57,7 @@
                 <a class="btn btn-primary" href="/newpassword/@siteAdmin.getSiteAdminId">Reset Password</a>
             </div>
         </div>
+        <div class="col-md-4"><h4>@message3</h4></div>
     </div>
     <form method="post" class="form-control" enctype="multipart/form-data">
         <br>

@@ -76,7 +76,7 @@ public class SiteAdminController extends ApplicationController
 
 
             return ok(views.html.SiteAdmin.siteadmin.render(siteAdmin, location,
-                    region, "* Indicates Required Field"));
+                    region, "* Indicates Required Field", ""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
@@ -148,6 +148,8 @@ public class SiteAdminController extends ApplicationController
     {
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
+
+
             String sql = "SELECT s FROM SiteAdmin s " +
                     "WHERE siteAdminId = :siteAdminId";
             SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
@@ -174,7 +176,7 @@ public class SiteAdminController extends ApplicationController
 
         String sql = "SELECT s FROM SiteAdmin s " +
                 "WHERE siteAdminId = :siteAdminId";
-//add a join
+
         SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class)
                 .setParameter("siteAdminId", siteAdminId).getSingleResult();
         DynamicForm form = formFactory.form().bindFromRequest();
@@ -189,22 +191,48 @@ public class SiteAdminController extends ApplicationController
 
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
-            if (siteAdminName != null && phoneNumber != null && emailAddress != null
-                    && username != null && locationId > 0)
+            String regionSql = "SELECT r FROM Region r ";
+
+            List<Region> regions = jpaApi.em().createQuery
+                    (regionSql, Region.class).getResultList();
+
+            String locationSql = "SELECT l FROM Location l ";
+
+            List<Location> locations = jpaApi.em().createQuery
+                    (locationSql, Location.class).getResultList();
+
+            //Check for existing siteAdmin
+            sql = "SELECT sa FROM SiteAdmin sa " +
+                    "WHERE username = :username " +
+                    "OR emailAddress = :emailAddress";
+
+            List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).
+                    setParameter("username", username).
+                    setParameter("emailAddress", emailAddress).getResultList();
+
+            if (siteAdmins.size() == 1)
             {
-
-                siteAdmin.setSiteAdminName(siteAdminName);
-                siteAdmin.setPhoneNumber(phoneNumber);
-                siteAdmin.setSiteRole(role);
-                siteAdmin.setLocationId(locationId);
-                siteAdmin.setEmailAddress(emailAddress);
-                siteAdmin.setUsername(username);
-
-                jpaApi.em().persist(siteAdmin);
-
+                return ok(views.html.SiteAdmin.siteadminedit.render(siteAdmin,
+                        locations, regions, "User Already Exists Try Another Email Or Username"));
             } else
             {
-                return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
+                if (siteAdminName != null && phoneNumber != null && emailAddress != null
+                        && username != null && locationId > 0)
+                {
+
+                    siteAdmin.setSiteAdminName(siteAdminName);
+                    siteAdmin.setPhoneNumber(phoneNumber);
+                    siteAdmin.setSiteRole(role);
+                    siteAdmin.setLocationId(locationId);
+                    siteAdmin.setEmailAddress(emailAddress);
+                    siteAdmin.setUsername(username);
+
+                    jpaApi.em().persist(siteAdmin);
+
+                } else
+                {
+                    return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
+                }
             }
         } else
         {
@@ -262,6 +290,7 @@ public class SiteAdminController extends ApplicationController
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
 
+            //Check if siteAdmin already exists by username or emailAddress
 
             String sql = "SELECT sa FROM SiteAdmin sa " +
                     "WHERE username = :username " +
@@ -270,11 +299,11 @@ public class SiteAdminController extends ApplicationController
             List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).
                     setParameter("username", username).
                     setParameter("emailAddress", emailAddress).getResultList();
-            if(siteAdmins.size() == 1)
+            if (siteAdmins.size() == 1)
             {
                 return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
                         locations, "* Indicates Required Field", "User Already Exists Try Another Email Or Username"));
-            }else
+            } else
             {
 
                 if (siteAdminName != null && phoneNumber != null && username != null &&
@@ -282,8 +311,7 @@ public class SiteAdminController extends ApplicationController
                         && locationId > 0)
                 {
 
-                    //Check if siteAdmin already exists by username or emailAddress
-                    // return redirect(routes.SiteAdminController.getSiteAdmins());
+
                     SiteAdmin siteAdmin = new SiteAdmin();
                     try
                     {
@@ -325,16 +353,44 @@ public class SiteAdminController extends ApplicationController
     {
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
+
+            String ticketSql = "SELECT t FROM Ticket t " +
+                    "WHERE siteAdminId = :siteAdminId ";
+            List<Ticket> tickets = jpaApi.em().createQuery(ticketSql, Ticket.class).
+                    setParameter("siteAdminId", siteAdminId).getResultList();
+
+
+            String regionSql = "SELECT r FROM Region r ";
+
+            List<Region> regions = jpaApi.em().createQuery
+                    (regionSql, Region.class).getResultList();
+
             String sql = "SELECT sa FROM SiteAdmin sa " +
                     "WHERE siteAdminId = :siteAdminId";
             SiteAdmin siteAdmin = jpaApi.em().createQuery(sql, SiteAdmin.class).
                     setParameter("siteAdminId", siteAdminId).getSingleResult();
-            jpaApi.em().remove(siteAdmin);
-            return redirect(routes.SiteAdminController.getSiteAdmins());
+
+            String locationSql = "SELECT l FROM Location l ";
+
+            List<Location> locations = jpaApi.em().createQuery
+                    (locationSql, Location.class).getResultList();
+            if (tickets.size() == 1)
+            {
+
+
+            }
+            else if(tickets.size() == 0)
+            {
+                jpaApi.em().remove(siteAdmin);
+                return redirect(routes.SiteAdminController.getSiteAdmins());
+            }
+            return ok(views.html.SiteAdmin.siteadmin.render(siteAdmin,
+                    locations, regions, "", "* Cannot Delete, User is Assigned to a Ticket *"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
+
     }
 
     @Transactional(readOnly = true)
