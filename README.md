@@ -34,9 +34,9 @@ Other Images Can be Found in the "/public/images" Folder
  ### Tech
  I Used the Following Resources to Build Help Desk:
 
- * Java
+ * Java/Intellij
  * MySQL/MariaDB
- * Play Framework
+ * Play Framework/Scala
  * Amazon AWS Email Service
  * Javascript
  * HTML/CSS
