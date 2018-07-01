@@ -36,7 +36,7 @@ Other Images Can be Found in the "/public/images" Folder
 
  * Java/Intellij
  * MySQL/MariaDB
- * Play Framework/Scala
+ * Scala/Play Framework
  * Amazon AWS Email Service
  * Javascript
  * HTML/CSS
