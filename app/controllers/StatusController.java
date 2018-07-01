@@ -143,16 +143,15 @@ public class StatusController extends ApplicationController
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
 
-            String ticketSql = "SELECT t FROM Ticket t " +
-                    "WHERE statusId = :statusId ";
-            List<Ticket> tickets = jpaApi.em().createQuery(ticketSql, Ticket.class).
-                    setParameter("statusId", statusId).getResultList();
-
-
             String sql = "SELECT ts FROM TicketStatus ts " +
                     "WHERE statusId = :statusId";
             TicketStatus ticketStatus = jpaApi.em().createQuery(sql, TicketStatus.class).
                     setParameter("statusId", statusId).getSingleResult();
+
+            String ticketSql = "SELECT t FROM Ticket t " +
+                    "WHERE statusId = :statusId ";
+            List<Ticket> tickets = jpaApi.em().createQuery(ticketSql, Ticket.class).
+                    setParameter("statusId", statusId).getResultList();
 
 
             if (tickets.size() == 1)

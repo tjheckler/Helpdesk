@@ -354,12 +354,6 @@ public class SiteAdminController extends ApplicationController
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
 
-            String ticketSql = "SELECT t FROM Ticket t " +
-                    "WHERE siteAdminId = :siteAdminId ";
-            List<Ticket> tickets = jpaApi.em().createQuery(ticketSql, Ticket.class).
-                    setParameter("siteAdminId", siteAdminId).getResultList();
-
-
             String regionSql = "SELECT r FROM Region r ";
 
             List<Region> regions = jpaApi.em().createQuery
@@ -374,6 +368,13 @@ public class SiteAdminController extends ApplicationController
 
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
+
+            String ticketSql = "SELECT t FROM Ticket t " +
+                    "WHERE siteAdminId = :siteAdminId ";
+            List<Ticket> tickets = jpaApi.em().createQuery(ticketSql, Ticket.class).
+                    setParameter("siteAdminId", siteAdminId).getResultList();
+
+
             if (tickets.size() == 1)
             {
                 //do nothing

@@ -1,4 +1,4 @@
-@(region:Region)
+@(region:Region,message:String)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -22,7 +22,7 @@
             </form>
         </div>
     </div>
-
+    <div align="center"><h3>@message</h3></div>
         <form method="post" class="form-control" >
             @CSRF.formField
             <b> Region Name: </b><input  class="rounded" type="text" name="regionName" id="regionName"

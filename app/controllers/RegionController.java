@@ -1,7 +1,9 @@
 package controllers;
 
 import models.Category;
+import models.Location;
 import models.Region;
+import models.Ticket;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -61,7 +63,7 @@ public class RegionController extends ApplicationController
             Region region = jpaApi.em().createQuery(sql, Region.class).
                     setParameter("regionId", regionId).getSingleResult();
 
-            return ok(views.html.Region.region.render(region));
+            return ok(views.html.Region.region.render(region,""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -143,8 +145,24 @@ public class RegionController extends ApplicationController
                     "WHERE regionId = :regionId";
             Region region = jpaApi.em().createQuery(sql, Region.class).
                     setParameter("regionId", regionId).getSingleResult();
-            jpaApi.em().remove(region);
-            return redirect(routes.RegionController.getRegions());
+            String locationSql = "SELECT l FROM Location l " +
+                    "WHERE regionId = :regionId ";
+            List<Location> locations = jpaApi.em().createQuery(locationSql, Location.class).
+                    setParameter("regionId", regionId).getResultList();
+
+
+            if (locations.size() == 1)
+            {
+                //do nothing
+
+            }
+            else if(locations.size() == 0)
+            {
+                jpaApi.em().remove(region);
+                return redirect(routes.RegionController.getRegions());
+            }
+            return ok(views.html.Region.region.render(region,
+                    "   Cannot Delete, This Region is Assigned to a Location"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
