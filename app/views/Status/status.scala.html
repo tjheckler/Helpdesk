@@ -1,4 +1,4 @@
-@(ticketStatus:TicketStatus)
+@(ticketStatus:TicketStatus,message:String)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -13,7 +13,7 @@
 
 <div class="container" align="center">
     @adminnavbar.render("admin")
-    <div>
+    <div class="jumbotron">
         <h1>@ticketStatus.getStatusName()</h1>
         <div align="right">
             <form method="post" action="/signout">
@@ -21,7 +21,9 @@
                 <input  type="submit" value="Sign Out" class="btn btn-danger">
             </form>
         </div>
-        <br>
+    </div>
+    <div align="center"><h3>@message</h3></div>
+
         <form method="post" class="form-control" >
             @CSRF.formField
             <b> Status Name: </b><input class="rounded" type="text" name="statusName" id="statusName"
@@ -33,7 +35,7 @@
             <a class="btn btn-primary" href="/ticketStatuses">Back to List</a>
         </form>
 
-    </div>
+
 </div>
 <br>
 <hr>

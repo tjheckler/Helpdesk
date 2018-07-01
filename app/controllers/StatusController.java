@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Ticket;
 import models.TicketStatus;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -62,7 +63,7 @@ public class StatusController extends ApplicationController
                     setParameter("statusId", statusId).getSingleResult();
 
 
-            return ok(views.html.Status.status.render(ticketStatus));
+            return ok(views.html.Status.status.render(ticketStatus,""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -141,12 +142,32 @@ public class StatusController extends ApplicationController
     {
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
+
+            String ticketSql = "SELECT t FROM Ticket t " +
+                    "WHERE statusId = :statusId ";
+            List<Ticket> tickets = jpaApi.em().createQuery(ticketSql, Ticket.class).
+                    setParameter("statusId", statusId).getResultList();
+
+
             String sql = "SELECT ts FROM TicketStatus ts " +
                     "WHERE statusId = :statusId";
             TicketStatus ticketStatus = jpaApi.em().createQuery(sql, TicketStatus.class).
                     setParameter("statusId", statusId).getSingleResult();
-            jpaApi.em().remove(ticketStatus);
-            return redirect(routes.StatusController.getStatuses());
+
+
+            if (tickets.size() == 1)
+            {
+               //do nothing
+
+            }
+            else if(tickets.size() == 0)
+            {
+                jpaApi.em().remove(ticketStatus);
+                return redirect(routes.StatusController.getStatuses());
+            }
+            return ok(views.html.Status.status.render(ticketStatus,
+                      "   Cannot Delete, This Status is Assigned to a Ticket"));
+
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
