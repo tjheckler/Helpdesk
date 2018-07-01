@@ -376,7 +376,7 @@ public class SiteAdminController extends ApplicationController
                     (locationSql, Location.class).getResultList();
             if (tickets.size() == 1)
             {
-
+                //do nothing
 
             }
             else if(tickets.size() == 0)
