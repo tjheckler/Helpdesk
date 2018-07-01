@@ -46,7 +46,7 @@ Other Images Can be Found in the "/public/images" Folder
  * Ticket Management
  * Inventory Management
  * Automatic Bar Chart Reports
- * Ticket List Filtering combo box
+ * Ticket List Filtering Drop Downs
  * Mostly Accurate Field Validation
  * Customer Create Ticket for Intranet Use
  * User Login with "User" or "Admin" Access
@@ -54,6 +54,8 @@ Other Images Can be Found in the "/public/images" Folder
  * Complete Employee Profile Management by "Admin"
  * Separate Nav Bar Based on Access Logged in or Not
  * Cannot Delete Items Having Foreign Key Assigned Elsewhere
+ * Basic Email to "HelpDesk" When a Ticket Is Created by Customer
+ * Basic Email to Customer When a Ticket is Updated by a Site User
 
  # Features to Add After Demo:
 
@@ -66,8 +68,11 @@ Other Images Can be Found in the "/public/images" Folder
  * Status Changed Tracking, Tickets and Inventory
  * Printing and Export Function for Custom Reports
  * Make Inventory Searchable for Tickets Computer Name/Asset Tag
+ * Custom Email to "HelpDesk" When a Ticket Is Created by Customer
+ * Custom Email to Customer When a Ticket is Updated by a Site User
  * Put roles into separate Table as User, HelpDesk, Technician, Admin
  * Separate Nav Bar Based on Access User, HelpDesk, Technician, Admin
+
 
  # In the db Folder is a ReadMe.txt File With Vital Information
 
