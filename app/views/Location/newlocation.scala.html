@@ -1,4 +1,4 @@
-@(regions:List[Region])
+@(regions:List[Region],message:String)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -6,9 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
     <title>New Location</title>
 </head>
-<body>
+<body1>
 <div class="container" align="center">
     @adminnavbar.render("admin")
     <div class="jumbotron">
@@ -20,13 +21,13 @@
             </form>
         </div>
     </div>
-    put each in a div align center?
+    <div align="center"><h3>@message</h3></div>
     <form method="post" class="form-control">
         @CSRF.formField
         <b> Location Name: </b><input class="rounded" type="text" name="locationName"
                                            id="locationName" maxlength="30" size="30">
         <select class="rounded" name="regionId" id="regionId">
-            <option selected="selected" >Choose Region</option>
+            <option value="0">Choose Region</option>
             @for(region<-regions){
 
             <option  value="@region.getRegionId">
@@ -35,10 +36,13 @@
             }
 
         </select>
+        <br><br>
+        <div>
         <input align="center" class="btn btn-primary" type="submit" value="Create">
         <a class="btn btn-primary" href="/locations">Back to List</a>
+        </div>
     </form>
 </div>
 @footer()
-</body>
+</body1>
 </html>

@@ -1,4 +1,4 @@
-@(location:Location,regions:List[Region])
+@(location:Location,regions:List[Region],message:String)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -6,13 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
     <title>Location Detail</title>
 </head>
-<body>
+<body1>
 
 <div class="container" align="center">
     @adminnavbar.render("admin")
-    <div>
+    <div class="jumbotron">
         <h1>@location.getLocationName()</h1>
         <div align="right">
             <form method="post" action="/signout">
@@ -21,6 +22,8 @@
             </form>
         </div>
         <br>
+    </div>
+        <div align="center"><h3>@message</h3></div>
         <form method="post" class="form-control" >
             @CSRF.formField
             <b> Location Name: </b><input  class="rounded" type="text" name="locationName" id="locationName"
@@ -43,7 +46,7 @@
             <input class="btn btn-primary" type="submit" value="save">
             <a class="btn btn-primary" href="/locations">Back to List</a>
         </form>
-    </div>
+
 </div>
         <br>
         <hr>
@@ -55,6 +58,6 @@
             <input class="btn btn-danger"  type="submit" value="Delete">
         </form>
         </div>
-</body>
+</body1>
 @footer()
 </html>
