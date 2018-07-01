@@ -45,7 +45,7 @@ Other Images Can be Found in the "/public/images" Folder
 
  * Ticket Management
  * Inventory Management
- * Static Bar Chart Reports
+ * Automatic Bar Chart Reports
  * Ticket List Filtering combo box
  * Mostly Accurate Field Validation
  * Customer Create Ticket for Intranet Use
