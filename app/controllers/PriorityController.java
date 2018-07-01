@@ -2,6 +2,7 @@ package controllers;
 
 
 import models.Priority;
+import models.Ticket;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -65,7 +66,7 @@ public class PriorityController extends ApplicationController
             Priority priority = jpaApi.em().createQuery(sql, Priority.class).
                     setParameter("priorityId", priorityId).getSingleResult();
 
-            return ok(views.html.Priority.priority.render(priority));
+            return ok(views.html.Priority.priority.render(priority,""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -145,8 +146,24 @@ public class PriorityController extends ApplicationController
                     "WHERE priorityId = :priorityId";
             Priority priority = jpaApi.em().createQuery(sql, Priority.class).
                     setParameter("priorityId", priorityId).getSingleResult();
-            jpaApi.em().remove(priority);
-            return redirect(routes.PriorityController.getPriorities());
+            String ticketSql = "SELECT t FROM Ticket t " +
+                    "WHERE priorityId = :priorityId ";
+            List<Ticket> tickets = jpaApi.em().createQuery(ticketSql, Ticket.class).
+                    setParameter("priorityId", priorityId).getResultList();
+
+
+            if (tickets.size() == 1)
+            {
+                //do nothing
+
+            }
+            else if(tickets.size() == 0)
+            {
+                jpaApi.em().remove(priority);
+                return redirect(routes.PriorityController.getPriorities());
+            }
+            return ok(views.html.Priority.priority.render(priority,
+                    "* Cannot Delete, User is Assigned to a Ticket *"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
