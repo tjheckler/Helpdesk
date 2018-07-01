@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Category;
+import models.Ticket;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -60,7 +61,7 @@ public class CategoryController extends ApplicationController
                     "WHERE categoryId = :categoryId";
             Category category = jpaApi.em().createQuery(sql, Category.class).
                     setParameter("categoryId", categoryId).getSingleResult();
-            return ok(views.html.Category.category.render(category));
+            return ok(views.html.Category.category.render(category,""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -138,8 +139,24 @@ public class CategoryController extends ApplicationController
                 "WHERE categoryId = :categoryId";
         Category category = jpaApi.em().createQuery(sql, Category.class).
                 setParameter("categoryId", categoryId).getSingleResult();
-        jpaApi.em().remove(category);
-        return redirect(routes.CategoryController.getCategories());
+            String ticketSql = "SELECT t FROM Ticket t " +
+                    "WHERE categoryId = :categoryId ";
+            List<Ticket> tickets = jpaApi.em().createQuery(ticketSql, Ticket.class).
+                    setParameter("categoryId", categoryId).getResultList();
+
+
+            if (tickets.size() == 1)
+            {
+                //do nothing
+
+            }
+            else if(tickets.size() == 0)
+            {
+                jpaApi.em().remove(category);
+                return redirect(routes.CategoryController.getCategories());
+            }
+            return ok(views.html.Category.category.render(category,
+                    "* Cannot Delete, Category is Assigned to a Ticket *"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));

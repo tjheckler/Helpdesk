@@ -1,4 +1,4 @@
-@(category:Category)
+@(category:Category,message:String)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-
+    <div align="center"><h3>@message</h3></div>
     <form method="post" class="form-control" >
         @CSRF.formField
         <b> Category Name: </b><input class="rounded" type="text" name="categoryName" id="categoryName"
