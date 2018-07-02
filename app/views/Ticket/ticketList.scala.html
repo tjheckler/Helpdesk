@@ -17,9 +17,8 @@ statuses1:Integer,priorities1:Integer,siteAdmins1:Integer,categories1:Integer,lo
     <div class="jumbotron">
         <h1>Ticket List</h1>
         <div align="right">
-            <form method="post" action="/signout">
+            <form method="post">
                 @CSRF.formField
-                <input type="submit" value="Sign Out" class="btn btn-danger">
                 <div align="left">
                     <a class="btn btn-primary" href="newticket"> Create New Ticket </a>
                 </div>

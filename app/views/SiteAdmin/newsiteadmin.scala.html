@@ -15,15 +15,7 @@
 <div class="container" align="center">
     <div class="jumbotron">
         <h1>Create New Site Admin</h1>
-        <div align="right">
-            <form method="post" action="/signout">
-                @CSRF.formField
-                <input  type="submit" value="Sign Out" class="btn btn-danger">
-            </form>
-        </div>
     </div>
-
-
     <form method="post" class="form-control">
         @message
         <br>

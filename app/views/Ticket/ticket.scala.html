@@ -30,10 +30,6 @@
             @priority.getPriorityName() }}</h3>
         <h3>Subject: @ticket.getSubjectTitle</h3>
         <div align="right">
-            <form method="post" action="/signout" enctype="multipart/form-data">
-                @CSRF.formField
-                <input type="submit" value="Sign Out" class="btn btn-danger">
-            </form>
             <br>
             <form method="get" action="/ticketedit/@ticket.getTicketsId" enctype="multipart/form-data">
                 @CSRF.formField

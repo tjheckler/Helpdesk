@@ -20,13 +20,7 @@
         <h3>Ticket # ( @ticket.getTicketsId )</h3>
         <br>
         <h3>Date: @ticket.getStatusDateChanged</h3>
-        <div align="right">
-            <form method="post" action="/signout" enctype="multipart/form-data">
-                @CSRF.formField
-                <input type="submit" value="Sign Out" class="btn btn-danger">
-            </form>
-            <br>
-        </div>
+
     </div>
     <form class="form-control" method="post" enctype="multipart/form-data" action="/ticketedit/@ticket.getTicketsId">
         @CSRF.formField

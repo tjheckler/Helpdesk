@@ -17,12 +17,6 @@
     <div>
         <div class="jumbotron">
             <h1>@category.getCategoryName()</h1>
-            <div align="right">
-                <form method="post" action="/signout">
-                    @CSRF.formField
-                    <input  type="submit" value="Sign Out" class="btn btn-danger">
-                </form>
-            </div>
         </div>
     </div>
     <div align="center"><h3>@message</h3></div>

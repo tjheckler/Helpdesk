@@ -16,15 +16,11 @@
     <div class="jumbotron">
         <h1>Inventory List</h1>
         <div align="right">
-            <form method="post" action="/signout">
+            <form method="post">
                 @CSRF.formField
-                <div align="right">
-                    <input  type="submit" value="Sign Out" class="btn btn-danger">
-                </div>
                 <div align="left">
                     <a class="btn btn-primary" href="newinventory">Create New Inventory Item</a>
                 </div>
-
             </form>
         </div>
     </div>

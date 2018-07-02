@@ -17,12 +17,6 @@
     @adminnavbar.render("admin")
     <div class="jumbotron">
     <h1><b>Status List</b></h1>
-        <div align="right">
-            <form method="post" action="/signout">
-                @CSRF.formField
-                <input  type="submit" value="Sign Out" class="btn btn-danger">
-            </form>
-        </div>
     </div>
 
     <form class="form-control" method="get">

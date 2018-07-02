@@ -15,12 +15,6 @@
     @adminnavbar.render("admin")
     <div class="jumbotron">
         <h1>Create New Category</h1>
-        <div align="right">
-            <form method="post" action="/signout">
-                @CSRF.formField
-                <input  type="submit" value="Sign Out" class="btn btn-danger">
-            </form>
-        </div>
     </div>
     @message
     <form method="post" class="form-control">

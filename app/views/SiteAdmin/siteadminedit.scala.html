@@ -42,13 +42,6 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col=md-1" align="left">
-                    <form method="post" action="/signout">
-                        @CSRF.formField
-                        <input type="submit" value="Sign Out" class="btn btn-danger">
-                    </form>
-                </div>
-
                 <div class="col-md-1" align="left">
                     <a class="btn btn-primary" href="/newpassword/@siteAdmin.getSiteAdminId">Reset Password</a>
                 </div>
