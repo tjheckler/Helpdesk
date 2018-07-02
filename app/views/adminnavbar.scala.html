@@ -60,6 +60,16 @@
     <ul class="nav navbar ml-auto">
         <li>
             <div align="right">
+                <form method="get" action='/siteadmin/@session().get("loggedin")'>
+                    @CSRF.formField
+                    <input type="submit" value="Profile" class="btn btn-primary">
+                </form>
+            </div>
+        </li>
+        &nbsp
+        &nbsp
+        <li>
+            <div align="right">
                 <form method="post" action="/signout">
                     @CSRF.formField
                     <input type="submit" value="Sign Out" class="btn btn-danger">
