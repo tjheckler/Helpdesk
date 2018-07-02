@@ -1,6 +1,8 @@
 @(page : String)
 @import helper._
-@if(session.get("role").equals("Admin")){
+
+
+@if(!session().isEmpty()&& session.get("role") != null && session.get("role").equals("Admin")){
 <nav class="navbar navbar-expand-sm navbar-light navbar-collapse bg-dark text-white fixed-top">
     <ul class="navbar-nav">
         <li class="nav-item active text-white">
@@ -83,7 +85,7 @@
 <br>
 <br>
 <br>
-}else{
+}else if(!session().isEmpty()&& session.get("role") != null && session.get("role").equals("User")){
 <nav class="navbar navbar-expand-sm navbar-light navbar-collapse bg-dark text-white fixed-top">
     <ul class="navbar-nav">
         <li class="nav-item active text-white">
@@ -147,4 +149,6 @@
 <br>
 <br>
 <br>
+}else{
+@appnavbar.render("/")
 }

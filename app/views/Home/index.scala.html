@@ -11,7 +11,11 @@
 <body>
 
 <div class="container" align="center">
+    @if(session().isEmpty()){
     @appnavbar.render("/")
+    }else{
+    @adminnavbar.render("/")
+    }
     <div class="jumbotron">
         <h1>Welcome to Help Desk!</h1>
     </div>
