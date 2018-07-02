@@ -30,6 +30,14 @@ statuses1:Integer,priorities1:Integer,siteAdmins1:Integer,categories1:Integer,lo
     <form class="form-control" method="get">
         <br>
 <label>Search by Text and One or More Filters</label>
+        <div>
+            <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria"
+                   placeholder="Search Any List Value" size="20">&nbsp
+            <input class="btn btn-secondary" type="submit" value="Search">&nbsp
+            <a class="btn btn-secondary" href="/tickets"> Clear Search </a>
+        </div>
+        <br>
+        <br>
         <div class="row" align="center">
             <div class="col-md-4">
                 <b> Assignee: </b><br>
@@ -108,18 +116,9 @@ statuses1:Integer,priorities1:Integer,siteAdmins1:Integer,categories1:Integer,lo
             </div>
         </div>
         <br>
-        <hr>
-        <br>
-        <div>
-            <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria"
-                   placeholder="Search Any List Value" size="20"><br><br>
-            <input class="btn btn-secondary" type="submit" value="Search">&nbsp
-            <a class="btn btn-secondary" href="/tickets"> Clear Search </a>
-        </div>
-        <br>
         <br>
     </form>
-<br><br>
+    <hr>
     <table class="table table-light">
         <tr>
             <th>Ticket#</th>
