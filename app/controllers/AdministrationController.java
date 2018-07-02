@@ -128,7 +128,9 @@ public class AdministrationController extends ApplicationController
                 session().put("loggedin", "" + siteAdmin.getSiteAdminId());
                 session().put("role", "" + siteAdmin.getSiteRole());
                 String flag = "False";
+
                 siteAdmin.setFlag(flag);
+
                 jpaApi.em().persist(siteAdmin);
                 return redirect(routes.AdministrationController.getNewPassword(siteAdmin.getSiteAdminId()));
 
@@ -194,11 +196,18 @@ public class AdministrationController extends ApplicationController
             {
                 try
                 {
-                    String flag = "False";
                     byte salt[] = Password.getNewSalt();
                     siteAdmin.setPasswordSalt(salt);
                     siteAdmin.setPassword(Password.hashPassword(passwordMatch.toCharArray(), salt));
-                    siteAdmin.setFlag(flag);
+                    if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+                    {
+                        String flag = "True";
+                        siteAdmin.setFlag(flag);
+                    }else
+                    {
+                        String flag = "False";
+                        siteAdmin.setFlag(flag);
+                    }
                     jpaApi.em().persist(siteAdmin);
                     return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
                 } catch (Exception e)
