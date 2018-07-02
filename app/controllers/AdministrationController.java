@@ -199,11 +199,15 @@ public class AdministrationController extends ApplicationController
                     byte salt[] = Password.getNewSalt();
                     siteAdmin.setPasswordSalt(salt);
                     siteAdmin.setPassword(Password.hashPassword(passwordMatch.toCharArray(), salt));
-                    if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+                    if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin") && getLoggedInSiteAdminId() == siteAdminId)
+                    {
+                        String flag = "False";
+                        siteAdmin.setFlag(flag);
+                    } else if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
                     {
                         String flag = "True";
                         siteAdmin.setFlag(flag);
-                    }else
+                    } else
                     {
                         String flag = "False";
                         siteAdmin.setFlag(flag);
