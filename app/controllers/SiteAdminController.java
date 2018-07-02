@@ -216,8 +216,8 @@ public class SiteAdminController extends ApplicationController
                         locations, regions, "User Already Exists Try Another Email Or Username"));
             } else
             {
-                if (siteAdminName != null && phoneNumber != null && emailAddress != null
-                        && username != null && locationId > 0)
+                if (siteAdminName != null && phoneNumber != null && (phoneNumber.length()>=9) && emailAddress != null
+                     && emailAddress.contains("@")   && username != null && locationId > 0)
                 {
 
                     siteAdmin.setSiteAdminName(siteAdminName);
@@ -307,7 +307,7 @@ public class SiteAdminController extends ApplicationController
             {
 
                 if (siteAdminName != null && phoneNumber != null && (phoneNumber.length()>=9) && username != null &&
-                        role != null && emailAddress != null && password != null
+                        role != null && emailAddress != null && emailAddress.contains("@") && password != null
                         && locationId > 0)
                 {
 
