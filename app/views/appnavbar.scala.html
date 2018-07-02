@@ -20,14 +20,15 @@
             }
             <a class="nav-link text-white " href="/contact"><b>Contact</b></a>
         </li>
-
-        <li class="nav-item active text-white">
-            @if("login".equals(page)){
-        <li class="nav-item active text-white">
-            }else{
-        <li class="nav-item text-white">
-            }
-            <a class="nav-link text-white" href="/login"><b>Login</b></a>
+    </ul>
+    <ul class="nav navbar ml-auto">
+        <li>
+            <div align="right">
+                <form method="post" action="/login">
+                    @CSRF.formField
+                    <input type="submit" value="Log In" class="btn btn-primary">
+                </form>
+            </div>
         </li>
     </ul>
 </nav>
