@@ -306,7 +306,7 @@ public class SiteAdminController extends ApplicationController
             } else
             {
 
-                if (siteAdminName != null && phoneNumber != null && username != null &&
+                if (siteAdminName != null && phoneNumber != null && (phoneNumber.length()>=9) && username != null &&
                         role != null && emailAddress != null && password != null
                         && locationId > 0)
                 {

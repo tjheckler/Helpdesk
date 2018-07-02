@@ -684,7 +684,7 @@ public class TicketController extends ApplicationController
             int statusId = Integer.parseInt(form.get("statusId"));
             int priorityId = Integer.parseInt(form.get("priorityId"));
             int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
-            if (name != null && phoneNumber != null && emailAddress != null &&
+            if (name != null && phoneNumber != null && (phoneNumber.length()>= 9) && emailAddress != null &&
                     subjectTitle != null && computerName != null && assetTagNumber != null
                     && description != null && locationId > 0 && categoryId > 0
                     && statusId > 0 && priorityId > 0 && siteAdminId > 0)
@@ -878,7 +878,7 @@ public class TicketController extends ApplicationController
         int priorityId = Integer.parseInt(form.get("priorityId"));
         int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
 
-        if (name != null && phoneNumber != null && emailAddress != null &&
+        if (name != null && phoneNumber != null && (phoneNumber.length() >=9) && emailAddress != null &&
                 subjectTitle != null && description != null && locationId > 0
                 && categoryId > 0 && statusId > 0 && priorityId > 0 && siteAdminId > 0)
         {
