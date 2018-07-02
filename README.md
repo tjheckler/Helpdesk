@@ -52,10 +52,10 @@ Other Images Can be Found in the "/public/images" Folder
  * User Login with "User" or "Admin" Access
  * Limited Employee Profile Management by "User"
  * Complete Employee Profile Management by "Admin"
- * Separate Nav Bar Based on Access Logged in or Not
  * Cannot Delete Items Having Foreign Key Assigned Elsewhere
  * Basic Email to "HelpDesk" When a Ticket Is Created by Customer
  * Basic Email to Customer When a Ticket is Updated by a Site User
+ * Separate Nav Bar Based on Access User, Admin && Logged in or Not
 
  # Features to Add After Demo:
 
@@ -70,8 +70,8 @@ Other Images Can be Found in the "/public/images" Folder
  * Make Inventory Searchable for Tickets Computer Name/Asset Tag
  * Custom Email to "HelpDesk" When a Ticket Is Created by Customer
  * Custom Email to Customer When a Ticket is Updated by a Site User
- * Put roles into separate Table as User, HelpDesk, Technician, Admin
- * Separate Nav Bar Based on Access User, HelpDesk, Technician, Admin
+ * Put roles into separate Table as Customer, HelpDesk, Technician, Admin
+ * Separate Nav Bar Based on Access Customer, HelpDesk, Technician, Admin
 
 
  # In the db Folder is a ReadMe.txt File With Vital Information
