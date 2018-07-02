@@ -1,4 +1,4 @@
-@(regions:List[Region],message:String)
+@(locations:List[Location],regions:List[Region],message:String,message2:String)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -22,6 +22,7 @@
         </div>
     </div>
     <div align="center"><h3>@message</h3></div>
+    <div align="center"><h3>@message2</h3></div>
     <form method="post" class="form-control">
         @CSRF.formField
         <b> Location Name: </b><input class="rounded" type="text" name="locationName"

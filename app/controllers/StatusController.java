@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Region;
 import models.Ticket;
 import models.TicketStatus;
 import play.data.DynamicForm;
@@ -99,12 +100,22 @@ public class StatusController extends ApplicationController
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
-
+    @Transactional(readOnly = true)
     public Result getNewStatus()
     {
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
-            return ok(views.html.Status.newstatus.render());
+            DynamicForm form = formFactory.form().bindFromRequest();
+            String statusName = form.get("statusName");
+            String sql = "SELECT s FROM TicketStatus s " +
+                    "WHERE statusName = :statusName ";
+
+
+            List<TicketStatus> statuses = jpaApi.em().createQuery(sql, TicketStatus.class).
+                    setParameter("statusName", statusName).getResultList();
+
+
+            return ok(views.html.Status.newstatus.render(statuses,""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -117,19 +128,31 @@ public class StatusController extends ApplicationController
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
-            String statusName = form.get("ticketStatus");
-            TicketStatus ticketStatus = new TicketStatus();
+            String statusName = form.get("statusName");
+            String sql = "SELECT s FROM TicketStatus s " +
+                    "WHERE statusName = :statusName ";
 
-            if (statusName != null)
+
+            List<TicketStatus> statuses = jpaApi.em().createQuery(sql, TicketStatus.class).
+                    setParameter("statusName", statusName).getResultList();
+
+            if (statuses.size() == 1)
             {
-                ticketStatus.setStatusName(statusName);
-                jpaApi.em().persist(ticketStatus);
+                return ok(views.html.Status.newstatus.render(statuses, "Status Name Already Exists Try Another Status Name"));
             } else
             {
-                return redirect(routes.StatusController.getNewStatus());
+                TicketStatus ticketStatus = new TicketStatus();
+
+                if (statusName != null)
+                {
+                    ticketStatus.setStatusName(statusName);
+                    jpaApi.em().persist(ticketStatus);
+                } else
+                {
+                    return redirect(routes.StatusController.getNewStatus());
+                }
+
             }
-
-
             return redirect(routes.StatusController.getStatuses());
         } else
         {

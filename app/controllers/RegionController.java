@@ -1,9 +1,6 @@
 package controllers;
 
-import models.Category;
-import models.Location;
-import models.Region;
-import models.Ticket;
+import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -98,12 +95,21 @@ public class RegionController extends ApplicationController
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
-
+    @Transactional(readOnly = true)
     public Result getNewRegion()
     {
         if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
         {
-            return ok(views.html.Region.newregion.render());
+            DynamicForm form = formFactory.form().bindFromRequest();
+            String regionName = form.get("region");
+            String sql = "SELECT r FROM Region r " +
+                    "WHERE regionName = :regionName ";
+
+
+            List<Region> regions = jpaApi.em().createQuery(sql, Region.class).
+                    setParameter("regionName", regionName).getResultList();
+
+            return ok(views.html.Region.newregion.render(regions,""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -118,16 +124,28 @@ public class RegionController extends ApplicationController
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String regionName = form.get("region");
-            Region region = new Region();
 
-            if (regionName != null)
+
+            String sql = "SELECT r FROM Region r " +
+                    "WHERE regionName = :regionName ";
+            List<Region> regions = jpaApi.em().createQuery(sql, Region.class).
+                    setParameter("regionName", regionName).getResultList();
+            if (regions.size() == 1)
             {
-            region.setRegionName(regionName);
-            jpaApi.em().persist(region);
-            }else{
-                return redirect(routes.RegionController.getNewRegion());
-            }
+                return ok(views.html.Region.newregion.render(regions, "Region Already Exists Try Another Region"));
+            } else
+            {
 
+                Region region = new Region();
+                if (regionName != null)
+                {
+                    region.setRegionName(regionName);
+                    jpaApi.em().persist(region);
+                } else
+                {
+                    return redirect(routes.RegionController.getNewRegion());
+                }
+            }
             return redirect(routes.RegionController.getRegions());
         } else
         {

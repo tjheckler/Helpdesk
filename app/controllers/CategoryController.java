@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Category;
+import models.Region;
 import models.Ticket;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -96,12 +97,21 @@ public class CategoryController extends ApplicationController
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
-
+    @Transactional(readOnly = true)
     public Result getNewCategory()
     {
         if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
         {
-            return ok(views.html.Category.newcategory.render());
+
+            DynamicForm form = formFactory.form().bindFromRequest();
+            String categoryName = form.get("category");
+
+            String sql = "SELECT c FROM Category c " +
+                    "WHERE categoryName = :categoryName ";
+            List<Category> categories = jpaApi.em().createQuery(sql, Category.class).
+                    setParameter("categoryName", categoryName).getResultList();
+
+            return ok(views.html.Category.newcategory.render(categories,""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -115,13 +125,25 @@ public class CategoryController extends ApplicationController
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String categoryName = form.get("category");
-            Category category = new Category();
-            if(categoryName != null)
+
+            String sql = "SELECT c FROM Category c " +
+                    "WHERE categoryName = :categoryName ";
+            List<Category> categories = jpaApi.em().createQuery(sql, Category.class).
+                    setParameter("categoryName", categoryName).getResultList();
+            if (categories.size() == 1)
             {
-                category.setCategoryName(categoryName);
-                jpaApi.em().persist(category);
-            }else{
-                return redirect(routes.CategoryController.getNewCategory());
+                return ok(views.html.Category.newcategory.render(categories, "Category Already Exists Try Another Category"));
+            } else
+            {
+                Category category = new Category();
+                if (categoryName != null)
+                {
+                    category.setCategoryName(categoryName);
+                    jpaApi.em().persist(category);
+                } else
+                {
+                    return redirect(routes.CategoryController.getNewCategory());
+                }
             }
             return redirect(routes.CategoryController.getCategories());
         } else

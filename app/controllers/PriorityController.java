@@ -2,6 +2,7 @@ package controllers;
 
 
 import models.Priority;
+import models.Region;
 import models.Ticket;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -102,12 +103,23 @@ public class PriorityController extends ApplicationController
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
-
+    @Transactional(readOnly = true)
     public Result getNewPriority()
     {
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
-            return ok(views.html.Priority.newpriority.render());
+            DynamicForm form = formFactory.form().bindFromRequest();
+            String priorityName = form.get("priority");
+
+
+            String sql = "SELECT p FROM Priority p " +
+                    "WHERE priorityName = :priorityName ";
+
+
+            List<Priority> priorities = jpaApi.em().createQuery(sql, Priority.class).
+                    setParameter("priorityName", priorityName).getResultList();
+
+            return ok(views.html.Priority.newpriority.render(priorities,""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -121,14 +133,29 @@ public class PriorityController extends ApplicationController
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String priorityName = form.get("priority");
-            Priority priority = new Priority();
-            if (priorityName != null)
+
+
+            String sql = "SELECT p FROM Priority p " +
+                    "WHERE priorityName = :priorityName ";
+
+
+            List<Priority> priorities = jpaApi.em().createQuery(sql, Priority.class).
+                    setParameter("priorityName", priorityName).getResultList();
+            if (priorities.size() == 1)
             {
-                priority.setPriorityName(priorityName);
-                jpaApi.em().persist(priority);
+                return ok(views.html.Priority.newpriority.render(priorities, "Priority Already Exists Try Another Priority"));
             } else
             {
-                return redirect(routes.PriorityController.getNewPriority());
+
+                Priority priority = new Priority();
+                if (priorityName != null)
+                {
+                    priority.setPriorityName(priorityName);
+                    jpaApi.em().persist(priority);
+                } else
+                {
+                    return redirect(routes.PriorityController.getNewPriority());
+                }
             }
             return redirect(routes.PriorityController.getPriorities());
         } else

@@ -1,3 +1,4 @@
+@(categories:List[Category],message:String)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -21,6 +22,7 @@
             </form>
         </div>
     </div>
+    @message
     <form method="post" class="form-control">
         @CSRF.formField
         <br>

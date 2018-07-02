@@ -66,7 +66,7 @@ public class LocationController extends ApplicationController
 
             List<Region> regions = jpaApi.em().createQuery
                     (regionSql, Region.class).getResultList();
-            return ok(views.html.Location.location.render(location, regions,""));
+            return ok(views.html.Location.location.render(location, regions, ""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -111,11 +111,16 @@ public class LocationController extends ApplicationController
     {
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
+            DynamicForm form = formFactory.form().bindFromRequest();
+            String locationName = form.get("locationName");
             String regionSql = "SELECT r FROM Region r ";
-
+            String locationSql = "SELECT l FROM Location l " +
+                    "WHERE locationName = :locationName";
+            List<Location> locations = jpaApi.em().createQuery(locationSql,Location.class).
+                    setParameter("locationName",locationName).getResultList();
             List<Region> regions = jpaApi.em().createQuery
                     (regionSql, Region.class).getResultList();
-            return ok(views.html.Location.newlocation.render(regions,""));
+            return ok(views.html.Location.newlocation.render(locations,regions, "",""));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -129,24 +134,37 @@ public class LocationController extends ApplicationController
         {
             DynamicForm form = formFactory.form().bindFromRequest();
 
-            String regionSql = "SELECT r FROM Region r ";
 
+            String regionSql = "SELECT r FROM Region r ";
             List<Region> regions = jpaApi.em().createQuery
                     (regionSql, Region.class).getResultList();
 
-            Location location = new Location();
+
             String locationName = form.get("locationName");
-            int regionalId = Integer.parseInt(form.get("regionId"));
-            if (locationName != null && regionalId > 0)
+            String locationSql = "SELECT l FROM Location l " +
+                    "WHERE locationName = :locationName";
+            List<Location> locations = jpaApi.em().createQuery(locationSql,Location.class).
+                    setParameter("locationName",locationName).getResultList();
+            if (locations.size() == 1)
             {
-                location.setLocationName(locationName);
-                location.setRegionId(regionalId);
-                jpaApi.em().persist(location);
+                return ok(views.html.Location.newlocation.render(locations,regions,
+                        "","Location Already Exists Try Another Location"));
             } else
             {
-                return ok(views.html.Location.newlocation.render(regions,"Location Name and Region are Required"));
+                Location location = new Location();
+                int regionalId = Integer.parseInt(form.get("regionId"));
+                if (locationName != null && regionalId > 0)
+                {
+                    location.setLocationName(locationName);
+                    location.setRegionId(regionalId);
+                    jpaApi.em().persist(location);
+                } else
+                {
+                    return ok(views.html.Location.newlocation.
+                            render(locations, regions, "Location Name and Region are Required",
+                                    ""));
+                }
             }
-
             return redirect(routes.LocationController.getLocations());
         } else
         {
@@ -187,12 +205,11 @@ public class LocationController extends ApplicationController
             {
                 //do nothing
 
-            }
-            else if(tickets.size() == 0)
+            } else if (tickets.size() == 0)
             {
                 jpaApi.em().remove(location);
                 return redirect(routes.LocationController.getLocations());
-            }else
+            } else
             {
                 return ok(views.html.Location.location.render(location, regions,
                         "   Cannot Delete, This Location is Assigned to a Ticket"));
@@ -201,12 +218,11 @@ public class LocationController extends ApplicationController
             {
                 //do nothing
 
-            }
-            else if(siteAdmins.size() == 0)
+            } else if (siteAdmins.size() == 0)
             {
                 jpaApi.em().remove(location);
                 return redirect(routes.LocationController.getLocations());
-            }else
+            } else
             {
                 return ok(views.html.Location.location.render(location, regions,
                         "   Cannot Delete, This Location is Assigned to a Site Admin"));
@@ -215,14 +231,13 @@ public class LocationController extends ApplicationController
             {
                 //do nothing
 
-            }
-            else if(inventories.size() == 0)
+            } else if (inventories.size() == 0)
             {
                 jpaApi.em().remove(location);
                 return redirect(routes.LocationController.getLocations());
             }
-                return ok(views.html.Location.location.render(location, regions,
-                        "   Cannot Delete, This Location is Assigned to an Inventory Item"));
+            return ok(views.html.Location.location.render(location, regions,
+                    "   Cannot Delete, This Location is Assigned to an Inventory Item"));
 
         } else
         {
