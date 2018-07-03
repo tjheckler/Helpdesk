@@ -259,7 +259,7 @@ public class TicketController extends ApplicationController
         String adminSql = "SELECT sa FROM SiteAdmin sa ";
         List<SiteAdmin> siteAdmins = jpaApi.em()
                 .createQuery(adminSql, SiteAdmin.class).getResultList();
-        SiteAdmin siteAdmin = jpaApi.em().createQuery(adminSql,SiteAdmin.class).getSingleResult();
+
         String prioritySql = "SELECT p FROM Priority p ";
         List<Priority> priorities = jpaApi.em()
                 .createQuery(prioritySql, Priority.class).getResultList();
@@ -273,7 +273,7 @@ public class TicketController extends ApplicationController
                 .createQuery(regionSql, Region.class).getResultList();
 
         String replySql = "SELECT r FROM Reply r " +
-                "WHERE ticketsId = :ticketsId"; //needs to be case statement
+                "WHERE ticketsId = :ticketsId";
 
         List<Reply> replies = jpaApi.em().createQuery(replySql, Reply.class)
                 .setParameter("ticketsId", ticketsId).getResultList();
@@ -286,10 +286,11 @@ public class TicketController extends ApplicationController
 
         Date statusDateChanged = new Date();
         int statusId = Integer.parseInt(form.get("statusId"));
-        ticket.setStatusId(statusId);
         int priorityId = Integer.parseInt(form.get("priorityId"));
-        ticket.setPriority(priorityId);
         int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
+
+        ticket.setStatusId(statusId);
+        ticket.setPriority(priorityId);
         ticket.setSiteAdmin(siteAdminId);
         ticket.setStatusDateChanged(statusDateChanged);
 
@@ -518,7 +519,6 @@ public class TicketController extends ApplicationController
             ticket.setSubjectTitle(subjectTitle);
             ticket.setEmailAddress(emailAddress);
             ticket.setName(name);
-
             ticket.setPriority(priorityId);
             ticket.setStatusId(statusId);
             ticket.setSiteAdmin(siteAdminId);
@@ -684,11 +684,13 @@ public class TicketController extends ApplicationController
             int statusId = Integer.parseInt(form.get("statusId"));
             int priorityId = Integer.parseInt(form.get("priorityId"));
             int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
-            if (name != null && phoneNumber != null && (phoneNumber.length()>= 9) && emailAddress != null
+            if (name != null && phoneNumber != null && (phoneNumber.length()> 9) && emailAddress != null
                     && emailAddress.contains("@") && subjectTitle != null && computerName != null
                     && assetTagNumber != null && description != null && locationId > 0
                     && categoryId > 0 && statusId > 0 && priorityId > 0 && siteAdminId > 0)
+
             {
+
                 ticket.setName(name);
                 ticket.setPhoneNumber(phoneNumber);
                 ticket.setEmailAddress(emailAddress);
