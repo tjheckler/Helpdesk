@@ -1,4 +1,4 @@
-@(locations:List[Location],priorities:List[Priority],categories:List[Category],message:String)
+@(locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],ticketFormValues:TicketFormValues,message:String)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -16,7 +16,17 @@
         <h1>Create New Ticket</h1>
     </div>
     <form class="form-control" method="post" enctype="multipart/form-data">
+        @if(session()== null){
         @message
+        }else{
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                @ticketFormValues.getMessages()
+            </div>
+            <div class="col-1"></div>
+        </div>
+        }
         <br>
         @CSRF.formField
         <br>
