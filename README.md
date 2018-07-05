@@ -52,6 +52,7 @@ Other Images Can be Found in the "/public/images" Folder
  * User Login with "User" or "Admin" Access
  * Limited Employee Profile Management by "User"
  * Complete Employee Profile Management by "Admin"
+ * Customer Able to View and Reply to Ticket With Email Link
  * Cannot Delete Items Having Foreign Key Assigned Elsewhere
  * Basic Email to "HelpDesk" When a Ticket Is Created by Customer
  * Basic Email to Customer When a Ticket is Updated by a Site User
@@ -61,6 +62,7 @@ Other Images Can be Found in the "/public/images" Folder
 
  * Tech Notes
  * Custom Reports
+ * Pagination on List Pages
  * Finish Identical Program in C#
  * Inventory List Filtering Drop Downs
  * Active Directory Integration Possible
