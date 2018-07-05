@@ -168,7 +168,7 @@ public class TicketFormValues
             valid = false;
         }
 
-        if(getTicketName() == null || (getTicketName().length() == 0 || getTicketName().length() >50 ))
+        if(getTicketName() == null || (getTicketName().length() == 0 && getTicketName().length() >50 ))
         {
             valid = false;
         }
@@ -188,7 +188,7 @@ public class TicketFormValues
             valid = false;
         }
 
-        if (getTicketPhoneNumber() == null || (getTicketPhoneNumber().length() < 10 || getTicketPhoneNumber().length() > 15))
+        if (getTicketPhoneNumber() == null || (getTicketPhoneNumber().length() < 10 && getTicketPhoneNumber().length() > 15))
         {
             valid = false;
         }
