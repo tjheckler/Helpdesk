@@ -126,17 +126,21 @@ public class InventoryController extends ApplicationController
     {
         if (isLoggedIn())
         {
+            DynamicForm form = formFactory.form().bindFromRequest();
+            InventoryFormValues inventoryFormValues = new InventoryFormValues();
+            inventoryFormValues.setInventoryComputerName(form.get("computerName"));
+            inventoryFormValues.setInventoryLocationId(form.get("locationId"));
+            inventoryFormValues.setInventoryAssetTagNumber(form.get("assetTag"));
+            inventoryFormValues.setInventoryCurrentUser(form.get("currentUser"));
+            inventoryFormValues.setInventoryBuildingLocation(form.get("buildingLocation"));
 
             String regionSql = "SELECT r FROM Region r ";
-
             List<Region> regions = jpaApi.em().createQuery
                     (regionSql, Region.class).getResultList();
-
             String locationSql = "SELECT l FROM Location l ";
-
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
-            return ok(views.html.Inventory.newinventory.render(regions, locations, "* Indicates Required Fields"));
+            return ok(views.html.Inventory.newinventory.render(regions, locations, "* Indicates Required Fields",inventoryFormValues,true));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
@@ -155,6 +159,12 @@ public class InventoryController extends ApplicationController
             inventoryFormValues.setInventoryAssetTagNumber(form.get("assetTag"));
             inventoryFormValues.setInventoryCurrentUser(form.get("currentUser"));
             inventoryFormValues.setInventoryBuildingLocation(form.get("buildingLocation"));
+            String regionSql = "SELECT r FROM Region r ";
+            List<Region> regions = jpaApi.em().createQuery
+                    (regionSql, Region.class).getResultList();
+            String locationSql = "SELECT l FROM Location l ";
+            List<Location> locations = jpaApi.em().createQuery
+                    (locationSql, Location.class).getResultList();
 
             if (inventoryFormValues.isValid())
             {
@@ -167,7 +177,7 @@ public class InventoryController extends ApplicationController
                 jpaApi.em().persist(inventory);
             } else
             {
-                return redirect(routes.InventoryController.getNewInventory());
+                return ok(views.html.Inventory.newinventory.render(regions, locations, "* Indicates Required Fields",inventoryFormValues,false));
             }
 
             return redirect(routes.InventoryController.getInventories());

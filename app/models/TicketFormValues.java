@@ -168,12 +168,12 @@ public class TicketFormValues
             valid = false;
         }
 
-        if(getTicketName() == null || (getTicketName().length() == 0 && getTicketName().length() >50 ))
+        if(getTicketName() == null || (getTicketName().length() == 0 || getTicketName().length() >50 ))
         {
             valid = false;
         }
 
-        if(getTicketSubjectTitle() == null || (getTicketSubjectTitle().length() == 0 && getTicketSubjectTitle().length() > 50))
+        if(getTicketSubjectTitle() == null || (getTicketSubjectTitle().length() == 0 || getTicketSubjectTitle().length() > 50))
         {
             valid = false;
         }
@@ -183,12 +183,12 @@ public class TicketFormValues
             valid = false;
         }
 
-        if (getTicketEmailAddress() == null || (getTicketEmailAddress().length() == 0 && getTicketEmailAddress().length() > 50)|| !getTicketEmailAddress().contains("@"))
+        if (getTicketEmailAddress() == null || (getTicketEmailAddress().length() == 0 || getTicketEmailAddress().length() > 50)|| !getTicketEmailAddress().contains("@"))
         {
             valid = false;
         }
 
-        if (getTicketPhoneNumber() == null || (getTicketPhoneNumber().length() < 10 && getTicketPhoneNumber().length() > 15))
+        if (getTicketPhoneNumber() == null || (getTicketPhoneNumber().length() < 10 || getTicketPhoneNumber().length() > 15))
         {
             valid = false;
         }

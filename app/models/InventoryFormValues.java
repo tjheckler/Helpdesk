@@ -97,25 +97,25 @@ public class InventoryFormValues
     {
         List<String> messages = new ArrayList<>();
 
-        if (getInventoryComputerName() == null)
+        if (getInventoryComputerName() == null || (getInventoryComputerName().length( )==0 || getInventoryComputerName().length() > 50))
         {
-            messages.add(" Please Enter a Computer Name. ");
+            messages.add(" Please Enter a Computer Name less than 50 Characters. ");
         }
 
 
-        if (getInventoryAssetTagNumber() == null )
+        if (getInventoryAssetTagNumber() == null || getInventoryAssetTagNumber().length( )== 0 || getInventoryAssetTagNumber().length() > 50)
         {
-            messages.add(" Please Enter an Asset Tag Number. ");
+            messages.add(" Please Enter an Asset Tag Number less than 50 Characters. ");
         }
 
-        if (getInventoryBuildingLocation() == null)
+        if (getInventoryBuildingLocation() == null || (getInventoryBuildingLocation().length( )==0 || getInventoryBuildingLocation().length() > 50))
         {
-            messages.add(" Please Enter a Building Location. ");
+            messages.add(" Please Enter a Building Location Less than 50 Characters. ");
         }
 
-        if (getInventoryCurrentUser() == null)
+        if (getInventoryCurrentUser() == null || (getInventoryCurrentUser().length( )==0 || getInventoryCurrentUser().length() > 50))
         {
-            messages.add(" Please Enter the Current User. ");
+            messages.add(" Please Enter the Current User less than 50 Characters. ");
         }
 
         if (getInventoryLocationId() == null || getInventoryLocationId().equals("0"))

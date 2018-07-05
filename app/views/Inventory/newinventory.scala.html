@@ -1,4 +1,4 @@
-@(regions:List[Region],locations:List[Location],message:String)
+@(regions:List[Region],locations:List[Location],message:String,inventoryFormValues:InventoryFormValues,firstLoad:Boolean)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -20,7 +20,17 @@
 
     <form method="post" class="form-control">
         @CSRF.formField
-        @message<br>
+        @if(!firstLoad){
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                @inventoryFormValues.getMessages()
+            </div>
+            <div class="col-1"></div>
+        </div>
+        }else{
+        @message
+        }<br>
         <div class="container" align="center">
             <br>
             <div class="row" align="center">
