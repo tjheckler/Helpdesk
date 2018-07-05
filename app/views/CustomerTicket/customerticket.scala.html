@@ -16,7 +16,7 @@
         <h1>Create New Ticket</h1>
     </div>
     <form class="form-control" method="post" enctype="multipart/form-data">
-        @if(session()== null){
+        @if(session.isEmpty()){
         @message
         }else{
         <div class="row">

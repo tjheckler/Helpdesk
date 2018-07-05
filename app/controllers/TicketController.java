@@ -810,11 +810,12 @@ public class TicketController extends ApplicationController
                     }
 
                 }
+                return redirect(routes.TicketController.getTickets());
             } else
             {
                 return ok(views.html.Ticket.newticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, ""));
             }
-            return redirect(routes.TicketController.getTickets());
+
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -1021,13 +1022,14 @@ public class TicketController extends ApplicationController
                 {
                     //do nothing
                 }
-                return redirect(routes.HomeController.getTicketSent());
+
             }
+            return redirect(routes.HomeController.getTicketSent());
         } else
         {
             return ok(views.html.Ticket.newticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, ""));
         }
-        return redirect(routes.HomeController.index());
+
     }
 
 }

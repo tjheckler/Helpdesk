@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Inventory;
+import models.InventoryFormValues;
 import models.Location;
 import models.Region;
 import play.data.DynamicForm;
@@ -76,7 +77,7 @@ public class InventoryController extends ApplicationController
             String locationSql = "SELECT l FROM Location l ";
             List<Location> locations = jpaApi.em()
                     .createQuery(locationSql, Location.class).getResultList();
-            return ok(views.html.Inventory.inventory.render(inventory, locations,"* Indicates Required Fields"));
+            return ok(views.html.Inventory.inventory.render(inventory, locations, "* Indicates Required Fields"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
@@ -100,7 +101,7 @@ public class InventoryController extends ApplicationController
             String currentUser = form.get("currentUser");
             String buildingLocation = form.get("buildingLocation");
 
-            if(computerName != null && locationId > 0 && currentUser != null
+            if (computerName != null && locationId > 0 && currentUser != null
                     && buildingLocation != null)
             {
                 inventory.setComputerName(computerName);
@@ -108,7 +109,8 @@ public class InventoryController extends ApplicationController
                 inventory.setCurrentUser(currentUser);
                 inventory.setLocationId(locationId);
                 jpaApi.em().persist(inventory);
-            }else{
+            } else
+            {
                 return redirect(routes.InventoryController.getInventory(inventoryId));
             }
 
@@ -134,7 +136,7 @@ public class InventoryController extends ApplicationController
 
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
-            return ok(views.html.Inventory.newinventory.render(regions, locations,"* Indicates Required Fields"));
+            return ok(views.html.Inventory.newinventory.render(regions, locations, "* Indicates Required Fields"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
@@ -147,23 +149,24 @@ public class InventoryController extends ApplicationController
         if (isLoggedIn())
         {
             DynamicForm form = formFactory.form().bindFromRequest();
-            String computerName = form.get("computerName");
-            int locationId = Integer.parseInt(form.get("locationId"));
-            String assetTagNumber = form.get("assetTag");
-            String currentUser = form.get("currentUser");
-            String buildingLocation = form.get("buildingLocation");
+            InventoryFormValues inventoryFormValues = new InventoryFormValues();
+            inventoryFormValues.setInventoryComputerName(form.get("computerName"));
+            inventoryFormValues.setInventoryLocationId(form.get("locationId"));
+            inventoryFormValues.setInventoryAssetTagNumber(form.get("assetTag"));
+            inventoryFormValues.setInventoryCurrentUser(form.get("currentUser"));
+            inventoryFormValues.setInventoryBuildingLocation(form.get("buildingLocation"));
 
-            if(computerName != null && locationId > 0 && currentUser != null
-                    && buildingLocation != null && assetTagNumber != null)
+            if (inventoryFormValues.isValid())
             {
-            Inventory inventory = new Inventory();
-            inventory.setComputerName(computerName);
-            inventory.setAssetTagNumber(assetTagNumber);
-            inventory.setBuildingLocation(buildingLocation);
-            inventory.setCurrentUser(currentUser);
-            inventory.setLocationId(locationId);
-            jpaApi.em().persist(inventory);
-            }else{
+                Inventory inventory = new Inventory();
+                inventory.setComputerName(inventoryFormValues.getInventoryComputerName());
+                inventory.setAssetTagNumber(inventoryFormValues.getInventoryAssetTagNumber());
+                inventory.setBuildingLocation(inventoryFormValues.getInventoryBuildingLocation());
+                inventory.setCurrentUser(inventoryFormValues.getInventoryCurrentUser());
+                inventory.setLocationId(new Integer(inventoryFormValues.getInventoryLocationId()));
+                jpaApi.em().persist(inventory);
+            } else
+            {
                 return redirect(routes.InventoryController.getNewInventory());
             }
 
@@ -177,7 +180,7 @@ public class InventoryController extends ApplicationController
     @Transactional
     public Result deleteInventory(int inventoryId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
             String sql = "SELECT i FROM Inventory i " +
                     "WHERE inventoryId = :inventoryId";

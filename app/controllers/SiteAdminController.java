@@ -216,8 +216,8 @@ public class SiteAdminController extends ApplicationController
                         locations, regions, "User Already Exists Try Another Email Or Username"));
             } else
             {
-                if (siteAdminName != null && phoneNumber != null && (phoneNumber.length()>=9) && emailAddress != null
-                     && emailAddress.contains("@")   && username != null && locationId > 0)
+                if (siteAdminName != null && phoneNumber != null && (phoneNumber.length() >= 9) && emailAddress != null
+                        && emailAddress.contains("@") && username != null && locationId > 0)
                 {
 
                     siteAdmin.setSiteAdminName(siteAdminName);
@@ -270,15 +270,16 @@ public class SiteAdminController extends ApplicationController
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
-            String siteAdminName = form.get("siteAdmin");
-            int locationId = Integer.parseInt(form.get("locationId"));
 
-            String phoneNumber = form.get("phoneNumber");
-            String emailAddress = form.get("emailAddress");
-            String role = form.get("role");
-            String username = form.get("username");
-            String password = form.get("password");
-            String flag = "True";
+            SiteAdminFormValues siteAdminFormValues = new SiteAdminFormValues();
+            siteAdminFormValues.setAdminSiteAdminName(form.get("siteAdmin"));
+            siteAdminFormValues.setAdminLocationId(form.get("locationId"));
+            siteAdminFormValues.setAdminPhoneNumber(form.get("phoneNumber"));
+            siteAdminFormValues.setAdminEmailAddress(form.get("emailAddress"));
+            siteAdminFormValues.setAdminSiteRole(form.get("role"));
+            siteAdminFormValues.setAdminUsername(form.get("username"));
+            siteAdminFormValues.setAdminPassword(form.get("password"));
+
 
             String regionSql = "SELECT r FROM Region r ";
 
@@ -297,8 +298,8 @@ public class SiteAdminController extends ApplicationController
                     "OR emailAddress = :emailAddress";
 
             List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).
-                    setParameter("username", username).
-                    setParameter("emailAddress", emailAddress).getResultList();
+                    setParameter("username", siteAdminFormValues.getAdminUsername()).
+                    setParameter("emailAddress", siteAdminFormValues.getAdminEmailAddress()).getResultList();
             if (siteAdmins.size() == 1)
             {
                 return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
@@ -306,26 +307,25 @@ public class SiteAdminController extends ApplicationController
             } else
             {
 
-                if (siteAdminName != null && phoneNumber != null && (phoneNumber.length()>=9) && username != null &&
-                        role != null && emailAddress != null && emailAddress.contains("@") && password != null
-                        && locationId > 0)
+                if (siteAdminFormValues.isValid())
                 {
 
 
                     SiteAdmin siteAdmin = new SiteAdmin();
                     try
                     {
+                        String flag = "True";
                         byte salt[] = Password.getNewSalt();
-                        byte hashedPassword[] = Password.hashPassword(password.toCharArray(), salt);
+                        byte hashedPassword[] = Password.hashPassword(siteAdminFormValues.getAdminPassword().toCharArray(), salt);
 
-                        siteAdmin.setSiteAdminName(siteAdminName);
-                        siteAdmin.setPhoneNumber(phoneNumber);
-                        siteAdmin.setSiteRole(role);
-                        siteAdmin.setLocationId(locationId);
-                        siteAdmin.setEmailAddress(emailAddress);
+                        siteAdmin.setSiteAdminName(siteAdminFormValues.getAdminSiteAdminName());
+                        siteAdmin.setPhoneNumber(siteAdminFormValues.getAdminPhoneNumber());
+                        siteAdmin.setSiteRole(siteAdminFormValues.getAdminSiteRole());
+                        siteAdmin.setLocationId(new Integer(siteAdminFormValues.getAdminLocationId()));
+                        siteAdmin.setEmailAddress(siteAdminFormValues.getAdminEmailAddress());
                         siteAdmin.setPasswordSalt(salt);
                         siteAdmin.setPassword(hashedPassword);
-                        siteAdmin.setUsername(username);
+                        siteAdmin.setUsername(siteAdminFormValues.getAdminUsername());
                         siteAdmin.setFlag(flag);
                     } catch (Exception e)
                     {
@@ -379,8 +379,7 @@ public class SiteAdminController extends ApplicationController
             {
                 //do nothing
 
-            }
-            else if(tickets.size() == 0)
+            } else if (tickets.size() == 0)
             {
                 jpaApi.em().remove(siteAdmin);
                 return redirect(routes.SiteAdminController.getSiteAdmins());
