@@ -136,14 +136,15 @@ public class CategoryController extends ApplicationController
             } else
             {
                 Category category = new Category();
-                if (categoryName != null)
+                if (categoryName != null && categoryName.length() != 0 && categoryName.length() < 50)
                 {
                     category.setCategoryName(categoryName);
-                    jpaApi.em().persist(category);
+
                 } else
                 {
-                    return redirect(routes.CategoryController.getNewCategory());
+                    return ok(views.html.Category.newcategory.render(categories," Category Name Cannot be Empty or more than 50 Characters. "));
                 }
+                jpaApi.em().persist(category);
             }
             return redirect(routes.CategoryController.getCategories());
         } else

@@ -148,14 +148,15 @@ public class PriorityController extends ApplicationController
             {
 
                 Priority priority = new Priority();
-                if (priorityName != null)
+                if (priorityName != null && priorityName.length() != 0 && priorityName.length() < 50)
                 {
                     priority.setPriorityName(priorityName);
-                    jpaApi.em().persist(priority);
+
                 } else
                 {
-                    return redirect(routes.PriorityController.getNewPriority());
+                    return ok(views.html.Priority.newpriority.render(priorities, "Priority Cannot be Empty and must be less than 50 Characters"));
                 }
+                jpaApi.em().persist(priority);
             }
             return redirect(routes.PriorityController.getPriorities());
         } else

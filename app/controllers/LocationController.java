@@ -153,17 +153,18 @@ public class LocationController extends ApplicationController
             {
                 Location location = new Location();
                 int regionalId = Integer.parseInt(form.get("regionId"));
-                if (locationName != null && regionalId > 0)
+                if (locationName != null && regionalId > 0 && locationName.length() !=0 && locationName.length() < 50)
                 {
                     location.setLocationName(locationName);
                     location.setRegionId(regionalId);
-                    jpaApi.em().persist(location);
+
                 } else
                 {
                     return ok(views.html.Location.newlocation.
                             render(locations, regions, "Location Name and Region are Required",
-                                    ""));
+                                    " Location Name Must be less than 50 Characters. "));
                 }
+                jpaApi.em().persist(location);
             }
             return redirect(routes.LocationController.getLocations());
         } else

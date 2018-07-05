@@ -143,15 +143,15 @@ public class StatusController extends ApplicationController
             {
                 TicketStatus ticketStatus = new TicketStatus();
 
-                if (statusName != null)
+                if (statusName != null && statusName.length() != 0 && statusName.length() < 50)
                 {
                     ticketStatus.setStatusName(statusName);
-                    jpaApi.em().persist(ticketStatus);
+
                 } else
                 {
-                    return redirect(routes.StatusController.getNewStatus());
+                    return ok(views.html.Status.newstatus.render(statuses, "Status Name Cannot be Empty and Must be less than 50 Characters"));
                 }
-
+                jpaApi.em().persist(ticketStatus);
             }
             return redirect(routes.StatusController.getStatuses());
         } else

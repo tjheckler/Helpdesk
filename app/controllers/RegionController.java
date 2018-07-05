@@ -137,14 +137,15 @@ public class RegionController extends ApplicationController
             {
 
                 Region region = new Region();
-                if (regionName != null)
+                if (regionName != null && regionName.length() != 0 && regionName.length() < 50)
                 {
                     region.setRegionName(regionName);
-                    jpaApi.em().persist(region);
+
                 } else
                 {
-                    return redirect(routes.RegionController.getNewRegion());
+                    return ok(views.html.Region.newregion.render(regions, "Region Cannot be Empty and Must be less than 50 Characters. "));
                 }
+                jpaApi.em().persist(region);
             }
             return redirect(routes.RegionController.getRegions());
         } else
