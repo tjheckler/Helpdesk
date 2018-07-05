@@ -1,4 +1,4 @@
-@(locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],ticketFormValues:TicketFormValues,message:String)
+@(locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],ticketFormValues:TicketFormValues,message:String,firstload:Boolean)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -16,9 +16,7 @@
         <h1>Create New Ticket</h1>
     </div>
     <form class="form-control" method="post" enctype="multipart/form-data">
-        @if(session.isEmpty()){
-        @message
-        }else{
+        @if(!firstload){
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
@@ -26,6 +24,9 @@
             </div>
             <div class="col-1"></div>
         </div>
+
+        }else{
+        @message
         }
         <br>
         @CSRF.formField
@@ -33,29 +34,29 @@
         <div class="row">
             <div class="col-md-6">
                 <b>* User's Name: </b><br>
-                <input class="rounded" type="text" name="name" id="name" maxlength="30">
+                <input class="rounded" type="text" name="name" id="name" maxlength="30" value="@ticketFormValues.getTicketName">
             </div>
             <div class="col-md-6">
                 <b> Asset Tag Number: </b><br>
-                <input class="rounded" type="text" name="assetTagNumber" id="assetTagNumber" maxlength="10">
+                <input class="rounded" type="text" name="assetTagNumber" id="assetTagNumber" maxlength="10" value="@ticketFormValues.getTicketAssetTagNumber">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-6">
                 <b>* Phone Number: </b><br>
-                <input class="rounded" type="text" name="phoneNumber" id="phoneNumber" maxlength="10" placeholder="example 5015551214">
+                <input class="rounded" type="text" name="phoneNumber" id="phoneNumber" maxlength="10" placeholder="example 5015551214" value="@ticketFormValues.getTicketPhoneNumber">
             </div>
             <div class="col-md-6">
                 <b>* Email Address: </b><br>
-                <input class="rounded" type="text" name="emailAddress" id="emailAddress" maxlength="30" placeholder="someone@@example.com">
+                <input class="rounded" type="text" name="emailAddress" id="emailAddress" maxlength="30" placeholder="someone@@example.com" value="@ticketFormValues.getTicketEmailAddress">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-6">
                 <b> Computer Name: </b><br>
-                <input class="rounded" type="text" name="computerName" id="computerName" maxlength="15">
+                <input class="rounded" type="text" name="computerName" id="computerName" maxlength="15" value="@ticketFormValues.getTicketComputerName">
             </div>
             <div class="col-md-6">
                 <b>* Category: </b><br>
@@ -134,7 +135,7 @@
         <br>
         <div class="container">
             <b>* Subject: </b><br>
-            <input class="rounded" type="text" name="subjectTitle" id="subject" maxlength="30" size="30">
+            <input class="rounded" type="text" name="subjectTitle" id="subject" maxlength="30" size="30" value="@ticketFormValues.getTicketSubjectTitle">
         </div>
         <br>
         <div>

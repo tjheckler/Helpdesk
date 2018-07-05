@@ -1,4 +1,4 @@
-@(locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],ticketFormValues:TicketFormValues,message:String)
+@(locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],ticketFormValues:TicketFormValues,message:String,firstload:Boolean)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -16,9 +16,7 @@
         <h1>Create New Ticket</h1>
     </div>
     <form class="form-control" method="post" enctype="multipart/form-data">
-        @if(session()== null){
-        @message
-        }else{
+        @if(!firstload){
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
@@ -26,6 +24,8 @@
             </div>
             <div class="col-1"></div>
         </div>
+        }else{
+        @message
         }
         <br>
         @CSRF.formField
@@ -33,11 +33,11 @@
         <div class="row">
             <div class="col-md-6">
                 <b>* User's Name: </b><br>
-                <input class="rounded" type="text" name="name" id="name" maxlength="30">
+                <input class="rounded" type="text" name="name" id="name" maxlength="30" value="@ticketFormValues.getTicketName">
             </div>
             <div class="col-md-6">
                 <b>* Asset Tag Number: </b><br>
-                <input class="rounded" type="text" name="assetTagNumber" id="assetTagNumber" maxlength="10">
+                <input class="rounded" type="text" name="assetTagNumber" id="assetTagNumber" maxlength="10" value="@ticketFormValues.getTicketAssetTagNumber">
             </div>
         </div>
         <br>
@@ -45,24 +45,24 @@
             <div class="col-md-6">
                 <b>* Phone Number: </b><br>
                 <input class="rounded" type="text" name="phoneNumber" id="phoneNumber" maxlength="10"
-                       placeholder="example 5015551214">
+                       placeholder="example 5015551214" value="@ticketFormValues.getTicketPhoneNumber">
             </div>
             <div class="col-md-6">
                 <b>* Email Address: </b><br>
                 <input class="rounded" type="text" name="emailAddress" id="emailAddress" maxlength="30"
-                       placeholder="somone@@example.com">
+                       placeholder="somone@@example.com" value="@ticketFormValues.getTicketEmailAddress">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-6">
                 <b>* Computer Name: </b><br>
-                <input class="rounded" type="text" name="computerName" id="computerName" maxlength="15">
+                <input class="rounded" type="text" name="computerName" id="computerName" maxlength="15" value="@ticketFormValues.getTicketComputerName">
             </div>
             <div class="col-md-6">
                 <b>* Assigned To: </b><br>
-                <select class="rounded" name="siteAdminId" id="siteAdminId">
-                    <option value="0">Choose Assignee</option>
+                <select class="rounded" name="siteAdminId" id="siteAdminId" >
+                    <option value="@ticketFormValues.getTicketSiteAdminId">Choose Assignee</option>
                     @for(siteAdmin<-siteAdmins){
 
                     <option value="@siteAdmin.getSiteAdminId">
@@ -79,7 +79,7 @@
             <div class="col-md-6">
                 <b>* Current Location: </b><br>
                 <select class="rounded" name="locationId" id="locationId">
-                    <option value="0">Choose Location</option>
+                    <option value="@ticketFormValues.getTicketLocationId">Choose Location</option>
                     @for(location<-locations){
 
                     <option value="@location.getLocationId">
@@ -93,7 +93,7 @@
             <div class="col-md-6">
                 <b>* Status: </b><br>
                 <select class="rounded" name="statusId" id="statusId">
-                    <option value="0">Choose Status</option>
+                    <option value="@ticketFormValues.getTicketStatusId">Choose Status</option>
                     @for(ticketStatus<-ticketStatuses){
 
                     <option value="@ticketStatus.getStatusId">
@@ -112,7 +112,7 @@
             <div class="col-md-6">
                 <b>* Priority: </b><br>
                 <select class="rounded" name="priorityId" id="priorityId">
-                    <option value="0">Choose Priority</option>
+                    <option value="@ticketFormValues.getTicketPriorityId">Choose Priority</option>
                     @for(priority<-priorities){
 
                     <option value="@priority.getPriorityId">
@@ -126,7 +126,7 @@
             <div class="col-md-6">
                 <b>* Category: </b><br>
                 <select class="rounded" name="categoryId" id="categoryId">
-                    <option value="0">Choose Category</option>
+                    <option value="@ticketFormValues.getTicketCategoryId">Choose Category</option>
                     @for(category<-categories){
 
                     <option value="@category.getCategoryId">
@@ -144,7 +144,7 @@
         <br>
         <div class=container">
             <b>* Subject: </b><br>
-            <input class="rounded" type="text" name="subjectTitle" id="subject" maxlength="30" size="30">
+            <input class="rounded" type="text" name="subjectTitle" id="subject" maxlength="30" size="30" value="@ticketFormValues.getTicketSubjectTitle">
         </div>
         <br>
         <div>

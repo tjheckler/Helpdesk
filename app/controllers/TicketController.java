@@ -660,7 +660,7 @@ public class TicketController extends ApplicationController
                     .createQuery(regionSql, Region.class).getResultList();
 
             return ok(views.html.Ticket.newticket.render(locations, ticketStatuses,
-                    siteAdmins, priorities, categories, regions, ticketFormValues, "* Indicates Required Field. "));
+                    siteAdmins, priorities, categories, regions, ticketFormValues, "* Indicates Required Field. ",true));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -813,7 +813,7 @@ public class TicketController extends ApplicationController
                 return redirect(routes.TicketController.getTickets());
             } else
             {
-                return ok(views.html.Ticket.newticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, ""));
+                return ok(views.html.Ticket.newticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "",false));
             }
 
         } else
@@ -882,7 +882,7 @@ public class TicketController extends ApplicationController
 
         TicketFormValues ticketFormValues = new TicketFormValues();
 
-        return ok(views.html.Ticket.newticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "* Indicates Required Field"));
+        return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "* Indicates Required Field",true));
 
     }
 
@@ -1027,7 +1027,7 @@ public class TicketController extends ApplicationController
             return redirect(routes.HomeController.getTicketSent());
         } else
         {
-            return ok(views.html.Ticket.newticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, ""));
+            return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "",false));
         }
 
     }

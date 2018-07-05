@@ -168,12 +168,12 @@ public class TicketFormValues
             valid = false;
         }
 
-        if(getTicketName() == null ||getTicketName().length() == 0)
+        if(getTicketName() == null || (getTicketName().length() == 0 && getTicketName().length() >50 ))
         {
             valid = false;
         }
 
-        if(getTicketSubjectTitle() == null || getTicketSubjectTitle().length() == 0)
+        if(getTicketSubjectTitle() == null || (getTicketSubjectTitle().length() == 0 && getTicketSubjectTitle().length() > 50))
         {
             valid = false;
         }
@@ -183,12 +183,12 @@ public class TicketFormValues
             valid = false;
         }
 
-        if (getTicketEmailAddress() == null || getTicketEmailAddress().length() == 0 || !getTicketEmailAddress().contains("@"))
+        if (getTicketEmailAddress() == null || (getTicketEmailAddress().length() == 0 && getTicketEmailAddress().length() > 50)|| !getTicketEmailAddress().contains("@"))
         {
             valid = false;
         }
 
-        if (getTicketPhoneNumber() == null ||getTicketPhoneNumber().length() < 10)
+        if (getTicketPhoneNumber() == null || (getTicketPhoneNumber().length() < 10 && getTicketPhoneNumber().length() > 15))
         {
             valid = false;
         }
@@ -215,6 +215,10 @@ public class TicketFormValues
         if (getTicketPhoneNumber() == null || getTicketPhoneNumber().length() < 10)
         {
             messages.add(" Please Enter a Valid 10 Digit Phone Number Including Area Code. ");
+        }
+        else if (getTicketPhoneNumber().length() > 15)
+        {
+            messages.add(" Phone Number Length is too Long. ");
         }
 
         if(getTicketDescription() ==null || getTicketDescription().length() == 0 || getTicketDescription().length() > 255)
