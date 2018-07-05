@@ -61,7 +61,7 @@
             <div class="col-md-6">
                 <b>* Category: </b><br>
                 <select class="rounded" name="categoryId" id="categoryId">
-                    <option value="0">Choose Category</option>
+                    <option value="@ticketFormValues.getTicketCategoryId">Choose Category</option>
                     @for(category<-categories){
 
                     <option value="@category.getCategoryId">
@@ -81,7 +81,7 @@
             <div class="col-md-6">
                 <b>* Current Location: </b><br>
                 <select class="rounded" name="locationId" id="locationId">
-                    <option value="0">Choose Location</option>
+                    <option value="@ticketFormValues.getTicketLocationId">Choose Location</option>
                     @for(location<-locations){
 
                     <option value="@location.getLocationId">
@@ -96,7 +96,7 @@
             <div class="col-md-6">
                 <b>* Priority: </b><br>
                 <select class="rounded" name="priorityId" id="priorityId">
-                    <option value="0">Choose Priority</option>
+                    <option value="@ticketFormValues.getTicketPriorityId">Choose Priority</option>
                     @for(priority<-priorities){
 
                     <option value="@priority.getPriorityId">
@@ -141,7 +141,8 @@
         <div>
             <label><b>* Description:</b></label>
             <br>
-            <textarea class="rounded" type="text" name="description" cols="100" rows="10" id="description" maxlength="255"></textarea>
+            <textarea class="rounded" type="text" name="description" cols="100" rows="10" id="description"
+                      maxlength="255">@ticketFormValues.getTicketDescription</textarea>
             <br>
             <label>255 Characters Allowed</label>
             <br>
