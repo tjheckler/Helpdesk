@@ -39,8 +39,8 @@
             </div>
             <div class="col-md-6">
                 <b>* Email Address: </b><br>
-                <input class="rounded" type="text" name="emailAddress" id="emailAddress"
-                                             maxlength="30" size="30" placeholder="someone@@example.com">
+                <input class="rounded" type="email" name="emailAddress" id="emailAddress"
+                                             maxlength="30" size="30" placeholder="someone@@example.com" pattern="[^@@]+@@+\.[a-zA-Z]{2,}">
             </div>
         </div>
         <br>
@@ -48,7 +48,7 @@
             <div class="col-md-6">
                 <b>* PhoneNumber: </b><br>
                 <input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
-                                           maxlength="30" size="30" placeholder="example 5015551214"><br>
+                                           maxlength="30" size="30" placeholder="example 5015551214" pattern="[0-9]{10}"><br>
             </div>
             <div class="col-md-6">
                 <b>* Role: </b><br>

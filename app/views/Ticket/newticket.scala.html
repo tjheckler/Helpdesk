@@ -45,12 +45,12 @@
             <div class="col-md-6">
                 <b>* Phone Number: </b><br>
                 <input class="rounded" type="text" name="phoneNumber" id="phoneNumber" maxlength="10"
-                       placeholder="example 5015551214" value="@ticketFormValues.getTicketPhoneNumber">
+                       placeholder="example 5015551214" pattern="[0-9]{10}" value="@ticketFormValues.getTicketPhoneNumber">
             </div>
             <div class="col-md-6">
                 <b>* Email Address: </b><br>
                 <input class="rounded" type="text" name="emailAddress" id="emailAddress" maxlength="30"
-                       placeholder="somone@@example.com" value="@ticketFormValues.getTicketEmailAddress">
+                       placeholder="somone@@example.com" value="@ticketFormValues.getTicketEmailAddress" pattern="[^@@]+@@+\.[a-zA-Z]{2,}">
             </div>
         </div>
         <br>

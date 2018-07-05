@@ -67,7 +67,7 @@
             </div>
             <div class="col-md-6">
                 <b>* Email Address: </b><br>
-                <input class="rounded" type="text" name="emailAddress" id="emailAddress"
+                <input class="rounded" type="email" name="emailAddress" id="emailAddress"
                        value="@siteAdmin.getEmailAddress" minlength="1"
                        maxlength="30" size="30">
             </div>
@@ -83,7 +83,7 @@
             <div class="col-md-6">
                 <b>* Phone Number: </b><br>
                 <input class="rounded" type="text" name="phoneNumber" id="phoneNumber"
-                       value="@siteAdmin.getPhoneNumber" minlength="1"
+                       value="@siteAdmin.getPhoneNumber" minlength="1" pattern="[0-9]{10}"
                        maxlength="30" size="30">
             </div>
         </div>
