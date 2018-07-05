@@ -246,7 +246,18 @@ public class SiteAdminController extends ApplicationController
     {
         if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
         {
-            //add a join
+            DynamicForm form = formFactory.form().bindFromRequest();
+
+            SiteAdminFormValues siteAdminFormValues = new SiteAdminFormValues();
+            siteAdminFormValues.setAdminSiteAdminName(form.get("siteAdmin"));
+            siteAdminFormValues.setAdminLocationId(form.get("locationId"));
+            siteAdminFormValues.setAdminPhoneNumber(form.get("phoneNumber"));
+            siteAdminFormValues.setAdminEmailAddress(form.get("emailAddress"));
+            siteAdminFormValues.setAdminSiteRole(form.get("role"));
+            siteAdminFormValues.setAdminUsername(form.get("username"));
+            siteAdminFormValues.setAdminPassword(form.get("password"));
+
+
             String regionSql = "SELECT r FROM Region r ";
 
             List<Region> regions = jpaApi.em().createQuery
@@ -256,8 +267,19 @@ public class SiteAdminController extends ApplicationController
 
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
+
+            //Check if siteAdmin already exists by username or emailAddress
+
+            String sql = "SELECT sa FROM SiteAdmin sa " +
+                    "WHERE username = :username " +
+                    "OR emailAddress = :emailAddress";
+
+            List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).
+                    setParameter("username", siteAdminFormValues.getAdminUsername()).
+                    setParameter("emailAddress", siteAdminFormValues.getAdminEmailAddress()).getResultList();
+
             return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
-                    locations, "* Indicates Required Field", ""));
+                    locations, "* Indicates Required Field", "",siteAdminFormValues, true));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
@@ -303,7 +325,7 @@ public class SiteAdminController extends ApplicationController
             if (siteAdmins.size() == 1)
             {
                 return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
-                        locations, "* Indicates Required Field", "User Already Exists Try Another Email Or Username"));
+                        locations, "* Indicates Required Field", "User Already Exists Try Another Email Or Username",siteAdminFormValues,false));
             } else
             {
 
@@ -336,7 +358,8 @@ public class SiteAdminController extends ApplicationController
 
                 } else
                 {
-                    return redirect(routes.SiteAdminController.getNewSiteAdmin("Some Values Were Empty Try Again"));
+                    return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
+                            locations, "* Indicates Required Field", "",siteAdminFormValues,false));
                 }
             }
             return redirect(routes.SiteAdminController.getSiteAdmins());

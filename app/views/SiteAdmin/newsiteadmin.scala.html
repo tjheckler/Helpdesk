@@ -1,4 +1,4 @@
-@(regions:List[Region],locations:List[Location],message:String,message2:String)
+@(regions:List[Region],locations:List[Location],message:String,message2:String,siteAdminFormValues:SiteAdminFormValues,firstLoad:Boolean)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -17,11 +17,19 @@
         <h1>Create New Site Admin</h1>
     </div>
     <form method="post" class="form-control">
+        @if(!firstLoad){
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                @siteAdminFormValues.getMessages()
+            </div>
+            <div class="col-1"></div>
+        </div>
+        }else{
         @message
         <br>
         @message2
-
-        <br>
+        }<br>
         @CSRF.formField
         <div class="row">
             <div class="col-md-6">
