@@ -128,7 +128,7 @@ public class SiteAdminController extends ApplicationController
                     jpaApi.em().persist(siteAdmin);
                 } catch (Exception e)
                 {
-
+                    e.getCause();
                 }
 
 
@@ -351,7 +351,7 @@ public class SiteAdminController extends ApplicationController
                         siteAdmin.setFlag(flag);
                     } catch (Exception e)
                     {
-
+                        e.getCause();
                     }
                     jpaApi.em().persist(siteAdmin);
 
@@ -445,7 +445,7 @@ public class SiteAdminController extends ApplicationController
                 jpaApi.em().persist(siteAdmin);
             } catch (Exception e)
             {
-                //do nothing
+                e.getCause();
             }
         }
         return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));

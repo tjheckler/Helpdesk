@@ -81,6 +81,7 @@ public class AdministrationController extends ApplicationController
                 Password.hashPassword(password.toCharArray(), salt);
             } catch (Exception e)
             {
+              e.getCause();
 
             }
         }
@@ -151,7 +152,7 @@ public class AdministrationController extends ApplicationController
                 Password.hashPassword(password.toCharArray(), salt);
             } catch (Exception e)
             {
-
+                    e.getCause();
             }
         }
 
@@ -216,7 +217,7 @@ public class AdministrationController extends ApplicationController
                     return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
                 } catch (Exception e)
                 {
-
+                        e.getCause();
                 }
             } else
             {
@@ -268,11 +269,11 @@ public class AdministrationController extends ApplicationController
                     Email.sendPasswordEmail("Enter this temporary password to login: " + password, email);
                 } catch (Exception e)
                 {
-
+                    e.getCause();
                 }
             } else
             {
-
+                    return redirect(routes.AdministrationController.getNewPassword(siteAdmins.get(i).getSiteAdminId()));
             }
         }
         return ok(views.html.Administration.emailsent.render());

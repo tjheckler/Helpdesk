@@ -284,17 +284,20 @@ public class TicketController extends ApplicationController
 
         List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                 .setParameter("ticketsId", ticketsId).getResultList();
-
-        Date statusDateChanged = new Date();
-        int statusId = Integer.parseInt(form.get("statusId"));
-        int priorityId = Integer.parseInt(form.get("priorityId"));
-        int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
-
-        ticket.setStatusId(statusId);
-        ticket.setPriority(priorityId);
-        ticket.setSiteAdmin(siteAdminId);
-        ticket.setStatusDateChanged(statusDateChanged);
-
+        try
+        {
+            Date statusDateChanged = new Date();
+            int statusId = Integer.parseInt(form.get("statusId"));
+            int priorityId = Integer.parseInt(form.get("priorityId"));
+            int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
+            ticket.setStatusId(statusId);
+            ticket.setPriority(priorityId);
+            ticket.setSiteAdmin(siteAdminId);
+            ticket.setStatusDateChanged(statusDateChanged);
+        } catch (Exception e)
+        {
+            e.getCause();
+        }
         for (int i = 0; i < siteAdmins.size() - 1; i++)
         {
             if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
@@ -344,7 +347,7 @@ public class TicketController extends ApplicationController
                 newFileDetails.setAddedFiles(Files.toByteArray(file1));
             } catch (Exception e)
             {
-                //do nothing
+                e.getCause();
             }
 
             newFileDetails.setExtension(filePart1.getContentType());
@@ -361,7 +364,7 @@ public class TicketController extends ApplicationController
 
             } catch (Exception e)
             {
-                //do nothing
+                e.getCause();
             }
             newFileDetails.setExtension(filePart2.getContentType());
             newFileDetails.setTicketId(ticketsId);
@@ -377,7 +380,7 @@ public class TicketController extends ApplicationController
 
             } catch (Exception e)
             {
-                //do nothing
+                e.getCause();
             }
             newFileDetails.setExtension(filePart3.getContentType());
             newFileDetails.setTicketId(ticketsId);
@@ -502,29 +505,33 @@ public class TicketController extends ApplicationController
 
             List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                     .setParameter("ticketsId", ticketsId).getResultList();
+            try
+            {
+                Date statusDateChanged = new Date();
+                int statusId = Integer.parseInt(form.get("statusId"));
+                int priorityId = Integer.parseInt(form.get("priorityId"));
+                int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
+                int locationId = Integer.parseInt(form.get("locationId"));
+                String computerName = form.get("computerName");
+                String assetTagNumber = form.get("assetTagNumber");
+                String subjectTitle = form.get("subjectTitle");
+                String emailAddress = form.get("emailAddress");
+                String name = form.get("name");
 
-            Date statusDateChanged = new Date();
-            int statusId = Integer.parseInt(form.get("statusId"));
-            int priorityId = Integer.parseInt(form.get("priorityId"));
-            int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
-            int locationId = Integer.parseInt(form.get("locationId"));
-            String computerName = form.get("computerName");
-            String assetTagNumber = form.get("assetTagNumber");
-            String subjectTitle = form.get("subjectTitle");
-            String emailAddress = form.get("emailAddress");
-            String name = form.get("name");
-
-            ticket.setLocation(locationId);
-            ticket.setComputerName(computerName);
-            ticket.setAssetTagNumber(assetTagNumber);
-            ticket.setSubjectTitle(subjectTitle);
-            ticket.setEmailAddress(emailAddress);
-            ticket.setName(name);
-            ticket.setPriority(priorityId);
-            ticket.setStatusId(statusId);
-            ticket.setSiteAdmin(siteAdminId);
-            ticket.setStatusDateChanged(statusDateChanged);
-
+                ticket.setLocation(locationId);
+                ticket.setComputerName(computerName);
+                ticket.setAssetTagNumber(assetTagNumber);
+                ticket.setSubjectTitle(subjectTitle);
+                ticket.setEmailAddress(emailAddress);
+                ticket.setName(name);
+                ticket.setPriority(priorityId);
+                ticket.setStatusId(statusId);
+                ticket.setSiteAdmin(siteAdminId);
+                ticket.setStatusDateChanged(statusDateChanged);
+            } catch (Exception e)
+            {
+                e.getCause();
+            }
             for (int i = 0; i < siteAdmins.size() - 1; i++)
             {
                 if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
@@ -569,7 +576,7 @@ public class TicketController extends ApplicationController
                     newFileDetails.setAddedFiles(Files.toByteArray(file1));
                 } catch (Exception e)
                 {
-                    //do nothing
+                    e.getCause();
                 }
 
                 newFileDetails.setExtension(filePart1.getContentType());
@@ -586,7 +593,7 @@ public class TicketController extends ApplicationController
 
                 } catch (Exception e)
                 {
-                    //do nothing
+                    e.getCause();
                 }
                 newFileDetails.setExtension(filePart2.getContentType());
                 newFileDetails.setTicketId(ticketsId);
@@ -602,7 +609,7 @@ public class TicketController extends ApplicationController
 
                 } catch (Exception e)
                 {
-                    //do nothing
+                    e.getCause();
                 }
                 newFileDetails.setExtension(filePart3.getContentType());
                 newFileDetails.setTicketId(ticketsId);
@@ -660,7 +667,7 @@ public class TicketController extends ApplicationController
                     .createQuery(regionSql, Region.class).getResultList();
 
             return ok(views.html.Ticket.newticket.render(locations, ticketStatuses,
-                    siteAdmins, priorities, categories, regions, ticketFormValues, "* Indicates Required Field. ",true));
+                    siteAdmins, priorities, categories, regions, ticketFormValues, "* Indicates Required Field. ", true));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -697,130 +704,134 @@ public class TicketController extends ApplicationController
                     .createQuery(regionSql, Region.class).getResultList();
             DynamicForm form = formFactory.form().bindFromRequest();
 
-            TicketFormValues ticketFormValues = new TicketFormValues();
-
-            ticketFormValues.setTicketName(form.get("name"));
-            ticketFormValues.setTicketPhoneNumber(form.get("phoneNumber"));
-            ticketFormValues.setTicketEmailAddress(form.get("emailAddress"));
-            ticketFormValues.setTicketAssetTagNumber(form.get("assetTagNumber"));
-            ticketFormValues.setTicketSubjectTitle(form.get("subjectTitle"));
-            ticketFormValues.setTicketDescription(form.get("description"));
-            ticketFormValues.setTicketComputerName(form.get("computerName"));
-            Date statusDateChanged = new Date();
-            ticketFormValues.setTicketLocationId(form.get("locationId"));
-            ticketFormValues.setTicketCategoryId(form.get("categoryId"));
-            ticketFormValues.setTicketStatusId(form.get("statusId"));
-            ticketFormValues.setTicketPriorityId(form.get("priorityId"));
-            ticketFormValues.setTicketSiteAdminId(form.get("siteAdminId"));
-
-            if (ticketFormValues.isValid())
+            try
             {
-                Ticket ticket = new Ticket();
-                ticket.setName(ticketFormValues.getTicketName());
-                ticket.setPhoneNumber(ticketFormValues.getTicketPhoneNumber());
-                ticket.setEmailAddress(ticketFormValues.getTicketEmailAddress());
-                ticket.setAssetTagNumber(ticketFormValues.getTicketAssetTagNumber());
-                ticket.setSubjectTitle(ticketFormValues.getTicketSubjectTitle());
-                ticket.setDescription(ticketFormValues.getTicketDescription());
-                ticket.setComputerName(ticketFormValues.getTicketComputerName());
-                ticket.setLocation(new Integer(ticketFormValues.getTicketLocationId()));
-                ticket.setCategory(new Integer(ticketFormValues.getTicketCategoryId()));
-                ticket.setStatusId(new Integer(ticketFormValues.getTicketStatusId()));
-                ticket.setPriority(new Integer(ticketFormValues.getTicketPriorityId()));
-                ticket.setSiteAdmin(new Integer(ticketFormValues.getTicketSiteAdminId()));
-                ticket.setStatusDateChanged(statusDateChanged);
-                jpaApi.em().persist(ticket);
+                TicketFormValues ticketFormValues = new TicketFormValues();
+                ticketFormValues.setTicketName(form.get("name"));
+                ticketFormValues.setTicketPhoneNumber(form.get("phoneNumber"));
+                ticketFormValues.setTicketEmailAddress(form.get("emailAddress"));
+                ticketFormValues.setTicketAssetTagNumber(form.get("assetTagNumber"));
+                ticketFormValues.setTicketSubjectTitle(form.get("subjectTitle"));
+                ticketFormValues.setTicketDescription(form.get("description"));
+                ticketFormValues.setTicketComputerName(form.get("computerName"));
+                Date statusDateChanged = new Date();
+                ticketFormValues.setTicketLocationId(form.get("locationId"));
+                ticketFormValues.setTicketCategoryId(form.get("categoryId"));
+                ticketFormValues.setTicketStatusId(form.get("statusId"));
+                ticketFormValues.setTicketPriorityId(form.get("priorityId"));
+                ticketFormValues.setTicketSiteAdminId(form.get("siteAdminId"));
 
-
-                Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
-                Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
-                File file1 = filePart1.getFile();
-
-                Http.MultipartFormData<File> formData2 = request().body().asMultipartFormData();
-                Http.MultipartFormData.FilePart<File> filePart2 = formData2.getFile("file2");
-                File file2 = filePart2.getFile();
-
-                Http.MultipartFormData<File> formData3 = request().body().asMultipartFormData();
-                Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
-                File file3 = filePart3.getFile();
-
-                if (file1 != null && filePart1.getFilename().length() > 0
-                        && !filePart1.getContentType().equals("zip") && !filePart1.getContentType().equals("exe"))
+                if (ticketFormValues.isValid())
                 {
-                    FileDetails newFileDetails = new FileDetails();
-                    try
+                    Ticket ticket = new Ticket();
+                    ticket.setName(ticketFormValues.getTicketName());
+                    ticket.setPhoneNumber(ticketFormValues.getTicketPhoneNumber());
+                    ticket.setEmailAddress(ticketFormValues.getTicketEmailAddress());
+                    ticket.setAssetTagNumber(ticketFormValues.getTicketAssetTagNumber());
+                    ticket.setSubjectTitle(ticketFormValues.getTicketSubjectTitle());
+                    ticket.setDescription(ticketFormValues.getTicketDescription());
+                    ticket.setComputerName(ticketFormValues.getTicketComputerName());
+                    ticket.setLocation(new Integer(ticketFormValues.getTicketLocationId()));
+                    ticket.setCategory(new Integer(ticketFormValues.getTicketCategoryId()));
+                    ticket.setStatusId(new Integer(ticketFormValues.getTicketStatusId()));
+                    ticket.setPriority(new Integer(ticketFormValues.getTicketPriorityId()));
+                    ticket.setSiteAdmin(new Integer(ticketFormValues.getTicketSiteAdminId()));
+                    ticket.setStatusDateChanged(statusDateChanged);
+                    jpaApi.em().persist(ticket);
+
+
+                    Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
+                    Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
+                    File file1 = filePart1.getFile();
+
+                    Http.MultipartFormData<File> formData2 = request().body().asMultipartFormData();
+                    Http.MultipartFormData.FilePart<File> filePart2 = formData2.getFile("file2");
+                    File file2 = filePart2.getFile();
+
+                    Http.MultipartFormData<File> formData3 = request().body().asMultipartFormData();
+                    Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
+                    File file3 = filePart3.getFile();
+
+                    if (file1 != null && filePart1.getFilename().length() > 0
+                            && !filePart1.getContentType().equals("zip") && !filePart1.getContentType().equals("exe"))
                     {
-                        newFileDetails.setAddedFiles(Files.toByteArray(file1));
-                    } catch (Exception e)
+                        FileDetails newFileDetails = new FileDetails();
+                        try
+                        {
+                            newFileDetails.setAddedFiles(Files.toByteArray(file1));
+                        } catch (Exception e)
+                        {
+                            e.getCause();
+                        }
+
+                        newFileDetails.setExtension(filePart1.getContentType());
+                        newFileDetails.setTicketId(ticket.getTicketsId());
+                        jpaApi.em().persist(newFileDetails);
+                    }
+                    if (file2 != null && filePart2.getFilename().length() > 0
+                            && !filePart2.getContentType().equals("zip") && !filePart2.getContentType().equals("exe"))
                     {
-                        //do nothing
+                        FileDetails newFileDetails = new FileDetails();
+                        try
+                        {
+                            newFileDetails.setAddedFiles(Files.toByteArray(file2));
+
+                        } catch (Exception e)
+                        {
+                            e.getCause();
+                        }
+                        newFileDetails.setExtension(filePart2.getContentType());
+                        newFileDetails.setTicketId(ticket.getTicketsId());
+                        jpaApi.em().persist(newFileDetails);
+                    }
+                    if (file3 != null && filePart3.getFilename().length() > 0
+                            && !filePart3.getContentType().equals("zip") && !filePart3.getContentType().equals("exe"))
+                    {
+                        FileDetails newFileDetails = new FileDetails();
+                        try
+                        {
+                            newFileDetails.setAddedFiles(Files.toByteArray(file3));
+
+                        } catch (Exception e)
+                        {
+                            e.getCause();
+                        }
+                        newFileDetails.setExtension(filePart3.getContentType());
+                        newFileDetails.setTicketId(ticket.getTicketsId());
+                        jpaApi.em().persist(newFileDetails);
                     }
 
-                    newFileDetails.setExtension(filePart1.getContentType());
-                    newFileDetails.setTicketId(ticket.getTicketsId());
-                    jpaApi.em().persist(newFileDetails);
-                }
-                if (file2 != null && filePart2.getFilename().length() > 0
-                        && !filePart2.getContentType().equals("zip") && !filePart2.getContentType().equals("exe"))
-                {
-                    FileDetails newFileDetails = new FileDetails();
-                    try
+                    for (int i = 0; i < siteAdmins.size() - 1; i++)
                     {
-                        newFileDetails.setAddedFiles(Files.toByteArray(file2));
+                        if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
+                        {
+                            //make a real url that consists of ticket number
+                            String url = "localhost:9000/ticket/" + ticket.getTicketsId();
+                            String email = siteAdmins.get(i).getEmailAddress();
 
-                    } catch (Exception e)
-                    {
-                        //do nothing
+                            Email.sendTicketEmail("A new ticket has been assigned to you. " +
+                                    "You can view this ticket by the following link, copy and paste " +
+                                    "to browser " + url, email);
+                        } else
+                        {
+                            //do nothing
+                        }
+
                     }
-                    newFileDetails.setExtension(filePart2.getContentType());
-                    newFileDetails.setTicketId(ticket.getTicketsId());
-                    jpaApi.em().persist(newFileDetails);
-                }
-                if (file3 != null && filePart3.getFilename().length() > 0
-                        && !filePart3.getContentType().equals("zip") && !filePart3.getContentType().equals("exe"))
+                    return redirect(routes.TicketController.getTickets());
+                } else
                 {
-                    FileDetails newFileDetails = new FileDetails();
-                    try
-                    {
-                        newFileDetails.setAddedFiles(Files.toByteArray(file3));
-
-                    } catch (Exception e)
-                    {
-                        //do nothing
-                    }
-                    newFileDetails.setExtension(filePart3.getContentType());
-                    newFileDetails.setTicketId(ticket.getTicketsId());
-                    jpaApi.em().persist(newFileDetails);
+                    return ok(views.html.Ticket.newticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "", false));
                 }
-
-                for (int i = 0; i < siteAdmins.size() - 1; i++)
-                {
-                    if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
-                    {
-                        //make a real url that consists of ticket number
-                        String url = "localhost:9000/ticket/" + ticket.getTicketsId();
-                        String email = siteAdmins.get(i).getEmailAddress();
-
-                        Email.sendTicketEmail("A new ticket has been assigned to you. " +
-                                "You can view this ticket by the following link, copy and paste " +
-                                "to browser " + url, email);
-                    } else
-                    {
-                        //do nothing
-                    }
-
-                }
-                return redirect(routes.TicketController.getTickets());
-            } else
+            } catch (Exception e)
             {
-                return ok(views.html.Ticket.newticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "",false));
+                e.getCause();
             }
-
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
-
+        return redirect(routes.TicketController.getNewTicket());
     }
 
     @Transactional
@@ -882,7 +893,7 @@ public class TicketController extends ApplicationController
 
         TicketFormValues ticketFormValues = new TicketFormValues();
 
-        return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "* Indicates Required Field",true));
+        return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "* Indicates Required Field", true));
 
     }
 
@@ -913,123 +924,130 @@ public class TicketController extends ApplicationController
         List<Region> regions = jpaApi.em()
                 .createQuery(regionSql, Region.class).getResultList();
         DynamicForm form = formFactory.form().bindFromRequest();
-        TicketFormValues ticketFormValues = new TicketFormValues();
-
-        ticketFormValues.setTicketName(form.get("name"));
-        ticketFormValues.setTicketPhoneNumber(form.get("phoneNumber"));
-        ticketFormValues.setTicketEmailAddress(form.get("emailAddress"));
-        ticketFormValues.setTicketAssetTagNumber(form.get("assetTagNumber"));
-        ticketFormValues.setTicketSubjectTitle(form.get("subjectTitle"));
-        ticketFormValues.setTicketDescription(form.get("description"));
-        ticketFormValues.setTicketComputerName(form.get("computerName"));
-        Date statusDateChanged = new Date();
-        ticketFormValues.setTicketLocationId(form.get("locationId"));
-        ticketFormValues.setTicketCategoryId(form.get("categoryId"));
-        ticketFormValues.setTicketStatusId(form.get("statusId"));
-        ticketFormValues.setTicketPriorityId(form.get("priorityId"));
-        ticketFormValues.setTicketSiteAdminId(form.get("siteAdminId"));
-        if (ticketFormValues.isValid())
+        try
         {
-            Ticket ticket = new Ticket();
-            ticket.setName(ticketFormValues.getTicketName());
-            ticket.setPhoneNumber(ticketFormValues.getTicketPhoneNumber());
-            ticket.setEmailAddress(ticketFormValues.getTicketEmailAddress());
-            ticket.setAssetTagNumber(ticketFormValues.getTicketAssetTagNumber());
-            ticket.setSubjectTitle(ticketFormValues.getTicketSubjectTitle());
-            ticket.setDescription(ticketFormValues.getTicketDescription());
-            ticket.setComputerName(ticketFormValues.getTicketComputerName());
-            ticket.setLocation(new Integer(ticketFormValues.getTicketLocationId()));
-            ticket.setCategory(new Integer(ticketFormValues.getTicketCategoryId()));
-            ticket.setStatusId(new Integer(ticketFormValues.getTicketStatusId()));
-            ticket.setPriority(new Integer(ticketFormValues.getTicketPriorityId()));
-            ticket.setSiteAdmin(new Integer(ticketFormValues.getTicketSiteAdminId()));
-            ticket.setStatusDateChanged(statusDateChanged);
-            jpaApi.em().persist(ticket);
+            TicketFormValues ticketFormValues = new TicketFormValues();
 
-
-            Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
-            Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
-            File file1 = filePart1.getFile();
-
-            Http.MultipartFormData<File> formData2 = request().body().asMultipartFormData();
-            Http.MultipartFormData.FilePart<File> filePart2 = formData2.getFile("file2");
-            File file2 = filePart2.getFile();
-
-            Http.MultipartFormData<File> formData3 = request().body().asMultipartFormData();
-            Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
-            File file3 = filePart3.getFile();
-
-            if (file1 != null && filePart1.getFilename().length() > 0 && !filePart1.getContentType().equals("zip")
-                    && !filePart1.getContentType().equals("exe"))
+            ticketFormValues.setTicketName(form.get("name"));
+            ticketFormValues.setTicketPhoneNumber(form.get("phoneNumber"));
+            ticketFormValues.setTicketEmailAddress(form.get("emailAddress"));
+            ticketFormValues.setTicketAssetTagNumber(form.get("assetTagNumber"));
+            ticketFormValues.setTicketSubjectTitle(form.get("subjectTitle"));
+            ticketFormValues.setTicketDescription(form.get("description"));
+            ticketFormValues.setTicketComputerName(form.get("computerName"));
+            Date statusDateChanged = new Date();
+            ticketFormValues.setTicketLocationId(form.get("locationId"));
+            ticketFormValues.setTicketCategoryId(form.get("categoryId"));
+            ticketFormValues.setTicketStatusId(form.get("statusId"));
+            ticketFormValues.setTicketPriorityId(form.get("priorityId"));
+            ticketFormValues.setTicketSiteAdminId(form.get("siteAdminId"));
+            if (ticketFormValues.isValid())
             {
-                FileDetails newFileDetails = new FileDetails();
-                try
+                Ticket ticket = new Ticket();
+                ticket.setName(ticketFormValues.getTicketName());
+                ticket.setPhoneNumber(ticketFormValues.getTicketPhoneNumber());
+                ticket.setEmailAddress(ticketFormValues.getTicketEmailAddress());
+                ticket.setAssetTagNumber(ticketFormValues.getTicketAssetTagNumber());
+                ticket.setSubjectTitle(ticketFormValues.getTicketSubjectTitle());
+                ticket.setDescription(ticketFormValues.getTicketDescription());
+                ticket.setComputerName(ticketFormValues.getTicketComputerName());
+                ticket.setLocation(new Integer(ticketFormValues.getTicketLocationId()));
+                ticket.setCategory(new Integer(ticketFormValues.getTicketCategoryId()));
+                ticket.setStatusId(new Integer(ticketFormValues.getTicketStatusId()));
+                ticket.setPriority(new Integer(ticketFormValues.getTicketPriorityId()));
+                ticket.setSiteAdmin(new Integer(ticketFormValues.getTicketSiteAdminId()));
+                ticket.setStatusDateChanged(statusDateChanged);
+                jpaApi.em().persist(ticket);
+
+
+                Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
+                Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
+                File file1 = filePart1.getFile();
+
+                Http.MultipartFormData<File> formData2 = request().body().asMultipartFormData();
+                Http.MultipartFormData.FilePart<File> filePart2 = formData2.getFile("file2");
+                File file2 = filePart2.getFile();
+
+                Http.MultipartFormData<File> formData3 = request().body().asMultipartFormData();
+                Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
+                File file3 = filePart3.getFile();
+
+                if (file1 != null && filePart1.getFilename().length() > 0 && !filePart1.getContentType().equals("zip")
+                        && !filePart1.getContentType().equals("exe"))
                 {
-                    newFileDetails.setAddedFiles(Files.toByteArray(file1));
-                } catch (Exception e)
+                    FileDetails newFileDetails = new FileDetails();
+                    try
+                    {
+                        newFileDetails.setAddedFiles(Files.toByteArray(file1));
+                    } catch (Exception e)
+                    {
+                        e.getCause();
+                    }
+
+                    newFileDetails.setExtension(filePart1.getContentType());
+                    newFileDetails.setTicketId(ticket.getTicketsId());
+                    jpaApi.em().persist(newFileDetails);
+                }
+                if (file2 != null && filePart2.getFilename().length() > 0 && !filePart2.getContentType().equals("zip")
+                        && !filePart2.getContentType().equals("exe"))
                 {
-                    //do nothing
+                    FileDetails newFileDetails = new FileDetails();
+                    try
+                    {
+                        newFileDetails.setAddedFiles(Files.toByteArray(file2));
+
+                    } catch (Exception e)
+                    {
+                        e.getCause();
+                    }
+                    newFileDetails.setExtension(filePart2.getContentType());
+                    newFileDetails.setTicketId(ticket.getTicketsId());
+                    jpaApi.em().persist(newFileDetails);
+                }
+                if (file3 != null && filePart3.getFilename().length() > 0 && !filePart3.getContentType().equals("zip")
+                        && !filePart3.getContentType().equals("exe"))
+                {
+                    FileDetails newFileDetails = new FileDetails();
+                    try
+                    {
+                        newFileDetails.setAddedFiles(Files.toByteArray(file3));
+
+                    } catch (Exception e)
+                    {
+                        e.getCause();
+                    }
+                    newFileDetails.setExtension(filePart3.getContentType());
+                    newFileDetails.setTicketId(ticket.getTicketsId());
+                    jpaApi.em().persist(newFileDetails);
                 }
 
-                newFileDetails.setExtension(filePart1.getContentType());
-                newFileDetails.setTicketId(ticket.getTicketsId());
-                jpaApi.em().persist(newFileDetails);
-            }
-            if (file2 != null && filePart2.getFilename().length() > 0 && !filePart2.getContentType().equals("zip")
-                    && !filePart2.getContentType().equals("exe"))
-            {
-                FileDetails newFileDetails = new FileDetails();
-                try
+                for (int i = 0; i < siteAdmins.size() - 1; i++)
                 {
-                    newFileDetails.setAddedFiles(Files.toByteArray(file2));
+                    if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
+                    {
+                        //make a real url that consists of ticket number
+                        String url = "localhost:9000/ticket/" + ticket.getTicketsId();
+                        String email = siteAdmins.get(i).getEmailAddress();
 
-                } catch (Exception e)
-                {
-                    //do nothing
+                        Email.sendTicketEmail("A new ticket has been assigned to you. You can view this ticket " +
+                                "by the following link, copy and paste to browser " + url, email);
+                    } else
+                    {
+                        //do nothing
+                    }
+
                 }
-                newFileDetails.setExtension(filePart2.getContentType());
-                newFileDetails.setTicketId(ticket.getTicketsId());
-                jpaApi.em().persist(newFileDetails);
-            }
-            if (file3 != null && filePart3.getFilename().length() > 0 && !filePart3.getContentType().equals("zip")
-                    && !filePart3.getContentType().equals("exe"))
+                return redirect(routes.HomeController.getTicketSent());
+
+            } else
             {
-                FileDetails newFileDetails = new FileDetails();
-                try
-                {
-                    newFileDetails.setAddedFiles(Files.toByteArray(file3));
-
-                } catch (Exception e)
-                {
-                    // do nothing
-                }
-                newFileDetails.setExtension(filePart3.getContentType());
-                newFileDetails.setTicketId(ticket.getTicketsId());
-                jpaApi.em().persist(newFileDetails);
+                return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "", false));
             }
-
-            for (int i = 0; i < siteAdmins.size() - 1; i++)
-            {
-                if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
-                {
-                    //make a real url that consists of ticket number
-                    String url = "localhost:9000/ticket/" + ticket.getTicketsId();
-                    String email = siteAdmins.get(i).getEmailAddress();
-
-                    Email.sendTicketEmail("A new ticket has been assigned to you. You can view this ticket " +
-                            "by the following link, copy and paste to browser " + url, email);
-                } else
-                {
-                    //do nothing
-                }
-
-            }
-            return redirect(routes.HomeController.getTicketSent());
-        } else
+        } catch (Exception e)
         {
-            return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "",false));
+            e.getCause();
         }
-
+        return redirect(routes.TicketController.getCustomerTicket());
     }
 
 }
