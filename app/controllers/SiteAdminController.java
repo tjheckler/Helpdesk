@@ -212,8 +212,8 @@ public class SiteAdminController extends ApplicationController
 
             if (siteAdmins.size() == 1)
             {
-                return ok(views.html.SiteAdmin.siteadminedit.render(siteAdmin,
-                        locations, regions, "User Already Exists Try Another Email Or Username"));
+                return ok(views.html.SiteAdmin.siteadminedit.render(siteAdmin, locations, regions,
+                        "User Already Exists Try Changing Both Email And Username Or Delete"));
             } else
             {
                 if (siteAdminName != null && phoneNumber != null && (phoneNumber.length() >= 9)
@@ -280,7 +280,7 @@ public class SiteAdminController extends ApplicationController
                     setParameter("emailAddress", siteAdminFormValues.getAdminEmailAddress()).getResultList();
 
             return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
-                    locations, "* Indicates Required Field",
+                    locations, "* Indicates Required Field Double Check Spelling Errors Before Submit",
                     "",siteAdminFormValues, true));
         } else
         {
@@ -314,7 +314,24 @@ public class SiteAdminController extends ApplicationController
 
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
+            //Check for existing siteAdmin
+           String sql = "SELECT sa FROM SiteAdmin sa " +
+                    "WHERE username = :username " +
+                    "OR emailAddress = :emailAddress";
 
+            List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).
+                    setParameter("username", siteAdminFormValues.getAdminUsername()).
+                    setParameter("emailAddress", siteAdminFormValues.getAdminEmailAddress()).getResultList();
+
+
+            if (siteAdmins.size() == 1)
+            {
+                return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
+                        locations, "",
+                        "User Already Exists Try Another Email Or Username",
+                        siteAdminFormValues, true));
+            } else
+            {
 
                 if (siteAdminFormValues.isValid())
                 {
@@ -348,9 +365,9 @@ public class SiteAdminController extends ApplicationController
                 {
                     return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
                             locations, "* Indicates Required Field",
-                            "",siteAdminFormValues,false));
+                            "", siteAdminFormValues, false));
                 }
-
+            }
             return redirect(routes.SiteAdminController.getSiteAdmins());
 
         } else
@@ -397,7 +414,8 @@ public class SiteAdminController extends ApplicationController
                 return redirect(routes.SiteAdminController.getSiteAdmins());
             }
             return ok(views.html.SiteAdmin.siteadmin.render(siteAdmin,
-                    locations, regions, "", "* Cannot Delete, User is Assigned to a Ticket *"));
+                    locations, regions, "",
+                    "* Cannot Delete, User is Assigned to at least one Ticket *"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));

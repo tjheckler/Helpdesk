@@ -53,8 +53,7 @@
         </div>
     </div>
     <form method="post" class="form-control" enctype="multipart/form-data">
-        @if(siteAdmin.getSiteRole.equals("Admin")){
-        @message}else{}
+        @message
         <br>
         @CSRF.formField
         <div class="row">
