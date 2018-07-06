@@ -153,7 +153,8 @@ public class LocationController extends ApplicationController
             {
                 Location location = new Location();
                 int regionalId = Integer.parseInt(form.get("regionId"));
-                if (locationName != null && regionalId > 0 && locationName.length() !=0 && locationName.length() < 50)
+                if (locationName != null && regionalId > 0 && locationName.length()
+                        !=0 && locationName.length() < 50)
                 {
                     location.setLocationName(locationName);
                     location.setRegionId(regionalId);

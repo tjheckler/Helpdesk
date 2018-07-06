@@ -77,7 +77,8 @@ public class InventoryController extends ApplicationController
             String locationSql = "SELECT l FROM Location l ";
             List<Location> locations = jpaApi.em()
                     .createQuery(locationSql, Location.class).getResultList();
-            return ok(views.html.Inventory.inventory.render(inventory, locations, "* Indicates Required Fields"));
+            return ok(views.html.Inventory.inventory.render(inventory, locations,
+                    "* Indicates Required Fields"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
@@ -140,7 +141,8 @@ public class InventoryController extends ApplicationController
             String locationSql = "SELECT l FROM Location l ";
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
-            return ok(views.html.Inventory.newinventory.render(regions, locations, "* Indicates Required Fields",inventoryFormValues,true));
+            return ok(views.html.Inventory.newinventory.render(regions, locations,
+                    "* Indicates Required Fields",inventoryFormValues,true));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
@@ -177,7 +179,8 @@ public class InventoryController extends ApplicationController
                 jpaApi.em().persist(inventory);
             } else
             {
-                return ok(views.html.Inventory.newinventory.render(regions, locations, "* Indicates Required Fields",inventoryFormValues,false));
+                return ok(views.html.Inventory.newinventory.render(regions, locations,
+                        "* Indicates Required Fields",inventoryFormValues,false));
             }
 
             return redirect(routes.InventoryController.getInventories());

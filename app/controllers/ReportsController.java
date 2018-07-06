@@ -94,7 +94,8 @@ public class ReportsController extends ApplicationController
                     createQuery(replySql, TicketReplyCount.class).getResultList();
 
         return ok(views.html.Report.reports.render(ticketCategoryCounts, ticketSiteAdminCounts,
-                ticketPriorityCounts, ticketLocationCounts, ticketRegionCounts, inventoryLocationCounts,ticketReplyCounts));
+                ticketPriorityCounts, ticketLocationCounts, ticketRegionCounts,
+                inventoryLocationCounts,ticketReplyCounts));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));

@@ -132,7 +132,8 @@ public class CategoryController extends ApplicationController
                     setParameter("categoryName", categoryName).getResultList();
             if (categories.size() == 1)
             {
-                return ok(views.html.Category.newcategory.render(categories, "Category Already Exists Try Another Category"));
+                return ok(views.html.Category.newcategory.render(categories,
+                        "Category Already Exists Try Another Category"));
             } else
             {
                 Category category = new Category();
@@ -142,7 +143,8 @@ public class CategoryController extends ApplicationController
 
                 } else
                 {
-                    return ok(views.html.Category.newcategory.render(categories," Category Name Cannot be Empty or more than 50 Characters. "));
+                    return ok(views.html.Category.newcategory.render(categories,
+                            " Category Name Cannot be Empty or more than 50 Characters. "));
                 }
                 jpaApi.em().persist(category);
             }

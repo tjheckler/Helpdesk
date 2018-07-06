@@ -216,8 +216,9 @@ public class SiteAdminController extends ApplicationController
                         locations, regions, "User Already Exists Try Another Email Or Username"));
             } else
             {
-                if (siteAdminName != null && phoneNumber != null && (phoneNumber.length() >= 9) && emailAddress != null
-                        && emailAddress.contains("@") && username != null && locationId > 0)
+                if (siteAdminName != null && phoneNumber != null && (phoneNumber.length() >= 9)
+                        && emailAddress != null && emailAddress.contains("@") &&
+                        username != null && locationId > 0)
                 {
 
                     siteAdmin.setSiteAdminName(siteAdminName);
@@ -279,7 +280,8 @@ public class SiteAdminController extends ApplicationController
                     setParameter("emailAddress", siteAdminFormValues.getAdminEmailAddress()).getResultList();
 
             return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
-                    locations, "* Indicates Required Field", "",siteAdminFormValues, true));
+                    locations, "* Indicates Required Field",
+                    "",siteAdminFormValues, true));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
@@ -325,7 +327,9 @@ public class SiteAdminController extends ApplicationController
             if (siteAdmins.size() == 1)
             {
                 return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
-                        locations, "* Indicates Required Field", "User Already Exists Try Another Email Or Username",siteAdminFormValues,false));
+                        locations, "* Indicates Required Field",
+                        "User Already Exists Try Another Email Or Username",
+                        siteAdminFormValues,false));
             } else
             {
 
@@ -338,7 +342,8 @@ public class SiteAdminController extends ApplicationController
                     {
                         String flag = "True";
                         byte salt[] = Password.getNewSalt();
-                        byte hashedPassword[] = Password.hashPassword(siteAdminFormValues.getAdminPassword().toCharArray(), salt);
+                        byte hashedPassword[] = Password.hashPassword(siteAdminFormValues
+                                .getAdminPassword().toCharArray(), salt);
 
                         siteAdmin.setSiteAdminName(siteAdminFormValues.getAdminSiteAdminName());
                         siteAdmin.setPhoneNumber(siteAdminFormValues.getAdminPhoneNumber());
@@ -359,7 +364,8 @@ public class SiteAdminController extends ApplicationController
                 } else
                 {
                     return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
-                            locations, "* Indicates Required Field", "",siteAdminFormValues,false));
+                            locations, "* Indicates Required Field",
+                            "",siteAdminFormValues,false));
                 }
             }
             return redirect(routes.SiteAdminController.getSiteAdmins());

@@ -36,10 +36,12 @@ public class AdministrationController extends ApplicationController
             return ok(views.html.Administration.admin.render());
         } else if (isLoggedIn() && !getLoggedInSiteAdminRole().equals("Admin"))
         {
-            return redirect(routes.AdministrationController.getLogin("Login With Administrator Credentials"));
+            return redirect(routes.AdministrationController.getLogin(
+                    "Login With Administrator Credentials"));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("Login With Administrator Credentials"));
+            return redirect(routes.AdministrationController.getLogin(
+                    "Login With Administrator Credentials"));
         }
     }
 
@@ -71,7 +73,8 @@ public class AdministrationController extends ApplicationController
                 return redirect(routes.AdministrationController.getAdministration());
             } else
             {
-                return ok(views.html.Administration.login.render("Invalid username or password", ""));
+                return ok(views.html.Administration.login.render(
+                        "Invalid username or password", ""));
             }
         } else
         {
@@ -86,7 +89,8 @@ public class AdministrationController extends ApplicationController
             }
         }
 
-        return ok(views.html.Administration.login.render("Invalid username or password", ""));
+        return ok(views.html.Administration.login.render(
+                "Invalid username or password", ""));
 
     }
 
@@ -124,7 +128,8 @@ public class AdministrationController extends ApplicationController
             byte salt[] = siteAdmin.getPasswordSalt();
             byte hashedPassword[] = Password.hashPassword(password.toCharArray(), salt);
 
-            if (Arrays.equals(hashedPassword, siteAdmin.getPassword()) && siteAdmin.getFlag().equals("True"))
+            if (Arrays.equals(hashedPassword, siteAdmin.getPassword()) &&
+                    siteAdmin.getFlag().equals("True"))
             {
                 session().put("loggedin", "" + siteAdmin.getSiteAdminId());
                 session().put("role", "" + siteAdmin.getSiteRole());
@@ -135,14 +140,16 @@ public class AdministrationController extends ApplicationController
                 jpaApi.em().persist(siteAdmin);
                 return redirect(routes.AdministrationController.getNewPassword(siteAdmin.getSiteAdminId()));
 
-            } else if (Arrays.equals(hashedPassword, siteAdmin.getPassword()) && siteAdmin.getFlag().equals("False"))
+            } else if (Arrays.equals(hashedPassword, siteAdmin.getPassword()) &&
+                    siteAdmin.getFlag().equals("False"))
             {
                 session().put("loggedin", "" + siteAdmin.getSiteAdminId());
                 session().put("role", "" + siteAdmin.getSiteRole());
                 return redirect(routes.SiteAdminController.getSiteAdmin(siteAdmin.getSiteAdminId()));
             } else
             {
-                return ok(views.html.Administration.login.render("Invalid username or password", ""));
+                return ok(views.html.Administration.login.render(
+                        "Invalid username or password", ""));
             }
         } else
         {
@@ -200,7 +207,8 @@ public class AdministrationController extends ApplicationController
                     byte salt[] = Password.getNewSalt();
                     siteAdmin.setPasswordSalt(salt);
                     siteAdmin.setPassword(Password.hashPassword(passwordMatch.toCharArray(), salt));
-                    if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin") && getLoggedInSiteAdminId() == siteAdminId)
+                    if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin")
+                            && getLoggedInSiteAdminId() == siteAdminId)
                     {
                         String flag = "False";
                         siteAdmin.setFlag(flag);
@@ -223,10 +231,12 @@ public class AdministrationController extends ApplicationController
             {
 
             }
-            return ok(views.html.Administration.newpassword.render("Password Does Not Match", siteAdmin));
+            return ok(views.html.Administration.newpassword.render(
+                    "Password Does Not Match", siteAdmin));
         } else
         {
-            return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
+            return redirect(routes.AdministrationController.getLogin(
+                    "You Are Not Logged In"));
         }
 
     }
@@ -266,14 +276,16 @@ public class AdministrationController extends ApplicationController
                     siteAdmins.get(i).setPassword(hashedPassword);
                     siteAdmins.get(i).setFlag(flag);
                     jpaApi.em().persist(siteAdmins.get(i));
-                    Email.sendPasswordEmail("Enter this temporary password to login: " + password, email);
+                    Email.sendPasswordEmail("Enter this temporary password to login: "
+                            + password, email);
                 } catch (Exception e)
                 {
                     e.getCause();
                 }
             } else
             {
-                    return redirect(routes.AdministrationController.getNewPassword(siteAdmins.get(i).getSiteAdminId()));
+                    return redirect(routes.AdministrationController.
+                            getNewPassword(siteAdmins.get(i).getSiteAdminId()));
             }
         }
         return ok(views.html.Administration.emailsent.render());

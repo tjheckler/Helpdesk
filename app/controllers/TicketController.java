@@ -1,6 +1,7 @@
 package controllers;
 
 import com.google.common.io.Files;
+import javafx.scene.control.Alert;
 import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
@@ -180,7 +181,8 @@ public class TicketController extends ApplicationController
         if (isLoggedIn())
         {
             return ok(views.html.Ticket.ticketList.render(tickets, searchCriteria, locations,
-                    ticketStatuses, siteAdmins, priority, categories, statuses1, priorities1, siteAdmins1, categories1, locations1));
+                    ticketStatuses, siteAdmins, priority, categories, statuses1,
+                    priorities1, siteAdmins1, categories1, locations1));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -296,7 +298,7 @@ public class TicketController extends ApplicationController
             ticket.setStatusDateChanged(statusDateChanged);
         } catch (Exception e)
         {
-            e.getCause();
+           e.getCause();
         }
         for (int i = 0; i < siteAdmins.size() - 1; i++)
         {
@@ -308,11 +310,13 @@ public class TicketController extends ApplicationController
                 String customerEmail = ticket.getEmailAddress();
                 if (isLoggedIn())
                 {
-                    Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId() + " Your ticket has been updated, you can review at " + url, customerEmail);
+                    Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
+                            + " Your ticket has been updated, you can review at " + url, customerEmail);
                     jpaApi.em().persist(ticket);
                 } else if (!isLoggedIn())
                 {
-                    Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId() + " has been assigned to you or updated. You can view this ticket " +
+                    Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId()
+                            + " has been assigned to you or updated. You can view this ticket " +
                             "by the following link, copy and paste to browser " + url, email);
                     jpaApi.em().persist(ticket);
                 } else
@@ -541,7 +545,8 @@ public class TicketController extends ApplicationController
                     String email = siteAdmins.get(i).getEmailAddress();
                     if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
                     {
-                        Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId() + " has been assigned to you or updated. You can view this ticket " +
+                        Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId()
+                                + " has been assigned to you or updated. You can view this ticket " +
                                 "by the following link, copy and paste to browser " + url, email);
                         jpaApi.em().persist(ticket);
                     } else
@@ -667,7 +672,8 @@ public class TicketController extends ApplicationController
                     .createQuery(regionSql, Region.class).getResultList();
 
             return ok(views.html.Ticket.newticket.render(locations, ticketStatuses,
-                    siteAdmins, priorities, categories, regions, ticketFormValues, "* Indicates Required Field. ", true));
+                    siteAdmins, priorities, categories, regions, ticketFormValues,
+                    "* Indicates Required Field. ", true));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -821,7 +827,9 @@ public class TicketController extends ApplicationController
                     return redirect(routes.TicketController.getTickets());
                 } else
                 {
-                    return ok(views.html.Ticket.newticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "", false));
+                    return ok(views.html.Ticket.newticket.render(locations, ticketStatuses, siteAdmins,
+                            priorities, categories, regions, ticketFormValues,
+                            "", false));
                 }
             } catch (Exception e)
             {
@@ -893,7 +901,9 @@ public class TicketController extends ApplicationController
 
         TicketFormValues ticketFormValues = new TicketFormValues();
 
-        return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "* Indicates Required Field", true));
+        return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses, siteAdmins,
+                priorities, categories, regions, ticketFormValues,
+                "* Indicates Required Field", true));
 
     }
 
@@ -1029,7 +1039,8 @@ public class TicketController extends ApplicationController
                         String url = "localhost:9000/ticket/" + ticket.getTicketsId();
                         String email = siteAdmins.get(i).getEmailAddress();
 
-                        Email.sendTicketEmail("A new ticket has been assigned to you. You can view this ticket " +
+                        Email.sendTicketEmail("A new ticket has been assigned" +
+                                " to you. You can view this ticket " +
                                 "by the following link, copy and paste to browser " + url, email);
                     } else
                     {
@@ -1041,7 +1052,9 @@ public class TicketController extends ApplicationController
 
             } else
             {
-                return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses, siteAdmins, priorities, categories, regions, ticketFormValues, "", false));
+                return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses,
+                        siteAdmins, priorities, categories, regions, ticketFormValues,
+                        "", false));
             }
         } catch (Exception e)
         {

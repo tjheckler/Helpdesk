@@ -132,7 +132,8 @@ public class RegionController extends ApplicationController
                     setParameter("regionName", regionName).getResultList();
             if (regions.size() == 1)
             {
-                return ok(views.html.Region.newregion.render(regions, "Region Already Exists Try Another Region"));
+                return ok(views.html.Region.newregion.render(regions,
+                        "Region Already Exists Try Another Region"));
             } else
             {
 
@@ -143,7 +144,8 @@ public class RegionController extends ApplicationController
 
                 } else
                 {
-                    return ok(views.html.Region.newregion.render(regions, "Region Cannot be Empty and Must be less than 50 Characters. "));
+                    return ok(views.html.Region.newregion.render(regions,
+                            "Region Cannot be Empty and Must be less than 50 Characters. "));
                 }
                 jpaApi.em().persist(region);
             }

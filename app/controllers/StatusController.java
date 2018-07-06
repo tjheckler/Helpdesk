@@ -138,7 +138,8 @@ public class StatusController extends ApplicationController
 
             if (statuses.size() == 1)
             {
-                return ok(views.html.Status.newstatus.render(statuses, "Status Name Already Exists Try Another Status Name"));
+                return ok(views.html.Status.newstatus.render(statuses,
+                        "Status Name Already Exists Try Another Status Name"));
             } else
             {
                 TicketStatus ticketStatus = new TicketStatus();
@@ -149,7 +150,8 @@ public class StatusController extends ApplicationController
 
                 } else
                 {
-                    return ok(views.html.Status.newstatus.render(statuses, "Status Name Cannot be Empty and Must be less than 50 Characters"));
+                    return ok(views.html.Status.newstatus.render(statuses,
+                            "Status Name Cannot be Empty and Must be less than 50 Characters"));
                 }
                 jpaApi.em().persist(ticketStatus);
             }

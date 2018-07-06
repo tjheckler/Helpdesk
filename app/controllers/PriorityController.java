@@ -143,7 +143,8 @@ public class PriorityController extends ApplicationController
                     setParameter("priorityName", priorityName).getResultList();
             if (priorities.size() == 1)
             {
-                return ok(views.html.Priority.newpriority.render(priorities, "Priority Already Exists Try Another Priority"));
+                return ok(views.html.Priority.newpriority.render(priorities,
+                        "Priority Already Exists Try Another Priority"));
             } else
             {
 
@@ -154,7 +155,8 @@ public class PriorityController extends ApplicationController
 
                 } else
                 {
-                    return ok(views.html.Priority.newpriority.render(priorities, "Priority Cannot be Empty and must be less than 50 Characters"));
+                    return ok(views.html.Priority.newpriority.render(priorities,
+                            "Priority Cannot be Empty and must be less than 50 Characters"));
                 }
                 jpaApi.em().persist(priority);
             }
