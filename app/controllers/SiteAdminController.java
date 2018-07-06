@@ -315,23 +315,6 @@ public class SiteAdminController extends ApplicationController
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
 
-            //Check if siteAdmin already exists by username or emailAddress
-
-            String sql = "SELECT sa FROM SiteAdmin sa " +
-                    "WHERE username = :username " +
-                    "OR emailAddress = :emailAddress";
-
-            List<SiteAdmin> siteAdmins = jpaApi.em().createQuery(sql, SiteAdmin.class).
-                    setParameter("username", siteAdminFormValues.getAdminUsername()).
-                    setParameter("emailAddress", siteAdminFormValues.getAdminEmailAddress()).getResultList();
-            if (siteAdmins.size() == 1)
-            {
-                return ok(views.html.SiteAdmin.newsiteadmin.render(regions,
-                        locations, "* Indicates Required Field",
-                        "User Already Exists Try Another Email Or Username",
-                        siteAdminFormValues,false));
-            } else
-            {
 
                 if (siteAdminFormValues.isValid())
                 {
@@ -367,7 +350,7 @@ public class SiteAdminController extends ApplicationController
                             locations, "* Indicates Required Field",
                             "",siteAdminFormValues,false));
                 }
-            }
+
             return redirect(routes.SiteAdminController.getSiteAdmins());
 
         } else
