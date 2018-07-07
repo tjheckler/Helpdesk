@@ -25,10 +25,18 @@
                                            maxlength="30" size="30">
             <br>
             <br>
-            <b>Region Name: </b>
-            <select class="rounded" name="regionId" id="regionId">
+            <b> Current Region:</b><br>
+            <label>
                 @for(region<-regions){
-
+                @if(location.getRegionId == region.getRegionId){
+                @region.getRegionName() }}
+            </label>
+            <br>
+            <br>
+            <b>Edit Region: </b>
+            <select class="rounded" name="regionId" id="regionId">
+                <option value="@location.getRegionId">Choose Region</option>
+                @for(region<-regions){
                 <option  value="@region.getRegionId">
                     @region.getRegionName
                 </option>

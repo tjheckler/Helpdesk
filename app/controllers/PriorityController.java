@@ -193,7 +193,7 @@ public class PriorityController extends ApplicationController
                 return redirect(routes.PriorityController.getPriorities());
             }
             return ok(views.html.Priority.priority.render(priority,
-                    "* Cannot Delete, User is Assigned to a Ticket *"));
+                    "* Cannot Delete, This Priority is Assigned to a Ticket *"));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));

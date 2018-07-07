@@ -96,7 +96,7 @@
             <div class="col-md-4">
                 <b> Current Location: </b><br>
                 <select class="rounded" name="locationId" id="locationId">
-                    <option value="@ticket.getLocationId">Keep The Same</option>
+                    <option value="@ticket.getLocationId">Keep the Same</option>
                     @for(location<-locations){
                     <option value="@location.getLocationId">
                         @location.getLocationName()
@@ -136,6 +136,7 @@
         <div>
             <input class="btn btn-primary" type="submit" value="save">
             <a class="btn btn-primary" href="/tickets">Back to List</a>
+            <a class="btn btn-primary" href="/ticket/@ticket.getTicketsId">Back to Ticket</a>
         </div>
 
     <br>

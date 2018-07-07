@@ -89,17 +89,17 @@ public class LocationController extends ApplicationController
             String locationName = form.get("locationName");
             //set region somehow
             int regionalId = Integer.parseInt(form.get("regionId"));
-            if (locationName != null)
+            if (locationName != null && regionalId > 0)
             {
                 location.setLocationName(locationName);
-
                 location.setRegionId(regionalId);
                 jpaApi.em().persist(location);
             } else
             {
                 return redirect(routes.LocationController.getLocation(locationId));
             }
-            return redirect(routes.LocationController.getLocations());
+
+            return redirect(routes.LocationController.getLocation(locationId));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
