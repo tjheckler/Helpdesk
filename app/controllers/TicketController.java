@@ -994,7 +994,10 @@ public class TicketController extends ApplicationController
             }
             ticket.setStatusDateChanged(statusDateChanged);
             jpaApi.em().persist(ticket);
-
+            String customerEmail = form.get("emailAddress");
+            String url = "localhost:9000/ticket/" + ticket.getTicketsId();
+            Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
+                    + " Your ticket has been created, you can review at " + url, customerEmail);
 
             Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
             Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
@@ -1055,6 +1058,7 @@ public class TicketController extends ApplicationController
                 newFileDetails.setExtension(filePart3.getContentType());
                 newFileDetails.setTicketId(ticket.getTicketsId());
                 jpaApi.em().persist(newFileDetails);
+
             }
 
             for (int i = 0; i < siteAdmins.size() - 1; i++)
@@ -1062,12 +1066,13 @@ public class TicketController extends ApplicationController
                 if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
                 {
                     //make a real url that consists of ticket number
-                    String url = "localhost:9000/ticket/" + ticket.getTicketsId();
+                    String url1 = "localhost:9000/ticket/" + ticket.getTicketsId();
                     String email = siteAdmins.get(i).getEmailAddress();
 
                     Email.sendTicketEmail("A new ticket has been assigned" +
                             " to you. You can view this ticket " +
-                            "by the following link, copy and paste to browser " + url, email);
+                            "by the following link, copy and paste to browser " + url1, email);
+
                 } else
                 {
                     //do nothing
