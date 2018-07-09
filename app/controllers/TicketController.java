@@ -308,20 +308,27 @@ public class TicketController extends ApplicationController
                 String url = "localhost:9000/ticket/" + ticket.getTicketsId();
                 String email = siteAdmins.get(i).getEmailAddress();
                 String customerEmail = ticket.getEmailAddress();
-                if (isLoggedIn())
+                if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
                 {
                     Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
                             + " Your ticket has been updated, you can review at " + url, customerEmail);
+                    Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId()
+                            + " has been assigned to you or updated. You can view this ticket " +
+                            "by the following link, copy and paste to browser " + url, email);
                     jpaApi.em().persist(ticket);
-                } else if (!isLoggedIn())
+                } else if (isLoggedIn() && getLoggedInSiteAdminRole().equals("User"))
+                {
+                    Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
+                            + " Your ticket has been updated, you can review at " + url, customerEmail);
+
+
+                    jpaApi.em().persist(ticket);
+                } else
                 {
                     Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId()
                             + " has been assigned to you or updated. You can view this ticket " +
                             "by the following link, copy and paste to browser " + url, email);
                     jpaApi.em().persist(ticket);
-                } else
-                {
-                    //do nothing
                 }
             } else
             {
@@ -543,15 +550,28 @@ public class TicketController extends ApplicationController
                     //make a real url that consists of ticket number
                     String url = "localhost:9000/ticket/" + ticket.getTicketsId();
                     String email = siteAdmins.get(i).getEmailAddress();
+                    String customerEmail = ticket.getEmailAddress();
                     if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+                    {
+                        Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
+                                + " Your ticket has been updated, you can review at " + url, customerEmail);
+                        Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId()
+                                + " has been assigned to you or updated. You can view this ticket " +
+                                "by the following link, copy and paste to browser " + url, email);
+                        jpaApi.em().persist(ticket);
+                    } else if (isLoggedIn() && getLoggedInSiteAdminRole().equals("User"))
+                    {
+                        Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
+                                + " Your ticket has been updated, you can review at " + url, customerEmail);
+
+
+                        jpaApi.em().persist(ticket);
+                    } else
                     {
                         Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId()
                                 + " has been assigned to you or updated. You can view this ticket " +
                                 "by the following link, copy and paste to browser " + url, email);
                         jpaApi.em().persist(ticket);
-                    } else
-                    {
-                        //do nothing
                     }
                 } else
                 {
