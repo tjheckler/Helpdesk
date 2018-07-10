@@ -763,12 +763,13 @@ public class TicketController extends ApplicationController
                     ticket.setStatusId(new Integer(ticketFormValues.getTicketStatusId()));
                     ticket.setPriority(new Integer(ticketFormValues.getTicketPriorityId()));
                     ticket.setSiteAdmin(new Integer(ticketFormValues.getTicketSiteAdminId()));
+                    ticket.setStatusDateChanged(statusDateChanged);
+                    jpaApi.em().persist(ticket);
                 } catch (Exception e)
                 {
                     e.getCause();
                 }
-                ticket.setStatusDateChanged(statusDateChanged);
-                jpaApi.em().persist(ticket);
+
 
 
                 Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
