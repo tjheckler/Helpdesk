@@ -62,7 +62,11 @@
             <div class="col-md-6">
                 <b>* Assigned To: </b><br>
                 <select class="rounded" name="siteAdminId" id="siteAdminId" >
+                    @if(ticketFormValues.getTicketSiteAdminId != null){
+                    <option value="ticketFormValues.getTicketSiteAdminId">Choose Assignee</option>
+                    }else{
                     <option value="0">Choose Assignee</option>
+                    }
                     @for(siteAdmin<-siteAdmins){
 
                     <option value="@siteAdmin.getSiteAdminId">
@@ -79,7 +83,11 @@
             <div class="col-md-6">
                 <b>* Current Location: </b><br>
                 <select class="rounded" name="locationId" id="locationId">
+                    @if(ticketFormValues.getTicketLocationId != null){
+                    <option value="ticketFormValues.getTicketLocationId">Choose Location</option>
+                    }else{
                     <option value="0">Choose Location</option>
+                    }
                     @for(location<-locations){
 
                     <option value="@location.getLocationId">
@@ -93,7 +101,11 @@
             <div class="col-md-6">
                 <b>* Status: </b><br>
                 <select class="rounded" name="statusId" id="statusId">
+                    @if(ticketFormValues.getTicketStatusId != null){
+                    <option value="ticketFormValues.getTicketStatusId">Choose Location</option>
+                    }else{
                     <option value="0">Choose Status</option>
+                    }
                     @for(ticketStatus<-ticketStatuses){
 
                     <option value="@ticketStatus.getStatusId">
@@ -112,7 +124,11 @@
             <div class="col-md-6">
                 <b>* Priority: </b><br>
                 <select class="rounded" name="priorityId" id="priorityId">
+                    @if(ticketFormValues.getTicketPriorityId != null){
+                    <option value="ticketFormValues.getTicketPriorityId">Choose Location</option>
+                    }else{
                     <option value="0">Choose Priority</option>
+                    }
                     @for(priority<-priorities){
 
                     <option value="@priority.getPriorityId">
@@ -126,7 +142,11 @@
             <div class="col-md-6">
                 <b>* Category: </b><br>
                 <select class="rounded" name="categoryId" id="categoryId">
+                    @if(ticketFormValues.getTicketCategoryId != null){
+                    <option value="ticketFormValues.getTicketCategoryId">Choose Location</option>
+                    }else{
                     <option value="0">Choose Category</option>
+                    }
                     @for(category<-categories){
 
                     <option value="@category.getCategoryId">
