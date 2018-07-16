@@ -519,8 +519,8 @@ public class TicketController extends ApplicationController
             try
             {
                 Date statusDateChanged = new Date();
-                int statusId = Integer.parseInt(form.get("statusId"));
                 int priorityId = Integer.parseInt(form.get("priorityId"));
+                int statusId = Integer.parseInt(form.get("statusId"));
                 int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
                 int locationId = Integer.parseInt(form.get("locationId"));
                 String computerName = form.get("computerName");
