@@ -9,7 +9,11 @@
 </head>
 <body>
 <div class="container" align="center">
-    @appnavbar.render("home")
+    @if(session().isEmpty()){
+    @appnavbar.render("tickets")
+    }else{
+    @adminnavbar.render("tickets")
+    }
     <div class="jumbotron">
         <h1>Ticket was sent. <br>Thank you for contacting us!</h1>
         <a class="btn btn-primary" href="/">Back To Welcome Page</a>
