@@ -1,0 +1,47 @@
+@(siteRole:SiteRole,message:String)
+<!DOCTYPE html>
+@import helper._
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
+    <title>Role</title>
+</head>
+<body>
+
+<div class="container" align="center">
+
+    @adminnavbar.render("admin")
+    <div>
+        <div class="jumbotron">
+            <h1>@siteRole.getSiteRoleName()</h1>
+        </div>
+    </div>
+    <div align="center"><h3>@message</h3></div>
+    <form method="post" class="form-control" >
+        @CSRF.formField
+        <b> Role Name: </b><input class="rounded" type="text" name="siteRoleName" id="siteRoleName"
+                                      value="@siteRole.getSiteRoleName" minlength="1"
+                                      maxlength="30" size="30">
+        <br>
+        <br>
+        <input class="btn btn-primary" type="submit" value="Save">
+        <a class="btn btn-primary" href="/siteroles">Back to List</a>
+    </form>
+</div>
+
+<br>
+<hr>
+<br>
+
+<div class="container" align="center">
+    <form action="/deletesiterole/@siteRole.getSiteRoleId" method="POST">
+        @CSRF.formField
+        <input class="btn btn-danger" type="submit" value="Delete">
+    </form>
+</div>
+@footer()
+</body>
+</html>

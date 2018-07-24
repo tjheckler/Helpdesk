@@ -1,0 +1,58 @@
+@(siteRoles:List[SiteRole],searchCriteria:String)
+<!DOCTYPE html>
+@import helper._
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
+    <title>Roles</title>
+</head>
+<body>
+
+
+<div class="container" align="center">
+    @adminnavbar.render("admin")
+    <div class="jumbotron">
+        <h1><b>Roles</b></h1>
+        <div align="right">
+            <form method="post">
+                @CSRF.formField
+                <div align="left">
+                    <a class="btn btn-primary" href="newsiterole">Create New </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <form class="form-control" method="get">
+        <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria">
+        <input class="btn btn-secondary" type="submit" value="Search">
+
+    </form>
+
+    <table class="table table-bordered">
+        <tr>
+            <th><b>Role Name</b></th>
+
+        </tr>
+        @for(siteRole <- siteRoles){
+        <tr>
+            <td>
+                <div>
+                    <b> @siteRole.getSiteRoleName() </b>
+                </div>
+            </td>
+            <td>
+                <a class="btn btn-secondary" href="siterole/@siteRole.getSiteRoleId()"> Edit </a>
+            </td>
+
+        </tr>
+        }
+    </table>
+
+</div>
+@footer()
+</body>
+</html>

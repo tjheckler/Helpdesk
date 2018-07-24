@@ -1,0 +1,33 @@
+@(siteRoles:List[SiteRole],message:String)
+<!DOCTYPE html>
+<html lang="en">
+@import helper._
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
+    <title>New Role</title>
+</head>
+<body>
+
+<div class="container" align="center">
+    @adminnavbar.render("admin")
+    <div class="jumbotron">
+        <h1>Create New Role</h1>
+    </div>
+    @message
+    <form method="post" class="form-control">
+        @CSRF.formField
+        <br>
+        <b> Role Name: </b><input class="rounded" type="text" name="siteRole"
+                                      id="siteRole" maxlength="30" size="30">
+        <br>
+        <br>
+        <input align="center" class="btn btn-primary" type="submit" value="Create">
+        <a class="btn btn-primary" href="/siteroles">Back to List</a>
+    </form>
+</div>
+@footer()
+</body>
+</html>

@@ -29,6 +29,13 @@ GET     /newcategory                 controllers.CategoryController.getNewCatego
 POST    /newcategory                 controllers.CategoryController.postNewCategory
 POST    /deletecategory/:id          controllers.CategoryController.deleteCategory(id: Int)
 
+GET     /siteroles                   controllers.SiteRoleController.getSiteRoles
+GET     /siterole/:id                controllers.SiteRoleController.getSiteRole(id: Int)
+POST    /siterole/:id                controllers.SiteRoleController.postSiteRole(id: Int)
+GET     /newsiterole                 controllers.SiteRoleController.getNewSiteRole
+POST    /newsiterole                 controllers.SiteRoleController.postNewSiteRole
+POST    /deletesiterole/:id          controllers.SiteRoleController.deleteSiteRole(id: Int)
+
 GET     /inventories                 controllers.InventoryController.getInventories
 GET     /inventory/:id               controllers.InventoryController.getInventory(id: Int)
 POST    /inventory/:id               controllers.InventoryController.postInventory(id: Int)
