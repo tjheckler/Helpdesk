@@ -429,7 +429,7 @@ public class TicketController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getTicketEdit(Integer ticketsId, String message)
     {
-        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals("Admin") || getLoggedInSiteAdminRole().equals("Manager")))
+        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals("1") || getLoggedInSiteAdminRole().equals("4")))
         {
             String sql = "SELECT t FROM Ticket t " +
                     "WHERE t.ticketsId = :ticketsId ";
@@ -486,7 +486,7 @@ public class TicketController extends ApplicationController
     public Result postTicketEdit(Integer ticketsId, String message)
     {
 
-        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals("Admin")|| getLoggedInSiteAdminRole().equals("Manager")))
+        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals("1")|| getLoggedInSiteAdminRole().equals("4")))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT t FROM Ticket t " +
@@ -892,7 +892,7 @@ public class TicketController extends ApplicationController
     @Transactional
     public Result deleteTicket(int ticketsId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
         {
             String sql = "SELECT t FROM Ticket t " +
                     "WHERE ticketsId = :ticketsId";
