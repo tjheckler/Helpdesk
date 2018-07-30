@@ -1,4 +1,4 @@
-@(siteAdmin:SiteAdmin,locations:List[Location],regions:List[Region],message:String)
+@(siteRoles:List[SiteRole],siteAdmin:SiteAdmin,locations:List[Location],regions:List[Region],message:String)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -75,9 +75,20 @@
         <div class="row" align="center">
             <div class="col-md-6">
                 <b>* Role: </b><br>
-                <input class="rounded" type="text" name="siteRole" id="siteRole"
-                       value="@siteAdmin.getSiteRole" minlength="1"
-                       maxlength="30" size="30">
+
+                <label> @for(siteRole<-siteRoles){
+                    @if(siteAdmin.getSiteRole == siteRole.getSiteRoleId){
+                    @siteRole.getSiteRoleName() }}</label>
+                &nbsp;
+                <select class="rounded" name="role" id="role">
+                    <option value="0">Change Role?</option>
+                    @for(siteRole<-siteRoles){
+
+                    <option value="@siteRole.getSiteRoleId">
+                        @siteRole.getSiteRoleName
+                    </option>
+                    }
+                </select>
             </div>
             <div class="col-md-6">
                 <b>* Phone Number: </b><br>

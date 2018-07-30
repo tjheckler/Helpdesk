@@ -18,7 +18,7 @@ public class SiteAdmin
     private byte[] passwordSalt;
     private int locationId;
     private String phoneNumber;
-    private String siteRole;
+    private int siteRole;  ///change to ID
     private String flag;
     private byte[] picture;
 
@@ -108,12 +108,12 @@ public class SiteAdmin
         this.phoneNumber = phoneNumber;
     }
 
-    public String getSiteRole()
+    public int getSiteRole()
     {
         return siteRole;
     }
 
-    public void setSiteRole(String siteRole)
+    public void setSiteRole(int siteRole)
     {
         this.siteRole = siteRole;
     }

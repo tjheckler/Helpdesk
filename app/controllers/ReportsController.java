@@ -27,7 +27,7 @@ public class ReportsController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getReports()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
         {
         String categorySql = "SELECT  NEW TicketCategoryCount(c.categoryId, c.categoryName, COUNT(*)) " +
                 "FROM Ticket t " +

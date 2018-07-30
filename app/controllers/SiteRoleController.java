@@ -28,7 +28,7 @@ public class SiteRoleController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getSiteRoles()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT sr FROM SiteRole sr " +
@@ -56,7 +56,7 @@ public class SiteRoleController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getSiteRole(Integer SiteRoleId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
         {
             String sql = "SELECT sr FROM SiteRole sr " +
                     "WHERE siteRoleId = :siteRoleId";
@@ -72,7 +72,7 @@ public class SiteRoleController extends ApplicationController
     @Transactional
     public Result postSiteRole(Integer siteRoleId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
         {
             String sql = "SELECT sr FROM SiteRole sr " +
                     "WHERE siteRoleId = :siteRoleId";
@@ -100,7 +100,7 @@ public class SiteRoleController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewSiteRole()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
         {
 
             DynamicForm form = formFactory.form().bindFromRequest();
@@ -121,7 +121,7 @@ public class SiteRoleController extends ApplicationController
     @Transactional
     public Result postNewSiteRole()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String siteRoleName = form.get("siteRole");
@@ -158,7 +158,7 @@ public class SiteRoleController extends ApplicationController
     @Transactional
     public Result deleteSiteRole(int siteRoleId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
         {
             String sql = "SELECT sr FROM SiteRole sr " +
                     "WHERE siteRoleId = :siteRoleId";

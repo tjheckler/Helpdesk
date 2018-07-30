@@ -1,4 +1,4 @@
-@(siteAdmin:SiteAdmin,locations:List[Location],regions:List[Region],message:String,message3:String)
+@(siteRoles:List[SiteRole],siteAdmin:SiteAdmin,locations:List[Location],regions:List[Region],message:String,message3:String)
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -70,7 +70,9 @@
         <div class="row" align="center">
             <div class="col-md-6">
                 <b> Role: </b><br>
-                <label>@siteAdmin.getSiteRole</label>
+                <label> @for(siteRole<-siteRoles){
+                    @if(siteAdmin.getSiteRole == siteRole.getSiteRoleId){
+                    @siteRole.getSiteRoleName() }}</label>
             </div>
             <div class="col-md-6">
                 <b> Phone Number: </b><br>

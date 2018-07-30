@@ -1,4 +1,4 @@
-@(regions:List[Region],locations:List[Location],message:String,message2:String,siteAdminFormValues:SiteAdminFormValues,firstLoad:Boolean)
+@(siteRoles:List[SiteRole],regions:List[Region],locations:List[Location],message:String,message2:String,siteAdminFormValues:SiteAdminFormValues,firstLoad:Boolean)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -52,8 +52,15 @@
             </div>
             <div class="col-md-6">
                 <b>* Role: </b><br>
-                <input class="rounded" type="text" name="role" id="role" maxlength="30" size="30" placeholder="* 'User' or 'Admin' Only *"><br>
+                <select class="rounded" name="role" id="role">
+                    <option value="0">Choose Role</option>
+                    @for(siteRole<-siteRoles){
 
+                    <option value="@siteRole.getSiteRoleId">
+                        @siteRole.getSiteRoleName
+                    </option>
+                    }
+                </select>
             </div>
         </div>
         <br>

@@ -30,11 +30,11 @@ public class AdministrationController extends ApplicationController
 
     public Result getAdministration()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
         {
 
             return ok(views.html.Administration.admin.render());
-        } else if (isLoggedIn() && !getLoggedInSiteAdminRole().equals("Admin"))
+        } else if (isLoggedIn() && !getLoggedInSiteAdminRole().equals("1"))
         {
             return redirect(routes.AdministrationController.getLogin(
                     "Login With Administrator Credentials"));
@@ -207,12 +207,12 @@ public class AdministrationController extends ApplicationController
                     byte salt[] = Password.getNewSalt();
                     siteAdmin.setPasswordSalt(salt);
                     siteAdmin.setPassword(Password.hashPassword(passwordMatch.toCharArray(), salt));
-                    if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin")
+                    if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1")
                             && getLoggedInSiteAdminId() == siteAdminId)
                     {
                         String flag = "False";
                         siteAdmin.setFlag(flag);
-                    } else if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
+                    } else if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
                     {
                         String flag = "True";
                         siteAdmin.setFlag(flag);
