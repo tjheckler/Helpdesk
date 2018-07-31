@@ -1,4 +1,4 @@
-@(ticket:Ticket,locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],replies:List[Reply],fileDetails:List[FileDetails])
+@(ticket:Ticket,locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],replies:List[Reply],fileDetails:List[FileDetails],techNotes:List[TechNotes])
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -24,6 +24,22 @@
     </div>
     <form class="form-control" method="post" enctype="multipart/form-data" action="/ticketedit/@ticket.getTicketsId">
         @CSRF.formField
+
+        <div align="center">
+            @for(techNote<-techNotes){
+            @if(techNote.getTicketsId == ticket.getTicketsId){
+
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <b> Tech Note: </b>
+                        <input type="text" value="@techNote.getTechNotes" name="techNote" id="techNote">
+                    </td>
+
+            </table>
+            }}
+        </div>
+
         <div class="row" align="center">
             <div class="col-md-4">
                 <b> Change Assignee: </b><br>

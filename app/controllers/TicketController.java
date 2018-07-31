@@ -492,8 +492,13 @@ public class TicketController extends ApplicationController
             List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                     .setParameter("ticketsId", ticketsId).getResultList();
 
+            String techNoteSql = "Select tn FROM TechNotes tn " +
+                    "WHERE ticketsId = :ticketsId";
+            List<TechNotes> techNotes = jpaApi.em().createQuery(techNoteSql, TechNotes.class).
+                    setParameter("ticketsId", ticketsId).getResultList();
+
             return ok(views.html.Ticket.ticketedit.render(ticket, locations, ticketStatuses,
-                    siteAdmins, priorities, categories, regions, replies, fileDetails));
+                    siteAdmins, priorities, categories, regions, replies, fileDetails,techNotes));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
@@ -548,6 +553,11 @@ public class TicketController extends ApplicationController
 
             List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                     .setParameter("ticketsId", ticketsId).getResultList();
+
+            String techNoteSql = "Select tn FROM TechNotes tn " +
+                    "WHERE ticketsId = :ticketsId";
+            List<TechNotes> techNotes = jpaApi.em().createQuery(techNoteSql, TechNotes.class).
+                    setParameter("ticketsId", ticketsId).getResultList();
 
             try
             {
@@ -684,8 +694,17 @@ public class TicketController extends ApplicationController
                 jpaApi.em().persist(reply1);
             }
 
+            String techNote = form.get("techNote");
+            if(techNote != null && techNote.length() > 0)
+            {
+                TechNotes techNotes1 = new TechNotes();
+                techNotes1.setTechNotes(techNote);
+                techNotes1.setTicketsId(ticketsId);
+                jpaApi.em().persist(techNotes1);
+            }
+
             return ok(views.html.Ticket.ticketedit.render(ticket, locations, ticketStatuses, siteAdmins,
-                    priorities, categories, regions, replies, fileDetails));
+                    priorities, categories, regions, replies, fileDetails,techNotes));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
