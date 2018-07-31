@@ -1,4 +1,4 @@
-@(ticket:Ticket,locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],replies:List[Reply],fileDetails:List[FileDetails])
+@(ticket:Ticket,locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],replies:List[Reply],fileDetails:List[FileDetails],techNotes:List[TechNotes])
 <!DOCTYPE html>
 @import helper._
 <html lang="en">
@@ -38,6 +38,21 @@
 
             <br>
         </div>
+    </div>
+    <br>
+    <div align="center">
+        @for(techNote<-techNotes){
+        @if(techNote.getTicketsId == ticket.getTicketsId){
+
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    <b> Tech Note: </b>
+                    @techNote.getTechNotes()
+                </td>
+
+        </table>
+        }}
     </div>
     <br>
     <div class="row">
@@ -144,8 +159,19 @@
     <form method="post" class="form-control" enctype="multipart/form-data">
         @CSRF.formField
         <br>
-        <div class="row" align="center">
 
+        <div>
+            <label><b>Tech Notes:</b></label>
+            <br>
+            <textarea class="rounded" name="techNote" cols="100" rows="5" id="techNote" maxlength="255"
+                      placeholder=""></textarea>
+            <br>
+            <label>255 Characters Allowed</label>
+            <br>
+            <br>
+        </div>
+<hr>
+        <div class="row" align="center">
             <div class="col-md-4">
                 <b> Change Assignee: </b><br>
                 <select class="rounded" name="siteAdminId" id="siteAdminId">

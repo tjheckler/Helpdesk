@@ -239,8 +239,13 @@ public class TicketController extends ApplicationController
             List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                     .setParameter("ticketsId", ticketsId).getResultList();
 
+            String techNoteSql = "Select tn FROM TechNotes tn " +
+                    "WHERE ticketsId = :ticketsId";
+            List<TechNotes> techNotes = jpaApi.em().createQuery(techNoteSql, TechNotes.class).
+                    setParameter("ticketsId", ticketsId).getResultList();
+
             return ok(views.html.Ticket.ticket.render(ticket, locations, ticketStatuses,
-                    siteAdmins, priorities, categories, regions, replies, fileDetails));
+                    siteAdmins, priorities, categories, regions, replies, fileDetails,techNotes));
         }else
         {
             return redirect(routes.AdministrationController.getLogin("Must be logged in"));
@@ -295,6 +300,11 @@ public class TicketController extends ApplicationController
 
             List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                     .setParameter("ticketsId", ticketsId).getResultList();
+
+            String techNoteSql = "Select tn FROM TechNotes tn " +
+                    "WHERE ticketsId = :ticketsId";
+            List<TechNotes> techNotes = jpaApi.em().createQuery(techNoteSql, TechNotes.class).
+                    setParameter("ticketsId", ticketsId).getResultList();
             try
             {
                 Date statusDateChanged = new Date();
@@ -412,13 +422,22 @@ public class TicketController extends ApplicationController
             {
                 Reply reply1 = new Reply();
 
-                reply1.setReply(form.get("reply"));
+                reply1.setReply(replyText);
                 reply1.setTicketsId(ticketsId);
                 jpaApi.em().persist(reply1);
             }
 
+            String techNote = form.get("techNote");
+            if(techNote != null && techNote.length() > 0)
+            {
+                TechNotes techNotes1 = new TechNotes();
+                techNotes1.setTechNotes(techNote);
+                techNotes1.setTicketsId(ticketsId);
+                jpaApi.em().persist(techNotes1);
+            }
+
             return ok(views.html.Ticket.ticket.render(ticket, locations, ticketStatuses, siteAdmins,
-                    priorities, categories, regions, replies, fileDetails));
+                    priorities, categories, regions, replies, fileDetails,techNotes));
 
         }else
         {
@@ -529,6 +548,7 @@ public class TicketController extends ApplicationController
 
             List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                     .setParameter("ticketsId", ticketsId).getResultList();
+
             try
             {
                 Date statusDateChanged = new Date();
@@ -887,6 +907,18 @@ public class TicketController extends ApplicationController
                 setParameter("fileDetailId", fileDetailId).getSingleResult();
         String contentType = fileDetail.getExtension();
         return ok(fileDetail.getAddedFiles()).as(contentType);
+    }
+
+    @Transactional
+    public Result getTechNotes(int techNotesId)
+    {
+        String sql = "SELECT tn FROM TechNotes tn " +
+                "WHERE techNotesId = :techNotesId";
+
+        TechNotes techNotes = jpaApi.em().createQuery(sql, TechNotes.class)
+                .setParameter("techNotesId", techNotesId).getSingleResult();
+
+        return ok(techNotes.getTechNotes());
     }
 
     @Transactional
