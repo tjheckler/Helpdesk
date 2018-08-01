@@ -325,6 +325,7 @@ public class TicketController extends ApplicationController
                 {
                     //make a real url that consists of ticket number
                     String url = "localhost:9000/ticket/" + ticket.getTicketsId();
+                    String customerUrl = "localhost:9000/viewcustomerticket/" +ticket.getTicketsId();
                     String email = siteAdmins.get(i).getEmailAddress();
                     String customerEmail = ticket.getEmailAddress();
                     if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
@@ -338,7 +339,7 @@ public class TicketController extends ApplicationController
                     } else if (isLoggedIn() && getLoggedInSiteAdminRole().equals("User"))
                     {
                         Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
-                                + " Your ticket has been updated, you can review at " + url, customerEmail);
+                                + " Your ticket has been updated, you can review at " + customerUrl, customerEmail);
 
 
                         jpaApi.em().persist(ticket);
@@ -1058,11 +1059,30 @@ public class TicketController extends ApplicationController
                 e.getCause();
             }
             ticket.setStatusDateChanged(statusDateChanged);
-            jpaApi.em().persist(ticket);
             String customerEmail = form.get("emailAddress");
-            String url = "localhost:9000/ticket/" + ticket.getTicketsId();
-            Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
-                    + " Your ticket has been created, you can review at " + url, customerEmail);
+            jpaApi.em().persist(ticket);
+            String customerUrl = "localhost:9000/viewcustomerticket/" +ticket.getTicketsId();
+
+            for (int i = 0; i < siteAdmins.size() - 1; i++)
+            {
+                if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
+                {
+                    //make a real url that consists of ticket number
+                    String techUrl = "localhost:9000/ticket/" + ticket.getTicketsId();
+                    String email = siteAdmins.get(i).getEmailAddress();
+
+                    Email.sendTicketEmail("A new ticket has been assigned to you. " +
+                            "You can view this ticket by the following link, copy and paste " +
+                            "to browser " +techUrl, email);
+
+                    Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
+                            + " Your ticket has been created, you can review at " + customerUrl, customerEmail);
+                } else
+                {
+                    //do nothing
+                }
+
+            }
 
             Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
             Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
@@ -1126,24 +1146,6 @@ public class TicketController extends ApplicationController
 
             }
 
-            for (int i = 0; i < siteAdmins.size() - 1; i++)
-            {
-                if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
-                {
-                    //make a real url that consists of ticket number
-                    String url1 = "localhost:9000/ticket/" + ticket.getTicketsId();
-                    String email = siteAdmins.get(i).getEmailAddress();
-
-                    Email.sendTicketEmail("A new ticket has been assigned" +
-                            " to you. You can view this ticket " +
-                            "by the following link, copy and paste to browser " + url1, email);
-
-                } else
-                {
-                    //do nothing
-                }
-
-            }
             return redirect(routes.HomeController.getTicketSent());
 
         } else
@@ -1158,7 +1160,6 @@ public class TicketController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getCustomerTicket(Integer ticketsId)
     {
-
 
             String sql = "SELECT t FROM Ticket t " +
                     "WHERE t.ticketsId = :ticketsId ";
@@ -1254,10 +1255,6 @@ public class TicketController extends ApplicationController
             List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
                     .setParameter("ticketsId", ticketsId).getResultList();
 
-            String techNoteSql = "Select tn FROM TechNotes tn " +
-                    "WHERE ticketsId = :ticketsId";
-            List<TechNotes> techNotes = jpaApi.em().createQuery(techNoteSql, TechNotes.class).
-                    setParameter("ticketsId", ticketsId).getResultList();
             try
             {
                 Date statusDateChanged = new Date();

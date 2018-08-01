@@ -86,7 +86,7 @@ POST    /ticketedit/:id              controllers.TicketController.postTicketEdit
 
 GET     /newcustomerticket           controllers.TicketController.getNewCustomerTicket
 POST    /newcustomerticket           controllers.TicketController.postNewCustomerTicket
-GET     /customerticket/:id          controllers.TicketController.getCustomerTicket(id: Int)
+GET     /viewcustomerticket/:id      controllers.TicketController.getCustomerTicket(id: Int)
 POST    /customerticket/:id          controllers.TicketController.postCustomerTicket(id: Int)
 GET     /ticketsent                  controllers.HomeController.getTicketSent
 
