@@ -15,6 +15,7 @@ public class TechNotes
 
     private String techNote;
     private int ticketsId;
+    private int siteAdminId;
 
     public int getTechNotesId()
     {
@@ -39,5 +40,15 @@ public class TechNotes
     public void setTicketsId(int ticketsId)
     {
         this.ticketsId = ticketsId;
+    }
+
+    public int getSiteAdminId()
+    {
+        return siteAdminId;
+    }
+
+    public void setSiteAdminId(int siteAdminId)
+    {
+        this.siteAdminId = siteAdminId;
     }
 }

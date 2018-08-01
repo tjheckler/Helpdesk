@@ -433,11 +433,11 @@ public class TicketController extends ApplicationController
                 TechNotes techNotes1 = new TechNotes();
                 techNotes1.setTechNotes(techNote);
                 techNotes1.setTicketsId(ticketsId);
+                techNotes1.setSiteAdminId(getLoggedInSiteAdminId());
                 jpaApi.em().persist(techNotes1);
             }
 
-            return ok(views.html.Ticket.ticket.render(ticket, locations, ticketStatuses, siteAdmins,
-                    priorities, categories, regions, replies, fileDetails,techNotes));
+            return redirect(routes.TicketController.getTicket(ticketsId));
 
         }else
         {
@@ -958,7 +958,7 @@ public class TicketController extends ApplicationController
     }
 
     @Transactional(readOnly = true)
-    public Result getCustomerTicket()
+    public Result getNewCustomerTicket()
     {
 
         String locationSql = "SELECT l FROM Location l ";
@@ -987,14 +987,14 @@ public class TicketController extends ApplicationController
 
         TicketFormValues ticketFormValues = new TicketFormValues();
 
-        return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses, siteAdmins,
+        return ok(views.html.CustomerTicket.newcustomerticket.render(locations, ticketStatuses, siteAdmins,
                 priorities, categories, regions, ticketFormValues,
                 "* Indicates Required Field", true));
 
     }
 
     @Transactional
-    public Result postCustomerTicket()
+    public Result postNewCustomerTicket()
     {
         String locationSql = "SELECT l FROM Location l ";
         List<Location> locations = jpaApi.em()
@@ -1148,10 +1148,248 @@ public class TicketController extends ApplicationController
 
         } else
         {
-            return ok(views.html.CustomerTicket.customerticket.render(locations, ticketStatuses,
+            return ok(views.html.CustomerTicket.newcustomerticket.render(locations, ticketStatuses,
                     siteAdmins, priorities, categories, regions, ticketFormValues,
                     "", false));
         }
+
+    }
+
+    @Transactional(readOnly = true)
+    public Result getCustomerTicket(Integer ticketsId)
+    {
+
+
+            String sql = "SELECT t FROM Ticket t " +
+                    "WHERE t.ticketsId = :ticketsId ";
+            //add a join
+            Ticket ticket = jpaApi.em().createQuery(sql, Ticket.class).
+                    setParameter("ticketsId", ticketsId).getSingleResult();
+
+            String locationSql = "SELECT l FROM Location l ";
+            List<Location> locations = jpaApi.em()
+                    .createQuery(locationSql, Location.class).getResultList();
+
+            String statusSql = "SELECT s FROM TicketStatus s ";
+            List<TicketStatus> ticketStatuses = jpaApi.em()
+                    .createQuery(statusSql, TicketStatus.class).getResultList();
+
+            String adminSql = "SELECT sa FROM SiteAdmin sa ";
+            List<SiteAdmin> siteAdmins = jpaApi.em()
+                    .createQuery(adminSql, SiteAdmin.class).getResultList();
+
+            String prioritySql = "SELECT p FROM Priority p ";
+            List<Priority> priorities = jpaApi.em()
+                    .createQuery(prioritySql, Priority.class).getResultList();
+
+            String categorySql = "SELECT c FROM Category c ";
+            List<Category> categories = jpaApi.em()
+                    .createQuery(categorySql, Category.class).getResultList();
+
+            String regionSql = "SELECT r FROM Region r ";
+            List<Region> regions = jpaApi.em()
+                    .createQuery(regionSql, Region.class).getResultList();
+
+            String replySql = "SELECT r FROM Reply r " +
+                    "WHERE ticketsId = :ticketsId"; //needs to be case statement
+
+            List<Reply> replies = jpaApi.em().createQuery(replySql, Reply.class)
+                    .setParameter("ticketsId", ticketsId).getResultList();
+
+            String fileSql = "SELECT f FROM FileDetails f " +
+                    "WHERE ticketsId = :ticketsId";
+
+            List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
+                    .setParameter("ticketsId", ticketsId).getResultList();
+
+
+            return ok(views.html.CustomerTicket.viewcustomerticket.render(ticket, locations, ticketStatuses,
+                    siteAdmins, priorities, categories, regions, replies, fileDetails));
+
+    }
+
+    @Transactional
+    public Result postCustomerTicket(Integer ticketsId)
+    {
+           DynamicForm form = formFactory.form().bindFromRequest();
+            String sql = "SELECT t FROM Ticket t " +
+                    "WHERE ticketsId = :ticketsId";
+
+            Ticket ticket = jpaApi.em().createQuery(sql, Ticket.class)
+                    .setParameter("ticketsId", ticketsId).getSingleResult();
+
+            String locationSql = "SELECT l FROM Location l ";
+            List<Location> locations = jpaApi.em()
+                    .createQuery(locationSql, Location.class).getResultList();
+
+            String statusSql = "SELECT s FROM TicketStatus s ";
+            List<TicketStatus> ticketStatuses = jpaApi.em()
+                    .createQuery(statusSql, TicketStatus.class).getResultList();
+
+            String adminSql = "SELECT sa FROM SiteAdmin sa ";
+            List<SiteAdmin> siteAdmins = jpaApi.em()
+                    .createQuery(adminSql, SiteAdmin.class).getResultList();
+
+            String prioritySql = "SELECT p FROM Priority p ";
+            List<Priority> priorities = jpaApi.em()
+                    .createQuery(prioritySql, Priority.class).getResultList();
+
+            String categorySql = "SELECT c FROM Category c ";
+            List<Category> categories = jpaApi.em()
+                    .createQuery(categorySql, Category.class).getResultList();
+
+            String regionSql = "SELECT r FROM Region r ";
+            List<Region> regions = jpaApi.em()
+                    .createQuery(regionSql, Region.class).getResultList();
+
+            String replySql = "SELECT r FROM Reply r " +
+                    "WHERE ticketsId = :ticketsId";
+
+            List<Reply> replies = jpaApi.em().createQuery(replySql, Reply.class)
+                    .setParameter("ticketsId", ticketsId).getResultList();
+
+            String fileSql = "SELECT f FROM FileDetails f " +
+                    "WHERE ticketsId = :ticketsId";
+
+            List<FileDetails> fileDetails = jpaApi.em().createQuery(fileSql, FileDetails.class)
+                    .setParameter("ticketsId", ticketsId).getResultList();
+
+            String techNoteSql = "Select tn FROM TechNotes tn " +
+                    "WHERE ticketsId = :ticketsId";
+            List<TechNotes> techNotes = jpaApi.em().createQuery(techNoteSql, TechNotes.class).
+                    setParameter("ticketsId", ticketsId).getResultList();
+            try
+            {
+                Date statusDateChanged = new Date();
+                int statusId = Integer.parseInt(form.get("statusId"));
+                int priorityId = Integer.parseInt(form.get("priorityId"));
+                int siteAdminId = Integer.parseInt(form.get("siteAdminId"));
+                ticket.setStatusId(statusId);
+                ticket.setPriority(priorityId);
+                ticket.setSiteAdmin(siteAdminId);
+                ticket.setStatusDateChanged(statusDateChanged);
+            } catch (Exception e)
+            {
+                e.getCause();
+            }
+            for (int i = 0; i < siteAdmins.size() - 1; i++)
+            {
+                if (ticket.getSiteAdminId() == siteAdmins.get(i).getSiteAdminId())
+                {
+                    //make a real url that consists of ticket number
+                    String url = "localhost:9000/viewcustomerticket/" + ticket.getTicketsId();
+                    String techUrl = "localhost:9000/ticket/"+ ticket.getTicketsId();
+                    String email = siteAdmins.get(i).getEmailAddress();
+                    String customerEmail = ticket.getEmailAddress();
+                    if (isLoggedIn())
+                    {
+                        if(getLoggedInSiteAdminRole().equals("1") || getLoggedInSiteAdminRole().equals("2"))
+                        {
+                            Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
+                                    + " Your ticket has been updated, you can review at " + url, customerEmail);
+                            Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId()
+                                    + " has been assigned to you or updated. You can view this ticket " +
+                                    "by the following link, copy and paste to browser " + techUrl, email);
+                            jpaApi.em().persist(ticket);
+                        }
+
+                        if(getLoggedInSiteAdminRole().equals("3")|| getLoggedInSiteAdminRole().equals("4"))
+                        {
+                            Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
+                                    + " Your ticket has been updated, you can review at " + url, customerEmail);
+
+
+                            jpaApi.em().persist(ticket);
+                        }
+                    } else
+                    {
+                        Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId()
+                                + " has been assigned to you or updated. You can view this ticket " +
+                                "by the following link, copy and paste to browser " +techUrl, email);
+                        jpaApi.em().persist(ticket);
+                    }
+                } else
+                {
+                    //do nothing
+                }
+
+            }
+
+            Http.MultipartFormData<File> formData1 = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart<File> filePart1 = formData1.getFile("file1");
+            File file1 = filePart1.getFile();
+
+            Http.MultipartFormData<File> formData2 = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart<File> filePart2 = formData2.getFile("file2");
+            File file2 = filePart2.getFile();
+
+            Http.MultipartFormData<File> formData3 = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart<File> filePart3 = formData3.getFile("file3");
+            File file3 = filePart3.getFile();
+
+            if (file1 != null && filePart1.getFilename().length() > 0 && !filePart1.getContentType().equals("zip")
+                    && !filePart1.getContentType().equals("exe"))
+            {
+                FileDetails newFileDetails = new FileDetails();
+                try
+                {
+                    newFileDetails.setAddedFiles(Files.toByteArray(file1));
+                } catch (Exception e)
+                {
+                    e.getCause();
+                }
+
+                newFileDetails.setExtension(filePart1.getContentType());
+                newFileDetails.setTicketId(ticketsId);
+                jpaApi.em().persist(newFileDetails);
+            }
+            if (file2 != null && filePart2.getFilename().length() > 0 && !filePart2.getContentType().equals("zip")
+                    && !filePart2.getContentType().equals("exe"))
+            {
+                FileDetails newFileDetails = new FileDetails();
+                try
+                {
+                    newFileDetails.setAddedFiles(Files.toByteArray(file2));
+
+                } catch (Exception e)
+                {
+                    e.getCause();
+                }
+                newFileDetails.setExtension(filePart2.getContentType());
+                newFileDetails.setTicketId(ticketsId);
+                jpaApi.em().persist(newFileDetails);
+            }
+            if (file3 != null && filePart3.getFilename().length() > 0 && !filePart3.getContentType().equals("zip")
+                    && !filePart3.getContentType().equals("exe"))
+            {
+                FileDetails newFileDetails = new FileDetails();
+                try
+                {
+                    newFileDetails.setAddedFiles(Files.toByteArray(file3));
+
+                } catch (Exception e)
+                {
+                    e.getCause();
+                }
+                newFileDetails.setExtension(filePart3.getContentType());
+                newFileDetails.setTicketId(ticketsId);
+                jpaApi.em().persist(newFileDetails);
+            }
+
+            String replyText = form.get("reply");
+            if (replyText != null && replyText.length() > 0)
+            {
+                Reply reply1 = new Reply();
+
+                reply1.setReply(replyText);
+                reply1.setTicketsId(ticketsId);
+                jpaApi.em().persist(reply1);
+            }
+
+
+            return ok(views.html.CustomerTicket.viewcustomerticket.render(ticket, locations, ticketStatuses, siteAdmins,
+                    priorities, categories, regions, replies, fileDetails));
+
 
     }
 

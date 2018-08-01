@@ -4,10 +4,11 @@ import play.mvc.Controller;
 
 public class ApplicationController extends Controller
 {
-    public void login(int siteAdminId, String siteRole)
+    public void login(int siteAdminId, String siteRole, String siteAdminName)
     {
         session().put("loggedin", "" + siteAdminId);
         session().put("role", "" + siteRole);
+        session().put("name", "" + siteAdminName);
     }
 
     public void logout()
