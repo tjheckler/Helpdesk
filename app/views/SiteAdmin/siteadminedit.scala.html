@@ -81,7 +81,7 @@
                     @siteRole.getSiteRoleName() }}</label>
                 &nbsp;
                 <select class="rounded" name="role" id="role">
-                    <option value="0">Change Role?</option>
+                    <option value="@siteAdmin.getSiteRole">Change Role?</option>
                     @for(siteRole<-siteRoles){
 
                     <option value="@siteRole.getSiteRoleId">
@@ -107,7 +107,12 @@
             </div>
             <div class="col-md-6">
                 <b>* Location: </b><br>
+                <label> @for(location<-locations){
+                    @if(siteAdmin.getLocationId == location.getLocationId){
+                    @location.getLocationName() }}</label>
+                &nbsp;
                 <select name="locationId" id="locationId">
+                    <option value="@siteAdmin.getLocationId">Change Location?</option>
                     @for(location <- locations){
                     <option value="@location.getLocationId">
                         @location.getLocationName

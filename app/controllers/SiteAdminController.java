@@ -80,7 +80,7 @@ public class SiteAdminController extends ApplicationController
             String siteRoleSql = "SELECT sr FROM SiteRole sr";
             List<SiteRole> siteRoles = jpaApi.em().createQuery(siteRoleSql, SiteRole.class).getResultList();
 
-            return ok(views.html.SiteAdmin.siteadmin.render(siteRoles,siteAdmin, location,
+            return ok(views.html.SiteAdmin.siteadmin.render(siteRoles, siteAdmin, location,
                     region, "* Indicates Required Field", ""));
         } else
         {
@@ -169,7 +169,7 @@ public class SiteAdminController extends ApplicationController
             String siteRoleSql = "SELECT sr FROM SiteRole sr";
             List<SiteRole> siteRoles = jpaApi.em().createQuery(siteRoleSql, SiteRole.class).getResultList();
 
-            return ok(views.html.SiteAdmin.siteadminedit.render(siteRoles,siteAdmin, location,
+            return ok(views.html.SiteAdmin.siteadminedit.render(siteRoles, siteAdmin, location,
                     region, "* Indicates Required Field"));
         } else
         {
@@ -220,11 +220,11 @@ public class SiteAdminController extends ApplicationController
                     setParameter("username", username).
                     setParameter("emailAddress", emailAddress).getResultList();
 
-            if (siteAdmins.size() == 1 && getLoggedInSiteAdminRole().equals("1"))
+            if (getLoggedInSiteAdminRole().equals("1"))
             {
                 if (siteAdminName != null && phoneNumber != null && (phoneNumber.length() >= 9)
                         && emailAddress != null && emailAddress.contains("@") &&
-                        username != null && locationId > 0)
+                        username != null && locationId > 0 && role > 0)
                 {
 
                     siteAdmin.setSiteAdminName(siteAdminName);
@@ -243,7 +243,7 @@ public class SiteAdminController extends ApplicationController
 
             } else
             {
-                return ok(views.html.SiteAdmin.siteadminedit.render(siteRoles,siteAdmin, locations, regions,
+                return ok(views.html.SiteAdmin.siteadminedit.render(siteRoles, siteAdmin, locations, regions,
                         "User Already Exists Try Changing Both Email And Username Or Delete"));
             }
         } else
@@ -293,9 +293,9 @@ public class SiteAdminController extends ApplicationController
                     setParameter("username", siteAdminFormValues.getAdminUsername()).
                     setParameter("emailAddress", siteAdminFormValues.getAdminEmailAddress()).getResultList();
 
-            return ok(views.html.SiteAdmin.newsiteadmin.render(siteRoles,regions,
+            return ok(views.html.SiteAdmin.newsiteadmin.render(siteRoles, regions,
                     locations, "* Indicates Required Field Double Check Spelling Errors Before Submit",
-                    "",siteAdminFormValues, true));
+                    "", siteAdminFormValues, true));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
@@ -332,7 +332,7 @@ public class SiteAdminController extends ApplicationController
             String siteRoleSql = "SELECT sr FROM SiteRole sr";
             List<SiteRole> siteRoles = jpaApi.em().createQuery(siteRoleSql, SiteRole.class).getResultList();
             //Check for existing siteAdmin
-           String sql = "SELECT sa FROM SiteAdmin sa " +
+            String sql = "SELECT sa FROM SiteAdmin sa " +
                     "WHERE username = :username " +
                     "OR emailAddress = :emailAddress";
 
