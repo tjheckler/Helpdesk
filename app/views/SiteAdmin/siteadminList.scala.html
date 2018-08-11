@@ -37,6 +37,7 @@
             <th><b>&nbsp</b></th>
             <th><b>Site Admin Name</b></th>
             <th><b>Email Address</b></th>
+            <th><b>Role</b></th>
             <th><b>Location</b></th>
         </tr>
 
@@ -59,6 +60,15 @@
             <td>
                 <div>
                     <b> @siteAdmin.getEmailAddress() </b>
+                </div>
+            </td>
+            <td>
+                <div>
+                    @for(siteRole<-siteRoles){
+                    @if(siteAdmin.getSiteRole == siteRole.getSiteRoleId){
+                    <b> @siteRole.getSiteRoleName() </b>
+                    }
+                    }
                 </div>
             </td>
             <td>
