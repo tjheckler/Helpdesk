@@ -220,11 +220,7 @@ public class SiteAdminController extends ApplicationController
                     setParameter("username", username).
                     setParameter("emailAddress", emailAddress).getResultList();
 
-            if (siteAdmins.size() == 1)
-            {
-                return ok(views.html.SiteAdmin.siteadminedit.render(siteRoles,siteAdmin, locations, regions,
-                        "User Already Exists Try Changing Both Email And Username Or Delete"));
-            } else
+            if (siteAdmins.size() == 1 && getLoggedInSiteAdminRole().equals("1"))
             {
                 if (siteAdminName != null && phoneNumber != null && (phoneNumber.length() >= 9)
                         && emailAddress != null && emailAddress.contains("@") &&
@@ -244,6 +240,11 @@ public class SiteAdminController extends ApplicationController
                 {
                     return redirect(routes.SiteAdminController.getSiteAdmin(siteAdminId));
                 }
+
+            } else
+            {
+                return ok(views.html.SiteAdmin.siteadminedit.render(siteRoles,siteAdmin, locations, regions,
+                        "User Already Exists Try Changing Both Email And Username Or Delete"));
             }
         } else
         {
