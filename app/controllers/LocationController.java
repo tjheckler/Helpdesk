@@ -18,6 +18,7 @@ public class LocationController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
+    SiteRolesValues siteRole = new SiteRolesValues();
 
     @Inject
     public LocationController(JPAApi jpaApi, FormFactory formFactory)
@@ -29,7 +30,7 @@ public class LocationController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getLocations()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT l FROM Location l " +
@@ -56,7 +57,7 @@ public class LocationController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getLocation(Integer locationId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT l FROM Location l " +
                     "WHERE locationId = :locationId";
@@ -76,7 +77,7 @@ public class LocationController extends ApplicationController
     @Transactional
     public Result postLocation(Integer locationId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT l FROM Location l " +
                     "WHERE locationId = :locationId";
@@ -109,7 +110,7 @@ public class LocationController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewLocation()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String locationName = form.get("locationName");
@@ -130,7 +131,7 @@ public class LocationController extends ApplicationController
     @Transactional
     public Result postNewLocation()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
 
@@ -177,7 +178,7 @@ public class LocationController extends ApplicationController
     @Transactional
     public Result deleteLocation(int locationId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT l FROM Location l " +
                     "WHERE locationId = :locationId";

@@ -1,10 +1,7 @@
 package controllers;
 
 import javafx.scene.control.Alert;
-import models.Email;
-import models.Password;
-import models.SiteAdmin;
-import models.Ticket;
+import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -20,6 +17,7 @@ public class AdministrationController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
+SiteRolesValues siterole = new SiteRolesValues();
 
     @Inject
     public AdministrationController(JPAApi jpaApi, FormFactory formFactory)
@@ -30,11 +28,11 @@ public class AdministrationController extends ApplicationController
 
     public Result getAdministration()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siterole.getAdmin()))
         {
 
             return ok(views.html.Administration.admin.render());
-        } else if (isLoggedIn() && !getLoggedInSiteAdminRole().equals("1"))
+        } else if (isLoggedIn() && !getLoggedInSiteAdminRole().equals(siterole.getAdmin()))
         {
             return redirect(routes.AdministrationController.getLogin(
                     "Login With Administrator Credentials"));
@@ -207,12 +205,12 @@ public class AdministrationController extends ApplicationController
                     byte salt[] = Password.getNewSalt();
                     siteAdmin.setPasswordSalt(salt);
                     siteAdmin.setPassword(Password.hashPassword(passwordMatch.toCharArray(), salt));
-                    if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1")
+                    if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siterole.getAdmin())
                             && getLoggedInSiteAdminId() == siteAdminId)
                     {
                         String flag = "False";
                         siteAdmin.setFlag(flag);
-                    } else if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+                    } else if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siterole.getAdmin()))
                     {
                         String flag = "True";
                         siteAdmin.setFlag(flag);

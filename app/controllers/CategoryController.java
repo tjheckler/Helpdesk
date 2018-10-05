@@ -1,8 +1,6 @@
 package controllers;
 
-import models.Category;
-import models.Region;
-import models.Ticket;
+import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -18,6 +16,8 @@ public class CategoryController extends ApplicationController
     private JPAApi jpaApi;
     private FormFactory formFactory;
 
+    SiteRolesValues siteRole = new SiteRolesValues();
+
     @Inject
     public CategoryController(JPAApi jpaApi, FormFactory formFactory)
     {
@@ -28,7 +28,7 @@ public class CategoryController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getCategories()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT c FROM Category c " +
@@ -56,7 +56,7 @@ public class CategoryController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getCategory(Integer categoryId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT c FROM Category c " +
                     "WHERE categoryId = :categoryId";
@@ -72,7 +72,7 @@ public class CategoryController extends ApplicationController
     @Transactional
     public Result postCategory(Integer categoryId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT c FROM Category c " +
                     "WHERE categoryId = :categoryId";
@@ -100,7 +100,7 @@ public class CategoryController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewCategory()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
 
             DynamicForm form = formFactory.form().bindFromRequest();
@@ -121,7 +121,7 @@ public class CategoryController extends ApplicationController
     @Transactional
     public Result postNewCategory()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String categoryName = form.get("category");
@@ -158,7 +158,7 @@ public class CategoryController extends ApplicationController
     @Transactional
     public Result deleteCategory(int categoryId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
         String sql = "SELECT c FROM Category c " +
                 "WHERE categoryId = :categoryId";

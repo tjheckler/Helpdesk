@@ -1,9 +1,7 @@
 package controllers;
 
 
-import models.Priority;
-import models.Region;
-import models.Ticket;
+import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -21,6 +19,7 @@ public class PriorityController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
+    SiteRolesValues siteRole = new SiteRolesValues();
 
     @Inject
     public PriorityController(JPAApi jpaApi, FormFactory formFactory)
@@ -32,7 +31,7 @@ public class PriorityController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getPriorities()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT p FROM Priority p " +
@@ -60,7 +59,7 @@ public class PriorityController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getPriority(Integer priorityId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT p FROM Priority p " +
                     "WHERE priorityId = :priorityId";
@@ -77,7 +76,7 @@ public class PriorityController extends ApplicationController
     @Transactional
     public Result postPriority(Integer priorityId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT p FROM Priority p " +
                     "WHERE priorityId = :priorityId";
@@ -106,7 +105,7 @@ public class PriorityController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewPriority()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String priorityName = form.get("priority");
@@ -129,7 +128,7 @@ public class PriorityController extends ApplicationController
     @Transactional
     public Result postNewPriority()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String priorityName = form.get("priority");
@@ -170,7 +169,7 @@ public class PriorityController extends ApplicationController
     @Transactional
     public Result deletePriority(int priorityId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT p FROM Priority p " +
                     "WHERE priorityId = :priorityId";

@@ -18,6 +18,7 @@ public class SiteAdminController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
+    SiteRolesValues siteRole = new SiteRolesValues();
 
     @Inject
     public SiteAdminController(JPAApi jpaApi, FormFactory formFactory)
@@ -29,7 +30,7 @@ public class SiteAdminController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getSiteAdmins()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT s FROM SiteAdmin s " +
@@ -64,7 +65,7 @@ public class SiteAdminController extends ApplicationController
     public Result getSiteAdmin(Integer siteAdminId)
     {
         if (isLoggedIn() && siteAdminId == getLoggedInSiteAdminId()
-                || isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+                || isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT s FROM SiteAdmin s " +
                     "WHERE siteAdminId = :siteAdminId";
@@ -94,7 +95,7 @@ public class SiteAdminController extends ApplicationController
 
 
         if (isLoggedIn() && siteAdminId == getLoggedInSiteAdminId()
-                || isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+                || isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
 
             String sql = "SELECT s FROM SiteAdmin s " +
@@ -151,7 +152,7 @@ public class SiteAdminController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getSiteAdminEdit(Integer siteAdminId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
 
 
@@ -256,7 +257,7 @@ public class SiteAdminController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewSiteAdmin(String message2)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
 
@@ -305,7 +306,7 @@ public class SiteAdminController extends ApplicationController
     @Transactional
     public Result postNewSiteAdmin()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
 
@@ -397,7 +398,7 @@ public class SiteAdminController extends ApplicationController
     @Transactional
     public Result deleteSiteAdmin(int siteAdminId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
 
             String regionSql = "SELECT r FROM Region r ";

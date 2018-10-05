@@ -20,6 +20,7 @@ public class TicketController extends ApplicationController
 {
     private FormFactory formFactory;
     private JPAApi jpaApi;
+    SiteRolesValues siteRole = new SiteRolesValues();
 
 
     @Inject
@@ -449,7 +450,7 @@ public class TicketController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getTicketEdit(Integer ticketsId, String message)
     {
-        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals("1") || getLoggedInSiteAdminRole().equals("4")))
+        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals(siteRole.getAdmin()) || getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             String sql = "SELECT t FROM Ticket t " +
                     "WHERE t.ticketsId = :ticketsId ";
@@ -511,7 +512,7 @@ public class TicketController extends ApplicationController
     public Result postTicketEdit(Integer ticketsId, String message)
     {
 
-        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals("1")|| getLoggedInSiteAdminRole().equals("4")))
+        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT t FROM Ticket t " +
@@ -932,19 +933,22 @@ public class TicketController extends ApplicationController
     @Transactional
     public Result getTechNotes(int techNotesId)
     {
-        String sql = "SELECT tn FROM TechNotes tn " +
-                "WHERE techNotesId = :techNotesId";
 
-        TechNotes techNotes = jpaApi.em().createQuery(sql, TechNotes.class)
-                .setParameter("techNotesId", techNotesId).getSingleResult();
+            String sql = "SELECT tn FROM TechNotes tn " +
+                    "WHERE techNotesId = :techNotesId";
 
-        return ok(techNotes.getTechNotes());
+            TechNotes techNotes = jpaApi.em().createQuery(sql, TechNotes.class)
+                    .setParameter("techNotesId", techNotesId).getSingleResult();
+
+
+            return ok(techNotes.getTechNotes());
+
     }
 
     @Transactional
     public Result deleteTicket(int ticketsId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT t FROM Ticket t " +
                     "WHERE ticketsId = :ticketsId";

@@ -1,9 +1,6 @@
 package controllers;
 
-import models.Inventory;
-import models.InventoryFormValues;
-import models.Location;
-import models.Region;
+import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -18,6 +15,7 @@ public class InventoryController extends ApplicationController
 {
     private FormFactory formFactory;
     private JPAApi jpaApi;
+    SiteRolesValues siteRole = new SiteRolesValues();
 
     @Inject
     public InventoryController(JPAApi jpaApi, FormFactory formFactory)
@@ -29,7 +27,8 @@ public class InventoryController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getInventories()
     {
-        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals("1")|| getLoggedInSiteAdminRole().equals("2")|| getLoggedInSiteAdminRole().equals("4")))
+        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT i FROM Inventory i " +
@@ -66,7 +65,8 @@ public class InventoryController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getInventory(Integer inventoryId)
     {
-        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals("1")|| getLoggedInSiteAdminRole().equals("2")|| getLoggedInSiteAdminRole().equals("4")))
+        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             String sql = "SELECT i FROM Inventory i " +
                     "WHERE inventoryId = :inventoryId";
@@ -88,7 +88,8 @@ public class InventoryController extends ApplicationController
     @Transactional
     public Result postInventory(Integer inventoryId)
     {
-        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals("1")|| getLoggedInSiteAdminRole().equals("2")|| getLoggedInSiteAdminRole().equals("4")))
+        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             String sql = "SELECT i FROM Inventory i " +
                     "WHERE inventoryId = :inventoryId";
@@ -125,7 +126,8 @@ public class InventoryController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewInventory()
     {
-        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals("1")|| getLoggedInSiteAdminRole().equals("2")|| getLoggedInSiteAdminRole().equals("4")))
+        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             InventoryFormValues inventoryFormValues = new InventoryFormValues();
@@ -152,7 +154,8 @@ public class InventoryController extends ApplicationController
     @Transactional
     public Result postNewInventory()
     {
-        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals("1")|| getLoggedInSiteAdminRole().equals("2")|| getLoggedInSiteAdminRole().equals("4")))
+        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             InventoryFormValues inventoryFormValues = new InventoryFormValues();
@@ -193,7 +196,8 @@ public class InventoryController extends ApplicationController
     @Transactional
     public Result deleteInventory(int inventoryId)
     {
-        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals("1")|| getLoggedInSiteAdminRole().equals("2")|| getLoggedInSiteAdminRole().equals("4")))
+        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             String sql = "SELECT i FROM Inventory i " +
                     "WHERE inventoryId = :inventoryId";

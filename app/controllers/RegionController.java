@@ -15,6 +15,7 @@ public class RegionController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
+    SiteRolesValues siteRole = new SiteRolesValues();
 
     @Inject
     public RegionController(JPAApi jpaApi, FormFactory formFactory)
@@ -26,7 +27,7 @@ public class RegionController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getRegions()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT r FROM Region r " +
@@ -53,7 +54,7 @@ public class RegionController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getRegion(Integer regionId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT r FROM Region r " +
                     "WHERE regionId = :regionId";
@@ -70,7 +71,7 @@ public class RegionController extends ApplicationController
     @Transactional
     public Result postRegion(Integer regionId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT r FROM Region r " +
                     "WHERE regionId = :regionId";
@@ -98,7 +99,7 @@ public class RegionController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewRegion()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String regionName = form.get("region");
@@ -120,7 +121,7 @@ public class RegionController extends ApplicationController
     public Result postNewRegion()
     {
 
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String regionName = form.get("region");
@@ -160,7 +161,7 @@ public class RegionController extends ApplicationController
     public Result deleteRegion(int regionId)
     {
 
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT r FROM Region r " +
                     "WHERE regionId = :regionId";

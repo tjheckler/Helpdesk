@@ -1,8 +1,6 @@
 package controllers;
 
-import models.Region;
-import models.Ticket;
-import models.TicketStatus;
+import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -17,6 +15,7 @@ public class StatusController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
+    SiteRolesValues siteRole = new SiteRolesValues();
 
     @Inject
     public StatusController(JPAApi jpaApi, FormFactory formFactory)
@@ -28,7 +27,7 @@ public class StatusController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getStatuses()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT s FROM TicketStatus s " +
@@ -56,7 +55,7 @@ public class StatusController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getStatus(Integer statusId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT s FROM TicketStatus s " +
                     "WHERE statusId = :statusId";
@@ -74,7 +73,7 @@ public class StatusController extends ApplicationController
     @Transactional
     public Result postStatus(Integer statusId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT s FROM TicketStatus s " +
                     "WHERE statusId = :statusId";
@@ -103,7 +102,7 @@ public class StatusController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewStatus()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String statusName = form.get("statusName");
@@ -125,7 +124,7 @@ public class StatusController extends ApplicationController
     @Transactional
     public Result postNewStatus()
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String statusName = form.get("statusName");
@@ -165,7 +164,7 @@ public class StatusController extends ApplicationController
     @Transactional
     public Result deleteStatus(int statusId)
     {
-        if (isLoggedIn() && getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn() && getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
 
             String sql = "SELECT ts FROM TicketStatus ts " +

@@ -1,9 +1,6 @@
 package controllers;
 
-import models.Category;
-import models.SiteAdmin;
-import models.SiteRole;
-import models.Ticket;
+import models.*;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
@@ -17,6 +14,7 @@ public class SiteRoleController extends ApplicationController
 {
     private JPAApi jpaApi;
     private FormFactory formFactory;
+    SiteRolesValues siteRole = new SiteRolesValues();
 
     @Inject
     public SiteRoleController(JPAApi jpaApi, FormFactory formFactory)
@@ -28,12 +26,12 @@ public class SiteRoleController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getSiteRoles()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String sql = "SELECT sr FROM SiteRole sr " +
                     " WHERE siteRoleName LIKE :searchCriteria " +
-                    "ORDER BY siteRoleName";
+                    "ORDER BY siteRoleId";
             String searchCriteria = form.get("searchCriteria");
             if (searchCriteria == null)
             {
@@ -56,7 +54,7 @@ public class SiteRoleController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getSiteRole(Integer SiteRoleId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT sr FROM SiteRole sr " +
                     "WHERE siteRoleId = :siteRoleId";
@@ -72,20 +70,20 @@ public class SiteRoleController extends ApplicationController
     @Transactional
     public Result postSiteRole(Integer siteRoleId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT sr FROM SiteRole sr " +
                     "WHERE siteRoleId = :siteRoleId";
 
-            SiteRole siteRole = jpaApi.em().createQuery(sql, SiteRole.class)
+            SiteRole siteRoles = jpaApi.em().createQuery(sql, SiteRole.class)
                     .setParameter("siteRoleId", siteRoleId).getSingleResult();
             DynamicForm form = formFactory.form().bindFromRequest();
 
             String siteRoleName = form.get("siteRoleName");
             if (siteRoleName != null)
             {
-                siteRole.setSiteRoleName(siteRoleName);
-                jpaApi.em().persist(siteRole);
+                siteRoles.setSiteRoleName(siteRoleName);
+                jpaApi.em().persist(siteRoles);
             }else{
                 return redirect(routes.SiteRoleController.getSiteRole(siteRoleId));
             }
@@ -100,7 +98,7 @@ public class SiteRoleController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewSiteRole()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
 
             DynamicForm form = formFactory.form().bindFromRequest();
@@ -121,7 +119,7 @@ public class SiteRoleController extends ApplicationController
     @Transactional
     public Result postNewSiteRole()
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String siteRoleName = form.get("siteRole");
@@ -158,7 +156,7 @@ public class SiteRoleController extends ApplicationController
     @Transactional
     public Result deleteSiteRole(int siteRoleId)
     {
-        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals("1"))
+        if (isLoggedIn()&& getLoggedInSiteAdminRole().equals(siteRole.getAdmin()))
         {
             String sql = "SELECT sr FROM SiteRole sr " +
                     "WHERE siteRoleId = :siteRoleId";

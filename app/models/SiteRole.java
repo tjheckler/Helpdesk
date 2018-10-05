@@ -10,6 +10,7 @@ import javax.persistence.Id;
 public class SiteRole
 {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int siteRoleId;
@@ -35,4 +36,6 @@ public class SiteRole
     {
         this.siteRoleName = siteRoleName;
     }
+
+
 }
