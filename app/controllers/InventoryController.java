@@ -9,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.inject.Inject;
+import javax.persistence.Query;
 import java.util.List;
 
 public class InventoryController extends ApplicationController
@@ -31,28 +32,82 @@ public class InventoryController extends ApplicationController
                 .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
+            String buildingLocation1 = form.get("buildingLocation1");
+            String currentUser1 = form.get("currentUser1");
+            Integer location1 = null;
+
+
+
+
+            String locationIdText = form.get("locationId1");
+            if (locationIdText != null && !locationIdText.trim().equals(""))
+            {
+               location1 = Integer.parseInt(locationIdText);
+            }
+
+
             String sql = "SELECT i FROM Inventory i " +
                     "JOIN Location l ON i.locationId = l.locationId " +
-                    "WHERE i.computerName LIKE :searchCriteria OR " +
-                    "l.locationName LIKE :searchCriteria OR " +
-                    "i.buildingLocation LIKE :searchCriteria OR " +
-                    "i.currentUser LIKE :searchCriteria OR " +
-                    "i.assetTagNumber LIKE :searchCriteria " +
-                    "ORDER BY l.locationName, i.inventoryId";
+                    "WHERE 1=1 ";
             String searchCriteria = form.get("searchCriteria");
             if (searchCriteria == null)
             {
                 searchCriteria = "";
             }
+
+            if (!searchCriteria.trim().equals(""))
+            {
+                sql += " AND (i.computerName LIKE :searchCriteria OR " +
+                        "i.buildingLocation LIKE :searchCriteria OR " +
+                        "i.assetTagNumber LIKE :searchCriteria OR " +
+                        "i.currentUser LIKE :searchCriteria OR " +
+                        "l.locationNameLIKE :searchCriteria ) ";
+            }
             String queryParameter = searchCriteria + "%";
 
-            List<Inventory> inventories = jpaApi.em().createQuery(sql, Inventory.class).
-                    setParameter("searchCriteria", queryParameter).getResultList();
 
-            String locationSql = "SELECT l FROM Location l ";
+            String locationSql = "SELECT l FROM Location l WHERE 1=1 ";
             List<Location> locations = jpaApi.em()
                     .createQuery(locationSql, Location.class).getResultList();
 
+            if (buildingLocation1 != null && !buildingLocation1.trim().equals(""))
+            {
+                sql += "AND i.buildingLocation = :buildingLocation ";
+
+            }
+            if (currentUser1 != null && !currentUser1.trim().equals(""))
+            {
+                sql += "AND i.currentUser = :currentUser ";
+
+            }
+            if (location1 != null)
+            {
+                sql += "AND l.locationId = :locationId ";
+
+            }
+            sql += "ORDER BY i.inventoryId desc ";
+            Query inventoryDetailQuery = jpaApi.em().createQuery(sql, Inventory.class);
+            if (!searchCriteria.trim().equals(""))
+            {
+                inventoryDetailQuery.setParameter("searchCriteria", queryParameter);
+            }
+
+            if (buildingLocation1 != null && !buildingLocation1.trim().equals("") )
+            {
+                inventoryDetailQuery.setParameter("buildingLocation", buildingLocation1);
+            }
+
+            if (currentUser1 != null && !currentUser1.trim().equals(""))
+            {
+
+                inventoryDetailQuery.setParameter("currentUser", currentUser1);
+            }
+
+            if (location1 != null)
+            {
+                inventoryDetailQuery.setParameter("locationId", location1);
+            }
+            List<Inventory> inventories = inventoryDetailQuery.getResultList();
             return ok(views.html.Inventory.inventoryList.render(inventories, searchCriteria, locations));
         } else
         {
