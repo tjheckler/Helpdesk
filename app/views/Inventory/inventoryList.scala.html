@@ -36,7 +36,7 @@
         <div class="row" align="center">
 
             <div class="col-md-4">
-                <b> Status: </b><br>
+                <b> Current User: </b><br>
                 <select class="rounded" name="currentUser1" id="currentUser1">
                     <option value="">Choose Current User</option>
                     @for(inventory<-inventories){
@@ -49,7 +49,7 @@
             </div>
 
             <div class="col-md-4">
-                <b> Category: </b><br>
+                <b> Building Location: </b><br>
                 <select class="rounded" name="buildingLocationId1" id="buildingLocation1">
                     <option value="">Choose Building Location</option>
                     @for(inventory<-inventories){
@@ -63,7 +63,7 @@
             </div>
 
             <div class="col-md-4">
-                <b> Current Location: </b><br>
+                <b> City Location: </b><br>
                 <select class="rounded" name="locationId1" id="locationId1">
                     <option value="">Choose Location</option>
                     @for(location<-locations){
@@ -91,7 +91,7 @@
             <th>Asset Tag #</th>
             <th>Current User</th>
             <th>Building Location</th>
-            <th>City-Location</th>
+            <th>City Location</th>
 
         </tr>
         @for(inventory <- inventories){
