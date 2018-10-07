@@ -179,6 +179,7 @@ public class InventoryController extends ApplicationController
                 inventory.setBuildingLocation(inventoryFormValues.getInventoryBuildingLocation());
                 inventory.setCurrentUser(inventoryFormValues.getInventoryCurrentUser());
                 inventory.setLocationId(new Integer(inventoryFormValues.getInventoryLocationId()));
+                //TODO add not null for fields
                 jpaApi.em().persist(inventory);
             } else
             {

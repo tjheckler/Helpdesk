@@ -37,13 +37,14 @@
                 <div class="col-md-6">
                     <b>* Computer Name: </b><br>
                     <input class="rounded" type="text" name="computerName"
-                                                 id="computerName" maxlength="30" size="30">
+                           id="computerName" maxlength="30" size="30"
+                           VALUE="@inventoryFormValues.getInventoryComputerName">
                 </div>
                 <br>
                 <div class="col-md-6">
                     <b>* AssetTag Number: </b><br>
                     <input class="rounded" type="text" name="assetTag"
-                                                   id="assetTag" maxlength="30" size="30">
+                           id="assetTag" maxlength="30" size="30" value="@inventoryFormValues.getInventoryAssetTagNumber">
                 </div>
             </div>
             <br>
@@ -51,13 +52,13 @@
                 <div class="col-md-6">
                     <b>* Current User's Name: </b><br>
                     <input class="rounded" type="text" name="currentUser"
-                                                    id="currentUser" maxlength="30" size="30">
+                           id="currentUser" maxlength="30" size="30" value="@inventoryFormValues.getInventoryCurrentUser">
                 </div>
 
                 <div class="col-md-6">
                     <b>* Building Location: </b><br>
                     <input class="rounded" type="text" name="buildingLocation"
-                                                     id="buildingLocation" maxlength="30" size="30">
+                           id="buildingLocation" maxlength="30" size="30" value="@inventoryFormValues.getInventoryBuildingLocation">
                 </div>
 
             </div>
@@ -67,7 +68,11 @@
 
                 <b>* Location: </b><br>
                 <select class="rounded" name="locationId" id="locationId">
+                    @if(inventoryFormValues.getInventoryLocationId != null){
+                    <option value="@inventoryFormValues.getInventoryLocationId">Choose Location</option>
+                    }else{
                     <option value="0">Choose Location</option>
+                    }
                     @for(location <- locations){
 
                     <option value="@location.getLocationId">

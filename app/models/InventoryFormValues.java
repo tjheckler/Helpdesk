@@ -65,22 +65,22 @@ public class InventoryFormValues
     {
         boolean valid = true;
 
-        if (getInventoryComputerName() == null)
+        if (getInventoryComputerName() == null || (getInventoryComputerName().length() == 0 || getInventoryComputerName().length() > 50 ))
         {
             valid = false;
         }
 
-        if (getInventoryAssetTagNumber() == null )
+        if (getInventoryAssetTagNumber() == null || (getInventoryAssetTagNumber().length() < 9 || getInventoryAssetTagNumber().length() > 15))
         {
             valid = false;
         }
 
-        if (getInventoryBuildingLocation() == null)
+        if (getInventoryBuildingLocation() == null || (getInventoryBuildingLocation().length() == 0 || getInventoryBuildingLocation().length() > 50 ))
         {
             valid = false;
         }
 
-        if (getInventoryCurrentUser() == null)
+        if (getInventoryCurrentUser() == null || (getInventoryCurrentUser().length() == 0 || getInventoryCurrentUser().length() > 50 ))
         {
             valid = false;
         }
@@ -97,23 +97,23 @@ public class InventoryFormValues
     {
         List<String> messages = new ArrayList<>();
 
-        if (getInventoryComputerName() == null || (getInventoryComputerName().length( )==0 || getInventoryComputerName().length() > 50))
+        if (getInventoryComputerName() == null || (getInventoryComputerName().length()==0 || getInventoryComputerName().length() > 50))
         {
             messages.add(" Please Enter a Computer Name less than 50 Characters. ");
         }
 
 
-        if (getInventoryAssetTagNumber() == null || getInventoryAssetTagNumber().length( )== 0 || getInventoryAssetTagNumber().length() > 50)
+        if (getInventoryAssetTagNumber() == null || getInventoryAssetTagNumber().length()== 0 || getInventoryAssetTagNumber().length() > 50)
         {
             messages.add(" Please Enter an Asset Tag Number less than 50 Characters. ");
         }
 
-        if (getInventoryBuildingLocation() == null || (getInventoryBuildingLocation().length( )==0 || getInventoryBuildingLocation().length() > 50))
+        if (getInventoryBuildingLocation() == null || (getInventoryBuildingLocation().length()==0 || getInventoryBuildingLocation().length() > 50))
         {
             messages.add(" Please Enter a Building Location Less than 50 Characters. ");
         }
 
-        if (getInventoryCurrentUser() == null || (getInventoryCurrentUser().length( )==0 || getInventoryCurrentUser().length() > 50))
+        if (getInventoryCurrentUser() == null || (getInventoryCurrentUser().length()==0 || getInventoryCurrentUser().length() > 50))
         {
             messages.add(" Please Enter the Current User less than 50 Characters. ");
         }
