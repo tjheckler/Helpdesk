@@ -1,4 +1,5 @@
-@(locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],categories:List[Category],regions:List[Region],ticketFormValues:TicketFormValues,message:String,firstload:Boolean)
+@(locations:List[Location],ticketStatuses:List[TicketStatus],siteAdmins:List[SiteAdmin],priorities:List[Priority],
+categories:List[Category],regions:List[Region],ticketFormValues:TicketFormValues,message:String,firstload:Boolean)
 <!DOCTYPE html>
 <html lang="en">
 @import helper._
@@ -33,11 +34,13 @@
         <div class="row">
             <div class="col-md-6">
                 <b>* User's Name: </b><br>
-                <input class="rounded" type="text" name="name" id="name" maxlength="30" value="@ticketFormValues.getTicketName">
+                <input class="rounded" type="text" name="name" id="name" maxlength="30"
+                       value="@ticketFormValues.getTicketName">
             </div>
             <div class="col-md-6">
                 <b>* Asset Tag Number: </b><br>
-                <input class="rounded" type="text" name="assetTagNumber" id="assetTagNumber" maxlength="10" value="@ticketFormValues.getTicketAssetTagNumber">
+                <input class="rounded" type="text" name="assetTagNumber" id="assetTagNumber"
+                       maxlength="10" value="@ticketFormValues.getTicketAssetTagNumber">
             </div>
         </div>
         <br>
@@ -50,14 +53,16 @@
             <div class="col-md-6">
                 <b>* Email Address: </b><br>
                 <input class="rounded" type="text" name="emailAddress" id="emailAddress" maxlength="30"
-                       placeholder="somone@@example.com" value="@ticketFormValues.getTicketEmailAddress" pattern="[^@@]+@@[^@@]+\.[a-zA-Z]{2,}" >
+                       placeholder="somone@@example.com" value="@ticketFormValues.getTicketEmailAddress"
+                       pattern="[^@@]+@@[^@@]+\.[a-zA-Z]{2,}" >
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-6">
                 <b>* Computer Name: </b><br>
-                <input class="rounded" type="text" name="computerName" id="computerName" maxlength="15" value="@ticketFormValues.getTicketComputerName">
+                <input class="rounded" type="text" name="computerName" id="computerName" maxlength="15"
+                       value="@ticketFormValues.getTicketComputerName">
             </div>
             <div class="col-md-6">
                 <b>* Assigned To: </b><br>
@@ -164,7 +169,8 @@
         <br>
         <div class=container">
             <b>* Subject: </b><br>
-            <input class="rounded" type="text" name="subjectTitle" id="subject" maxlength="30" size="30" value="@ticketFormValues.getTicketSubjectTitle">
+            <input class="rounded" type="text" name="subjectTitle" id="subject" maxlength="30" size="30"
+                   value="@ticketFormValues.getTicketSubjectTitle">
         </div>
         <br>
         <div>
