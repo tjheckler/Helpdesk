@@ -38,4 +38,6 @@ public class ApplicationController extends Controller
     {
         return session().get("role");
     }
+
+    public String getLoggedInSiteAdmin() {return session().get("name");}
 }

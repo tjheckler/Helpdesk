@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/assets/stylesheets/main.css">
     <script src="/assets/lib/chart.js/Chart.bundle.min.js"></script>
     <script src="/assets/lib/chart.js/utils.js"></script>
-
     <title>Reports</title>
 </head>
 <body>
@@ -18,67 +17,90 @@
     <div class="jumbotron">
         <h1>Reports</h1>
     </div>
+    <div align="center">
+        <script language="JavaScript">
+        if(window.print){
+        document.write('<form><input class="btn btn-primary" type="button" name="print" value="Print Report" onClick="window.print()"></form>');}
+        </script>
+    </div>
 </div>
 
-<div class="container">
+<div class="container form-control">
     <div align="center">
         <br>
-        <hr>
         <br>
         <h3>Number Of Inventory Items By Location</h3>
         <div>
-            <canvas id="inventorylocationcount" width="1200" height="200"></canvas>
+            <canvas id="inventorylocationcount" width="1000" height="200"></canvas>
         </div>
         <br>
         <hr>
         <br>
         <h3>Number Of Tickets By Category</h3>
         <div>
-            <canvas id="ticketcategorycount" width="1200" height="200"></canvas>
+            <canvas id="ticketcategorycount" width="1000" height="200"></canvas>
         </div>
         <br>
         <hr>
         <br>
         <h3>Number Of Tickets By Assignee</h3>
         <div>
-            <canvas id="ticketsiteadmincount" width="1200" height="200"></canvas>
+            <canvas id="ticketsiteadmincount" width="1000" height="200"></canvas>
         </div>
         <br>
         <hr>
         <br>
         <h3>Number Of Tickets By Priority</h3>
         <div>
-            <canvas id="ticketprioritycount" width="1200" height="200"></canvas>
+            <canvas id="ticketprioritycount" width="1000" height="200"></canvas>
         </div>
         <br>
         <hr>
         <br>
         <h3>Number Of Tickets By Location</h3>
         <div>
-            <canvas id="ticketlocationcount" width="1200" height="200"></canvas>
+            <canvas id="ticketlocationcount" width="1000" height="200"></canvas>
         </div>
         <br>
         <hr>
         <br>
         <h3>Number Of Tickets By Region</h3>
         <div>
-            <canvas id="ticketregioncount" width="1200" height="200"></canvas>
+            <canvas id="ticketregioncount" width="1000" height="200"></canvas>
         </div>
         <br>
         <hr>
         <br>
         <h3>Number Of Replies By Computer Name</h3>
         <div>
-            <canvas id="ticketreplycount" width="1200" height="200"></canvas>
+            <canvas id="ticketreplycount" width="1000" height="200"></canvas>
         </div>
         <br>
         <hr>
         <br>
     </div>
     <br>
-
-    <br>
 </div>
+    <br>
+<hr>
+<div>
+    <div class="container form-control" align="center">
+<table class="table table-bordered" >
+    <h3>Ticket Count By Category</h3>
+    <thead align="center">
+    @for(i<- 0 to ticketCategoryCounts.size() - 1) {<td align="center"><b>@ticketCategoryCounts.get(i).getCategoryName</b></td>}
+    </thead>
+    <tbody align="center">
+    @for(i<- 0 to ticketCategoryCounts.size() - 1) {
+    <td align="center">
+        @ticketCategoryCounts.get(i).getCount
+    </td>
+    }
+    </tbody>
+</table>
+    </div>
+</div>
+
 <script type="text/javascript" id="barchart" src="assets/javascripts/ticketcategorycount.js"
         data-labels="@for(i <- 0 to ticketCategoryCounts.size() - 1){ @ticketCategoryCounts.get(i).getCategoryName @if(i < ticketCategoryCounts.size() - 1){,} }"
         data-data="@for(i <- 0 to ticketCategoryCounts.size() - 1){ @ticketCategoryCounts.get(i).getCount @if(i < ticketCategoryCounts.size() - 1){,} }">
@@ -113,6 +135,7 @@
         data-labels="@for(i <- 0 to ticketReplyCounts.size() - 1){ @ticketReplyCounts.get(i).getComputerName @if(i < ticketReplyCounts.size() - 1){,} }"
         data-data="@for(i <- 0 to ticketReplyCounts.size() - 1){ @ticketReplyCounts.get(i).getCount @if(i < ticketReplyCounts.size() - 1){,} }">
 </script>
+
 @footer()
 </body>
 </html>

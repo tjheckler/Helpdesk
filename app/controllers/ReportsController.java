@@ -1,22 +1,16 @@
 package controllers;
 
 import models.*;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import play.data.DynamicForm;
+
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-
 import javax.inject.Inject;
-import javax.print.PrintService;
-
-import java.awt.print.PrinterJob;
 import javax.print.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.List;
 
 public class ReportsController extends ApplicationController
@@ -110,17 +104,5 @@ public class ReportsController extends ApplicationController
         }
     }
 
-    public static PrintService choosePrinter()
-    {
-        PrinterJob printerJob = PrinterJob.getPrinterJob();
-        if (printerJob.printDialog())
-        {
-            return printerJob.getPrintService();
-        } else
-        {
-            return null;
-        }
-
-    }
 
 }
