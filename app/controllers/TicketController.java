@@ -331,6 +331,8 @@ public class TicketController extends ApplicationController
                     String customerEmail = ticket.getEmailAddress();
                     if (isLoggedIn() && getLoggedInSiteAdminRole().equals("Admin"))
                     {
+
+                        //TODO Create HTML based email
                         Email.sendCustomerEmail("Ticket Number " + ticket.getTicketsId()
                                 + " Your ticket has been updated, you can review at " + url, customerEmail);
                         Email.sendUpdateEmail("Ticket Number " + ticket.getTicketsId()
