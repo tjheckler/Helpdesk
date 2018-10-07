@@ -25,14 +25,67 @@
         </div>
     </div>
     <form class="form-control" method="get">
-        <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria" placeholder="Search Any List Value" size="20">
+        <h4 align="center">Search and Filter</h4>
+        <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria"
+               placeholder="Search Any List Value" size="20">
         <input class="btn btn-secondary" type="submit" value="Search">
-            <a class="btn btn-secondary" href="/inventories">Clear Search</a>
+        <a class="btn btn-secondary" href="/inventories">Clear Search</a>
+        <br>
+        <br>
+
+        <div class="row" align="center">
+
+            <div class="col-md-4">
+                <b> Status: </b><br>
+                <select class="rounded" name="currentUser1" id="currentUser1">
+                    <option value="">Choose Current User</option>
+                    @for(inventory<-inventories){
+
+                    <option value="@inventory.getCurrentUser">
+                        @inventory.getCurrentUser
+                    </option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <b> Category: </b><br>
+                <select class="rounded" name="buildingLocationId1" id="buildingLocation1">
+                    <option value="">Choose Building Location</option>
+                    @for(inventory<-inventories){
+
+                    <option value="@inventory.getBuildingLocation">
+                        @inventory.getBuildingLocation
+                    </option>
+                    }
+
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <b> Current Location: </b><br>
+                <select class="rounded" name="locationId1" id="locationId1">
+                    <option value="">Choose Location</option>
+                    @for(location<-locations){
+                    <option value="@location.getLocationId">
+                        @location.getLocationName()
+                    </option>
+                    }
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row ">
+            <div class="col-md-12">
+                <input class="btn btn-secondary" type="submit" value="Filter">&nbsp
+                <a class="btn btn-secondary" href="/inventories"> Clear Filter </a>
+            </div>
+        </div>
         <br>
 
     </form>
-    <br>
-    <table  class="table table-light">
+   <hr>
+    <table class="table table-light">
         <tr>
             <th>Computer Name</th>
             <th>Asset Tag #</th>

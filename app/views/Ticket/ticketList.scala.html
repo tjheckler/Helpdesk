@@ -28,7 +28,7 @@ statuses1:Integer,priorities1:Integer,siteAdmins1:Integer,categories1:Integer,lo
     </div>
     <form class="form-control" method="get">
         <br>
-<label>Search by Text and One or More Filters</label>
+        <h4>Search and Filter</h4>
         <div>
             <input class="rounded" type="text" name="searchCriteria" value="@searchCriteria"
                    placeholder="Search Any List Value" size="20">&nbsp
@@ -36,6 +36,32 @@ statuses1:Integer,priorities1:Integer,siteAdmins1:Integer,categories1:Integer,lo
             <a class="btn btn-secondary" href="/tickets"> Clear Search </a>
         </div>
         <br>
+        <div class="row" align="center">
+            <div class="col-md-6">
+                <b> Current Location: </b><br>
+                <select class="rounded" name="locationId1" id="locationId1">
+                    <option value="">Choose Location</option>
+                    @for(location<-locations){
+                    <option value="@location.getLocationId">
+                        @location.getLocationName()
+                    </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                <b> Category: </b><br>
+                <select class="rounded" name="categoryId1" id="categoryId1">
+                    <option value="">Choose Category</option>
+                    @for(category<-categories){
+
+                    <option value="@category.getCategoryId">
+                        @category.getCategoryName
+                    </option>
+                    }
+
+                </select>
+            </div>
+        </div>
         <br>
         <div class="row" align="center">
             <div class="col-md-4">
@@ -78,42 +104,13 @@ statuses1:Integer,priorities1:Integer,siteAdmins1:Integer,categories1:Integer,lo
                 </select>
             </div>
         </div>
-        <br>
-        <div class="row" align="center">
-            <div class="col-md-6">
-                <b> Current Location: </b><br>
-                <select class="rounded" name="locationId1" id="locationId1">
-                    <option value="">Choose Location</option>
-                    @for(location<-locations){
-                    <option value="@location.getLocationId">
-                        @location.getLocationName()
-                    </option>
-                    }
-                </select>
-            </div>
-            <div class="col-md-6">
-                <b> Category: </b><br>
-                <select class="rounded" name="categoryId1" id="categoryId1">
-                    <option value="">Choose Category</option>
-                    @for(category<-categories){
-
-                    <option value="@category.getCategoryId">
-                        @category.getCategoryName
-                    </option>
-                    }
-
-                </select>
-            </div>
-        </div>
-        <br>
-
+<br>
         <div class="row ">
             <div class="col-md-12">
                 <input class="btn btn-secondary" type="submit" value="Filter">&nbsp
                 <a class="btn btn-secondary" href="/tickets"> Clear Filter </a>
             </div>
         </div>
-        <br>
         <br>
     </form>
     <hr>
