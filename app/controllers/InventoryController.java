@@ -5,7 +5,6 @@ import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
-import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.inject.Inject;
@@ -28,8 +27,8 @@ public class InventoryController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getInventories()
     {
-        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
-                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
+        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals(siteRole.getAdmin()) || getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician()) || getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             String buildingLocation1 = form.get("buildingLocation1");
@@ -37,18 +36,15 @@ public class InventoryController extends ApplicationController
             Integer location1 = null;
 
 
-
-
             String locationIdText = form.get("locationId1");
             if (locationIdText != null && !locationIdText.trim().equals(""))
             {
-               location1 = Integer.parseInt(locationIdText);
+                location1 = Integer.parseInt(locationIdText);
             }
 
 
             String sql = "SELECT i FROM Inventory i " +
-                    "JOIN Location l ON i.locationId = l.locationId " +
-                    "WHERE 1=1 ";
+                    "JOIN Location l ON i.locationId = l.locationId ";
             String searchCriteria = form.get("searchCriteria");
             if (searchCriteria == null)
             {
@@ -66,7 +62,7 @@ public class InventoryController extends ApplicationController
             String queryParameter = searchCriteria + "%";
 
 
-            String locationSql = "SELECT l FROM Location l WHERE 1=1 ";
+            String locationSql = "SELECT l FROM Location l  ";
             List<Location> locations = jpaApi.em()
                     .createQuery(locationSql, Location.class).getResultList();
 
@@ -85,14 +81,18 @@ public class InventoryController extends ApplicationController
                 sql += "AND l.locationId = :locationId ";
 
             }
-            sql += "ORDER BY i.inventoryId desc ";
+            sql += "ORDER BY i.inventoryId desc";
+
+            int pageNumber = 0;
+            int pageSize = 25;
+
             Query inventoryDetailQuery = jpaApi.em().createQuery(sql, Inventory.class);
             if (!searchCriteria.trim().equals(""))
             {
                 inventoryDetailQuery.setParameter("searchCriteria", queryParameter);
             }
 
-            if (buildingLocation1 != null && !buildingLocation1.trim().equals("") )
+            if (buildingLocation1 != null && !buildingLocation1.trim().equals(""))
             {
                 inventoryDetailQuery.setParameter("buildingLocation", buildingLocation1);
             }
@@ -107,7 +107,16 @@ public class InventoryController extends ApplicationController
             {
                 inventoryDetailQuery.setParameter("locationId", location1);
             }
+
+            inventoryDetailQuery.setFirstResult((pageNumber) * pageSize).setMaxResults(pageSize - pageNumber);
+
+            // working on Paging
+
             List<Inventory> inventories = inventoryDetailQuery.getResultList();
+
+            Paging.getPages(inventories, pageSize);
+            //end working on paging
+
             return ok(views.html.Inventory.inventoryList.render(inventories, searchCriteria, locations));
         } else
         {
@@ -120,8 +129,8 @@ public class InventoryController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getInventory(Integer inventoryId)
     {
-        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
-                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
+        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals(siteRole.getAdmin()) || getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician()) || getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             String sql = "SELECT i FROM Inventory i " +
                     "WHERE inventoryId = :inventoryId";
@@ -143,8 +152,8 @@ public class InventoryController extends ApplicationController
     @Transactional
     public Result postInventory(Integer inventoryId)
     {
-        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
-                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
+        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals(siteRole.getAdmin()) || getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician()) || getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             String sql = "SELECT i FROM Inventory i " +
                     "WHERE inventoryId = :inventoryId";
@@ -181,8 +190,8 @@ public class InventoryController extends ApplicationController
     @Transactional(readOnly = true)
     public Result getNewInventory()
     {
-        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
-                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
+        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals(siteRole.getAdmin()) || getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician()) || getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             InventoryFormValues inventoryFormValues = new InventoryFormValues();
@@ -199,7 +208,7 @@ public class InventoryController extends ApplicationController
             List<Location> locations = jpaApi.em().createQuery
                     (locationSql, Location.class).getResultList();
             return ok(views.html.Inventory.newinventory.render(regions, locations,
-                    "* Indicates Required Fields",inventoryFormValues,true));
+                    "* Indicates Required Fields", inventoryFormValues, true));
         } else
         {
             return redirect(routes.AdministrationController.getLogin("You Are Not Logged In"));
@@ -209,8 +218,8 @@ public class InventoryController extends ApplicationController
     @Transactional
     public Result postNewInventory()
     {
-        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
-                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
+        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals(siteRole.getAdmin()) || getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician()) || getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             DynamicForm form = formFactory.form().bindFromRequest();
             InventoryFormValues inventoryFormValues = new InventoryFormValues();
@@ -239,7 +248,7 @@ public class InventoryController extends ApplicationController
             } else
             {
                 return ok(views.html.Inventory.newinventory.render(regions, locations,
-                        "* Indicates Required Fields",inventoryFormValues,false));
+                        "* Indicates Required Fields", inventoryFormValues, false));
             }
 
             return redirect(routes.InventoryController.getInventories());
@@ -252,8 +261,8 @@ public class InventoryController extends ApplicationController
     @Transactional
     public Result deleteInventory(int inventoryId)
     {
-        if (isLoggedIn()&& (getLoggedInSiteAdminRole().equals(siteRole.getAdmin())|| getLoggedInSiteAdminRole()
-                .equals(siteRole.getTechnician())|| getLoggedInSiteAdminRole().equals(siteRole.getManager())))
+        if (isLoggedIn() && (getLoggedInSiteAdminRole().equals(siteRole.getAdmin()) || getLoggedInSiteAdminRole()
+                .equals(siteRole.getTechnician()) || getLoggedInSiteAdminRole().equals(siteRole.getManager())))
         {
             String sql = "SELECT i FROM Inventory i " +
                     "WHERE inventoryId = :inventoryId";
@@ -266,4 +275,5 @@ public class InventoryController extends ApplicationController
             return redirect(routes.AdministrationController.getLogin("Login As Administrator"));
         }
     }
+
 }
